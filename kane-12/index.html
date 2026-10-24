@@ -1,0 +1,2348 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>十一番目の鐘（12人用）</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 昭和初期の洋館。古い紙と真鍮、臙脂のインクを下敷きにした、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #efebe3;
+  --surface: #fffdf8;
+  --ink: #231d1a;
+  --muted: #6a5f57;
+  --line: #d3c9bb;
+  --accent: #8e2b2b;
+  --accent-soft: #f5e4e0;
+  --teal: #7a5a1c;
+  --teal-soft: #f3ead5;
+  --slate: #2a211d;
+  --slate-ink: #f4ede1;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161210; --surface: #211b18; --ink: #ece4d8; --muted: #a89c8f; --line: #3d332d;
+    --accent: #e07a72; --accent-soft: #3b2220; --teal: #d6b46a; --teal-soft: #352b1a;
+    --slate: #0e0b0a; --slate-ink: #ece4d8; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161210; --surface: #211b18; --ink: #ece4d8; --muted: #a89c8f; --line: #3d332d;
+  --accent: #e07a72; --accent-soft: #3b2220; --teal: #d6b46a; --teal-soft: #352b1a;
+  --slate: #0e0b0a; --slate-ink: #ece4d8; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; margin: 0; }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* hero */
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: 40px 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.stripes { height: 7px; max-width: 320px; border-top: 2px solid var(--slate-ink); border-bottom: 1px solid var(--slate-ink); opacity: .7; }
+.hero h1 { font-size: clamp(30px, 6vw, 54px); font-weight: 900; letter-spacing: .08em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+
+/* people list */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+/* character sheet */
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.slate.cont .no::after { content: "（2枚目）"; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.intro h4 { color: var(--teal); }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.tl { display: grid; grid-template-columns: 5.2em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.6em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+.note { font-size: 13px; color: var(--muted); }
+.basis { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.star { color: var(--accent); font-size: 12px; font-family: var(--f-body); font-weight: 700; border: 1px solid var(--accent); border-radius: 3px; padding: 0 5px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.p2 .hd { background: var(--accent); color: var(--surface); }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card ul { font-size: 14px; }
+.card .log { font-family: var(--f-mono); font-size: 12.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+.card .doc { font-family: var(--f-display); font-weight: 700; border-left: 2px solid var(--line); padding-left: 10px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+
+/* map */
+.maps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.map svg { width: 100%; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .out { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map .door { stroke: var(--accent); stroke-width: 4; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 11px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+.map .clk { fill: var(--teal); }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 10px; background: var(--surface); break-inside: avoid; }
+.vote .q { font-size: 13px; font-weight: 700; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.5em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .stripes, .tab, .map * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { break-before: page; border: 0; border-radius: 0; }
+  .sheet .slate { padding: 4mm 6mm; }
+  .sheet .slate.cont { break-before: page; }
+  .sheet .body.more > div { break-inside: auto; }
+  .sheet .body.more li { break-inside: avoid; }
+  .sheet .body p + p { margin-top: 1.2mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { display: block; column-count: 2; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 8.6pt; line-height: 1.55; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .secret:has(.tl), .sheet .body > div:has(> .tl) { break-inside: auto; }
+  .sheet .secret { padding: 2.5mm 3mm; }
+  .sheet .intro { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 8pt; }
+  .sheet .tl { grid-template-columns: 3.6em 1fr; gap: 1mm 2.5mm; }
+  .sheet .tl dt { font-size: 8pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 0.8mm; }
+  .sheet .goal { grid-template-columns: 2.8em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 8pt; }
+  .sheet .note, .sheet .basis { font-size: 8pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { border-style: dashed; }
+  .vote { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .box, .person, .card { break-inside: avoid; }
+}
+</style>
+<style>
+/* 公開ページ用：名前・場所の一覧から開く表示。色は各キットのトークンから取る */
+:root { --pl-accent: var(--accent, var(--kin)); --pl-hi: var(--teal, var(--ai)); }
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--pl-hi); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+.pl-head { font-size: 20px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-row .pl-place { font-weight: 700; }
+.pl-row .pl-id { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.star { border-color: var(--pl-accent); color: var(--pl-accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--pl-hi); background: var(--pl-hi); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--pl-hi); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--pl-accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--pl-accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-starnote { border: 1.5px solid var(--pl-accent); color: var(--pl-accent); background: var(--surface); border-radius: 6px; padding: 6px 10px; font-weight: 700; font-size: 14px; }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--pl-accent); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="stripes"></div>
+    <h1>十一番目の鐘</h1>
+    <p>昭和十一年、霜月。嵐に閉ざされた洋館で、大時計が一つ多く鐘を打った。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>12人 ＋ GM1人</span>
+      <span><b>TIME</b>約150分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>昭和11年・信州の洋館</span>
+      <span><b>CARDS</b>キャラシート12・持ち物12・証拠36</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs noprint" aria-label="セクション">
+  <div class="inner" role="tablist">
+    <button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button>
+    <button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button>
+    <button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button>
+    <button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button>
+  </div>
+</nav>
+
+<main class="wrap">
+<div class="printonly">十一番目の鐘（12人用）</div>
+
+<!-- ============ 遊び方 ============ -->
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー12人がそれぞれ登場人物になり、話し合いと証拠カードで真相を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票用紙」だけを見てください。</p>
+    <p><strong>事前の確認。</strong>物語の中に、毒殺、工場火災での死亡、家族の自死が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+    <p class="note">印刷するときは、印刷したいタブを開いた状態でブラウザの印刷を使うと、そのタブだけが印刷されます（キャラシートは1人1ページ、カードは切り取り線つき）。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 12人分（1人2枚。それぞれ封筒に入れる）</li>
+        <li>持ち物カード 12枚（キャラシートと同じ封筒へ）</li>
+        <li>証拠カード 36枚（切り分けて、場所ごとに番号順で裏向きに束ねる）</li>
+        <li>人物一覧・事件概要・見取り図（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙 12枚、筆記用具、タイマー</li>
+        <li>あれば名札（役名を書く）。鐘やベルの音が出せるもの（GMの演出用・なくてもよい）</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードと証拠カードは、見せる・隠す・一部の人にだけ見せる・渡す、どれも自由。「見せて」と言われて断ってもよい（そのぶん怪しまれる）。</li>
+        <li>カードの中身を口で説明するときも、上の範囲なら嘘をついてよい。ただしカードそのものは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li><b>★のついた証拠カードは、引いたらすぐ全員に公開する。</b></li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+        <li><b>時刻に注意。</b>シートに書かれた時刻は、その人が<b>何で</b>時刻を知ったか（大時計・台所の時計・自分の時計・鐘の音）が添えてあります。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+          <tr><td class="t">15分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+          <tr><td class="t">15分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で自己紹介（キャラシートの「自己紹介」を読み上げるか、自分の言葉で）。</td></tr>
+          <tr><td class="t">15分</td><td>調査1</td><td>1人2回、調べる場所を宣言してGMからカードを1枚ずつもらう。</td></tr>
+          <tr><td class="t">30分</td><td>議論1</td><td>情報交換と追及。密談OK。</td></tr>
+          <tr><td class="t">10分</td><td>調査2</td><td>1人1回。各場所に新しいカードが追加される。</td></tr>
+          <tr><td class="t">30分</td><td>議論2</td><td>始まりにGMが「零時の鐘」を告げる。10分たったら、残っているカードをGMが全部公開する。</td></tr>
+          <tr><td class="t">15分</td><td>推理と投票</td><td>1人30秒で推理を発表し、3つの問いに一斉に投票。続けて、GMが読み上げる「秘密」について挙手で判定。</td></tr>
+          <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>投票する3つの問い</h3>
+      <ol>
+        <li><b>鷹宮源一郎を殺したのは誰か</b>（当たれば +4点）</li>
+        <li><b>金庫から新しい遺言書を持ち去ったのは誰か</b>（+2点）</li>
+        <li><b>書斎の机の脅迫状を書いたのは誰か</b>（+2点）</li>
+      </ol>
+      <p class="note">3つの問いの答えは、同じ人とは限りません。書けるのは、プレイヤーが演じている人物の名前だけです（源一郎本人は書けません）。自分の名前を書いてもかまいません。ただし、<b>答えが自分自身だった問いでは、正解の点はもらえません</b>（自分に入れても、自分の票が1つ増えるだけです）。</p>
+    </div>
+    <div class="box">
+      <h3>勝ち負けについて</h3>
+      <p>全員に、投票とは別の「個人の目的」があり、達成すると点数が入ります。犯人を当てられなくても、目的を果たせば高得点を狙えます。最後に点数が一番高い人がその回のMVPです。</p>
+      <p>目的のうち「〜がばれない」「〜がばれる」は、言い張るだけでは決まりません。投票のあと、GMが読み上げる文について、当事者以外の全員が「本当だと思う」なら手を挙げます。<b>過半数が手を挙げたら「ばれた」</b>ことになります。読み上げる文には、本当ではないものも混ざっています。議論で話題にならず、根拠（証言やカード）も出なかった秘密には、手を挙げないでください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 事件概要 ============ -->
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>昭和十一年十一月十四日。信州、鴉ヶ谷（からすがだに）。深い渓谷の吊り橋を渡った先に、鷹宮紡績の社長・鷹宮源一郎の洋館は建っている。</p>
+    <p>今夜は源一郎の還暦の祝い。家族と、ごく親しい客だけが招かれた。晩餐の席で源一郎はグラスを掲げ、こう言った。「明朝九時、新しい遺言を発表する。皆、楽しみにしておけ」。誰も、笑わなかった。</p>
+    <p>二十一時、執事の真壁が告げた。嵐で吊り橋が流された。電話も通じない。朝まで、誰もこの屋敷から出られず、誰も入ってこられない。</p>
+    <p>そして二十二時半。ホールの大時計がその時刻を指したころ、寝酒を運んだ真壁の叫び声が屋敷に響いた。源一郎は書斎の暖炉の前に倒れていた。後頭部を殴られ、もう息はなかった。</p>
+    <p>主治医の久世が脈をとり、静かに首を振った。「亡くなって、まだ十五分か二十分というところでしょう」</p>
+    <p>いま、大時計は二十三時四十分を指している。夜明けまで、あと七時間。――この中の誰かが、源一郎を殺した。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li>遺体：書斎の暖炉の前にうつぶせ。後頭部に殴られた跡。そばに暖炉の火かき棒が落ちていた。飾り棚の花瓶が割れて床に散らばっていた。</li>
+        <li>発見：執事の真壁。寝酒を運ぶ時刻（大時計で22時30分）に書斎へ入って見つけた。</li>
+        <li>主治医・久世の見立て：亡くなったのは発見の15〜20分前。</li>
+        <li>吊り橋は21時ごろ流された。外から誰かが入ることはできない。電話は不通。</li>
+        <li>新しい遺言書は、顧問弁護士の秋津が作った。内容は秋津しか知らない。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>屋敷の時計について</h3>
+      <ul>
+        <li><b>ホールの大時計</b>：英国製の箱型の大時計。正時になると、その時刻の数だけ鐘を打つ（10時なら10回）。屋敷じゅうに聞こえ、ほとんどの人はこれを基準に暮らしている。ガラス扉には鍵がかかっている。</li>
+        <li><b>台所の柱時計</b>：使用人が使う時計。</li>
+        <li><b>自分の時計</b>：腕時計や懐中時計を身につけている人は、客の中の何人かだけ。</li>
+        <li>書斎・客間・寝室には時計がない（源一郎が「秒を刻む音が嫌いだ」と置かせなかった）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="maps">
+    <div class="box map">
+      <h3>1階</h3>
+      <svg viewBox="0 0 380 260" role="img" aria-label="1階の見取り図">
+        <rect class="out" x="250" y="6" width="110" height="44" rx="4"/>
+        <text x="288" y="26">温室</text>
+        <text class="sm" x="268" y="42">↓ 渡り廊下で食堂へ</text>
+        <rect class="room" x="20" y="56" width="90" height="84"/><text x="48" y="96">台所</text>
+        <text class="sm" x="26" y="130">地下ワイン庫へ↓</text>
+        <rect class="room" x="110" y="56" width="60" height="42"/><text x="118" y="81">執事室</text>
+        <rect class="room" x="110" y="98" width="60" height="42"/><text x="118" y="123">洗面所</text>
+        <rect class="hot" x="20" y="140" width="150" height="96"/><text class="ac" x="76" y="186">書斎</text>
+        <text class="sm" x="40" y="204">暖炉・金庫・机</text>
+        <line class="door" x1="170" y1="168" x2="170" y2="198"/>
+        <rect class="room" x="170" y="56" width="80" height="180"/><text x="194" y="120">ホール</text>
+        <circle class="clk" cx="210" cy="78" r="8"/><text class="sm" x="186" y="100">大時計</text>
+        <rect class="stair" x="184" y="140" width="52" height="50"/><text class="sm" x="198" y="168">階段</text>
+        <text class="sm" x="196" y="228">玄関</text>
+        <rect class="room" x="250" y="56" width="110" height="64"/><text x="292" y="92">食堂</text>
+        <rect class="room" x="250" y="120" width="110" height="50"/><text x="288" y="149">サロン</text>
+        <rect class="room" x="250" y="170" width="110" height="66"/><text x="272" y="206">ビリヤード室</text>
+      </svg>
+      <p class="note">台所と書斎は壁一枚で接している。ビリヤード室・サロン・食堂（東側）は、書斎（西側）からホールをはさんで最も遠い。</p>
+    </div>
+    <div class="box map">
+      <h3>2階</h3>
+      <svg viewBox="0 0 380 260" role="img" aria-label="2階の見取り図">
+        <rect class="room" x="20" y="56" width="90" height="84"/><text x="30" y="92">源一郎・静子</text><text class="sm" x="44" y="108">寝室</text>
+        <rect class="room" x="110" y="56" width="60" height="84"/><text x="128" y="100">一真</text>
+        <rect class="room" x="20" y="140" width="150" height="96"/><text x="76" y="186">葛城</text>
+        <text class="sm" x="44" y="204">（書斎の真上）</text>
+        <rect class="room" x="170" y="56" width="80" height="180"/><text x="196" y="120">廊下</text>
+        <rect class="stair" x="184" y="140" width="52" height="50"/><text class="sm" x="198" y="168">階段</text>
+        <rect class="room" x="250" y="56" width="55" height="60"/><text x="266" y="90">百合</text>
+        <rect class="room" x="305" y="56" width="55" height="60"/><text x="324" y="90">透</text>
+        <rect class="room" x="250" y="116" width="55" height="60"/><text x="266" y="150">久世</text>
+        <rect class="room" x="305" y="116" width="55" height="60"/><text x="320" y="150">秋津</text>
+        <rect class="room" x="250" y="176" width="55" height="60"/><text x="266" y="210">槙野</text>
+        <rect class="room" x="305" y="176" width="55" height="60"/><text x="320" y="210">宮園</text>
+      </svg>
+      <p class="note">使用人（真壁・小夜・坂上）の部屋は1階の台所の奥。車庫は玄関を出て50メートルほど先。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 人物一覧 ============ -->
+<section class="panel" id="people" hidden>
+  <h2>人物一覧</h2>
+  <p class="lead">全員が知っている情報です。自己紹介はこの範囲で行います。</p>
+  <div class="people">
+    <div class="person victim"><span class="role">被害者・鷹宮紡績 社長（60）</span><span class="nm">鷹宮 源一郎</span><span class="kana">たかみや げんいちろう</span><p>一代で信州一の紡績会社を築いた。外では慈善家として知られるが、家の中では誰も逆らえない。先妻・絹代とは15年前に死別し、8年前に静子を後妻に迎えた。</p></div>
+    <div class="person"><span class="role">後妻（42）</span><span class="nm">鷹宮 静子</span><span class="kana">たかみや しずこ</span><p>もとは東京・新橋の芸者。8年前に源一郎に嫁いだ。先妻の子どもたちとは、いまも少し距離がある。</p></div>
+    <div class="person"><span class="role">長男・鷹宮紡績 専務（34）</span><span class="nm">鷹宮 一真</span><span class="kana">たかみや かずま</span><p>父の跡継ぎとして会社を任されている。几帳面で、身なりにうるさい。</p></div>
+    <div class="person"><span class="role">長女（23）</span><span class="nm">鷹宮 百合</span><span class="kana">たかみや ゆり</span><p>先妻・絹代の忘れ形見。母を8歳で亡くした。女学校を出て、いまは屋敷で暮らしている。</p></div>
+    <div class="person"><span class="role">次男・画家志望（27）</span><span class="nm">鷹宮 透</span><span class="kana">たかみや とおる</span><p>東京で絵を学んでいたが、芽が出ないまま帰ってきた。陽気で、酒とレコードが好き。</p></div>
+    <div class="person"><span class="role">主治医（52）</span><span class="nm">久世 修一郎</span><span class="kana">くぜ しゅういちろう</span><p>松本の開業医。30年来の鷹宮家の主治医で、先妻・絹代の幼なじみ。子どもたちからは「先生」と慕われている。</p></div>
+    <div class="person"><span class="role">顧問弁護士（45）</span><span class="nm">秋津 恭介</span><span class="kana">あきつ きょうすけ</span><p>東京の弁護士。鷹宮家の顧問を10年務める。新しい遺言書を作った本人。</p></div>
+    <div class="person"><span class="role">執事（63）</span><span class="nm">真壁 嘉平</span><span class="kana">まかべ かへい</span><p>先妻・絹代の嫁入りについてきて、40年この屋敷に仕える。大時計の世話も彼の仕事。</p></div>
+    <div class="person"><span class="role">女中（19）</span><span class="nm">小夜</span><span class="kana">さよ</span><p>今年の春から屋敷で働いている。口数は少ないが、よく気がつく。</p></div>
+    <div class="person"><span class="role">新聞記者（31）</span><span class="nm">葛城 遼</span><span class="kana">かつらぎ りょう</span><p>「信州新報」の記者。源一郎の自伝を書くために招かれ、数日前から屋敷に滞在している。</p></div>
+    <div class="person"><span class="role">客（33）</span><span class="nm">槙野 礼二</span><span class="kana">まきの れいじ</span><p>鷹宮紡績の共同創業者・槙野善次の息子。父が残した会社の株の買い取りの話で招かれた。</p></div>
+    <div class="person"><span class="role">ピアノ教師（29）</span><span class="nm">宮園 千鶴</span><span class="kana">みやぞの ちづる</span><p>松本の楽器店の娘。3年前から週に一度屋敷に通い、百合にピアノを教えている。今夜は晩餐で演奏するために招かれた。</p></div>
+    <div class="person"><span class="role">運転手（38）</span><span class="nm">坂上 勇作</span><span class="kana">さかがみ ゆうさく</span><p>源一郎のお抱え運転手を15年務める。無口で、車の手入れだけが楽しみ。屋敷の車庫を管理している。</p></div>
+  </div>
+</section>
+
+<!-- ============ キャラシート ============ -->
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。プレイヤーとして参加する人は開かないでください。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden>
+  <h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3>
+  <div class="labels">
+    <div class="lb"><span class="no">ROLL 01</span><span class="nm">鷹宮 静子<small>たかみや しずこ</small></span><span class="rl">後妻・42歳</span><span class="in">中身：キャラクターシート2枚（ROLL 01）＋ 持ち物カード（ITEM 01）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 02</span><span class="nm">鷹宮 一真<small>たかみや かずま</small></span><span class="rl">長男・専務・34歳</span><span class="in">中身：キャラクターシート2枚（ROLL 02）＋ 持ち物カード（ITEM 02）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 03</span><span class="nm">鷹宮 百合<small>たかみや ゆり</small></span><span class="rl">長女・23歳</span><span class="in">中身：キャラクターシート2枚（ROLL 03）＋ 持ち物カード（ITEM 03）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 04</span><span class="nm">鷹宮 透<small>たかみや とおる</small></span><span class="rl">次男・画家志望・27歳</span><span class="in">中身：キャラクターシート2枚（ROLL 04）＋ 持ち物カード（ITEM 04）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 05</span><span class="nm">久世 修一郎<small>くぜ しゅういちろう</small></span><span class="rl">主治医・52歳</span><span class="in">中身：キャラクターシート2枚（ROLL 05）＋ 持ち物カード（ITEM 05）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 06</span><span class="nm">秋津 恭介<small>あきつ きょうすけ</small></span><span class="rl">顧問弁護士・45歳</span><span class="in">中身：キャラクターシート2枚（ROLL 06）＋ 持ち物カード（ITEM 06）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 07</span><span class="nm">真壁 嘉平<small>まかべ かへい</small></span><span class="rl">執事・63歳</span><span class="in">中身：キャラクターシート2枚（ROLL 07）＋ 持ち物カード（ITEM 07）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 08</span><span class="nm">小夜<small>さよ</small></span><span class="rl">女中・19歳</span><span class="in">中身：キャラクターシート2枚（ROLL 08）＋ 持ち物カード（ITEM 08）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 09</span><span class="nm">葛城 遼<small>かつらぎ りょう</small></span><span class="rl">新聞記者・31歳</span><span class="in">中身：キャラクターシート2枚（ROLL 09）＋ 持ち物カード（ITEM 09）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 10</span><span class="nm">槙野 礼二<small>まきの れいじ</small></span><span class="rl">客・共同創業者の息子・33歳</span><span class="in">中身：キャラクターシート2枚（ROLL 10）＋ 持ち物カード（ITEM 10）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 11</span><span class="nm">宮園 千鶴<small>みやぞの ちづる</small></span><span class="rl">ピアノ教師・29歳</span><span class="in">中身：キャラクターシート2枚（ROLL 11）＋ 持ち物カード（ITEM 11）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 12</span><span class="nm">坂上 勇作<small>さかがみ ゆうさく</small></span><span class="rl">運転手・38歳</span><span class="in">中身：キャラクターシート2枚（ROLL 12）＋ 持ち物カード（ITEM 12）<br>GMの合図があるまで開けないでください。</span></div>
+  </div>
+
+  <!-- 01 静子 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 静子<small>たかみや しずこ</small></span><span class="rl">後妻・42歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「鷹宮静子でございます。源一郎の妻で、8年前にこの家に参りました。その前は、東京の新橋におりました。……主人がこんなことになるなんて。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>生まれは東京・深川の長屋。父は酒で身を持ち崩し、あなたは12の歳に置屋へ売られた。三味線と小唄で名を上げ、新橋では「静奴（しずやっこ）」の名で知られた。人の顔色を読み、座敷の空気を一瞬でつかむのは、あのころに身につけた技だ。</p>
+        <p>8年前、紡績組合の宴席で源一郎に見初められ、身請けされて後妻に入った。世間は玉の輿と言ったが、源一郎が欲しかったのは「見栄えのする飾り」だった。人前では腕を組んで歩き、屋敷に戻れば口もきかない。子は授からなかった。</p>
+        <p>先妻の子どもたちとは、いまも距離がある。一真は礼儀正しいが目が冷たい。百合は母の面影を追うように、あなたのほうを見ようとしない。透だけが「静子さん」と気さくに呼んでくれる。屋敷に居場所のないあなたの慰めは、頼み込んで建ててもらった温室の蘭の世話だけ。</p>
+        <p>最近、夫があなたを見る目がおかしい。食事のとき、あなたのグラスをじっと見ていることがある。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>顧問弁護士の秋津恭介と、1年前から深い仲にある。</p>
+        <p>先週、夫の書斎の金庫が開いていたとき、奥に「亜砒酸」と書かれた茶色の小瓶を見つけた。先妻の絹代は15年前、急な胃腸の病で亡くなった。古い使用人のあいだには「旦那様が……」という噂がある。怖くなって中身をほんの少し薬包紙に取り、東京の薬局に調べさせた（持ち物カード）。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない。時刻は大時計か、秋津の懐中時計で知ったもの。</p>
+        <dl class="tl">
+          <dt>19:30</dt><dd>晩餐で夫が「明朝九時、新しい遺言を発表する」。秋津がこちらを見て、小さく首を振った。</dd>
+          <dt>21:00</dt><dd>吊り橋が流されたと真壁が告げる。サロンでコーヒー。秋津がそっと手紙を渡してきた。「今夜十時、温室で」。読んだあと、鏡台の引き出しにしまった。</dd>
+          <dt>21:20</dt><dd>廊下で、夫が百合に「お前は私の子ではない」と言うのを聞いた。百合は泣きながら走っていった。</dd>
+          <dt>21:50</dt><dd>大時計を見て、温室へ。暗い中で鉢を一つ倒してしまった。</dd>
+          <dt>22:00</dt><dd>秋津が来た（懐中時計を見て「十時ちょうど」と言った）。新しい遺言では、あなたには軽井沢の別荘しか残らないと聞いた。あなたは「あの人は、私も絹代さんのように……」と打ち明けた。</dd>
+          <dt>22:15</dt><dd>秋津が懐中時計を見て「十時十五分。もう戻りましょう」。あなたが先に母屋へ。</dd>
+          <dt>→</dt><dd>ホールを抜けて階段を上るとき、大時計を見上げると<b>9時56分</b>を指していた。「あら」と思ったが、気のせいだろうと思った。そのとき、ホールの向こう端を、一真が書斎の扉のほうから洗面所のほうへ足早に歩いていくのが見えた。顔が真っ青だった。</dd>
+          <dt>→</dt><dd>寝室で横になる。しばらくして大時計の鐘が聞こえた（数えていない）。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁の叫び声。書斎へ行くと、夫が倒れていた。金庫は開いていた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>一真：先月、会社のお金のことで夫に怒鳴られていた。「お前には任せられん」と。</li>
+          <li>小夜：給仕のとき、夫の背中を刺すような目で見ていることがある。</li>
+          <li>久世先生：絹代さんの幼なじみ。絹代さんの話になると、いつも黙ってしまう。</li>
+          <li>槙野：夫は「あの男の父親は会社の金を盗んだ泥棒だ」と言っていた。</li>
+          <li>透：先週、夫が書斎の油絵の前で首をかしげ、「透を呼べ」と言っていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>温室にいたことを話すなら、一人でいたことにするか、秋津との関係を明かすかを決めておこう。</li><li>一真が秋津とのことをばらしそうなら、10時過ぎに一真が書斎のほうから真っ青な顔で出てきたのを見た、と密談で伝えれば止められるかもしれない。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>秋津と深い仲だということが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>新しい遺言の中身を、前から秋津に聞いて知っていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>金庫にあった亜砒酸の小瓶が、いま誰の手元にあるのかを、議論中に明らかにする。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>百合が、問い1（殺したのは誰か）で最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 静子<small>たかみや しずこ</small></span><span class="rl">後妻・42歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（8年前、この屋敷に来た最初の夜）</h4>
+        <p>婚礼の夜、源一郎はあなたを書斎に連れていき、壁に掛けてあった先妻・絹代の肖像画を見せた。「前の女だ。私に逆らったから、早死にした」。冗談のように笑っていた。翌朝、肖像画は外され、二度と掛けられることはなかった。</p>
+        <p>あの笑い声を、いまも夢に見る。先週、金庫で小瓶を見つけたとき、真っ先に思い出したのがあの夜だった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：恐ろしい人。でも、身請けしてくれた恩がないとは言えない。死んだと聞いて、ほっとした自分がいる。</li>
+          <li>一真：父親そっくりの冷たい目。でも、あの子も父親に怯えて育ったのだと思うと、憎みきれない。</li>
+          <li>百合：絹代さんに似ているのだろう。夫があの子を見る目は、私を見る目よりさらに冷たかった。</li>
+          <li>透：屋敷でただ一人、私を人として扱ってくれる。あの子の描く絵が好きだ。</li>
+          <li>久世先生：穏やかで、いつも少し悲しそう。絹代さんのことを聞くと、話をそらす。</li>
+          <li>秋津：あの人だけが私の味方。でも本当に信じていいのか、ときどき不安になる。</li>
+          <li>真壁：私を「奥様」と呼ぶけれど、真壁にとっての奥様は、いまも絹代さんなのだろう。</li>
+          <li>小夜：よく働く子。ただ、夫を見る目にだけ、ときどき火が灯る。</li>
+          <li>葛城：記者は苦手。座敷でも、口の軽い客がいちばん怖かった。</li>
+          <li>槙野：あの人の父親のことを、夫は宴席で笑い話にしていた。私は笑えなかった。</li>
+          <li>宮園：百合のピアノの先生。一真を見る目で、すぐにわかった。あの二人、うまくいけばいいけれど。</li>
+          <li>坂上：無口な運転手。先月、夫を松本へ送った日から、私と目を合わせない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>口調は柔らかく、語尾は「〜ですわ」「〜でしょう？」。</li>
+          <li>芸者時代の癖で、相手の目をじっと見て微笑む。困ったときほど笑う。</li>
+          <li>議論では自分から多くを語らず、人の話を引き出す側に回る。</li>
+          <li>秋津の名前が出たら、ほんの一瞬だけ黙ってしまう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 一真 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 一真<small>たかみや かずま</small></span><span class="rl">長男・専務・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「長男の一真です。鷹宮紡績の専務として、父の下で会社を預かってきました。父の還暦を祝うはずの夜が、こんなことになるとは。必ず、犯人を見つけます。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>長男として、物心ついたときから「鷹宮を継ぐ者」として育てられた。父の前で泣くことは許されなかった。母・絹代が亡くなったのは19歳のとき。葬儀の席でも、父は「泣くな、みっともない」とだけ言った。</p>
+        <p>東京の商科大学を出て、22歳で会社に入った。工場の機械を入れ替えて生産を倍にしたときだけ、父は一度だけ「よくやった」と言った。あの一言のために、いまも働いている気がする。几帳面で身なりにうるさく、カフスボタンには自分の頭文字「K.T.」を彫らせている。縁談はいくつもあったが、父が「家柄が釣り合わん」とすべて潰した。</p>
+        <p>昭和の不況で会社が傾きかけたとき、損を取り返そうと会社の金をこっそり米相場に回し、8万円の穴をあけた。先月それが父にばれた。父は「お前は鷹宮の名に値せん」と言った。</p>
+        <p>好き勝手に生きる弟の透を、内心ではうらやんでいる。妹の百合には、兄らしいことを何ひとつしてやれなかったと思っている。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>今夜、書斎で父の遺体を最初に見つけたのは、あなた。そして、開いていた金庫から新しい遺言書を持ち去り、自分の部屋の暖炉で燃やした。</p>
+        <p>燃やす前に読んだ内容：「長男一真ハ之ヲ廃嫡ス。会社ハ大和田財閥ニ譲渡ス」「百合ハ我ガ子ニアラズ、相続ノ権ナシ」「静子ニハ軽井沢ノ別荘ノミ」「透ニハ金壱万円」「残余ハスベテ鷹宮報恩会ニ」。</p>
+        <p>そしてもう一つ。百合のピアノ教師・宮園千鶴と、2年前から将来を誓い合っている。父は「ピアノ弾きの娘など」と縁談を一蹴した。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない（懐中時計は部屋に置いたまま止まっていた）。</p>
+        <dl class="tl">
+          <dt>19:30</dt><dd>晩餐で父が遺言の発表を告げた。廃嫡だ、と直感した。</dd>
+          <dt>21:00</dt><dd>サロンで少しだけ顔を出し、すぐ自分の部屋へ。一人でウイスキーをあおる。</dd>
+          <dt>22:00</dt><dd>大時計の10時の鐘が聞こえた。父に最後の頼みをしよう、と決めた。</dd>
+          <dt>→</dt><dd>鐘からしばらくして（15分くらい？）、1階へ下りた。書斎の扉を叩いても返事がない。入ると、父が暖炉の前に倒れていた。首に触れたが脈はなかった。手とハンカチに血がついた。</dd>
+          <dt>→</dt><dd>金庫が開いていた。秋津の封蝋の封筒が見えた。気がつくと抜き取っていた。机の上のメモ「十時 K」が目に入り、ぞっとした。</dd>
+          <dt>→</dt><dd>ホールを横切って洗面所へ。手とハンカチを洗った。そのとき大時計が鳴りはじめた。ついさっきも鳴った気がしたが、酔っていたのでよくわからない。数えてもいない。</dd>
+          <dt>→</dt><dd>自分の部屋に戻り、暖炉で遺言書を燃やした。袖口のカフスボタンが片方なくなっていることに気づいた。</dd>
+          <dt>→</dt><dd>千鶴が部屋に来た。燃やしているところを見られた。「見なかったことにしてくれ」と頼むと、千鶴は何も聞かずにそばにいてくれた。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁の叫び声。駆けつけ、初めて見たふりをした。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>書斎から出たとき、階段のほうで女物の着物の裾が見えた気がする。誰かはわからない。</li>
+          <li>秋津と静子さんは、晩餐のあいだ何度も目配せしていた。</li>
+          <li>葛城：夕方、父と書斎で長く話していた。記者が何をそんなに。</li>
+          <li>透：金に困っていて、先月「何か売れるものはないか」と聞いてきた。</li>
+          <li>槙野：あなたは昔、槙野の父・善次が追放されたとき、父に言われて帳簿をまとめる係をした。中身は父が用意したものだった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>遺体を見つけたことを話せば、遺言書のことも疑われる。話すなら、どこまで話すかを決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い2（遺言書を持ち去ったのは誰か）で、最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>静子と秋津が深い仲だということを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>会社の金に8万円の穴をあけたことが、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 一真<small>たかみや かずま</small></span><span class="rl">長男・専務・34歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大正10年3月、母が亡くなった夜）</h4>
+        <p>19歳の春休み。夕食のあと、母が急に吐きはじめた。父は書斎から出てきて言った。「大げさにするな。医者は朝まで呼ぶな」。あなたは言われたとおりにした。母の部屋の前の廊下に座り込み、苦しむ声を一晩じゅう聞いていた。</p>
+        <p>夜明け前、久世先生が駆けつけた。誰が呼んだのかは知らない。母はその朝、息を引き取った。あのとき父に逆らって医者を呼んでいれば――その思いが、15年たっても消えない。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：怖かった。尊敬もしていた。一度でいいから、息子として認められたかった。</li>
+          <li>静子：父の飾り物。鷹宮の財産を狙っているのではと、ずっと疑ってきた。</li>
+          <li>百合：母の面影がある。守ってやるべきだったのに、ずっと目をそらしてきた。</li>
+          <li>透：自由で、ずるい。父に叱られても笑っていられるのが、うらやましくて腹が立つ。</li>
+          <li>久世先生：母の最期を看取った人。あの朝、先生の手が震えていたのを覚えている。</li>
+          <li>秋津：父の手先。遺言の中身を知っているくせに、涼しい顔をしている。</li>
+          <li>真壁：子どものころから世話になった。父より真壁のほうが、自分をわかっている気がする。</li>
+          <li>小夜：無口な女中。晩餐のとき、父の皿を置く手がやけに乱暴だった。</li>
+          <li>葛城：父の自伝などより、もっと別のものを嗅ぎ回っている目だ。</li>
+          <li>槙野：子どものころは兄弟同然だった。あいつの父親を追い出す帳簿をまとめたのは自分だ。まともに顔を見られない。</li>
+          <li>千鶴：守りたい人。父に何を言われても、春には必ず迎えに行くと決めている。</li>
+          <li>坂上：父の運転手を15年。父の行き先は、坂上がいちばんよく知っている。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>言葉づかいは硬く、きっちり。「〜だ」「〜ではないか」。</li>
+          <li>袖口やネクタイをしきりに直す癖がある。</li>
+          <li>疑われると、理屈で言い返そうとして早口になる。</li>
+          <li>父のことを話すときだけ、声が少し小さくなる。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 百合 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 百合<small>たかみや ゆり</small></span><span class="rl">長女・23歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「長女の百合です。母を8歳のときに亡くして、それからずっとこの屋敷で暮らしています。女学校を出てからは、家でピアノを弾いて過ごしています。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>母・絹代は、あなたが8歳のときに亡くなった。覚えているのは、寝床で髪をなでてくれた母の冷たい手と、「百合は強い子ね」という声だけ。去年、執事の真壁から母の日記の一部をもらった（持ち物カード）。読むたびに、母が何かを恐れていたように思える。</p>
+        <p>松本の高等女学校では成績が一番で、ピアノが得意だった。本当は東京の音楽学校に進みたかったが、父は「女に学問はいらん」と許さなかった。それからは屋敷で、父の決める縁談を待つだけの毎日。</p>
+        <p>父は兄たちには厳しく、あなたにはただ無関心だった。幼いころから、父とまともに目が合った記憶がほとんどない。その理由が、今夜わかった気がする。</p>
+        <p>久世先生は小さいころから優しく、熱を出せば夜通しついていてくれた。父よりも父らしい人だと、ひそかに思っている。透兄さんはいつも味方で、一真兄さんは遠い人。静子さんのことを「母の場所を奪った人」と思ってしまう自分が、少し嫌いだ。おとなしく見られがちだが、芯は強い。言えずにため込んだものが、ときどき爆発してしまう。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>今夜21:20、廊下で父に言われた。「お前は私の子ではない。東京で血を調べさせた。明日、皆の前で言う。お前の母親が誰と通じていたかもな」。あなたは「お父様なんて死んでしまえばいい」と叫んだ。誰かに聞かれたかもしれない。</p>
+        <p>そういえば先月、父に言われて東京の病院で「健康診断」の採血をされた。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない。時刻は大時計と、その鐘で知ったもの。</p>
+        <dl class="tl">
+          <dt>21:20</dt><dd>廊下で父と言い争う。</dd>
+          <dt>21:25</dt><dd>露台に出て、一人で泣いた。</dd>
+          <dt>21:50</dt><dd>大時計を見て、ビリヤード室へ。透兄さんと槙野さんがいた。蓄音機の『ダイナ』がうるさい。</dd>
+          <dt>→</dt><dd>少しして、槙野さんが「手洗いに」と出ていった。透兄さんにキューの持ち方を教わる。</dd>
+          <dt>→</dt><dd>しばらくして槙野さんが戻ってきた。上着の内側を手で押さえていた。</dd>
+          <dt>→</dt><dd>「レコードを止めて」と頼んだ。静かになって少したったころ、久世先生が来た。「遅くなってすまない」。キューを渡すとき触れた先生の手は、氷のように冷たく、少し湿っていた。</dd>
+          <dt>→</dt><dd>先生が来てすぐ、大時計の10時の鐘。透兄さんが数えて「11回鳴ったぞ。時計まで酔っぱらってる」と笑った。先生は笑わなかった。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁の叫び声。書斎で父が死んでいた。悲しいと思えない自分が怖かった。</dd>
+          <dt>23:10</dt><dd>（大時計）眠れず階段を下りると、ホールで久世先生が一人、大時計のガラス扉を開けていた。懐中時計を見ながら、文字盤に手を伸ばしていた。声をかけられず、部屋に戻った。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>一真兄さん：晩餐のあいだ、ずっと父のグラスばかり見ていた。</li>
+          <li>透兄さん：明日、父から「書斎の絵のことで話がある」と言われていた。</li>
+          <li>小夜：晩餐の給仕のとき、父の席の横で手が震えていた。</li>
+          <li>真壁：母の話をするときだけ、涙ぐむ。</li>
+          <li>静子さん：最近、父の出すお茶に口をつけない。</li>
+          <li>槙野さん：晩餐で父が槙野さんのお父様の名前を出すたびに、顔をこわばらせていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>父との言い争いは、聞いた人がいれば必ず話題になる。父に何を言われたのか、どこまで話すかを決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>自分の本当の父親が誰なのかを突き止め、議論中にその名前を口にする。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>久世先生が、問い1で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>透兄さんが、問い1で最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 百合<small>たかみや ゆり</small></span><span class="rl">長女・23歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大正10年3月、母が亡くなった夜）</h4>
+        <p>8歳の春。夜中、母の部屋のほうから苦しそうな声がして目が覚めた。廊下に出ると、一真兄さんが母の部屋の前に座り込んで泣いていて、「部屋に戻れ」と言われた。</p>
+        <p>夜明け前、真壁に起こされて母の枕元へ連れていかれた。母はあなたの手を握り、「百合は強い子ね」と言った。その手は氷のように冷たかった。部屋の隅では、久世先生が背中を向けて立っていた。肩が震えていた。父は、最後まで部屋に来なかった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：23年、父だと思って生きてきた。今夜の言葉が悲しいのか、ほっとしたのか、自分でもわからない。</li>
+          <li>静子さん：母の場所にいる人。でも、あの人も父に怯えている気がする。</li>
+          <li>一真兄さん：いつも遠い。でも母が死んだ夜、廊下で泣いていた兄さんを、あなただけが知っている。</li>
+          <li>透兄さん：いちばんの味方。兄さんがいなければ、この屋敷で笑ったことなどなかった。</li>
+          <li>久世先生：先生の前でだけは、子どもに戻れる。</li>
+          <li>秋津さん：父の弁護士。遺言の話になると、決して私の顔を見ない。</li>
+          <li>真壁：母の日記をくれた人。母のことを話せるのは、真壁だけ。</li>
+          <li>小夜：歳が近いのに、いつも目を伏せている。一度ゆっくり話してみたい。</li>
+          <li>葛城さん：都会の匂いのする人。母のことを、なぜか知りたがっていた。</li>
+          <li>槙野さん：小さいころおぶってもらったと、あとで聞いた。お父様の話をするときの目が怖い。</li>
+          <li>千鶴先生：憧れの人。一真兄さんを見るときだけ、先生の目がやわらかくなる。</li>
+          <li>坂上：小さいころ、車に乗せて松本の町を見せてくれた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>丁寧なお嬢様言葉。「〜ですわ」「〜なさって」。</li>
+          <li>ふだんはうつむきがちで、声も小さい。</li>
+          <li>母のことや、父に言われたことを持ち出されると、急に声が強くなる。</li>
+          <li>久世先生が責められると、思わずかばってしまう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 04 透 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 透<small>たかみや とおる</small></span><span class="rl">次男・画家志望・27歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「次男の透です。東京で絵を勉強してましたが、まあ、ご覧のとおりの穀潰しでして。酒とジャズのレコードがあれば機嫌のいい男です。どうぞよろしく。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>子どものころから絵ばかり描いていた。褒めてくれたのは母・絹代だけだった。母が死んだ翌月、父はあなたの絵具箱を暖炉に投げ込んだ。「男が色遊びをするな」。</p>
+        <p>それでも東京へ出て川端画学校に通い、帝展に3度出品したが、3度とも落選した。仲間が次々に入選するなか、あなたは酒とダンスホールに逃げた。借金がふくらみ、去年、尻尾を巻いて屋敷に戻った。父には「穀潰し」と呼ばれている。</p>
+        <p>自分に才能があるとすれば、それは「写す」ことだけだと、本当はわかっている。仲間には「お前の模写は本物と見分けがつかない」と言われた。褒め言葉ではなかった。</p>
+        <p>陽気にふるまうのは、そうしていないと沈んでしまうから。ディック・ミネのジャズと洋酒があれば機嫌がいい。妹の百合のことは、誰よりも大事に思っている。母が死んだ夜も、泣いている百合の横でレコードをかけて笑わせた。兄の一真とは昔から反りが合わない。静子さんには、同じ「はみ出し者」として同情している。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>借金に追われ、半年前、書斎に掛かっていた岸辺光風の油絵『霧の湖』（時価3千円）を松本の画商に売った。代わりに、自分で描いた模写を掛けておいた。先週、父がその絵の前で首をかしげていた。「明日、話がある」と言われている。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない。ビリヤード室に時計はなく、時刻は鐘の音で知ったもの。</p>
+        <dl class="tl">
+          <dt>21:20</dt><dd>廊下で、父が百合に「お前は私の子ではない」と言うのを聞いた。百合は「死んでしまえばいい」と叫んで走っていった。</dd>
+          <dt>21:35</dt><dd>槙野とビリヤード室へ。蓄音機でディック・ミネの『ダイナ』を大音量でかけた。1曲3分ほど。終わるたびにかけ直し、黒板の隅に正の字をつけた。</dd>
+          <dt>→</dt><dd>百合が来た。目が赤い。</dd>
+          <dt>→</dt><dd>少しして、槙野が「手洗いに」と出ていった。戻ってきたのは、レコード5回分くらいあと。「遅いぞ」と言うと「玄関で嵐を見ていた」。</dd>
+          <dt>→</dt><dd>百合に頼まれてレコードを止めた。そのあと久世先生が来た。顔色が悪かった。</dd>
+          <dt>→</dt><dd>すぐに大時計の10時の鐘。なんとなく数えたら11回。「時計まで酔っぱらってる」と笑った。誰も笑わなかった。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁の叫び声。書斎へ。父の顔を見ても、涙は出なかった。</dd>
+          <dt>→</dt><dd>騒ぎの中で、真壁が小夜に小声で「大時計の鍵がない。知らないか」と言っているのを聞いた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>槙野：酔って「俺は、あの男に会うためにここへ来た」と言っていた。</li>
+          <li>葛城：21時過ぎ、書斎から出てくるのを見た。上着の内ポケットを手で押さえていた。</li>
+          <li>一真兄さん：会社の金で何かしくじったらしい。父の怒鳴り声を聞いた。</li>
+          <li>久世先生：家族同然の人。母が亡くなったとき、診断書を書いたのは先生だった。</li>
+          <li>真壁：父には逆らわないが、母の命日だけは仕事を休む。</li>
+          <li>静子さん：最近、父の出すお茶を飲まずに、こっそり鉢植えに捨てている。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>書斎の絵を調べられたら、贋作だとばれるかもしれない。父に呼ばれていたことは、百合も知っている。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い1の最多票が、静子・一真・百合のだれでもない（家族を守る）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>書斎の『霧の湖』をすり替えて売ったことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>百合が父に言われたこと（お前は私の子ではない）を、自分の口からは言わない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>静子と秋津の仲が、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">鷹宮 透<small>たかみや とおる</small></span><span class="rl">次男・画家志望・27歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大正10年3月、母が亡くなった夜）</h4>
+        <p>12歳の春。夜中に目が覚めて台所へ水を飲みに行くと、父が一人で湯呑みを洗っていた。使用人にやらせればいいものを、自分の手で、何度も、何度も。あなたに気づくと、父は「早く寝ろ」とだけ言った。</p>
+        <p>その夜、母は苦しみ続け、朝に死んだ。あのとき父が洗っていたのが何だったのか、考えないようにして15年がたった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：絵具箱を燃やした男。ずっと憎んでいた。……死んでもまだ、憎み足りない気がする。</li>
+          <li>静子さん：同じはみ出し者。この家で一緒に酒を飲める、ただ一人の人。</li>
+          <li>一真兄さん：父の機嫌ばかりうかがっている。かわいそうだと思うし、腹も立つ。</li>
+          <li>百合：何があっても守る。今夜父に何を言われたのか、まだ全部は聞けていない。</li>
+          <li>久世先生：子どものころ、絵を褒めてくれた二人目の大人。</li>
+          <li>秋津：父の金で動く男。でも、静子さんを見るときの目だけは本物だ。</li>
+          <li>真壁：父に叱られて泣いていると、こっそり菓子をくれた。</li>
+          <li>小夜：レコードがうるさいと、目で文句を言ってくる。気の強い子だ。</li>
+          <li>葛城：酒の相手には悪くない。ただ、何を書かれるかわかったもんじゃない。</li>
+          <li>槙野：幼なじみ。昔のように笑い合えたらいいのに、今夜のあいつは何か思いつめている。</li>
+          <li>千鶴さん：冗談で口説くと、本気で困った顔をする。どうやら兄貴に先を越されたらしい。</li>
+          <li>坂上：10円借りたままだ。そのうち返す。たぶん。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>くだけた口調。「〜さ」「〜だろ？」「まあまあ」。</li>
+          <li>重い空気になると、冗談で場をなごませようとする。</li>
+          <li>絵の話になると、急に口数が減る。</li>
+          <li>百合が責められると、本気で怒る。</li>
+          <li>父の死を悲しむふりはしない。「正直、せいせいしてるよ」くらい言ってもいい（疑われる覚悟で）。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 05 久世 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">久世 修一郎<small>くぜ しゅういちろう</small></span><span class="rl">主治医・52歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。鷹宮源一郎を殺したのはあなたです。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「松本で医院を開いております、久世です。鷹宮家の主治医を30年務めてまいりました。亡くなった先の奥様、絹代さんとは幼なじみでした。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>松本の生まれ。絹代とは家が隣どうしの幼なじみで、いつか一緒になると互いに思っていた。だが絹代の家（製糸の旧家・須藤家）は借金のかたに、娘を鷹宮へ嫁がせた。あなたはまだ医学校の学生で、何もできなかった。</p>
+        <p>医者になって松本で開業すると、源一郎が「腕がいいと聞く」と主治医に指名してきた。絹代のそばにいられるならと、引き受けた。大正元年の夏、上高地で一度だけ想いを遂げた。翌年生まれたのが百合。絹代は「決して誰にも」と手紙に書いた（持ち物カード）。</p>
+        <p>大正10年、絹代が急死した。症状は亜砒酸の中毒そのものだった。源一郎に「病死と書け。でなければ絹代との仲を世間にさらし、借金の証文で医院も取り上げる」と脅され、「急性胃腸炎」と書いた。それから15年、その罪を抱えてきた。</p>
+        <p>妻は娶らなかった。患者には「仏の久世先生」と慕われているが、本当の顔は誰にも見せたことがない。百合の熱を診るたびに、父と名乗れない痛みを飲み込んできた。穏やかで口数が少なく、感情を押し殺すことには慣れている。</p>
+      </div>
+      <div class="secret">
+        <h4>今夜、本当にあったこと</h4>
+        <p class="basis">時刻はあなたの懐中時計（正確）で。</p>
+        <dl class="tl">
+          <dt>18:30</dt><dd>書斎で「診察」。源一郎は言った。「百合は貴様の子だな。東京で血を調べさせた」。金庫の小瓶を見せ、「発表がすんだら、あの娘も絹代と同じところへ送る。診断書はまた貴様が書け」。</dd>
+          <dt>18:45</dt><dd>車庫で自分の車に旅行鞄を二つ積んだ。明朝、百合を連れて逃げるつもりだった。運転手の坂上に見られた。21時に吊り橋が流され、その道も消えた。</dd>
+          <dt>21:40</dt><dd>晩餐のあいだに決めた。今夜、終わらせる。誰もいない執事室の鍵掛けから、大時計の鍵を取った。廊下に出たところで、百合のピアノ教師・宮園千鶴とすれ違い、「氷をもらいに」とごまかした。</dd>
+          <dt>21:58</dt><dd>書斎へ（「十時に来い」と言われていた）。金庫は開いていた。22:00、大時計が10回鳴った。</dd>
+          <dt>22:05</dt><dd>「あの娘は母親そっくりだ。同じ顔で死ぬだろう」。暖炉の火かき棒で殴った。倒れるとき、飾り棚の花瓶が割れた。</dd>
+          <dt>22:06</dt><dd>ハンカチで火かき棒の柄を拭き、金庫の小瓶を上着のポケットへ（あとで往診鞄の底に入れた）。</dd>
+          <dt>22:08</dt><dd>誰もいないホールで大時計のガラス扉を開け、長針を20分戻した（21:48）。指に血が残っていたことに、そのときは気づかなかった。</dd>
+          <dt>22:10</dt><dd>洗面所で手を洗い、タオルで拭いた。</dd>
+          <dt>22:18</dt><dd>ビリヤード室へ。透・百合・槙野がいた。「遅くなってすまない」。</dd>
+          <dt>22:20</dt><dd>大時計が「10時」を打った。透が「11回鳴った」と笑った。背筋が凍った。</dd>
+          <dt>22:50</dt><dd>真壁の叫び。検視して「亡くなって15分か20分」と言った。</dd>
+          <dt>23:05</dt><dd>皆が書斎に集まっている隙に、執事室へ鍵を戻した。</dd>
+          <dt>23:30</dt><dd>ホールで、大時計の針を20分進めて正しい時刻に戻した。階段の上に、誰かがいた気がする。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>あなたのアリバイ（みんなにはこう話す）</h4>
+        <p>「十時に書斎へ来いと言われていたが、百合さんの様子が気になって先にビリヤード室へ行った。10時の鐘の前から、ずっとビリヤード室にいた。書斎には行っていない」</p>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>一真：机のメモ「十時 K」は、一真（Kazuma）とも読める。会社の金で廃嫡されるという噂もある。</li>
+          <li>槙野：晩餐の前、上着の内ポケットに刃物のようなものが光るのを見た。</li>
+          <li>静子：最近、源一郎の出す茶に口をつけていない。何か勘づいているのかもしれない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+5</span><span>問い1（殺したのは誰か）で、最多票にならない（逃げ切る）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>百合が、3つの問いのどれでも最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>大時計に触ったことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>百合の本当の父親が自分だと、自分の口からは最後まで言わない。</span></div>
+        </div>
+      </div>
+      <p class="note">ヒント：「往診鞄」のカードは、自分で引けば隠しておける。</p>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">久世 修一郎<small>くぜ しゅういちろう</small></span><span class="rl">主治医・52歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大正10年3月、絹代が亡くなった夜）</h4>
+        <p>午前2時、真壁から電話があった。「奥様のご様子がおかしい。旦那様には内緒で」。車を飛ばして4時に着いたとき、絹代はもう手遅れだった。吐き気、腹の焼けるような痛み、乾いた唇――医者ならすぐにわかる。亜砒酸だ。</p>
+        <p>夜明けに、絹代は百合の手を握ったまま息を引き取った。あなたは部屋の隅で背を向け、声を殺して泣いた。書斎では源一郎が待っていた。「病死と書け」。ペンを握った手が、いつまでも震えていた。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：絹代を殺し、百合まで奪おうとした男。殺したことを、後悔はしていない。</li>
+          <li>静子：この人も、いずれ絹代と同じ目にあっていたかもしれない。</li>
+          <li>一真：あの夜、廊下に座り込んでいた19歳の少年。父の言いつけを守っただけだ。</li>
+          <li>百合：娘。名乗れないまま23年。どうか何も知らずに、幸せになってほしい。</li>
+          <li>透：絵の上手な子だった。父に絵具箱を燃やされた日、泣きながら医院に来た。</li>
+          <li>秋津：源一郎の汚れ仕事の後始末をしてきた男。自分と同じ匂いがする。</li>
+          <li>真壁：あの夜、電話をくれた。もしかすると、すべてに気づいているのかもしれない。</li>
+          <li>小夜：おとなしい娘だが、目が鋭い。気をつけたほうがいい。</li>
+          <li>葛城：15年前のことを嗅ぎ回っている。いちばん危ない相手だ。</li>
+          <li>槙野：刃物を持っている。疑いを向けるなら、この男か一真だ。</li>
+          <li>千鶴：つわりの相談に来た。相手は言わなかったが、一真だろう。今夜、廊下で顔を見られた。</li>
+          <li>坂上：夕方、車庫で鞄を積むところを見られた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>穏やかで落ち着いた口調。「〜でしょう」「〜ですね」。</li>
+          <li>医者として、遺体の様子や亡くなった時刻の話には、もっともらしく答える。</li>
+          <li>大時計や鐘の話になっても、表情を変えないこと。</li>
+          <li>百合には、いつもどおり優しく接する。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 06 秋津 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">秋津 恭介<small>あきつ きょうすけ</small></span><span class="rl">顧問弁護士・45歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「東京で弁護士をしております、秋津です。鷹宮家の顧問を10年務めております。新しい遺言書を作ったのは私ですが、内容は明朝の発表まで申し上げられません。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>長野の小作の家に生まれ、苦学して帝大の法科を出た。いまは東京・丸の内に事務所を構え、いくつもの会社の顧問を務めている。妻とは10年前に死別し、子はいない。</p>
+        <p>鷹宮家の顧問になって10年。源一郎の冷酷さを誰よりも近くで見てきたし、その手伝いもしてきた。昭和3年、共同創業者の槙野善次を横領で訴える書類を作ったのはあなた。帳簿は源一郎から渡されたもので、中身を疑わなかった――と、自分に言い聞かせている。昭和6年の工場火災では、遺族への見舞金を「一律10円」で片づける書面も作った。</p>
+        <p>静子と出会ったのは、鷹宮家の新年会。座敷で鍛えた笑顔の下の寂しさに気づいたとき、最初は同情だったはずのものが、別のものに変わった。弁護士として何より守ってきた「守秘」を、静子のために破った自分が、いまだに信じられない。</p>
+        <p>几帳面な性格で、懐中時計は毎朝ラジオの時報に合わせている。煙草は両切りの「チェリー」。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>源一郎の妻・静子と、1年前から深い仲にある。そして弁護士として守るべき遺言の内容を、静子に手紙で漏らした。</p>
+        <p>新しい遺言の要点：一真は廃嫡、会社は財閥に譲渡。百合は「我が子にあらず」として相続なし。静子には軽井沢の別荘のみ。透には1万円。残りはすべて「鷹宮報恩会」へ。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">時刻はあなたの懐中時計（正確）で。</p>
+        <dl class="tl">
+          <dt>19:30</dt><dd>晩餐で源一郎が遺言の発表を告げた。静子と目が合い、小さく首を振った。</dd>
+          <dt>21:00</dt><dd>サロンで、静子に手紙を渡した。「今夜十時、温室で」。</dd>
+          <dt>21:05</dt><dd>書斎の前で待たされた。中では源一郎が葛城と話していて、小切手帳をめくる音がした。21:15、葛城が出てきた。</dd>
+          <dt>21:30</dt><dd>書斎で遺言書の最終確認と署名。封筒に自分の封蝋をして、源一郎が金庫にしまった。金庫は開けたまま。奥に茶色の小瓶が見えた。机の上には「九時半 A　十時 K」というメモと、脅迫状らしき紙。源一郎は鼻で笑った。「誰が書いたか見当はついている。明日、暇を出す」。</dd>
+          <dt>21:50</dt><dd>書斎を出た。源一郎は生きていた。</dd>
+          <dt>22:00</dt><dd>温室で静子と会う。静子は「あの人は、私も絹代さんのように……」と震えていた。温室のガラスを、雨が叩いていた。</dd>
+          <dt>22:15</dt><dd>温室を出る。静子を先に母屋へ帰し、自分は渡り廊下から食堂を回って2階の部屋へ（ホールは通っていない）。</dd>
+          <dt>22:50</dt><dd>叫び声。書斎へ駆けつけると源一郎が倒れていた。金庫の封筒は封蝋が破られ、中身の遺言書がなかった。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>一真：遺言の中身を知っているかのように、晩餐のあいだ真っ青だった。</li>
+          <li>槙野：株の買い取りの話で来た。源一郎は「明日、二束三文で買い叩く」と笑っていた。</li>
+          <li>久世：夕方、源一郎が「久世を書斎へ呼べ」と言っていた。</li>
+          <li>透：書斎の絵について、源一郎が「あれは偽物ではないか」とつぶやいていた。</li>
+          <li>真壁：遺言の話をするとき、「先の奥様がご存命なら」と小さく言った。</li>
+          <li>百合：源一郎は署名のあと「あの娘には一銭もやらん」と吐き捨てた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>書斎にいた時間は、机のメモの「A」で知られるかもしれない。22:00〜22:15にどこにいたかを、どう話すか決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>静子と深い仲だということが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>遺言の内容を静子に漏らしていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>葛城が源一郎から金を受け取ったことを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>静子が、問い1（殺したのは誰か）で最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">秋津 恭介<small>あきつ きょうすけ</small></span><span class="rl">顧問弁護士・45歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（昭和4年、槙野善次が死んだ夜）</h4>
+        <p>善次が首を吊ったという知らせが来たのは、東京の事務所で残業していた夜だった。電話で源一郎に伝えると、受話器の向こうで一瞬の沈黙があり、それからこう言った。「片付いたな。株の名義の件、明日から進めてくれ」。</p>
+        <p>受話器を置いたあと、あなたは一晩じゅう事務所の明かりを消せなかった。あの帳簿のことを、もっと調べるべきだったのではないか。その問いに、いまも答えを出せずにいる。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：雇い主。冷酷だが、仕事の筋は通っていた。死んで、正直、肩の荷が下りた。</li>
+          <li>静子：守りたい人。この先どうなろうと、彼女だけは巻き込みたくない。</li>
+          <li>一真：父の影に押しつぶされた男。廃嫡を知ったら、何をするかわからない。</li>
+          <li>百合：遺言に「我が子にあらず」と書かされた娘。気の毒でならない。</li>
+          <li>透：放蕩息子に見えて、案外人を見ている。静子とのことに気づいているかもしれない。</li>
+          <li>久世：源一郎に何か弱みを握られているらしい。夕方呼ばれたあと、顔色が悪かった。</li>
+          <li>真壁：忠実な執事。だが絹代夫人の話になると、主人への忠誠が揺らいで見える。</li>
+          <li>小夜：よく気のつく女中。ただ、どこの出なのか誰も知らない。</li>
+          <li>葛城：小切手で黙る男か、それとも。記者というものを信用したことはない。</li>
+          <li>槙野：顔を見るのがつらい。あの男の父親を訴える書類を作ったのは、私だ。</li>
+          <li>宮園：源一郎は先週、「あのピアノ弾きの実家の借金を取り立てろ」と私に命じていた。</li>
+          <li>坂上：昭和6年の火事のあと、源一郎の指示で毎月「特別手当」を送る手続きをしている。理由は聞かされていない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>弁護士らしく理屈っぽい。「要するに」「法的に言えば」が口癖。</li>
+          <li>時刻にうるさく、懐中時計をよく取り出して見る。</li>
+          <li>静子が責められると、つい弁護したくなる（しすぎると怪しまれる）。</li>
+          <li>答えにくい質問は「守秘義務がありますので」でかわしてもよい。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 07 真壁 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">真壁 嘉平<small>まかべ かへい</small></span><span class="rl">執事・63歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「執事の真壁嘉平でございます。先の奥様のお輿入れについてまいりまして、40年この屋敷にお仕えしております。ホールの大時計のお世話も、私の務めでございます。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>14の歳に松本の須藤家へ奉公に上がり、絹代お嬢様が生まれた日のことも覚えている。おんぶして子守唄を歌ったのもあなただ。お嬢様が鷹宮へ嫁ぐとき、「嘉平もついてきて」と言われ、それから40年この屋敷に仕えている。妻も子も持たなかった。人生のすべてを、絹代奥様とこの屋敷に捧げてきた。</p>
+        <p>奥様が亡くなった夜は、使用人部屋で一晩じゅう泣いた。百合お嬢様は、年ごとに奥様に生き写しになっていく。春に来た女中の小夜のことは、孫のように思っている。この屋敷のことで自分の知らないことはない――そう思っていた。今夜までは。</p>
+        <p>使用人には厳しく、銀器の曇り一つ許さない。けれど朝いちばんに、誰にも見られないよう絹代奥様の写真に手を合わせることだけは、40年欠かしたことがない。</p>
+        <p>大時計の世話はあなたの仕事で、毎週日曜にラジオの時報で時刻を合わせ、ねじを巻く。鍵は執事室の鍵掛けに掛けてある。懐中時計は先週から松本の時計屋に修理に出している。</p>
+        <p>旦那様には決して逆らわない。それが執事の務めだと、40年自分に言い聞かせてきた。</p>
+        <p>先代から言われてきた。「この大時計の針は、決して逆に回してはならん。鐘の数が狂う」。逆に回すと、次の正時に一つ多く打つようになる。直すには、鐘を一つずつ打たせて合わせるしかない。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>絹代奥様は、旦那様に毒を盛られたと信じている。亡くなる前、奥様は「旦那様のくださる薬湯を飲むと、胸が焼ける」と言っていた。奥様の日記の一部を、去年、百合お嬢様にお渡しした。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">時刻は大時計で（懐中時計は修理中）。</p>
+        <dl class="tl">
+          <dt>18:00</dt><dd>執事室で大時計の鍵を確認。いつもの場所にあった。</dd>
+          <dt>19:00</dt><dd>晩餐の給仕。旦那様は今夜、久世先生のグラスにだけご自分で酒を注がれた。先生は口をつけなかった。</dd>
+          <dt>21:00</dt><dd>吊り橋が流されたことを皆さまに報告。</dd>
+          <dt>21:30</dt><dd>執事室で懐中電灯を取る。大時計の鍵はまだ掛かっていた。</dd>
+          <dt>21:50</dt><dd>地下のワイン庫へ。明朝のワインを選ぶ。地下には鐘の音は届かない。</dd>
+          <dt>→</dt><dd>ワイン庫から執事室に戻ると、<b>大時計の鍵がなかった</b>。いくら探しても見つからない。</dd>
+          <dt>→</dt><dd>坂上が車庫の様子を報告に来たが、鍵のことで頭がいっぱいで、上の空で聞いた。</dd>
+          <dt>22:30</dt><dd>大時計を見て、いつもどおり旦那様の寝酒を書斎へ。返事がないので扉を開けると、旦那様が倒れていた。思わず叫んだ。</dd>
+          <dt>→</dt><dd>騒ぎの中、小夜に小声で「大時計の鍵がない。知らないか」と聞いた。小夜は首を振った。</dd>
+          <dt>→</dt><dd>しばらくして執事室に戻ると、<b>鍵は元の場所に掛かっていた</b>。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>小夜：父親を工場の火事で亡くしたと、本人から聞いた。</li>
+          <li>久世先生：奥様の死亡診断書を書いた方。奥様の葬儀で、ただ一人泣かなかった。泣くのをこらえているようだった。</li>
+          <li>槙野さま：到着のとき、鞄がずいぶん重そうだった。</li>
+          <li>葛城さま：古い使用人に、15年前のことを聞いて回っていた。</li>
+          <li>静子さま：先週、書斎の金庫の前で何かを紙に包んでいた。</li>
+          <li>一真さま：騒ぎのあいだ、右の袖口をしきりに手で隠していた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>大時計の鍵を管理しているのはあなた。鍵が一時なくなっていたことを話せば、あなたも疑われる。鍵が戻っていたことは、まだ誰にも話していない。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>源一郎が絹代奥様に毒を盛ったことを、議論中に全員の前で話し、しかも挙手でも本当だと信じられる。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>小夜が、問い3（脅迫状）で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>槙野さまが、問い1で最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">真壁 嘉平<small>まかべ かへい</small></span><span class="rl">執事・63歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大正10年3月、絹代奥様が亡くなった夜）</h4>
+        <p>夕食のあと、旦那様がご自分で薬湯を淹れ、奥様のお部屋へ運ばれた。使用人の仕事を旦那様がなさったのは、後にも先にもあの一度きり。夜更けに奥様が苦しみだしても、旦那様は「医者は朝まで呼ぶな」とおっしゃった。</p>
+        <p>午前2時、あなたは初めて旦那様の言いつけに背き、久世先生に電話をかけた。間に合わなかった。夜明けに百合お嬢様を起こして、奥様の枕元へお連れしたのも、あなただった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：40年お仕えした主人。奥様の仇だと思いながら、それでも仕え続けてきた。</li>
+          <li>静子さま：悪い方ではない。ただ、奥様の座に座っておられるのを見ると、胸が痛む。</li>
+          <li>一真さま：あの夜、廊下で旦那様の言いつけを守っておられた。責める気にはなれない。</li>
+          <li>百合お嬢様：奥様の生き写し。お嬢様の幸せだけが、残りの人生の願い。</li>
+          <li>透さま：やんちゃな坊ちゃま。泣き虫だったころのお顔を、いまも思い出す。</li>
+          <li>久世先生：あの夜、電話一本で駆けつけてくださった。それなのに、なぜ病死と書かれたのか。</li>
+          <li>秋津さま：旦那様の汚いお仕事の後始末をしてこられた方。</li>
+          <li>小夜：孫のような娘。何か重いものを背負っている気がしてならない。</li>
+          <li>葛城さま：奥様の昔のことを、古い使用人に聞いて回っておられる。</li>
+          <li>槙野さま：善次様の坊ちゃま。善次様が屋敷を去られた日のことは、忘れられない。</li>
+          <li>宮園さま：お嬢様のピアノの先生。今夜は顔色がすぐれず、晩餐もほとんど召し上がらなかった。</li>
+          <li>坂上：腕のいい運転手。工場の火事のあとから、酒の量が増えた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>執事らしく丁寧な言葉。「〜でございます」「かしこまりました」。</li>
+          <li>感情を表に出さず、いつも背筋を伸ばしている。</li>
+          <li>奥様（絹代）の話になると、ほんの一瞬だけ声が震える。</li>
+          <li>大時計のことは、屋敷の誰よりも詳しく説明できる。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 08 小夜 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">小夜<small>さよ</small></span><span class="rl">女中・19歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「女中の小夜です。今年の春から、このお屋敷で働かせていただいています。台所のことなら、何でも聞いてください。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>本名は宇野小夜。岡谷の長屋で生まれた。母は早くに亡くなり、父ひとり子ひとり。父・宇野佐吉は鷹宮紡績の岡谷工場の守衛で、夜回りの帰りにはいつも飴玉を一つ買ってきてくれた。字の書き方を教えてくれたのも父だった。</p>
+        <p>昭和6年の火事で、父は女工4人と一緒に死んだ。会社は「守衛の火の不始末」として父のせいにし、見舞金はたった10円だった。そのあとは叔母の家に引き取られて肩身の狭い思いをし、諏訪の別の製糸工場で女工として働いた。朝5時から夜9時まで糸を繰る毎日だった。</p>
+        <p>生き残った女工から聞いた。あの夜、防火扉には外から閂（かんぬき）がかけられていた。女工が逃げ出さないように、という社長の命令で。それを確かめたくて、名前を伏せてこの屋敷の女中になった。</p>
+        <p>この半年、旦那様が客の前で工場の自慢話をするのを何度も聞いた。そのたびに、皿を持つ手に力が入った。屋敷に来た日、旦那様はあなたの出身を聞きもしなかった。女中の顔など、覚える気もないのだ。我慢強く、人をよく見ている。女中頭のいないこの屋敷では、台所の時計を毎日正午に合わせるのもあなたの仕事。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>書斎の机の脅迫状を書いたのは、あなた。台所の献立帳の最後の頁を破って、字を崩して書いた。「今夜、罪を償え。佐吉の名を忘れたとは言わせぬ」。怖がらせたかっただけで、殺すつもりなどなかった。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">時刻は台所の柱時計で（毎日、正午の時報に合わせている）。</p>
+        <dl class="tl">
+          <dt>20:40</dt><dd>デザートの用意のふりをして、空いていた書斎の机に脅迫状を置いた。</dd>
+          <dt>21:00</dt><dd>真壁さんと食堂の片付け。</dd>
+          <dt>21:50</dt><dd>台所で皿洗い。真壁さんは地下のワイン庫へ。</dd>
+          <dt>22:00</dt><dd>大時計の10時の鐘。いつもの癖で数えた。10回。台所の時計もちょうど10時。廊下の小窓から、槙野さまが書斎のほうへ歩いていくのが見えた。</dd>
+          <dt>22:05</dt><dd>壁一枚向こうの書斎で、何かが倒れて割れる大きな音。台所の時計は10時5分。嵐で何か倒れたのだと思った。女中が勝手に旦那様の書斎に入るわけにはいかない。</dd>
+          <dt>22:20</dt><dd>また大時計の鐘。数えたら<b>11回</b>。台所の時計は10時20分。「さっき10時を打ったのに？」。気味が悪かった。</dd>
+          <dt>22:35</dt><dd>運転手の坂上さんが、勝手口からずぶ濡れで戻ってきた。「車庫を見てきた」。懐中時計と台所の時計を見比べて「合ってるな」とつぶやいた。</dd>
+          <dt>22:40</dt><dd>真壁さんが戻ってきて、執事室で何か探していた。</dd>
+          <dt>22:50</dt><dd>真壁さんの叫び声。書斎へ。割れた花瓶を見て、10時5分の音はこれだったのだと思った。</dd>
+          <dt>→</dt><dd>真壁さんに小声で「大時計の鍵がない。知らないか」と聞かれた。知らない。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>静子さま：先週、書斎の金庫の前で何かを紙に包んで、帯に隠していた。</li>
+          <li>葛城さま：昼に、工場の火事のことを聞いてきた。どきりとした。</li>
+          <li>真壁さん：先の奥様（絹代さま）の写真に、毎朝手を合わせている。</li>
+          <li>一真さま：晩餐のあと、厨房までウイスキーの瓶を取りに来た。手が震えていた。</li>
+          <li>久世先生：晩餐のあいだ、ほとんど料理に手をつけなかった。</li>
+          <li>透さま：ビリヤード室のレコードが、台所まで響いてうるさかった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>10時5分の物音は、あなたにしかはっきり聞こえていないかもしれない。脅迫状のことを隠しながら、どう話すか考えよう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い3（脅迫状を書いたのは誰か）で、最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>父が死んだ工場火災の真相（防火扉に外から閂がかけられていた）を、議論中に全員の前で明らかにする。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>自分が宇野佐吉の娘だということが、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">小夜<small>さよ</small></span><span class="rl">女中・19歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（昭和6年2月、工場が燃えた夜）</h4>
+        <p>14歳の冬。長屋で寝ていると、半鐘が鳴りやまなかった。外に出ると、岡谷の空が真っ赤だった。走って工場の門までたどり着くと、焼けた防火扉の前で、生き残った女工たちが泣き叫んでいた。「開かなかった。外から閂が」。</p>
+        <p>父は朝になって、扉の内側で見つかった。逃げ遅れた女工を助けようと、火の中へ戻ったのだという。それなのに会社は、父を「火の不始末をした守衛」と呼んだ。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：父を死なせ、父の名を汚した男。死んだと聞いても涙は出ない。でも、殺したのは私じゃない。</li>
+          <li>静子さま：奥様も旦那様を怖がっている。同じ屋根の下で、少しだけ親しみを感じる。</li>
+          <li>一真さま：几帳面で、使用人の名前も覚えない人。</li>
+          <li>百合さま：優しいお嬢様。屋敷で「小夜ちゃん」と呼んでくれるのは、お嬢様だけ。</li>
+          <li>透さま：うるさいレコードの人。でも、台所へつまみ食いに来るときは憎めない。</li>
+          <li>久世先生：使用人にも丁寧に頭を下げてくださる、珍しい方。</li>
+          <li>秋津さま：旦那様の弁護士。工場の火事の後始末も、この人がしたのだろうか。</li>
+          <li>真壁さん：屋敷でただ一人、心を許せる人。でも、本当のことはまだ言えていない。</li>
+          <li>葛城さま：工場の火事を調べている記者。味方なのか、それとも。</li>
+          <li>槙野さま：あの人も、父親を鷹宮に奪われたと聞いた。</li>
+          <li>宮園さま：お嬢様の先生。台所の前で、口元を押さえて苦しそうにしていたことがある。</li>
+          <li>坂上さん：台所でよく一緒にまかないを食べる。工場の話になると、黙って席を立つ。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>女中らしく控えめに。「〜です」「はい、旦那さま」。ときどき信州なまり（「〜ずら」「〜だに」）が出る。</li>
+          <li>人前ではあまりしゃべらず、聞かれたことに短く答える。</li>
+          <li>工場や火事の話が出ると、思わず口をはさみたくなる。</li>
+          <li>時刻には自信がある。台所の時計は毎日自分で合わせているから。</li>
+          <li>真壁さんが疑われると、つい「真壁さんはそんな人じゃありません」とかばってしまう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 09 葛城 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">葛城 遼<small>かつらぎ りょう</small></span><span class="rl">新聞記者・31歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「信州新報の記者、葛城です。鷹宮社長の自伝の聞き書きのために、数日前からお世話になっています。記者の癖で何でも時刻をメモしてしまうので、ご勘弁を。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>諏訪の生まれ。子どものころ、隣の家の姉さんが岡谷の工場に出され、二度と帰ってこなかった。「女工は使い捨て」という大人たちのささやきが、記者を志したきっかけだった。</p>
+        <p>信州新報の記者。名目は源一郎の自伝の聞き書きだが、本当は昭和6年の岡谷工場火災を追っている。死者5人。会社は守衛の失火で片づけたが、裏があるとにらんでいる。腕時計は、今朝正午の時報に合わせたばかり。</p>
+        <p>母が胸を病んで松本の病院に入院しており、入院費がかさんでいる。新聞社の給料は安い。上司の編集長からは「鷹宮はうちの大広告主だ。余計なことを嗅ぎ回るな」と釘を刺されている。</p>
+        <p>記者になって8年。人の嘘には敏感なつもりだが、自分の嘘には目をつぶってきた。新人のころ先輩に「時刻のない記事は記事じゃない」と叩き込まれ、何かあれば必ず腕時計を見て書き留める癖がある。</p>
+        <p>源一郎の聞き書きは今日で3日目。自慢話の合間に、ときどき目がまったく笑っていないことに気づいた。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>今夜21:05、書斎に呼ばれた。源一郎は何も言わずに小切手を書いた。5千円。「火事の記事は書くな。自伝だけ書け」。病気の母の入院費が頭をよぎり、受け取ってしまった（持ち物カード）。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">時刻はあなたの腕時計（正確）で。</p>
+        <dl class="tl">
+          <dt>19:00</dt><dd>晩餐。源一郎の乾杯の言葉をノートに書き留めた。「明朝九時、新しい遺言を発表する」。</dd>
+          <dt>21:05</dt><dd>書斎で小切手を受け取る。机の上に「九時半 A　十時 K」というメモ。K は自分のことか、と一瞬ひやりとした。</dd>
+          <dt>21:15</dt><dd>書斎を出る。廊下で秋津が待っていた。</dd>
+          <dt>21:20</dt><dd>自分の部屋（書斎の真上）で取材ノートの整理。</dd>
+          <dt>22:00</dt><dd>大時計の鐘。下の書斎から、低い男の話し声が聞こえていた。何を言っているかまではわからない。</dd>
+          <dt>22:05</dt><dd>床の下から、重いものが倒れて陶器が割れる音。腕時計を見た。<b>22時05分</b>。嵐で何か倒れたのだろうと思い、そのまま書き物を続けた。</dd>
+          <dt>→</dt><dd>しばらくしてまた鐘が鳴ったが、書くのに夢中で気にしなかった。</dd>
+          <dt>22:52</dt><dd>叫び声で部屋を飛び出した。ホールを抜けるとき、大時計は<b>10時32分</b>を指していた。「古い時計は遅れるものだ」と思った。</dd>
+          <dt>→</dt><dd>書斎に入ると源一郎が倒れていた。久世医師が「亡くなって15分か20分」と言うのを聞いた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>小夜：昼に工場の火事のことを聞いたら、顔色が変わった。</li>
+          <li>槙野：父・槙野善次は昭和3年、横領の罪で会社を追われ、翌年に自ら命を絶った。</li>
+          <li>真壁：古い使用人から聞いた。「先の奥様が亡くなった夜、真壁さんは一晩じゅう泣いていた」。</li>
+          <li>久世：15年前、先妻・絹代の死亡診断書を書いた医師。</li>
+          <li>一真：会社の資金に穴があいているという噂を、松本で聞いた。</li>
+          <li>静子：晩餐のあいだ、秋津と目を合わせてはそらしていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>書斎に入ったことは、机のメモや秋津の証言で知られるかもしれない。小切手のことを隠したまま、何をしに行ったと話すか決めておこう。</li><li>秋津が小切手のことをばらしそうなら、晩餐で静子と目配せしていたことを密談で持ち出せる。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>源一郎から5千円の小切手を受け取ったことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>議論の終わりに、自分の手元に証拠カードが4枚以上ある（交換や譲渡で得たものも含む）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>小夜が宇野佐吉の娘だということを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">葛城 遼<small>かつらぎ りょう</small></span><span class="rl">新聞記者・31歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（昭和6年2月、岡谷工場火災の夜）</h4>
+        <p>入社3年目。夜勤の電話で「岡谷で工場火事」と聞き、自転車で駆けつけた。焼け跡の防火扉の前で、若い女工が「外から閂が」と泣いていた。翌朝その証言を記事にして出すと、編集長に呼ばれた。「守衛の失火。それで行け」。</p>
+        <p>紙面に載ったのは、たった10行の記事だった。あの女工の顔を、いまも思い出す。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：聞き書きのあいだ、ずっと胸が悪かった。5千円の小切手は、いまも内ポケットで重い。</li>
+          <li>静子：元芸者の後妻。誰よりも周りをよく見ている。取材相手としては手ごわい。</li>
+          <li>一真：会社の金の噂。廃嫡されるなら、動機は十分だ。</li>
+          <li>百合：先妻の娘。母親の死について、何か知っているかもしれない。</li>
+          <li>透：酒の相手にはいい男。だが、目の奥が笑っていない。</li>
+          <li>久世：15年前の死亡診断書を書いた医者。一度ゆっくり話を聞きたい。</li>
+          <li>秋津：会社の汚れ仕事の書類は、たいていこの男が作っている。</li>
+          <li>真壁：先妻の時代から仕える執事。15年前のことを知っている、数少ない一人。</li>
+          <li>小夜：工場の火事の話に顔色を変えた。あの夜、焼け跡にいた誰かの身内かもしれない。</li>
+          <li>槙野：去年手紙を出した相手。父親の件を記事にできれば、と思っていた。</li>
+          <li>宮園：一真と何かあるな。晩餐のあいだ、互いに一度も目を合わせなかったのが、かえって怪しい。</li>
+          <li>坂上：昭和6年当時から源一郎の運転手。あの夜のことを知っているとすれば、この男だ。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>記者らしく質問攻めに。「で、それは何時です？」「何で時刻を見ました？」が口癖。</li>
+          <li>手帳を出して、人の話をメモするしぐさをする。</li>
+          <li>人の嘘を突くのは得意だが、自分のことを聞かれるとはぐらかす。</li>
+          <li>小切手の話になりそうになったら、話題を変える。</li>
+          <li>みんなの証言の時刻を、表にまとめて見せる係を買って出てもいい。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 10 槙野 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 10 ／ 本人以外閲覧禁止</span><span class="nm">槙野 礼二<small>まきの れいじ</small></span><span class="rl">客・共同創業者の息子・33歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「槙野礼二です。父の槙野善次は、源一郎さんと二人で鷹宮紡績を興しました。今回は、父が遺した会社の株のことでお招きいただきました。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>父・槙野善次は、源一郎と二人で鷹宮紡績を興した。昭和3年、横領の罪を着せられて追放され、翌年、首を吊った。見つけたのは、26歳のあなただった。遺書にはこうあった。「鷹宮に嵌められた。帳簿は書き換えられている」。母は心労で倒れ、2年後に後を追うように亡くなった。</p>
+        <p>子どものころは、この屋敷によく遊びに来た。歳の近い一真とは兄弟のように育ち、透とは木登りを競い、小さな百合をおぶってやったこともある。父の追放以来、鷹宮の誰とも会っていない。</p>
+        <p>今回は、父が残した会社の株（1割）の買い取りの話で招かれた。源一郎に会うのは、父の葬式以来。</p>
+        <p>いまは東京で小さな印刷所を営んでいる。父の名誉を取り戻すことだけを考えて、この7年を生きてきた。ふだんは温厚で冗談も言うが、父のことになると自分を抑えられなくなる。鞄の底には、父の遺書をいつも入れて持ち歩いている。</p>
+        <p>今夜の晩餐で、源一郎は乾杯のあと、わざわざあなたのほうを向いて言った。「槙野君の父上にも、この席を見せたかったな」。皆が笑った。あなたは、ナイフとフォークを置く手が震えるのを止められなかった。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>登山ナイフを持ってきた（持ち物カード）。脅すつもりだったのか、刺すつもりだったのか、自分でもわからない。今夜、一度は書斎の前まで行った。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない。時刻は鐘の音で知ったもの。</p>
+        <dl class="tl">
+          <dt>21:35</dt><dd>透とビリヤード室へ。『ダイナ』を大音量で何度も。透は陽気にふるまっていたが、目は笑っていなかった。</dd>
+          <dt>→</dt><dd>百合さんが来た。少しして「手洗いに」と言って部屋を出た。本当は書斎へ。ナイフは上着の内ポケット。</dd>
+          <dt>22:00</dt><dd>ホールを抜けるとき、大時計が10時を打った。10回。</dd>
+          <dt>→</dt><dd>書斎の扉の前に立つと、中から男二人の声。一人は源一郎。もう一人は声が低くて誰かわからない。「……絹代……」「……百合には……」と聞こえた。足がすくみ、引き返した。</dd>
+          <dt>→</dt><dd>玄関の扉を開けて外の軒下に出て、嵐を眺めて頭を冷やした（10分くらい）。扉は閉めていたので、中の様子はわからない。陶器が割れるような音がした気もするが、風の音でよくわからなかった。</dd>
+          <dt>→</dt><dd>ビリヤード室に戻る。透に「遅いぞ」と言われた。百合さんに言われて、レコードが止まった。</dd>
+          <dt>→</dt><dd>久世先生が来た。すぐまた大時計が鳴り、透が「11回」と笑った。<b>また10時？</b>　さっきホールで10時の鐘を聞いたばかりなのに。酔っているせいだと思い、黙っていた。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁の叫び声。書斎へ。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>透：金に困っていて、「親父の絵を一枚売った」とほのめかしていた。</li>
+          <li>葛城：父の事件を調べたいと、去年手紙をくれた記者。</li>
+          <li>一真：父が追放されたとき、帳簿をまとめたのは若い一真だった。</li>
+          <li>秋津：「明日、源一郎さんは厳しい値段を出すでしょう」と言っていた。</li>
+          <li>小夜：書斎へ向かうとき、台所の小窓からこちらを見ていた気がする。</li>
+          <li>真壁：父の葬式に、屋敷からただ一人、香典を持って来てくれた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>書斎の前まで行ったことを話せば、真っ先に疑われる。でも、扉の向こうで聞いた声は大事な手がかりかもしれない。ナイフの鞘は、自分の鞄に入れたままだ。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>ナイフを持ってきていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>父・善次の横領が濡れ衣だった証拠を、議論の終わりに自分の手元に持っている。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>一真に、父の追放のとき帳簿をまとめたことを、全員の前で認めさせる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 10 ／ 本人以外閲覧禁止</span><span class="nm">槙野 礼二<small>まきの れいじ</small></span><span class="rl">客・共同創業者の息子・33歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（昭和4年、父が死んだ夜）</h4>
+        <p>26歳の冬。東京の借家に帰ると、父の部屋の明かりがついたままだった。襖を開けると、父が鴨居から下がっていた。机の上に遺書。「鷹宮に嵌められた。帳簿は書き換えられている。礼二、すまない」。</p>
+        <p>葬式に、鷹宮家からは誰も来なかった。ただ一人、香典を持って来てくれたのは執事の真壁だった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：父の仇。今夜も目の前で父を笑いものにした。死んで当然の男だ。でも、殺したのは俺じゃない。</li>
+          <li>静子：父の時代にはいなかった人。この屋敷でただ一人、昔の鷹宮を知らない。</li>
+          <li>一真：兄弟のように育った。父を追い出す帳簿をまとめたのが一真だと、知っている。</li>
+          <li>百合：昔おぶってやった小さな子が、きれいな娘になっていた。</li>
+          <li>透：昔と変わらず陽気だ。今夜も、あいつだけは普通に話しかけてくれた。</li>
+          <li>久世先生：子どものころ、怪我をするたびに手当てしてくれた先生。</li>
+          <li>秋津：父を訴える書類を作った弁護士。顔を見るのもいやだ。</li>
+          <li>真壁：父の葬式に来てくれた、ただ一人の人。</li>
+          <li>小夜：初めて見る女中。こちらを見る目に、どこか同じ匂いを感じる。</li>
+          <li>葛城：父のことを記事にしたいと言ってきた記者。信じていいのか、まだわからない。</li>
+          <li>宮園さん：初めて会う人。晩餐のピアノは見事だった。</li>
+          <li>坂上：父が生きていたころからいる運転手。父の葬式の日、遠くから頭を下げていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>東京言葉で、ふだんは軽口も言う。「〜だね」「まいったな」。</li>
+          <li>源一郎や父の話になると、急に声が低くなり、冗談が消える。</li>
+          <li>上着の内ポケットを、無意識に手で押さえる癖がある。</li>
+          <li>一真とは目を合わせない。</li>
+          <li>疑われたら、「俺が殺すなら、もっとうまくやるさ」と開き直ってみるのも手。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+  <!-- 11 千鶴 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 11 ／ 本人以外閲覧禁止</span><span class="nm">宮園 千鶴<small>みやぞの ちづる</small></span><span class="rl">ピアノ教師・29歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「宮園千鶴と申します。松本でピアノを教えておりまして、3年前から週に一度、百合さんのレッスンに伺っています。今夜は晩餐でピアノを弾かせていただきました。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>松本の楽器店「宮園楽器」の娘。東京の音楽学校でピアノを学び、首席で卒業した。けれど家の店が傾いて東京には残れず、松本に戻って町の子どもたちにピアノを教えている。</p>
+        <p>3年前から週に一度、この屋敷に通って百合にピアノを教えている。百合は筋がよく、東京の音楽学校に行かせてあげたかった。父親に反対されたと聞いたときは、自分のことのように悔しかった。</p>
+        <p>一真とは、レッスンの帰りに車で送ってもらううちに惹かれ合った。几帳面で、不器用で、まっすぐな人。2年前、一真が父親に縁談を申し出たが、源一郎は「ピアノ弾きの娘など、鷹宮の嫁にできるか」と一蹴した。</p>
+        <p>実家の店は、鷹宮紡績の系列の銀行に借金がある。今夜は、晩餐でピアノを弾くために招かれた。音には人一倍敏感で、鐘でも雨音でも、つい数えてしまう癖がある。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>一真とは恋仲にある。そして、お腹に一真の子がいる（3か月）。一真にはまだ言っていない。久世先生にだけ打ち明けて、つわりの薬をもらった。</p>
+        <p>今日18:00、源一郎に書斎へ呼ばれた。「一真に近づくな。明日、手切れ金を送る。断れば、お前の父親の店の借金を即刻取り立てる」。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">あなたは時計を持っていない。時刻は大時計と、その鐘で知ったもの。</p>
+        <dl class="tl">
+          <dt>18:00</dt><dd>書斎で源一郎に脅された。手が震えて、楽譜を落とした。</dd>
+          <dt>19:00</dt><dd>晩餐でショパンの夜想曲を弾いた。一真さんは一度も目を合わせてくれなかった。</dd>
+          <dt>21:00</dt><dd>サロンでコーヒー。気分が悪く、ほとんど口をつけなかった。</dd>
+          <dt>21:40</dt><dd>吐き気がして、台所へ水をもらいに行った。台所には誰もいなかった。戻るとき、廊下の奥の執事室のほうから久世先生が出てきて、すれ違った。「やあ、千鶴さん。……氷をもらいにね」。先生の手には何もなかった。</dd>
+          <dt>21:45</dt><dd>2階の客室で横になる。いつのまにか、うとうとしていた。</dd>
+          <dt>→</dt><dd>大時計の鐘で目が覚めた。いつもの癖で数えると<b>11回</b>。「11時？　寝すごした」と慌てて、一真さんの部屋へ行った。</dd>
+          <dt>→</dt><dd>一真さんは暖炉で何か紙を燃やしていた。シャツの袖口が濡れていて、カフスボタンが片方なかった。「見なかったことにしてくれ。俺は何もしていない」。それから「まだ10時を過ぎたばかりだ」と言われた。何も聞かずに、そばにいた。</dd>
+          <dt>22:30</dt><dd>（大時計）真壁さんの叫び声。人目を気にして、一真さんより少し遅れて書斎へ下りた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>百合：教え子。今夜は泣きはらした目をしていた。</li>
+          <li>静子さま：一真さんと私のことに、気づいている気がする。</li>
+          <li>透さん：会うたびに冗談で口説いてくる。悪い人ではない。</li>
+          <li>久世先生：秘密を守ってくださる、信頼できる方。</li>
+          <li>小夜：晩餐の給仕のとき、旦那様の後ろで唇をかんでいた。</li>
+          <li>秋津さま：晩餐のあと、静子さまと目配せして、別々にサロンを出ていった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>一真さんの部屋にいたことを話せば、二人の仲が知られる。一真さんが燃やしていたものは、何だったのだろう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>一真と恋仲だということが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>一真が、問い1（殺したのは誰か）で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>一真が暖炉で紙を燃やしていたのを見たことを、自分の口からは言わない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>問い1で、自分が最多票にならない。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 11 ／ 本人以外閲覧禁止</span><span class="nm">宮園 千鶴<small>みやぞの ちづる</small></span><span class="rl">ピアノ教師・29歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（2年前、一真が縁談を申し出た夜）</h4>
+        <p>レッスンのあと、一真さんが「今夜、父に話す」と言った。あなたはサロンでピアノを弾きながら待った。やがて書斎から源一郎の怒鳴り声が響き、一真さんが真っ青な顔で出てきた。「すまない。……でも、あきらめない」。</p>
+        <p>松本へ帰る車の中で、一真さんは一言もしゃべらなかった。ただ、別れ際に一度だけ、あなたの手を強く握った。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：一真さんから、私から、すべてを取り上げようとした人。死んだと聞いて、まず思ったのは「これで子どもが守れる」だった。そんな自分が怖い。</li>
+          <li>静子さま：同じように、この家で居場所のない人。目が合うと、そっとうなずいてくださる。</li>
+          <li>一真さん：何があっても信じたい人。でも今夜、暖炉の前の顔は見たことのない顔だった。</li>
+          <li>百合：かわいい教え子。いつか本当に東京で弾かせてあげたい。</li>
+          <li>透さん：明るくて、少しさびしい人。百合のことになると、目の色が変わる。</li>
+          <li>久世先生：お腹の子のことを、ただ一人知っている方。「体を大事に」と言ってくださった。</li>
+          <li>秋津さま：旦那様の弁護士。実家の借金のことを、この方は知っているはず。</li>
+          <li>真壁さん：レッスンのたびに、温かいお茶を出してくださる。</li>
+          <li>小夜：いつも目を伏せている女中さん。今夜は、何かを思いつめた顔をしていた。</li>
+          <li>葛城さま：晩餐のあいだ、みんなの顔を順番に観察していた。少し怖い。</li>
+          <li>槙野さま：初めてお会いする方。晩餐で旦那様に何か言われて、顔色が変わっていた。</li>
+          <li>坂上さん：レッスンの日、駅まで送ってくださる。一真さんとのことも、たぶん知っている。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>上品で、少し早口。「〜ですのよ」「あら」。</li>
+          <li>気分が悪くなると、そっと口元を押さえる。</li>
+          <li>音のことには敏感。鐘の数や物音の話には、自信をもって答えてよい。</li>
+          <li>一真をかばいたいが、かばいすぎると二人の仲が知られてしまう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>  <!-- 12 坂上 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 12 ／ 本人以外閲覧禁止</span><span class="nm">坂上 勇作<small>さかがみ ゆうさく</small></span><span class="rl">運転手・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「運転手の坂上です。旦那様の車を15年、運転してきました。……口下手なもんで。聞かれたことには、答えます。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>上田の農家の三男。兵隊で自動車の運転を覚え、除隊後の23歳で鷹宮家のお抱え運転手になった。それから15年、源一郎の行くところへは、どこへでも車を走らせてきた。</p>
+        <p>口数は少なく、車の手入れだけが楽しみ。独り身で、給金の大半を田舎の母に送っている。運転手の心得として鉄道員用の懐中時計を持ち歩き、毎朝ラジオの時報に合わせている。</p>
+        <p>源一郎は昔から言っていた。「車の中の話は、聞こえても聞こえなかったことにしろ」。15年、そうしてきた。そのおかげで、あなたはこの屋敷の誰よりも、源一郎の行き先と秘密を知っている。</p>
+        <p>使用人仲間からは「坂上さんは石みたいだ」と言われる。怒らない、泣かない、余計なことを言わない。けれど、工場の火事のあった年から、寝る前の酒の量だけは増えた。夢の中で、ときどき半鐘の音がする。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>昭和6年2月10日の夜、旦那様を岡谷工場へお送りした。車のそばで、旦那様が工場長にこう命じるのを聞いた。「夜は防火扉に外から閂をかけろ。女工を一人も逃がすな」。その夜遅く、工場は燃えた。</p>
+        <p>以来、毎月「特別手当」が出ている。口止め料だとわかっていて、受け取ってきた。</p>
+        <p>今日17:30、旦那様に書斎へ呼ばれた。「明日で暇を出す。15年ご苦労。……工場の夜のことを口外すれば、お前も同罪だ」。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <p class="basis">時刻はあなたの懐中時計（正確）で。</p>
+        <dl class="tl">
+          <dt>17:30</dt><dd>書斎で解雇を告げられる。</dd>
+          <dt>18:45</dt><dd>車庫で車を磨いていると、久世先生が来て、ご自分の車に旅行鞄を二つ積んだ。「明日の朝、早く発つかもしれん」。思いつめた顔だった。</dd>
+          <dt>19:00</dt><dd>台所で小夜とまかない。晩餐の皿下げを手伝う。</dd>
+          <dt>21:00</dt><dd>吊り橋が流されたと聞く。真壁さんに「車庫を見てこい」と言われた。</dd>
+          <dt>21:30</dt><dd>外套と長靴で車庫へ。嵐で屋根のトタンが飛びそうで、修理に追われた。工具箱のスパナを外套のポケットに入れたまま。</dd>
+          <dt>→</dt><dd>車庫で一人、フラスコの酒をあおった。明日からどうするか、旦那様のことばかり考えていた。</dd>
+          <dt>22:35</dt><dd>勝手口から台所へ戻る。小夜がいた。台所の時計と懐中時計を見比べると、ぴたりと合っていた。</dd>
+          <dt>22:40</dt><dd>執事室の真壁さんに車庫のことを報告。真壁さんは鍵掛けの前で何かを探していて、上の空だった。</dd>
+          <dt>22:50</dt><dd>叫び声。書斎へ。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>先月、旦那様を松本の薬種問屋へお送りした。旦那様は一人で店に入り、小さな包みを持って出てきた。「鼠が出るのでな」。屋敷で鼠など見たことがない。</li>
+          <li>一真さま：最近、松本の米穀取引所へよく送らされた。</li>
+          <li>葛城：昼に、工場の火事のことを聞いてきた。何も知らないと答えた。</li>
+          <li>透さま：10円貸したままになっている。</li>
+          <li>小夜：岡谷の出だと言っていた。どこかで見た顔のような気がする。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>一人で車庫にいたことを証明できる人はいない。解雇されたことを知られれば、動機があると思われる。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>昭和6年2月10日の夜、源一郎を工場へ送っていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>先月、源一郎が薬種問屋で「鼠の薬」を買ったことを、議論中に全員の前で話す。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>透に「10円は必ず返す」と、全員の前で言わせる。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 12 ／ 本人以外閲覧禁止</span><span class="nm">坂上 勇作<small>さかがみ ゆうさく</small></span><span class="rl">運転手・38歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（昭和6年2月10日、工場が燃えた夜）</h4>
+        <p>工場長に命じたあと、旦那様は帰りの車の中で言った。「女工の代わりなど、いくらでもいる」。屋敷に戻って眠りについた午前2時、遠くで半鐘が鳴った。</p>
+        <p>朝、新聞で守衛と女工の死を知った。守衛の名は宇野佐吉。工場の門の前で、何度か煙草を分けてもらったことのある、気のいい男だった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>源一郎：15年仕えた主人。恩もある。だが、あの夜から、ハンドルを握る手がずっと重かった。</li>
+          <li>静子さま：先月あたりから、私の顔を見ると何か聞きたそうにする。</li>
+          <li>一真さま：宮園さまのことで、旦那様と何度もぶつかっておられた。</li>
+          <li>百合さま：小さいころ、車に乗せて松本の町を見せてさしあげた。</li>
+          <li>透さま：10円は返ってこないだろう。それでも憎めない。</li>
+          <li>久世先生：今夜、鞄を積むときの顔が、ひどく思いつめていた。</li>
+          <li>秋津さま：毎月の「特別手当」の封筒は、この方の事務所から届く。</li>
+          <li>真壁さん：使用人の頭。厳しいが、筋の通った人。</li>
+          <li>小夜：よく働く娘。まかないの席で工場の話になると、黙ってしまう。</li>
+          <li>葛城：記者。工場のことを聞かれたとき、心臓が止まりそうだった。</li>
+          <li>槙野さま：善次様の息子さん。善次様は、運転手にも礼を言う方だった。</li>
+          <li>宮園さま：レッスンの日は駅までお送りする。一真さまとのことは、見て見ぬふりをしている。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>無骨で口下手。「へい」「……そうです」。</li>
+          <li>質問には短く答え、余計なことは言わない。</li>
+          <li>工場や火事の話になると、目をそらして黙り込む。</li>
+          <li>時刻を聞かれたら、懐中時計を取り出して正確に答える。</li>
+        </ul>
+      </div>
+    </div>
+  </article>  </div>
+</section>
+
+<!-- ============ 持ち物カード ============ -->
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>各プレイヤーの封筒に、キャラシートと一緒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden>
+  <p class="lead">持ち主は、見せる・隠すを自由に決められます。</p>
+  <div class="cards">
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd">
+      <span class="owner">鷹宮 静子</span><span class="ttl">薬局からの返事</span>
+      <p>東京・銀座の薬局からの封書。先週、薬包紙に包んで送った白い粉の鑑定結果。</p>
+      <p class="doc">「御送附ノ粉末ハ亜砒酸ト認ム。微量ニテモ人命ニ関ハル劇物ニ付、御取扱ヒ厳ニ御注意アレ」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd">
+      <span class="owner">鷹宮 一真</span><span class="ttl">米穀取引所の督促状</span>
+      <p>松本の仲買人からの督促状。</p>
+      <p class="doc">「証拠金不足額 金八万円也。本月末日迄ニ御入金無キ節ハ、鷹宮紡績株式会社宛ニ請求致シ候」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd">
+      <span class="owner">鷹宮 百合</span><span class="ttl">母・絹代の日記（一頁）</span>
+      <p>真壁から渡された、日記の切り取られた一頁。日付は大正10年3月。</p>
+      <p class="doc">「旦那様の下さる薬湯を飲むと、胸が焼けるやうに痛む。修一郎さんにだけは知られたくない。あの人はきつと無茶をする。百合のことを思へば、私は黙つてゐるほかない」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd">
+      <span class="owner">鷹宮 透</span><span class="ttl">画商からの電報</span>
+      <p>松本の画商・三木からの電報。昨日届いた。</p>
+      <p class="doc">「キリノミズウミ ウレタ ツギノ イチマイ イツ トドク　ミキ」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd">
+      <span class="owner">久世 修一郎</span><span class="ttl">古い手紙</span>
+      <p>手帳に挟んで、20年以上持ち歩いている手紙。差出人は「絹」。日付は大正2年。</p>
+      <p class="doc">「百合は、あなたの子です。けれど決して、誰にも。この子は鷹宮の娘として生きてゆきます。どうか遠くから見守つてゐて下さい」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd">
+      <span class="owner">秋津 恭介</span><span class="ttl">懐中時計と手帳</span>
+      <p>懐中時計は正確な時刻を指している。手帳の今日の頁：</p>
+      <div class="log"><span>21:05</span><span>書斎前にて待機（葛城氏面会中）</span><span>21:30</span><span>遺言書 署名・封緘。金庫へ</span><span>21:50</span><span>退出。旦那様 異状なし</span><span>22:00</span><span>温</span></div>
+      <p class="note">最後の「温」の字は、途中で線を引いて消してある。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd">
+      <span class="owner">真壁 嘉平</span><span class="ttl">時計屋の預かり票</span>
+      <p class="doc">「松本 宮坂時計店　御預リ品：懐中時計（ウォルサム）一個　修理内容：ゼンマイ交換　御預リ日：十一月八日　御渡シ予定：十一月二十日」</p>
+      <p>裏に鉛筆で「大時計 十一月八日 時報ニ合ハス 誤差無シ」。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 08</span></div><div class="bd">
+      <span class="owner">小夜</span><span class="ttl">新聞の切り抜き</span>
+      <p>色あせた信濃毎朝新聞、昭和6年2月の記事。</p>
+      <p class="doc">「岡谷の製糸工場で火災　女工四名と守衛一名死亡　守衛の火の不始末か」</p>
+      <p>死亡者の欄の「宇野佐吉（四十一）」に、鉛筆で丸がついている。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 09</span></div><div class="bd">
+      <span class="owner">葛城 遼</span><span class="ttl">小切手と腕時計</span>
+      <p class="doc">「金五千円也　信濃銀行松本支店　昭和十一年十一月十四日　鷹宮源一郎」</p>
+      <p>腕時計は正確な時刻を指している（今朝、正午の時報に合わせた）。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 10</span></div><div class="bd">
+      <span class="owner">槙野 礼二</span><span class="ttl">登山ナイフ</span>
+      <p>折りたたみの登山ナイフ。刃はきれいで、血や汚れはついていない。使った形跡はない。</p>
+      <p>柄に「Z.M.」の刻印（父・善次の形見）。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 11</span></div><div class="bd">
+      <span class="owner">宮園 千鶴</span><span class="ttl">一真からの手紙</span>
+      <p>楽譜のあいだに挟んで持ち歩いている手紙。</p>
+      <p class="doc">「父がなんと言おうと、春には必ず君を迎えに行く。それまで、どうか待っていてほしい。　K」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 12</span></div><div class="bd">
+      <span class="owner">坂上 勇作</span><span class="ttl">古い運転日誌</span>
+      <p>昭和6年の運転日誌から破り取った一頁。懐中時計は正確な時刻を指している。</p>
+      <div class="log"><span>2月10日</span><span>夜八時　鷹宮邸発 → 岡谷工場</span><span></span><span>夜十時　岡谷工場発 → 鷹宮邸</span><span></span><span>同乗：旦那様</span></div>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 証拠カード ============ -->
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>切り分けて、場所ごとに番号の小さい順で上から重ねます。プレイヤーは場所を宣言し、GMはその束の一番上のカードを渡します。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--slate)"></i>調査1から使うカード（24枚）</span>
+    <span><i class="sw" style="background:var(--accent)"></i>調査2で各場所の束の下に追加（12枚）</span>
+    <span><span class="star">★</span>引いたら即公開</span>
+  </div>
+  <p class="note">場所は7つ：書斎／ホール／台所・執事室／洗面所／東棟（ビリヤード室・温室）／家族の部屋（2階）／客室（2階）</p>
+
+  <h3>調査1</h3>
+  <div class="cards">
+    <div class="card"><div class="hd"><span class="loc">書斎 ①</span><span>CLUE 01</span></div><div class="bd">
+      <span class="ttl">遺体と凶器 <span class="star">★</span></span>
+      <p>火かき棒は暖炉の脇に落ちていた。先端に血と髪の毛。<b>柄はきれいに拭き取られている。</b></p>
+      <p>飾り棚の花瓶（伊万里の大皿と対の壺）が割れ、破片が遺体の下にも散っている。倒れるときに巻き込んだようだ。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">書斎 ②</span><span>CLUE 02</span></div><div class="bd">
+      <span class="ttl">金庫 <span class="star">★</span></span>
+      <p>扉は開いたまま。株券の束と現金（約2千円）は手つかず。</p>
+      <p>秋津法律事務所の封蝋がされた封筒が一通。<b>封蝋は破られ、中は空</b>。表書きは「遺言書」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">書斎 ③</span><span>CLUE 03</span></div><div class="bd">
+      <span class="ttl">机の上</span>
+      <p>罫線入りの紙に、わざと崩したような字。</p>
+      <p class="doc">「今夜、罪を償え。佐吉の名を忘れたとは言わせぬ」</p>
+      <p>そばに源一郎の字のメモ。「九時半 A　十時 K」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">書斎 ④</span><span>CLUE 04</span></div><div class="bd">
+      <span class="ttl">机の引き出し</span>
+      <p>東京・帝大病院の検査所からの封書。先月の日付。</p>
+      <div class="log"><span>鷹宮源一郎</span><span>O型</span><span>鷹宮百合</span><span>A型</span></div>
+      <p>余白に源一郎の字で「O型ノ父ヨリA型ノ子ハ生マレズ」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">書斎 ⑤</span><span>CLUE 05</span></div><div class="bd">
+      <span class="ttl">壁の油絵</span>
+      <p>岸辺光風『霧の湖』。近づくと、油絵の具のにおいがまだ新しい。</p>
+      <p>右下の署名「光風」の筆跡が、画集で見るものと少し違う。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">ホール ①</span><span>CLUE 06</span></div><div class="bd">
+      <span class="ttl">大時計 <span class="star">★</span></span>
+      <p>英国製の箱型の大時計。振り子は動いている。いま指している時刻は、台所の柱時計とも合っている。</p>
+      <p>文字盤の下に真鍮の札：<b>「針ヲ逆ニ回スベカラズ」</b>。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">ホール ②</span><span>CLUE 07</span></div><div class="bd">
+      <span class="ttl">大時計のガラス扉</span>
+      <p>鍵穴のまわりに、こじ開けたような傷はない。鍵で開けられたのだろう。</p>
+      <p>扉の取っ手のまわりだけ、拭いたようにきれいだ。ほかの部分にはうっすら埃が積もっている。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">ホール ③</span><span>CLUE 08</span></div><div class="bd">
+      <span class="ttl">階段</span>
+      <p>階段の下から3段目と5段目に、黒い土で汚れた小さな足跡。女物の草履のようだ。</p>
+      <p>庭の土は赤っぽい。この黒い土は、鉢植え用の腐葉土に見える。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">台所・執事室 ①</span><span>CLUE 09</span></div><div class="bd">
+      <span class="ttl">執事室の鍵掛け</span>
+      <p>屋敷じゅうの鍵が、名札つきで掛けてある。「大時計」の札の鍵も、いまはちゃんと掛かっている。</p>
+      <p>壁に貼られた巻き上げ帳。「十一月八日（日）　時報ニ合ハス　誤差無シ　真壁」。毎週、同じ書き込みが続いている。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">台所・執事室 ②</span><span>CLUE 10</span></div><div class="bd">
+      <span class="ttl">台所の柱時計</span>
+      <p>振り子の柱時計。鐘は鳴らない。</p>
+      <p>横に小夜の字の貼り紙：「正午ノ時報デ毎日合ハスコト」。いまの時刻は正確だ。</p>
+      <p>台所と書斎のあいだは壁一枚。耳を当てると、書斎の物音がよく聞こえる。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">台所・執事室 ③</span><span>CLUE 11</span></div><div class="bd">
+      <span class="ttl">献立帳</span>
+      <p>調理台の上の献立帳。罫線入りの帳面で、今夜の晩餐の献立まで書いてある。</p>
+      <p><b>最後の頁が一枚、破り取られている。</b></p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">洗面所 ①</span><span>CLUE 12</span></div><div class="bd">
+      <span class="ttl">タオル掛け</span>
+      <p>手ぬぐいが2枚。どちらも濡れている。</p>
+      <p>1枚には、洗い流しきれなかったような薄い桃色のしみ。もう1枚には、ほとんど何もついていない。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">東棟 ①</span><span>CLUE 13</span></div><div class="bd">
+      <span class="ttl">ビリヤード室の蓄音機</span>
+      <p>ディック・ミネ『ダイナ』のレコード。針は上げてある。音量の目盛りは最大。</p>
+      <p>そばの黒板の隅に、正の字が2つと2画（12回）。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">東棟 ②</span><span>CLUE 14</span></div><div class="bd">
+      <span class="ttl">ビリヤードの得点板</span>
+      <p>黒板に透の字の得点表。</p>
+      <div class="log"><span>1局目</span><span>透・百合・槙野</span><span>2局目</span><span>透・百合・槙野・久世先生</span></div>
+      <p>2局目の頭に「10時ノ鐘」と走り書き。その横に小さく「11?」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">東棟 ③</span><span>CLUE 15</span></div><div class="bd">
+      <span class="ttl">温室のベンチ</span>
+      <p>ベンチの上に、女物の絹の肩掛けが置き忘れてある。</p>
+      <p>足元の灰皿に、両切り煙草「チェリー」の吸い殻が2本。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">家族の部屋 ①</span><span>CLUE 16</span></div><div class="bd">
+      <span class="ttl">静子の鏡台</span>
+      <p>引き出しの奥に、たたまれた手紙。署名は「K」。</p>
+      <p class="doc">「新しい遺言では、あなたには軽井沢の別荘しか残らない。どうか取り乱さないで。今夜十時、温室で」</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">家族の部屋 ②</span><span>CLUE 17</span></div><div class="bd">
+      <span class="ttl">一真の部屋の暖炉</span>
+      <p>燃えさしの中に、焼け残った紙の切れ端。</p>
+      <p class="doc">「……長男一真ハ之ヲ廃嫡ス……」</p>
+      <p>赤い封蝋のかけらが一つ。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">家族の部屋 ③</span><span>CLUE 18</span></div><div class="bd">
+      <span class="ttl">百合の部屋の写真</span>
+      <p>机の引き出しに、半分に破られた古い写真。若い絹代が、誰かと並んで笑っている。<b>隣の人物の部分は破り取られている。</b></p>
+      <p>裏に「大正元年夏　上高地にて」。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">客室 ①</span><span>CLUE 19</span></div><div class="bd">
+      <span class="ttl">久世の部屋の写真立て</span>
+      <p>枕元に、伏せて置かれた写真立て。若い絹代と若い久世が並んで笑っている。</p>
+      <p>裏に「大正元年夏　上高地にて」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">客室 ②</span><span>CLUE 20</span></div><div class="bd">
+      <span class="ttl">秋津の鞄</span>
+      <p>新しい遺言書の控え（写し）。</p>
+      <ul>
+        <li>長男一真は廃嫡。会社は大和田財閥に譲渡</li>
+        <li>百合は「我が子にあらず」、相続なし</li>
+        <li>静子には軽井沢の別荘のみ</li>
+        <li>透には金1万円</li>
+        <li>残りはすべて「鷹宮報恩会」へ</li>
+      </ul>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">客室 ③</span><span>CLUE 21</span></div><div class="bd">
+      <span class="ttl">葛城の取材ノート</span>
+      <p class="doc">「昭和6年2月　岡谷工場火災。死者5（女工4、守衛 宇野佐吉）。生存者の証言：防火扉は外から閂。『社長命令で、夜は女工を逃がさぬように』。会社発表は守衛の失火」</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">客室 ④</span><span>CLUE 22</span></div><div class="bd">
+      <span class="ttl">槙野の鞄</span>
+      <p>着替えの下に、革の鞘が一つ。<b>中身のナイフはない。</b></p>
+      <p>鞘には「Z.M.」の刻印。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">客室 ⑤</span><span>CLUE 33</span></div><div class="bd">
+      <span class="ttl">千鶴の部屋</span>
+      <p>枕元に紙の薬包が三つ。「久世医院」の判が押してある。</p>
+      <p>添え書き：「悪阻（つわり）ノ折ニ一包」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">台所・執事室 ④</span><span>CLUE 35</span></div><div class="bd">
+      <span class="ttl">勝手口の土間</span>
+      <p>濡れた男物の長靴と外套。長靴には庭の赤土がこびりついている。</p>
+      <p>外套のポケットに、油まみれの大きなスパナ。血のようなものはついていない。</p>
+    </div></div>
+  </div>
+
+  <h3>調査2（各場所の束の下に追加）</h3>
+  <div class="cards">
+    <div class="card p2"><div class="hd"><span class="loc">書斎 ⑥</span><span>CLUE 23</span></div><div class="bd">
+      <span class="ttl">死亡診断書の写し</span>
+      <p>机の二重底の引き出しから。大正10年3月の日付。</p>
+      <p class="doc">「死亡者 鷹宮絹代　病名 急性胃腸炎　医師 久世修一郎」</p>
+      <p>源一郎の字で余白に「控。久世ハ之ヲ忘ルベカラズ」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">書斎 ⑦</span><span>CLUE 24</span></div><div class="bd">
+      <span class="ttl">二重底の帳簿</span>
+      <p>昭和3年の会社の帳簿が2冊。表向きの1冊には「槙野善次 横領 三万円」。</p>
+      <p>もう1冊は同じ月の本当の帳簿で、その3万円は<b>源一郎個人の口座へ</b>移されている。表紙に源一郎の字で「書換済」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">ホール ④</span><span>CLUE 25</span></div><div class="bd">
+      <span class="ttl">大時計の文字盤</span>
+      <p>ガラス扉ごしに目を近づけると、<b>長針の先に、ごく小さな赤黒いしみ</b>がついている。乾いている。</p>
+      <p>短針や文字盤には何もついていない。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">洗面所 ②</span><span>CLUE 26</span></div><div class="bd">
+      <span class="ttl">洗面台の陰</span>
+      <p>床に、金のカフスボタンが一つ落ちていた。</p>
+      <p>頭文字の彫り込み：<b>「K.T.」</b></p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">台所・執事室 ⑤</span><span>CLUE 27</span></div><div class="bd">
+      <span class="ttl">小夜の部屋</span>
+      <p>小さな行李の上に、男性の写真と、白木の小さな位牌。位牌には「宇野佐吉」。</p>
+      <p>鷹宮紡績からの書付：「見舞金 金拾円也」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">東棟 ④</span><span>CLUE 28</span></div><div class="bd">
+      <span class="ttl">温室の鉢</span>
+      <p>入口のそばで鉢が一つ倒れ、黒い腐葉土がこぼれている。踏まれた跡がある。小さな草履の跡のようだ。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">家族の部屋 ④</span><span>CLUE 29</span></div><div class="bd">
+      <span class="ttl">一真の上着</span>
+      <p>椅子に掛けられた上着。<b>右の袖口のカフスボタンがない。</b></p>
+      <p>ポケットに、濡れたハンカチ。洗ったようだが、うっすら血のしみが残っている。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">家族の部屋 ⑤</span><span>CLUE 30</span></div><div class="bd">
+      <span class="ttl">透の部屋</span>
+      <p>画架に描きかけの絵。書斎の『霧の湖』と同じ構図の下絵がもう一枚ある。</p>
+      <p>机に松本の画商の領収書：「岸辺光風『霧の湖』　金参千円也　受領」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">客室 ⑥</span><span>CLUE 31</span></div><div class="bd">
+      <span class="ttl">久世の往診鞄</span>
+      <p>聴診器、注射器、薬瓶がいくつか。</p>
+      <p>鞄の底の内ポケットに、茶色の小瓶。ラベルに源一郎の字で「亜砒酸」。中身は半分ほど。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">客室 ⑦</span><span>CLUE 32</span></div><div class="bd">
+      <span class="ttl">葛城の部屋の床</span>
+      <p>床に古い暖房用の通風口がある。のぞくと、真下は書斎。</p>
+      <p>耳を当てると、下の部屋の物音が手に取るように聞こえる。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">東棟 ⑤</span><span>CLUE 34</span></div><div class="bd">
+      <span class="ttl">サロンのピアノ</span>
+      <p>譜面台に、ショパンの夜想曲の楽譜。</p>
+      <p>楽譜のあいだから写真が一枚。松本城の前で、一真と千鶴が並んで写っている。裏に「昭和十年春」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">ホール ⑤</span><span>CLUE 36</span></div><div class="bd">
+      <span class="ttl">玄関の外套掛け</span>
+      <p>坂上の古い上着の内ポケットに、封筒が一通。</p>
+      <p class="doc">「昭和十一年十月分　特別手当　金百円也　秋津法律事務所」</p>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ GMブック ============ -->
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相、進行のコツ、エンディングが書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+
+  <div class="box">
+    <h3>真相</h3>
+    <p><b>犯人は久世修一郎。</b>百合は、久世と先妻・絹代のあいだの子だった。15年前、源一郎は絹代を亜砒酸で毒殺し、借金と醜聞で久世を脅して「急性胃腸炎」の診断書を書かせた。今夜18:30、源一郎は血液型の検査結果をもとに「百合は貴様の子だな」と言い、遺言の発表がすんだら百合も絹代と同じように殺す、診断書はまた貴様が書け、と告げた。久世は娘を守るために殺すと決めた。</p>
+    <p>22:05、書斎で火かき棒で殴打。直後にホールの大時計の針を20分戻し、22:18にビリヤード室へ入った。ビリヤード室の3人には、久世は「10時の鐘の前」に来たように見えた。実際にはその鐘は22:20に鳴った「二度目の10時」だった。</p>
+    <p>ところがこの大時計は、針を逆に回すと鐘の数がずれる。二度目の10時は<b>11回</b>鳴った。これがタイトルの「十一番目の鐘」。</p>
+    <p class="note">ほかの2つの問いの答え：<b>遺言書を持ち去ったのは一真</b>（遺体を見つけた直後に金庫から抜き取り、部屋の暖炉で燃やした）。<b>脅迫状を書いたのは小夜</b>（工場火災で死んだ守衛・宇野佐吉の娘）。</p>
+  </div>
+
+  <div class="box">
+    <h3>大時計のしくみ（GMが説明できるように）</h3>
+    <p>この大時計は「カウントホイール式」。鐘を打つ回数は、針の位置ではなく、内部の歯車が「前回の次」を数えて決める。10時に10回打ったあと、針を戻してもう一度「10時」を通過させると、歯車は「次」の<b>11回</b>を打つ。以後、鐘は1つずつずれたままになる（11時に12回、零時に1回）。</p>
+    <p>久世は23:30に針を進めて時刻だけは正しく戻したが、鐘のずれは直せなかった。そのため議論2の始まりの「零時の鐘」は<b>1回しか鳴らない</b>。</p>
+  </div>
+
+  <div class="box">
+    <h3>完全タイムライン</h3>
+    <p class="note">「実時刻」は正確な時刻。「大時計」は22:08〜23:30のあいだ20分遅れていた。</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">実時刻</th><th class="t">大時計</th><th>出来事</th></tr></thead>
+      <tbody>
+        <tr><td class="t">17:30</td><td class="t">同</td><td>源一郎、坂上に解雇と口止めを言い渡す。</td></tr>
+        <tr><td class="t">18:00</td><td class="t">同</td><td>真壁、大時計の鍵を確認。</td></tr>
+        <tr><td class="t">18:00</td><td class="t">同</td><td>源一郎、千鶴に一真と別れろと迫る。</td></tr>
+        <tr><td class="t">18:30</td><td class="t">同</td><td>源一郎、書斎で久世を脅す（百合の出生・亜砒酸・診断書）。</td></tr>
+        <tr><td class="t">18:45</td><td class="t">同</td><td>久世、百合を連れて逃げるつもりで車に旅行鞄を積む（坂上が見る）。</td></tr>
+        <tr><td class="t">19:00</td><td class="t">同</td><td>晩餐。19:30、源一郎が遺言の発表を告げる。</td></tr>
+        <tr><td class="t">20:40</td><td class="t">同</td><td>小夜、書斎の机に脅迫状を置く。</td></tr>
+        <tr><td class="t">21:00</td><td class="t">同</td><td>吊り橋が流されたと真壁が報告。サロンでコーヒー。秋津→静子に手紙。</td></tr>
+        <tr><td class="t">21:05</td><td class="t">同</td><td>葛城、書斎で5千円の小切手を受け取る（〜21:15）。</td></tr>
+        <tr><td class="t">21:20</td><td class="t">同</td><td>源一郎、廊下で百合に「お前は私の子ではない」。透・静子が聞く。</td></tr>
+        <tr><td class="t">21:30</td><td class="t">同</td><td>秋津、書斎で遺言書に署名・封緘、金庫へ（〜21:50）。真壁、執事室で鍵を見る。坂上、車庫へ（〜22:35）。</td></tr>
+        <tr><td class="t">21:35</td><td class="t">同</td><td>透・槙野、ビリヤード室で『ダイナ』を大音量でかけ続ける。</td></tr>
+        <tr><td class="t">21:40</td><td class="t">同</td><td>久世、執事室から大時計の鍵を持ち出す。廊下で千鶴とすれ違う。</td></tr>
+        <tr><td class="t">21:50</td><td class="t">同</td><td>百合、ビリヤード室へ。静子、温室へ。真壁、地下のワイン庫へ。</td></tr>
+        <tr><td class="t">21:55</td><td class="t">同</td><td>槙野、「手洗い」と言って書斎へ向かう。</td></tr>
+        <tr><td class="t">21:58</td><td class="t">同</td><td>久世、書斎へ。</td></tr>
+        <tr><td class="t">22:00</td><td class="t">同</td><td><b>大時計、10回</b>（小夜・槙野が数える）。秋津、温室へ。槙野、書斎の前で男二人の声を聞き、引き返す。</td></tr>
+        <tr><td class="t">22:05</td><td class="t">同</td><td><b>犯行。</b>花瓶が割れる音を小夜（台所の時計）と葛城（腕時計）が聞く。</td></tr>
+        <tr><td class="t">22:08</td><td class="t">21:48</td><td>久世、大時計の長針を20分戻す（長針に血）。</td></tr>
+        <tr><td class="t">22:10</td><td class="t">21:50</td><td>久世、洗面所で手を洗う。槙野、ビリヤード室へ戻る。</td></tr>
+        <tr><td class="t">22:12</td><td class="t">21:52</td><td>百合の頼みでレコードを止める。</td></tr>
+        <tr><td class="t">22:15</td><td class="t">21:55</td><td>一真、書斎で遺体を発見、遺言書を抜き取る。静子・秋津、温室を出る。</td></tr>
+        <tr><td class="t">22:16</td><td class="t">21:56</td><td>静子、階段で大時計（9:56）を見る。一真が洗面所へ歩くのを目撃。</td></tr>
+        <tr><td class="t">22:18</td><td class="t">21:58</td><td>久世、ビリヤード室へ。一真、洗面所で手とハンカチを洗う（カフスを落とす）。</td></tr>
+        <tr><td class="t">22:20</td><td class="t">22:00</td><td><b>大時計、11回</b>（透が数えて笑う。小夜も数える）。</td></tr>
+        <tr><td class="t">22:22</td><td class="t">22:02</td><td>一真、自室の暖炉で遺言書を燃やす。千鶴が来て見てしまう（11回の鐘を「11時」と思って起きてきた）。以後22:50まで二人でいる。</td></tr>
+        <tr><td class="t">22:40</td><td class="t">22:20</td><td>真壁、執事室に戻り、鍵がないことに気づく。坂上が車庫の報告に来る（22:35に勝手口から戻った）。</td></tr>
+        <tr><td class="t">22:50</td><td class="t">22:30</td><td>真壁、遺体を発見。</td></tr>
+        <tr><td class="t">22:52</td><td class="t">22:32</td><td>葛城、ホールで大時計の遅れに気づくが気にしない。</td></tr>
+        <tr><td class="t">22:55</td><td class="t">22:35</td><td>久世、「亡くなって15〜20分」と偽る。真壁が小夜に鍵のことを聞く（透が聞く）。</td></tr>
+        <tr><td class="t">23:05</td><td class="t">22:45</td><td>久世、執事室に鍵を戻す。</td></tr>
+        <tr><td class="t">23:20</td><td class="t">23:00</td><td>大時計、12回（騒ぎの中で誰も数えていない）。</td></tr>
+        <tr><td class="t">23:30</td><td class="t">23:10→23:30</td><td>久世、針を20分進めて正しい時刻に戻す。百合が階段から見ている。</td></tr>
+        <tr><td class="t">23:40</td><td class="t">同</td><td>ゲーム開始。</td></tr>
+        <tr><td class="t">24:00</td><td class="t">同</td><td>（議論2の始まり）大時計、<b>1回</b>。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>推理の筋道（プレイヤーにたどり着いてほしい流れ）</h3>
+    <ol>
+      <li><b>犯行は22:05。</b>台所の柱時計（CLUE 10・毎日時報で合わせている）を見た小夜と、腕時計の葛城が、同じ時刻に割れる音を聞いている。葛城の部屋は書斎の真上（CLUE 32）。槙野も22:00すぎに書斎で男二人の声を聞いている。</li>
+      <li><b>久世の見立て「発見の15〜20分前（=大時計で22:10〜22:15）」は、22:05と合わない。</b>見立てか、大時計か、どちらかがおかしい。</li>
+      <li><b>大時計は遅れていた。</b>ふだんは毎週時報に合わせていて誤差がない（CLUE 09・真壁の預かり票）。なのに発見直後、葛城の腕時計と比べると20分遅れていた。静子は温室を出た直後（秋津の懐中時計で10時15分）に、大時計が9時56分を指しているのを見た。いまは正しい（CLUE 06）。→ 誰かが針を戻し、あとで戻した。</li>
+      <li><b>10時の鐘は2回鳴った。</b>小夜と槙野は1回目（10回）を聞き、ビリヤード室の全員と小夜は2回目（11回）を聞いた。真鍮の札「針ヲ逆ニ回スベカラズ」と真壁の知識 → 針を戻したので鐘が1つ増えた。議論2の始まりの「零時に1回」で、これが確かめられる。</li>
+      <li><b>得をするのは誰か。</b>「10時の鐘の前からビリヤード室にいた」ことがアリバイになっている人。その鐘は実は22:20 → <b>久世には22:05のアリバイがない。</b></li>
+      <li>決め手：長針の先の血（CLUE 25）。大時計の鍵が一時消えて、戻っていた（真壁・透・小夜）。23:10ごろ久世が大時計を触っていた（百合）。21:40に執事室のほうから出てきた久世（千鶴）。百合を連れて逃げようと旅行鞄を積んでいた久世（坂上）。ビリヤード室に来たときの冷たく湿った手（百合）と、洗面所のタオルのしみ（CLUE 12）。金庫の亜砒酸が久世の往診鞄に（CLUE 31）。</li>
+      <li>動機：血液型（CLUE 04）、同じ写真（CLUE 18・19）、絹代の日記（百合）、死亡診断書（CLUE 23）、メモの「十時 K」。槙野が聞いた「絹代」「百合」。</li>
+    </ol>
+    <p class="note">主なミスリード：一真（K・カフス・血のハンカチ・遺言書・静子の目撃）、槙野（ナイフの鞘・書斎の前にいた）、小夜（脅迫状）、静子（亜砒酸の鑑定・温室）、葛城（K・小切手）、透（贋作・「死んでしまえばいい」を聞いた）、百合（父との口論）、真壁（鍵の管理人・一人でワイン庫）、千鶴（一人で客室・源一郎に脅されていた）、坂上（解雇・一人で車庫・スパナ）。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>証拠カードの配り方</h3>
+      <ul>
+        <li>調査1：場所ごとに CLUE 01〜22・33・35 を、場所名の丸数字の順に重ねて置く。1人2回、場所を宣言してもらい、その束の一番上を渡す。束がなくなった場所は選べない。</li>
+        <li>調査2：各場所の残りの束の下に CLUE 23〜32・34・36 を丸数字の順に追加。1人1回。</li>
+        <li>議論2の10分経過時点で、まだ誰も引いていないカードをGMが全部読み上げて公開する。</li>
+        <li>★カード（01・02・06）は、引いた人がその場で読み上げる。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>零時の鐘（議論2の始まりに）</h3>
+      <div class="read">
+        <span class="who">GM 読み上げ</span>
+        <p>そのとき、ホールの大時計が零時を告げた。皆が息をひそめて数えた。――ボーン。それきり、鐘は鳴りやんだ。針は、確かに十二時を指している。</p>
+      </div>
+      <p class="note">鐘やベルがあれば1回だけ鳴らす。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>進行のコツ</h3>
+    <ul>
+      <li>議論が止まったら「物音がしたのは何時？　その時刻は何で見た？」「10時の鐘を聞いた人は？　何回鳴った？」と、全員に向けて問いかける。特定の人を名指しはしない。</li>
+      <li>一真に疑いが集中しすぎたら、「遺言書を持ち去った人と、殺した人は同じとは限らない」と3つの問いを思い出させる。</li>
+      <li>久世の人が嘘に困っていたら、こっそり「一真のK、槙野のナイフを利用していい」と伝える。</li>
+      <li>シートにない質問には「設定と矛盾しない範囲で自由に答えていい」と案内する。</li>
+      <li>人数が多いと話す人が偏りがち。議論1の途中で「まだ発言していない人」に順番に一言ずつ話してもらう。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>投票と点数</h3>
+    <ul>
+      <li>1人30秒ずつ推理を発表したあと、投票用紙の3つの問いにそれぞれ名前を書いて一斉に公開。自分の名前を書いてもよい。</li>
+      <li>問いごとに最多票の人が「名指しされた人」。同数の場合は、同数の人だけで1分ずつ弁明し、再投票。それでも同数なら全員を名指しされた扱いにする。</li>
+      <li>正解した人への点数：問い1 +4点、問い2 +2点、問い3 +2点。ただし答え本人（問い1の久世、問い2の一真、問い3の小夜）は、その問いの正解点をもらえない。</li>
+      <li>個人の目的：各キャラシートの点数。</li>
+      <li>「明かす」「話す」「口にする」は、議論中に全員の前ではっきり口にすれば達成。「言わない」は、エンディングまで自分の口から一度も言わなければ達成。「ばれる／ばれない」「信じられる」は、下の「秘密の挙手」で判定する。「自分で指摘し、しかもばれる」は、その本人が全員の前で指摘していて、挙手でもばれた場合だけ達成（ほかの人がばらしても点にならない）。</li>
+      <li>合計が一番高い人がMVP。</li>
+    </ul>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>人物</th><th>個人の目的（判定のポイント）</th></tr></thead>
+      <tbody>
+        <tr><td>静子</td><td>+3 秋津との仲がばれない／+2 遺言の中身を知っていたことがばれない／+1 亜砒酸の小瓶が久世の手元にあると議論中に明らかにする／+1 百合が問い1で最多票にならない</td></tr>
+        <tr><td>一真</td><td>+3 問い2で最多票にならない／+2 問い1で最多票にならない／+1 静子と秋津の仲を自分で指摘し、ばれる／+1 8万円の穴がばれない</td></tr>
+        <tr><td>百合</td><td>+3 「本当の父は久世」と議論中に口にする／+2 問い1で最多票にならない／+1 久世が問い1で最多票にならない／+1 透が問い1で最多票にならない</td></tr>
+        <tr><td>透</td><td>+3 問い1の最多票が静子・一真・百合以外／+2 絵のすり替えがばれない／+1 百合が言われたことを自分からは言わない／+1 静子と秋津の仲がばれない</td></tr>
+        <tr><td>久世</td><td>+5 問い1で最多票にならない／+2 百合がどの問いでも最多票にならない／+1 大時計に触ったことがばれない／+1 百合の父だと自分からは言わない</td></tr>
+        <tr><td>秋津</td><td>+3 静子との仲がばれない／+2 遺言を漏らしたことがばれない／+1 葛城の小切手を自分で指摘し、ばれる／+1 静子が問い1で最多票にならない</td></tr>
+        <tr><td>真壁</td><td>+3 源一郎による絹代毒殺を全員の前で話し、挙手で信じられる／+2 小夜が問い3で最多票にならない／+1 問い1で最多票にならない／+1 槙野が問い1で最多票にならない</td></tr>
+        <tr><td>小夜</td><td>+3 問い3で最多票にならない／+2 防火扉の閂のことを全員の前で明らかにする／+1 問い1で最多票にならない／+1 宇野佐吉の娘だとばれない</td></tr>
+        <tr><td>葛城</td><td>+3 小切手がばれない／+2 議論終了時に証拠カード4枚以上／+1 小夜の素性を自分で指摘し、ばれる／+1 問い1で最多票にならない</td></tr>
+        <tr><td>槙野</td><td>+3 ナイフがばれない／+2 議論終了時に CLUE 24（二重底の帳簿）を持っている／+1 帳簿をまとめたことを一真に全員の前で認めさせる／+1 問い1で最多票にならない</td></tr>
+        <tr><td>千鶴</td><td>+3 一真との仲がばれない／+2 一真が問い1で最多票にならない／+1 一真が燃やしていたことを自分からは言わない／+1 問い1で最多票にならない</td></tr>
+        <tr><td>坂上</td><td>+3 工場へ源一郎を送ったことがばれない／+2 問い1で最多票にならない／+1 鼠の薬のことを全員の前で話す／+1 透に「10円は返す」と全員の前で言わせる</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>秘密の挙手（投票のあと、真相を読み上げる前に）</h3>
+    <p>GMが1つずつ読み上げ、「本当だと思う人」に手を挙げてもらう。かっこ内の当事者は挙げない。当事者以外の過半数が挙げたら「ばれた（信じられた）」。本人が否定し続けていても、みんなが信じれば「ばれた」になる。議論で根拠（証言やカード）が出なかったものには挙げないよう、先に伝えておく。「（ダミー）」の文は本当ではない。読み上げるときは区別せず、ほかと同じように読む（全部本当だと思われないようにするため）。点数には関係しない。</p>
+    <ol>
+      <li>静子と秋津は、深い仲だ（静子・秋津）</li>
+      <li>秋津は、新しい遺言の中身を前から静子に漏らしていた（秋津・静子）</li>
+      <li>一真は、会社の金に8万円の穴をあけた（一真）</li>
+      <li>透は、書斎の『霧の湖』をすり替えて売った（透）</li>
+      <li>葛城は、源一郎から金を受け取った（葛城）</li>
+      <li>槙野は、ナイフを持ってきていた（槙野）</li>
+      <li>小夜は、工場火災で死んだ守衛・宇野佐吉の娘だ（小夜）</li>
+      <li>久世は、大時計に触った（久世）</li>
+      <li>源一郎は、15年前に絹代に毒を盛った（当事者なし）</li>
+      <li>千鶴と一真は、恋仲だ（千鶴・一真）</li>
+      <li>坂上は、工場火災の夜、源一郎を工場へ送っていた（坂上）</li>
+      <li>百合は、槙野と恋仲だ（百合・槙野）（ダミー）</li>
+      <li>真壁は、源一郎から口止め料をもらっていた（真壁）（ダミー）</li>
+    </ol>
+  </div>
+  <div class="read">
+    <span class="who">エンディングA ／ 久世に最多票が集まったとき</span>
+    <p>久世は、長いあいだ黙っていた。それから懐中時計を取り出し、蓋を開けて、閉じた。</p>
+    <p>「十五年前、私は嘘の診断書を書いた。絹代は胃腸の病で死んだのではない。あの男が毒を盛った。私はそれを知っていて、黙っていた」</p>
+    <p>「今夜、あの男は言った。百合も同じところへ送る、診断書はまた貴様が書け、と。……私はもう、二度と書きたくなかった」</p>
+    <p>百合が顔を上げた。久世は百合を見なかった。見れば、何かが崩れてしまうとでもいうように。</p>
+    <p>「針を戻せば、時間も戻ると思ったのかもしれない。十五年前のあの晩まで。……だが、あの時計は正直だった。一つ多く鳴って、全部をばらしてしまった」</p>
+    <p>夜が明けて、谷に新しい橋が仮に渡されたとき、久世は自分から警察の車に乗った。見送る人の中に、百合の姿があった。誰にも聞こえない声で、百合は一度だけ「お父さん」と呼んだ。</p>
+  </div>
+
+  <div class="read">
+    <span class="who">エンディングB ／ 久世以外が名指しされたとき</span>
+    <p>疑いの目を向けられたまま、長い夜が明けた。</p>
+    <p>到着した警察は、大時計の長針の先にこびりついた血を見つけた。久世の往診鞄からは、源一郎の字で「亜砒酸」と書かれた小瓶が出てきた。</p>
+    <p>久世は抵抗しなかった。「十五年前に書くべきだった本当の診断書を、いまから書きます」。それだけを言った。</p>
+    <p>名指しされた人は、その日のうちに疑いが晴れた。けれど、あの夜みんなで交わした言葉は、もう取り消せない。ホールの大時計は、その後もずっと、一つ多く鐘を打ち続けた。</p>
+  </div>
+
+  <div class="box">
+    <h3>エピローグ（読み上げてもよいし、各自に任せてもよい）</h3>
+    <ul>
+      <li><b>鷹宮静子</b>：遺言書は見つからず、静子は法に従って妻としての取り分を受け取った。秋津との仲が明るみに出たかどうかは、二人だけが知っている。</li>
+      <li><b>鷹宮一真</b>：一真は8万円の穴を自分の家屋敷を売って埋め、専務の職を辞した。カフスボタンは、片方だけのまま引き出しにしまわれた。</li>
+      <li><b>鷹宮百合</b>：百合は母の日記の残りを探しに、須藤家の古い蔵を訪ねた。最後の頁には「修一郎さん、百合をお願いします」と書かれていた。</li>
+      <li><b>鷹宮透</b>：透は『霧の湖』を画商から買い戻し、自分の模写と並べて掛けた。どちらが本物か、もう家族の誰にも見分けがつかない。</li>
+      <li><b>久世修一郎</b>：久世は獄中で、絹代の本当の死因を記した診断書を書き直し、警察に提出した。</li>
+      <li><b>秋津恭介</b>：秋津は鷹宮家の顧問を辞め、東京の事務所に戻った。</li>
+      <li><b>真壁嘉平</b>：真壁は大時計の鐘を一つずつ打たせて、ずれを直した。最後の鐘を聞き終えると、絹代奥様の写真に長いあいだ手を合わせた。</li>
+      <li><b>小夜</b>：小夜は屋敷を去る日、初めて本名を名乗った。宇野小夜、と。</li>
+      <li><b>葛城遼</b>：葛城は小切手を破り捨て、工場火災の記事を書いた。記事は、県の新聞の一面に載った。</li>
+      <li><b>槙野礼二</b>：槙野は二重底の帳簿を持って、父の墓に報告に行った。登山ナイフは、墓前に置いてきた。</li>
+      <li><b>宮園千鶴</b>：千鶴は春に、一真と松本の小さな教会で式を挙げた。秋に生まれた女の子の名前は、百合がつけた。</li>
+      <li><b>坂上勇作</b>：坂上は警察で、昭和6年2月10日の夜のことをすべて話した。宇野佐吉の名は、新聞の訂正記事に載った。</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 投票用紙 ============ -->
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚。推理の発表後、一斉に開きます。</p>
+  <div class="vote">
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 源一郎を殺したのは</span><div class="ln"></div><span class="q">② 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">③ 脅迫状を書いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('kane11-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  ['chars', 'items', 'clues', 'gm'].forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('kane11-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('kane11-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  var start = 'howto';
+  try { start = localStorage.getItem('kane11-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+</script>
+<script>
+/* 公開ページ用：キャラシート・持ち物は名前の一覧、証拠カードは場所の一覧だけを出し、押すとその分だけ開く。
+   リンクを共有して、各自が自分の名前を押して遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  // ---- 3秒の長押しで開く（間違えてめくらないように）。閉じるのはタップ ----------------
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY; begin();
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') ) { e.preventDefault(); if (!e.repeat) begin(); }
+    });
+    b.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); }
+    });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編・GMブックの「表示する」も長押しにそろえる（元のボタンの動きはそのまま、長押しが済んだときだけ通す）
+  $$('[data-gate="solve"] .btn, [data-gate="gm"] .btn, [data-gate="solve"] button, [data-gate="gm"] button').forEach(function (b) {
+    if (b.dataset.plHold) return; b.dataset.plHold = '1';
+    hold(b, function () { b.click(); });
+    var p = el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。');
+    b.parentNode.insertBefore(p, b);
+  });
+
+  // 「表示する」の関門は、一覧から1人分ずつ開く形に置きかえる（解決編・GMブックはそのまま）
+  ['chars', 'items', 'clues', 'npc'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  // ---- 登場人物 -----------------------------------------------------------
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    return { i: i, name: txt(nm), rl: txt(s.querySelector('.slate .rl')), sheet: s, item: null };
+  });
+  $$('#items .card.item').forEach(function (c) {
+    var o = txt(c.querySelector('.owner'));
+    roles.forEach(function (r) { if (r.name === o) r.item = c; });
+  });
+
+  var views = {};
+  ['chars', 'items'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '名前を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '自分の名前を長押しすると、' + (tab === 'chars' ? 'あなたのキャラシートと持ち物カード' : 'あなたの持ち物カード') + 'だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', 'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。'));
+    var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open');
+    host.insertBefore(shown, host.firstChild);
+    host.insertBefore(roster, shown);
+    host.insertBefore(note, roster);
+    if (tab === 'items') $$('.cards, .lead', host).forEach(function (e) { if (e.parentNode === host) e.hidden = true; });
+    var v = views[tab] = { roster: roster, shown: shown, open: null, buttons: [] };
+    roles.forEach(function (r) {
+      var b = el('button', 'pl-person'); b.type = 'button';
+      b.append(el('b', null, r.name), el('span', 'r', r.rl));
+      b.setAttribute('aria-expanded', 'false');
+      hold(b, function () { show(tab, r.i); }, function () { return v.open === r.i; }, function () { show(tab, null); });
+      roster.appendChild(b); v.buttons.push(b);
+    });
+  });
+  function show(tab, i) {
+    var v = views[tab];
+    v.shown.textContent = '';
+    if (tab === 'chars') roles.forEach(function (r) { r.sheet.hidden = true; });
+    v.open = i;
+    v.buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    v.shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    if (tab === 'chars') { v.shown.appendChild(r.sheet); r.sheet.hidden = false; }
+    if (r.item) {
+      if (tab === 'chars') v.shown.appendChild(el('h3', null, '持ち物カード'));
+      var wrap = el('div', 'cards'); wrap.appendChild(r.item.cloneNode(true)); v.shown.appendChild(wrap);
+    }
+    v.shown.appendChild(btn('閉じる', 'ghost', function () { show(tab, null); v.roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+
+  // ---- 証拠カード・証言カード ----------------------------------------------
+  var CIRC = /[①-⑳]/;
+  ['clues', 'npc'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '場所を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '長押しすると、そのカードの中身だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', '調べる場所を宣言してから、自分で長押しして読んでください。開いたカードに「★ 即公開」と出たら、すぐ全員に読み上げます。'));
+    host.insertBefore(note, host.firstChild);
+  });
+  $$('#clues .card, #npc .card').forEach(function (c) {
+    var sp = c.querySelectorAll('.hd > span');
+    var loc = txt(sp[0]), id = txt(sp[sp.length - 1]);
+    var m = loc.match(CIRC);
+    var place = loc.replace(/[①-⑳]/g, '').replace(/調査[12]/g, '').replace(/\s+/g, ' ').trim();
+    var phase = (c.classList.contains('p2') || /調査2/.test(loc)) ? 2 : 1;
+    var cell = el('div', 'pl-cell');
+    c.parentNode.insertBefore(cell, c);
+    var row = el('button', 'pl-row'); row.type = 'button';
+    row.append(el('span', 'pl-place', place + (m ? ' ' + m[0] : '')), el('span', 'pl-id', id));
+    row.appendChild(el('span', 'pl-chip' + (phase === 2 ? ' p2' : ''), '調査' + phase));
+    // ★のカードかどうかは一覧では見せない。開いたカードの中で初めてはっきり出す
+    if (c.querySelector('.star')) {
+      var bd = c.querySelector('.bd') || c;
+      bd.insertBefore(el('p', 'pl-starnote', '★ 即公開：このカードは引いたらすぐ全員に読み上げる／見せる'), bd.firstChild);
+    }
+    row.setAttribute('aria-expanded', 'false');
+    var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+    function toggle(on) {
+      c.hidden = !on; close.hidden = !on;
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+    cell.append(row, c, close);
+    toggle(false);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>十年目のタイムカプセル</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=BIZ+UDPGothic:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef1f3; --surface: #ffffff; --ink: #1d2529; --muted: #5b666c; --line: #c9d1d6;
+  --ai: #2f5d6b; --ai-soft: #e0ecef; --kin: #9a4b2f; --kin-soft: #f5e6de; --moss: #4b6b45;
+  --night: #20343b; --night-ink: #eef3f4; --teal: #2f5d6b; --teal-soft: #e5f0f2;
+  --f-display: "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "BIZ UDPGothic", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181b; --surface: #19232a; --ink: #e4eaec; --muted: #9aa7ad; --line: #2f3d45;
+    --ai: #86b7c4; --ai-soft: #1d2f36; --kin: #d99272; --kin-soft: #35231c; --moss: #9cbf95;
+    --night: #0b1215; --night-ink: #e4eaec; --teal: #86b7c4; --teal-soft: #1a2a30; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181b; --surface: #19232a; --ink: #e4eaec; --muted: #9aa7ad; --line: #2f3d45;
+  --ai: #86b7c4; --ai-soft: #1d2f36; --kin: #d99272; --kin-soft: #35231c; --moss: #9cbf95;
+  --night: #0b1215; --night-ink: #e4eaec; --teal: #86b7c4; --teal-soft: #1a2a30; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; margin: 0; }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.hero { background: var(--night); color: var(--night-ink); margin-inline: -16px; padding: 40px 16px 28px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1.6px), radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1.6px); background-size: 52px 52px, 31px 31px; background-position: 0 0, 15px 21px; opacity: .5; pointer-events: none; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; position: relative; }
+.can { width: 46px; height: 34px; border-radius: 6px; background: #c9b48a; box-shadow: inset 0 -6px 0 rgba(0,0,0,.18); }
+.hero h1 { font-size: clamp(30px, 6vw, 52px); font-weight: 800; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .88; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ai); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--kin); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--kin); outline-offset: 2px; }
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.warn { border: 1px solid var(--kin); background: var(--kin-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--kin); }
+.btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--kin); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.read { border-left: 3px solid var(--ai); background: var(--ai-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--ai); }
+.note { font-size: 13px; color: var(--muted); }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 20px; font-weight: 800; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--ai); }
+.person.victim { border-color: var(--kin); }
+.person.victim .role { color: var(--kin); }
+.person .wear { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; }
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--night); color: var(--night-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate.cont .no::after { content: "（2枚目）"; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 800; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.intro h4 { color: var(--teal); }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--kin); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--kin); }
+.tips { border: 1px solid var(--ai); border-radius: 6px; padding: 12px 14px; }
+.tips h4 { color: var(--ai); }
+.tl { display: grid; grid-template-columns: 5.2em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--ai); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 4.6em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--ai); border-radius: 4px; text-align: center; padding: 1px 0; }
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 800; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--night); color: var(--night-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 800; font-size: 17px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.star { color: var(--kin); font-size: 12px; font-family: var(--f-body); font-weight: 700; border: 1px solid var(--kin); border-radius: 3px; padding: 0 5px; }
+.card.item .hd { background: var(--ai); color: var(--surface); }
+.card.p2 .hd { background: var(--kin); color: var(--surface); }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .log { font-family: var(--f-mono); font-size: 12.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+.letter { font-family: var(--f-display); font-weight: 700; border-left: 2px solid var(--line); padding-left: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.map svg { width: 100%; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .out { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.map .hot { fill: var(--kin-soft); stroke: var(--kin); stroke-width: 2; }
+.map .hall { fill: var(--ai-soft); stroke: var(--ai); stroke-width: 1; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 11px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--kin); font-weight: 700; }
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 10px; background: var(--surface); }
+.vote .q { font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.5em; }
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .map * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 64mm; align-content: center; padding: 6mm 8mm; }
+  .labels .nm { font-size: 22pt; }
+  .sheet { break-before: page; border: 0; border-radius: 0; }
+  .sheet .slate { padding: 4mm 6mm; }
+  .sheet .slate.cont { break-before: page; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { display: block; column-count: 2; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 8.6pt; line-height: 1.55; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > div:has(.tl) { break-inside: auto; }
+  .sheet .body p + p { margin-top: 1.2mm; }
+  .sheet .secret, .sheet .intro, .sheet .tips { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 8pt; }
+  .sheet .tl { grid-template-columns: 3.6em 1fr; gap: 1mm 2.5mm; }
+  .sheet .tl dt { font-size: 8pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 0.8mm; }
+  .sheet .goal { grid-template-columns: 4em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 8pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { border-style: dashed; }
+  .box, .person, .card { break-inside: avoid; }
+}
+</style>
+<style>
+/* 公開ページ用：名前・場所の一覧から開く表示。色は各キットのトークンから取る */
+:root { --pl-accent: var(--accent, var(--kin)); --pl-hi: var(--teal, var(--ai)); }
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--pl-hi); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+.pl-head { font-size: 20px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-row .pl-place { font-weight: 700; }
+.pl-row .pl-id { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.star { border-color: var(--pl-accent); color: var(--pl-accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--pl-hi); background: var(--pl-hi); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--pl-hi); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--pl-accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--pl-accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-starnote { border: 1.5px solid var(--pl-accent); color: var(--pl-accent); background: var(--surface); border-radius: 6px; padding: 6px 10px; font-weight: 700; font-size: 14px; }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--pl-accent); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="can" aria-hidden="true"></div>
+    <h1>十年目のタイムカプセル</h1>
+    <p>10年ぶりの同窓会。0時に開けるはずだったカプセルの前で、幹事が死んだ。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>6人・GM不要</span>
+      <span><b>TIME</b>約120〜130分</span>
+      <span><b>LEVEL</b>初心者向け</span>
+      <span><b>SETTING</b>現代・3月の雪のペンション</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション">
+  <div class="inner" role="tablist">
+    <button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button>
+    <button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button>
+    <button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button>
+    <button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="solve" aria-selected="false">解決編<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button>
+  </div>
+</nav>
+<main class="wrap">
+<div class="printonly">十年目のタイムカプセル</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤーは高校の同級生になり、話し合いと証拠カードで真相を探します。GMはいりません。誰か1人が「進行役」として、このページの指示を読み上げてください。進行役もプレイヤーとして遊べます。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が書かれています。遊ぶ人は「遊び方」「事件概要」「人物一覧」「投票用紙」以外を見ないでください。</p>
+    <p class="note">印刷と切り分けは、遊ばない人に頼むのが一番です。自分でやるときは、なるべく文字を読まないようにしてください。「解決編」は投票が終わるまで開けません。</p>
+    <p class="note">10年前に同級生が亡くなった話が出てきます（事故として扱われた転落死）。気になる人がいないか、遊ぶ前に一言確認してください。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>人数と時間</h3>
+      <ul>
+        <li>6人用（ちょうど6人で遊びます）・GMなし</li>
+        <li>約120〜130分</li>
+        <li>はじめての人向け。手がかりは素直に読めば、ちゃんと犯人にたどり着けるように作っています。</li>
+      </ul>
+      <p class="note">配役は封筒を裏返してシャッフルし、ランダムに選んでください。</p>
+    </div>
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラシート（1人2枚）と持ち物カード（宛名ラベルを貼った封筒に入れる）</li>
+        <li>証拠カード 調査1：16枚／調査2：8枚（場所ごとに番号の小さい順で上から重ね、裏向きに置く。調査2はまだしまっておく）</li>
+        <li>解決編（封筒に入れて封をする）</li>
+        <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
+        <li>投票用紙、筆記用具、タイマー</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box">
+    <h3>基本ルール</h3>
+    <ul>
+      <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+      <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+      <li>シートに書いていないことは「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+      <li>持ち物カード・引いたカードは、見せる・隠す・一部の人にだけ見せる・渡す、どれも自由。「見せて」と言われて断ってもよい（そのぶん怪しまれる）。</li>
+      <li>カードの中身を口で説明するときは嘘をついてもよい。ただしカードそのものは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+      <li><b>★のカードは、引いたらすぐ全員に読み上げる。</b></li>
+      <li>議論中は2人で席を外して「密談」してよい（1回3分まで）。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>進行表（進行役が読み上げる）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>やること</th></tr></thead>
+      <tbody>
+        <tr><td class="t">20分</td><td>読み込み</td><td>封筒を開け、キャラシート（2枚）と持ち物カードを黙読する。2枚目の「立ち回りのコツ」もよく読む。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>進行役が「事件概要」を読み上げる。ROLL 01から順に、1人1分で自己紹介（キャラシートの「自己紹介」を読み上げるか、自分の言葉で）。</td></tr>
+        <tr><td class="t">15分</td><td>調査1</td><td>ROLL 01から順番に、1人1枚ずつ「調べる場所」を宣言して、その束の一番上を引く。調査1のカードが全部なくなったら終わり。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。密談OK。</td></tr>
+        <tr><td class="t">10分</td><td>調査2</td><td>調査2のカード（赤茶色）を各場所に置き、ROLL 06から逆の順番で引く。全部なくなったら終わり。</td></tr>
+        <tr><td class="t">20分</td><td>議論2</td><td>最後の議論。15分たったら、全員「まだ見せていないカードを1枚だけ公開する」（持っていない人はなし）。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人1分で推理を発表し、3つの質問に一斉に投票する。続けて、解決編の最初のページ「秘密の挙手」だけを読み上げて、挙手で判定する。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>進行役が解決編を読み上げ、点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="box">
+    <h3>投票する3つの質問</h3>
+    <ol>
+      <li><b>桐生蓮を殺したのは誰か</b>（正解で+4点）</li>
+      <li><b>201号室から桐生のノートパソコンを持ち出したのは誰か</b>（正解で+2点）</li>
+      <li><b>タイムカプセルから「自分の手紙」を抜き取ったのは誰か</b>（正解で+2点）</li>
+    </ol>
+    <p class="note">書けるのは、6人のプレイヤーの名前だけです（桐生本人や浅野透は書けません）。自分の名前を書いてもかまいません。ただし、<b>答えが自分自身だった質問では、正解の点はもらえません</b>。</p>
+    <p>このほかに、全員に個人の目的があり、達成すると点数が入ります。合計点が一番高い人がMVPです。</p>
+    <p>目的のうち「〜がばれない」「〜と信じられる」は、言い張るだけでは決まりません。投票のあと、解決編の最初のページにある文を読み上げ、当事者以外の全員が「本当だと思う」なら手を挙げます。<b>過半数が手を挙げたら「ばれた（信じられた）」</b>ことになります。読み上げる文には本当ではないものも混ざっています。議論で根拠（証言やカード）が出なかったものには、手を挙げないでください。</p>
+  </div>
+  <div class="box">
+    <h3>はじめての人へ</h3>
+    <ul>
+      <li>まずは「いつ殺されたのか」を考えると、ぐっと解きやすくなります。</li>
+      <li>自分に関係ない秘密も、誰かの目的に関係しているかもしれません。気になったことはどんどん質問しましょう。</li>
+      <li>犯人になった人も大丈夫。キャラシートの「立ち回りのコツ」に、ばれにくい動き方が書いてあります（ほかの人のシートにも、それぞれのコツがあります）。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <div class="read">
+    <span class="who">進行役 読み上げ</span>
+    <p>長野の山あい、白樺高原。雪に埋もれた小さなペンション「ゆきあかり」。</p>
+    <p>十年前、県立白樺高校三年二組の三十人は、卒業式の日に校庭の桜の木の下へタイムカプセルを埋めた。「十年後の卒業式の前の夜、0時に開けよう」。その高校も二年前に閉校し、校舎だけが残っている。</p>
+    <p>そして今日、三月九日。幹事を買って出たのは、元生徒会長で、いまはテレビにも出る若手社長・桐生蓮。集まったのは、地元に残った者、東京から来た者、合わせて七人。カプセルは昼のうちに掘り出され、桐生が自分の部屋で預かっていた。</p>
+    <p>この夜は、浅野透の命日でもある。十年前の卒業式の前の夜、透は旧校舎の非常階段から落ちて死んだ。</p>
+    <p>夕食のあと、桐生は言った。「二十三時十五分からトランプな。0時になったら、俺がカプセルを持って下りてくる」</p>
+    <p>だが0時を過ぎても、桐生は下りてこなかった。0時5分、様子を見に行った二人が、201号室で倒れている桐生を見つけた。後頭部を殴られ、すでに息はなかった。そばには、ふたの外れたカプセルの缶が転がっていた。</p>
+    <p>夜のうちに雪崩で道がふさがり、警察が来られるのは明日の朝になる。――0時に開けるはずだったカプセルの中に、何が入っていたのか。それを知らないまま、朝を待つことはできない。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li>遺体は201号室の床にうつぶせ。後頭部に殴られた傷。そばに血のついたカプセルの缶。</li>
+        <li><b>桐生の左手首の腕時計は、ガラスが割れて23時40分で止まっていた。</b></li>
+        <li>23:15〜0:00、ラウンジでトランプをしていたのは、春日・森下・白井・佐倉の4人。早瀬と宮本は自分の部屋にいたと言っている。</li>
+        <li>20:30ごろ、夕食の席で桐生が森下の右の袖に赤ワインをこぼした。</li>
+        <li>浅野透は10年前の3月9日、卒業式の前の夜に旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていた。警察は事故と判断した。</li>
+        <li>雪で窓は開かず、玄関には防犯カメラがある。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>ペンションのつくり</h3>
+      <ul>
+        <li>2階：201〜206号室と、つきあたりの共用バルコニー。201の窓はバルコニーから斜めに見えるが、行き来はできない。</li>
+        <li>1階：ラウンジ（ピアノ）、キッチン、事務室（佐倉の部屋を兼ねる）、玄関、浴場（男湯・女湯）、洗濯室。</li>
+        <li>部屋にシャワーはなく、風呂は1階の浴場だけ。</li>
+        <li>洗濯機は洗濯室に1台。誰でも使える。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box map"><h3>見取り図</h3><div class="tbl-wrap">
+<svg viewBox="0 0 440 330" role="img" aria-label="ペンションゆきあかりの見取り図" style="min-width:400px">
+  <text x="10" y="16" class="ac">2階</text>
+  <rect class="out" x="10" y="24" width="60" height="110"/><text class="sm" x="14" y="76">共用</text><text class="sm" x="14" y="90">バルコニー</text>
+  <rect class="hot" x="70" y="24" width="80" height="50"/><text class="ac" x="84" y="54">201 桐生</text>
+  <rect class="room" x="150" y="24" width="80" height="50"/><text x="164" y="54">202 森下</text>
+  <rect class="room" x="230" y="24" width="80" height="50"/><text x="244" y="54">203 早瀬</text>
+  <rect class="hall" x="70" y="74" width="300" height="24"/><text class="sm" x="160" y="90">廊下</text>
+  <rect class="room" x="70" y="98" width="80" height="36"/><text x="84" y="121">204 白井</text>
+  <rect class="room" x="150" y="98" width="80" height="36"/><text x="164" y="121">205 春日</text>
+  <rect class="room" x="230" y="98" width="80" height="36"/><text x="244" y="121">206 宮本</text>
+  <rect class="room" x="310" y="24" width="60" height="50"/><text class="sm" x="322" y="54">階段</text>
+  <text class="sm" x="72" y="148">201の窓はバルコニーから斜めに見える（行き来はできない）</text>
+  <text x="10" y="178" class="ac">1階</text>
+  <rect class="room" x="10" y="186" width="150" height="80"/><text x="54" y="230">ラウンジ</text><text class="sm" x="20" y="256">ピアノ・トランプの席</text>
+  <rect class="room" x="160" y="186" width="70" height="80"/><text x="172" y="230">キッチン</text>
+  <rect class="room" x="230" y="186" width="70" height="80"/><text x="242" y="222">事務室</text><text class="sm" x="236" y="238">（佐倉の部屋）</text>
+  <rect class="room" x="300" y="186" width="70" height="80"/><text x="320" y="230">玄関</text><text class="sm" x="306" y="256">防犯カメラ・階段</text>
+  <rect class="hall" x="10" y="266" width="360" height="20"/><text class="sm" x="140" y="280">廊下</text>
+  <rect class="room" x="10" y="286" width="110" height="38"/><text x="30" y="310">男湯・女湯</text>
+  <rect class="room" x="120" y="286" width="80" height="38"/><text x="136" y="310">洗濯室</text>
+  <text class="sm" x="210" y="310">ラウンジから洗濯室へは、廊下を通る</text>
+</svg></div></div>
+</section>
+
+<section class="panel" id="people" hidden>
+  <h2>人物一覧</h2>
+  <p class="lead">全員が知っている情報です。自己紹介はこの範囲で行います。全員、県立白樺高校3年2組の同級生（28歳）です。</p>
+  <div class="people"><div class="person victim"><span class="role">被害者・元生徒会長／社長</span><span class="nm">桐生 蓮</span><span class="kana">きりゅう れん（28）</span><p>健康管理機器の会社「パルス」の社長。テレビにも出る若手起業家。同窓会の幹事。自社の指輪型の機器「パルスリング」を右手の人さし指にはめていて、「寝ても覚めても心拍を記録してる」と自慢する。</p><span class="wear">夕食の服装：白いシャツに黒いジャケット</span></div><div class="person"><span class="role">ROLL 01｜元・吹奏楽部／音楽教師</span><span class="nm">春日 奏</span><span class="kana">かすが かなで（28）</span><p>地元の中学校で音楽を教えている。高校時代は吹奏楽部の部長でサックス担当。ラウンジのピアノをよく弾く。</p><span class="wear">夕食の服装：えんじ色のカーディガンに白いブラウス</span></div><div class="person"><span class="role">ROLL 02｜元・野球部／工務店</span><span class="nm">森下 大地</span><span class="kana">もりした だいち（28）</span><p>父の森下工務店で大工をしている。高校時代は野球部の主将。このペンションの改装も森下工務店が手がけた。浅野透とは小学校からの幼なじみ。</p><span class="wear">夕食の服装：赤いニットにジーンズ</span></div><div class="person"><span class="role">ROLL 03｜元・写真部／カメラマン</span><span class="nm">白井 美咲</span><span class="kana">しらい みさき（28）</span><p>東京で雑誌のカメラマンをしている。高校時代は写真部。カメラはいつも持ち歩いている。</p><span class="wear">夕食の服装：黒いタートルネック</span></div><div class="person"><span class="role">ROLL 04｜元・バスケ部／会社員</span><span class="nm">早瀬 陽介</span><span class="kana">はやせ ようすけ（28）</span><p>桐生の会社「パルス」で経理をしている。高校時代はバスケ部。去年結婚した。今日は桐生の運転手を兼ねて来た。</p><span class="wear">夕食の服装：紺のスーツ（夕食では上着を脱いで白いシャツ）</span></div><div class="person"><span class="role">ROLL 05｜元・保健委員／看護師</span><span class="nm">宮本 千夏</span><span class="kana">みやもと ちなつ（28）</span><p>隣の市の総合病院で看護師をしている。高校時代は保健委員。面倒見がよく、みんなのお姉さん役だった。</p><span class="wear">夕食の服装：生成り（白）のセーター</span></div><div class="person"><span class="role">ROLL 06｜元・生徒会書記／ペンション経営</span><span class="nm">佐倉 真琴</span><span class="kana">さくら まこと（28）</span><p>このペンション「ゆきあかり」を亡くなった父から継いで、一人で切り盛りしている。地元に残った唯一の同級生。</p><span class="wear">夕食の服装：緑のニットにエプロン</span></div></div>
+  <p class="note">浅野 透（あさの とおる）：同じ3年2組。図書委員。10年前の3月9日、卒業式の前の夜に18歳で亡くなった。</p>
+</section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>ネタバレ注意。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden>
+  <h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3>
+  <div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">春日 奏<small>かすが かなで</small></span><span class="rl">元・吹奏楽部／音楽教師</span><span class="in">中身：キャラシート（ROLL 01・2枚）＋ 持ち物カード（ITEM 01）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">森下 大地<small>もりした だいち</small></span><span class="rl">元・野球部／工務店</span><span class="in">中身：キャラシート（ROLL 02・2枚）＋ 持ち物カード（ITEM 02）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">白井 美咲<small>しらい みさき</small></span><span class="rl">元・写真部／カメラマン</span><span class="in">中身：キャラシート（ROLL 03・2枚）＋ 持ち物カード（ITEM 03）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">早瀬 陽介<small>はやせ ようすけ</small></span><span class="rl">元・バスケ部／会社員</span><span class="in">中身：キャラシート（ROLL 04・2枚）＋ 持ち物カード（ITEM 04）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">宮本 千夏<small>みやもと ちなつ</small></span><span class="rl">元・保健委員／看護師</span><span class="in">中身：キャラシート（ROLL 05・2枚）＋ 持ち物カード（ITEM 05）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">佐倉 真琴<small>さくら まこと</small></span><span class="rl">元・生徒会書記／ペンション経営</span><span class="in">中身：キャラシート（ROLL 06・2枚）＋ 持ち物カード（ITEM 06）<br>合図があるまで開けないでください。</span></div></div>
+  
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">春日 奏<small>かすが かなで</small></span><span class="rl">元・吹奏楽部／音楽教師（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「春日奏です。3年2組では吹奏楽部の部長をやってました。いまは地元の中学校で音楽の先生をしています。10年ぶりにみんなに会えて、正直ちょっと緊張してます。今夜0時のカプセル、楽しみにしてました。」</p></div>
+      <div><h4>あなたについて</h4><p>小さいころからピアノを習い、高校では吹奏楽部の部長でサックスを吹いていた。真面目で、頼まれると断れない性格。音大に進み、いまは地元の中学校で音楽を教えている。合唱コンクールの指導で毎年泣いてしまう先生として、生徒にはちょっと有名だ。</p><p>高2の定期演奏会では、ソロの直前に緊張で手がふるえ、舞台袖で泣いていた。そのとき「春日の音、図書室まで聞こえてくるよ。いつも」と声をかけてくれたのが、浅野透だった。あの一言がなければ、音楽を続けていなかったと思う。</p><p>この10年、恋人はいない。好きになりかけても、心のどこかでブレーキがかかる。理由は自分でもわかっている。今夜、10年前に自分がカプセルに入れた手紙を読むのが、少しこわい。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>生徒会長だった桐生は、昔から人の弱いところを見つけるのがうまかった。吹奏楽部の予算を削られたとき、頭を下げに行ったあなたに「部長がかわいいから考えてやるよ」と笑った。いまはテレビに出る社長らしいが、あの笑い方は少しも変わっていない。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透は同じクラスの男子。おとなしくて、図書室でいつも本を読んでいた。10年前の3月9日、卒業式の前の夜に、旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていたと聞いた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは高3の秋から、透とこっそり付き合っていた。誰にも言わなかった。</p><p>あの夜の23時58分、透のスマホから「ごめん」とだけ届いた。翌朝、透は亡くなっていた。みんなは「悩んでいたんだろう」と言った。あなたはずっと、「ごめん」の意味がわからないまま、自分が何かしてしまったのかと思ってきた。</p><p>でも透が落ちたのは23時41分。なら、23時58分に「ごめん」を送ったのは、誰？</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>16:30</dt><dd>宮本さんの車で、白井さんと一緒にペンションに着いた。</dd><dt>19:00</dt><dd>ラウンジで夕食。20:30ごろ、桐生くんが森下くんの右の袖に赤ワインをこぼし、「安物だろ、気にすんな」と笑った。</dd><dt>21:00</dt><dd>夕食が終わる。桐生くんが「23:15からトランプ。0時になったら俺がカプセルを持って下りてくる」と言った。</dd><dt>22:30</dt><dd>ラウンジのピアノを弾きはじめる。キッチンでは真琴が洗い物をしていた。22:45ごろ真琴は「ちょっと電話」と事務室へ行き、23:00前に戻ってきた。そのあいだ、あなたは一人で弾き続けていた。</dd><dt>23:15</dt><dd>トランプ開始。メンバーは真琴・森下くん・白井さん。森下くんは灰色のパーカーに着替えていた。白井さんは白いダウンを着ていて、手が冷たそうだった。</dd><dt>23:28</dt><dd>ハンドクリームを取りに2階の自分の部屋（205）へ。23:31ごろ、階段の上から、紺のズボンに白いシャツの男の人が、平たいものを抱えて廊下の奥（201のほう）から203へ入っていくのが見えた。顔は見えなかった。23:35にラウンジに戻った。</dd><dt>0:00</dt><dd>桐生くんが下りてこない。0:05、真琴と千夏が様子を見に行き、真琴の悲鳴が聞こえた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">春日 奏<small>かすが かなで</small></span><span class="rl">元・吹奏楽部／音楽教師（28）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない夜（10年前の3月9日）</h4><p>卒業式の前の夜、透から「明日、式のあとで大事な話がある。それと、どうしても先生に言わなきゃいけないことがある」とメッセージが来た。何のことか聞くと「明日ぜんぶ話す」とだけ返ってきた。</p><p>あなたは家でサックスのリードを削りながら、明日のことばかり考えていた。23時58分の「ごめん」を見て、すぐに電話をかけたけれど、つながらなかった。</p><p>あの「ごめん」は、透の打ち方ではなかった。透はいつも「ごめんね」と打った。でも誰にも言えなかった。付き合っていたことも、メッセージのことも。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>森下くんは透の幼なじみ。お葬式でいちばん泣いていたのは彼だった。</li><li>千夏は昔から、あの夜の話になると黙ってしまう。何か知っているのかもしれない。</li><li>白井さんと早瀬くんは、夕食のあいだ一度も目を合わせなかった。逆に不自然に見えた。</li><li>真琴は夕食のとき、桐生くんに話しかけられるたびに顔がこわばっていた。</li><li>早瀬くんは「仕事のメールがある」と言って、23:15のトランプに来なかった。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>ピアノを弾いていたことは、真琴が電話をしながら聞いていたはず。真琴に確かめてもらおう。</li><li>23:31に見た「紺のズボンと白いシャツの男」は大事な手がかり。いつ話すかは自分で決めてよい。</li><li>「ごめん」のスクリーンショットは、透と付き合っていたことがばれる危険がある。見せる相手とタイミングを選ぼう。</li><li>千夏が10年前のことを話しやすいように、密談で味方になってあげるとよい。</li><li>疑われたら、22:30〜23:10は一人でピアノを弾いていたと落ち着いて説明しよう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「10年前、春日に届いた『ごめん』は、透ではなく桐生が透のスマホで送ったものだ」と信じられる（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>10年前、自分が浅野透と付き合っていたことが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>23:31に見た「紺のズボンに白いシャツの男が203へ入っていった」ことを、議論中に全員の前で話す。</span></div><div class="goal"><span class="pt">+1</span><span>宮本千夏が、質問1（殺したのは誰か）で最多票にならない。</span></div></div></div>
+    </div>
+  </article>
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">森下 大地<small>もりした だいち</small></span><span class="rl">元・野球部／工務店（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人です。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「森下大地っす。野球部の主将やってました。いまは親父の工務店で大工やってます。このペンションの改装もうちでやったんで、壁の中のことまでわかります（笑）。今日のカプセルも、昼間に俺が学校から掘り出してきました。」</p></div>
+      <div><h4>あなたについて</h4><p>声が大きく、まっすぐで、嘘が下手だと言われて育った。野球部の主将としてチームを引っぱったが、肩をこわして推薦の話は消えた。高校を出てから、父の森下工務店で大工として働いている。</p><p>工務店は小さく、この2年は桐生の会社の新しい工場と事務所の工事が、売上のほとんどを占めている。父は家を担保に入れて、そのための機械を買った。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>桐生は、昔から透をからかっていた。「本の虫」「影が薄い」。あなたが怒鳴ると、笑ってやめる。でも、あなたのいないところで続いていた。</p><p>大人になって、その桐生から大きな仕事をもらっている。父は喜んでいるが、あなたは桐生の前に立つと、いつも胃が重くなる。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透は、小学校からの幼なじみで、いちばんの親友だった。10年前の3月9日、旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていた。警察は事故と言い、学校は「悩んでいたのでは」と言った。あなたはどちらも信じられなかった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>あなたが桐生蓮を殺した。</b></p><p>22:40、桐生から「店の話だ。201に来い。今すぐ」とLINEが来た。部屋に入ると、机の上でタイムカプセルが開いていて、「10年後の浅野透へ」の封筒が破られていた。中の手紙を読んで、手がふるえた。透は桐生の推薦入試の不正を先生に言うつもりで、「言ったら殺す」と笑われていた。「もし俺に何かあったら、それは事故じゃない」。</p><p>桐生は笑った。「足をすべらせたんだよ。腕はつかんでたけど、離しただけ。で、その手紙は燃やす。お前の店との取引は3月で切る。親父さんの家、担保だったよな？」</p><p>気がついたら、カプセルの缶を振り下ろしていた。22時52分ごろだった。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>15:30</dt><dd>旧校舎の桜の下から、小型のショベルでカプセル（金属の四角い缶）を掘り出す。16:00にペンションへ運び、真琴に預けた。</dd><dt>19:00</dt><dd>夕食。20:30ごろ、桐生に右の袖へ赤ワインをこぼされた。</dd><dt>21:00</dt><dd>夕食後、202（自分の部屋）でごろごろしていた。</dd><dt>22:42</dt><dd>LINEで呼ばれ、201へ。ノックして入る。窓のカーテンは開いていた。</dd><dt>22:52</dt><dd>桐生を殴った。桐生の左手首の腕時計を見て、思いついた。竜頭（つまみ）を引き出して針を23:40に合わせ、ガラスを床に打ちつけて割った。23:40ならトランプの最中で、自分はラウンジにいられる。</dd><dt>22:55</dt><dd>カーテンを閉め、缶を袖でふき、透の手紙をポケットに入れた。ドアの鍵はかけずに202へ戻る。袖に血がついていたので、灰色のパーカーに着替えた。</dd><dt>23:02</dt><dd>1階の洗濯室で、赤いニットを洗濯機に入れて回した（40分コース）。誰にも会わなかった。</dd><dt>23:15</dt><dd>何事もなかった顔でラウンジのトランプに加わる。メンバーは春日・白井・真琴。0:00まで一緒にいた。</dd><dt>0:05</dt><dd>真琴と宮本が201へ行き、遺体を見つけた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">森下 大地<small>もりした だいち</small></span><span class="rl">元・野球部／工務店（28）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない夜（10年前の3月9日）</h4><p>あの夜、透から「明日、大地にだけは先に話しておきたいことがある」と電話が来た。あなたは野球部の後輩の送別会で騒いでいて、「明日な！」と切ってしまった。</p><p>翌朝、透の家の前にパトカーが止まっていた。あの電話を最後まで聞いていたら、と10年間思わなかった日はない。</p><p>今夜、手紙の最後の一行を読んだ。「大地、ごめん。春日のこと頼む」。透は最後まで、あなたに何かを託そうとしていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>早瀬は桐生の会社の経理。夕食のとき、桐生に「明日ゆっくり話そうな」と言われて真っ青になっていた。</li><li>真琴は桐生と何かもめているらしい。22:10ごろ、2階の廊下で二人が言い争う声がした。</li><li>宮本は夕食のあと、桐生からスマホの充電器を借りていた。</li><li>春日のえんじ色のカーディガンも、暗いところでは赤く見える。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>みんなは腕時計の「23:40」を信じやすい。23:40にラウンジにいなかったのは早瀬と宮本だけ。そこに話を向けよう。</li><li>ニットを洗ったことがばれても、「夕食でワインをこぼされたから」で通る。全員が見ている。ただ、洗った時刻を聞かれたら、あいまいに答えたほうが安全。</li><li>「22:40〜23:10は部屋で寝ていた」と言い通す。寝起きでぼーっとしていた、くらいがちょうどいい。</li><li>時刻が22:50ごろだと言われはじめたら、そのころ一人だった人（事務室の真琴、風呂の宮本、部屋の早瀬）を挙げよう。</li><li>透の話では、無理に隠さず幼なじみとして悲しめばよい。手紙のことだけは言わない。真琴は味方になりやすいので、密談で組もう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>質問1（殺したのは誰か）で、自分が最多票にならない（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>浅野透の手紙を自分が持っていることが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>早瀬陽介が、質問1で最多票になる。</span></div><div class="goal"><span class="pt">+1</span><span>森下工務店が、桐生に取引を切られそうだったことが、ばれない（挙手で判定）。</span></div></div></div>
+    </div>
+  </article>
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">白井 美咲<small>しらい みさき</small></span><span class="rl">元・写真部／カメラマン（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「白井美咲です。写真部でした。いまは東京で雑誌のカメラマンをやってます。こっちは星がすごくきれいだから、三脚も持ってきちゃいました。10年ぶりのみんなの顔も、ちゃんと撮って帰りたいです。」</p></div>
+      <div><h4>あなたについて</h4><p>高校時代は写真部で、教室の隅からみんなを撮っていた。人と話すのは得意じゃないが、ファインダーごしなら相手の気持ちがよくわかる気がした。東京の専門学校を出て、いまは雑誌のカメラマン。忙しくて、地元に帰るのは3年ぶりだ。</p><p>最初のカメラは、中学の入学祝いに祖父がくれた古いフィルムカメラだった。現像に出すお金がなくて、一枚一枚、息を止めるようにシャッターを切った。その癖はいまも抜けない。仕事では一日に何千枚も撮るのに、本当に残したいものを撮るときだけは、今でも息を止めてしまう。</p><p>きれいなものを撮るのが好きで、嘘をつくのは下手。それが自分でもわかっているから、今夜は余計に緊張している。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>桐生は、写真部の部費の申請を「意味ない」と何度も突き返した生徒会長。卒業アルバムの写真も、自分の写りが悪いと撮り直させた。去年、雑誌の取材で偶然再会したときは「有名になったら撮らせてやるよ」と言われた。もう有名なのに、と思ったが黙っていた。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透とはあまり話したことがない。ただ、図書室の窓際で本を読む透の写真を、一枚だけ撮ったことがある。卒業アルバムの「思い出」のページに載った写真だ。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは半年前から、早瀬陽介とこっそり付き合っている。早瀬は去年結婚したばかり。いけないことだとわかっている。</p><p>それに、10年前のタイムカプセルに入れた自分の手紙には「早瀬くんが好き。10年後は早瀬くんの隣にいたい」と書いた。0時にみんなの前で読まれたら、二人のことに気づかれるかもしれない。だから17:30、事務室に置いてあったカプセルから、自分の手紙だけ抜いた。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>16:30</dt><dd>宮本の車で、春日と一緒に着いた。</dd><dt>17:30</dt><dd>誰もいない事務室で、カプセルのふたを開け、自分の手紙を抜いた。出たところで真琴とはち合わせ、「トイレを探してて」とごまかした。</dd><dt>19:00</dt><dd>夕食。桐生が森下の袖にワインをこぼした。早瀬とは目を合わせないようにした。</dd><dt>22:35</dt><dd>2階の共用バルコニーで、三脚を立てて星と雪を撮る。22:50に早瀬とここで会う約束をしていた。</dd><dt>22:48</dt><dd>201の窓が明るく、カーテンが開いていた。桐生が誰かと向かい合って話している。なんとなくシャッターを切った。</dd><dt>22:56</dt><dd>もう一度201を撮る。カーテンが閉まっていた。早瀬は結局来なかった。</dd><dt>23:05</dt><dd>体が冷えたので204（自分の部屋）で白いダウンを着て、1階へ。</dd><dt>23:15</dt><dd>ラウンジでトランプ。春日・森下・真琴と一緒に0:00まで。23:28〜23:35、春日が一度2階へ上がった。</dd><dt>0:05</dt><dd>真琴の悲鳴。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">白井 美咲<small>しらい みさき</small></span><span class="rl">元・写真部／カメラマン（28）</span></div>
+    <div class="body more">
+      <div><h4>ファインダーの中の10年</h4><p>高校3年の文化祭、写真部の展示に早瀬が来て、一枚一枚ゆっくり見てくれた。「白井の写真って、撮られてる人がみんな安心した顔してるな」。その一言で、カメラを続けようと決めた。</p><p>半年前、仕事で疲れきっていたとき、偶然東京で早瀬と再会した。彼は「結婚した」と言った。それでも、二人で会うのをやめられなかった。</p><p>今夜、早瀬が約束の時間に来なかったのは初めてだ。何かあったのだろうか。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>早瀬は夕食のあと、LINEを見て顔色を変えていた。何があったのか、まだ聞けていない。</li><li>真琴には、17:30に事務室から出てくるところを見られている。</li><li>森下は23:15、灰色のパーカーで現れた。夕食のときは赤いニットだった。</li><li>宮本は夕食のあと、桐生から充電器を借りていた。</li><li>真琴は夕食のあいだ、桐生と目が合うたびに作り笑いをしていた。ここのペンションで何かあったのだろうか。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>22:48と22:56の写真は、事件の時刻を知る大きな手がかり。ただ、見せれば「なぜバルコニーにいたのか」を聞かれる。「星を撮っていた」で押し通そう。</li><li>早瀬が来なかったことを言うと、早瀬のアリバイがなくなる。言うかどうかは、早瀬と密談してから決めてもよい。</li><li>手紙を抜いたことは、真琴に見られている。真琴と取引できるか、密談で探ろう。</li><li>早瀬との関係は、二人で口裏を合わせておくと守りやすい。</li><li>自分の写真に写った「赤っぽい袖」は、誰のものかよく考えよう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>早瀬陽介と付き合っていることが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>質問3（カプセルから自分の手紙を抜いたのは誰か）で、自分が最多票にならない。</span></div><div class="goal"><span class="pt">+1</span><span>22:48と22:56の写真（持ち物カード）を、議論中に全員に見せる。</span></div><div class="goal"><span class="pt">+1</span><span>早瀬陽介が、質問1で最多票にならない。</span></div></div></div>
+    </div>
+  </article>
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 陽介<small>はやせ ようすけ</small></span><span class="rl">元・バスケ部／会社員（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「早瀬陽介です。バスケ部でした。いまは桐生の会社、パルスで経理をやってます。今日は社長の運転手も兼ねて……まあ、いつものことです。去年結婚しました。よろしくお願いします。」</p></div>
+      <div><h4>あなたについて</h4><p>高校時代はバスケ部のレギュラーで、明るいムードメーカーだった。地元の大学を出て、3年前に桐生に誘われて「パルス」に入った。給料はいいが、仕事は桐生の言いなりだ。去年、職場の先輩だった妻と結婚した。</p><p>高3の夏、県大会の準決勝でフリースローを2本外し、チームは負けた。泣いているあなたの肩を、主将でもないのに最後まで抱えてくれたのが森下だった。「野球部のくせに」と笑ったら、「関係あるか」と怒られた。あの夏から、森下には頭が上がらない。</p><p>人に頼まれると断れない。それで今、とんでもないことに巻きこまれている。妻にはまだ、会社のことを何も話せていない。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>桐生は会社のお金を、自分の遊びや別の会社の穴埋めに使っている。帳簿をごまかすよう命じられ、断れずに従ってきた。証拠は、桐生のノートパソコンの中の「裏帳簿」にしかない。</p><p>先月、監査が入ると決まってから、桐生の態度が変わった。急に優しくなり、今日の運転手も「お前しか頼めない」と頼まれた。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透とは、同じクラスだったがほとんど話したことがない。10年前の卒業式の前夜に、旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていたと聞いた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>22:40、桐生からLINEが来た。「明日の朝、お前をクビにする。使い込みは全部お前がやったことにする。警察にもそう言う」。このままでは、横領の犯人にされる。</p><p>23:30、あなたは「話をつけるか、パソコンを持ち出すか」と思って201へ行った。ドアの鍵は開いていた。中で桐生が倒れて死んでいた。頭が真っ白になり、机のノートパソコンをつかんで203へ逃げ帰った。いまはベッドの下に隠してある。</p><p>それと、もう一つ秘密がある。白井美咲と、半年前からこっそり付き合っている。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>18:10</dt><dd>桐生を会社の車に乗せて到着。桐生はカプセルの缶を201へ持って上がった。</dd><dt>19:00</dt><dd>夕食。桐生に「明日ゆっくり話そうな」と肩をたたかれた。</dd><dt>22:10</dt><dd>203で、廊下から桐生と真琴が言い争う声を聞いた。「4月には出ていってもらう」と桐生が言っていた。</dd><dt>22:40</dt><dd>桐生からLINE（持ち物カード）。白井と22:50にバルコニーで会う約束だったが、行けなかった。</dd><dt>22:42</dt><dd>廊下でドアが開く音、続けて201をノックする音がした。どの部屋のドアかはわからない。</dd><dt>23:15</dt><dd>「仕事のメールがある」と言って、トランプには行かなかった。</dd><dt>23:30</dt><dd>201へ。桐生が床に倒れていた。左手首の腕時計のガラスが割れていて、針は23:40をさしていた。自分のスマホは23:30なのに、と思った。パソコンを持って23:32に203へ戻った。</dd><dt>0:05</dt><dd>真琴の悲鳴で廊下に出た。スーツのズボンに白いシャツのままだった。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 陽介<small>はやせ ようすけ</small></span><span class="rl">元・バスケ部／会社員（28）</span></div>
+    <div class="body more">
+      <div><h4>あの部屋で見たもの</h4><p>201のドアを開けたとき、最初に目に入ったのは床に転がったカプセルの缶だった。ふたが外れ、色とりどりの封筒が床に散らばっていた。</p><p>桐生はうつぶせに倒れていた。右手の人さし指に、自慢のパルスリングが光っていた。あの指輪は、つけている人の心拍を記録して、止まるとスマホに知らせが来る。社員なら誰でも知っている。</p><p>パソコンを抱えて逃げながら、自分が何をしているのかわからなかった。でも、これがなければ、あなたは横領の犯人にされる。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>夕食のとき、桐生は宮本さんに「病院の仕事、続けたいよな？」と小声で言っていた。</li><li>白井は今夜、カメラを持ってバルコニーにいたはず。</li><li>森下の工務店は、桐生の会社の工事をたくさん請けている。取引を切るかどうかの書類を、桐生の机で見たことがある。</li><li>春日さんは、透の話になると急に静かになる。</li><li>森下は昼間、旧校舎からカプセルを掘り出して運んできた。「けっこう重い缶だった」と言っていた。</li><li>真琴さんは宿の主人なので、全部屋のマスターキーを持っているはず。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>腕時計の23:40はおかしい。23:30にはもう、そう止まっていた。でもそれを言えば、201に入ったことがばれる。言うかどうか、言うならいつかを考えよう。</li><li>パソコンのことは、白井にだけ話して味方になってもらうのも手。</li><li>桐生の不正を明かせば、あなたが疑われる理由（クビ、横領）も説明できる。ただし動機があると思われる危険もある。</li><li>22:40〜23:30は部屋に一人。アリバイはないので、時刻の手がかりで身を守ろう。</li><li>白井との関係は、二人で口裏を合わせておくと守りやすい。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>質問2（桐生のノートパソコンを持ち出したのは誰か）で、自分が最多票にならない。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、自分が最多票にならない。</span></div><div class="goal"><span class="pt">+1</span><span>「使い込みをしていたのは桐生本人だ」と、議論中に全員の前で話す。</span></div><div class="goal"><span class="pt">+1</span><span>白井美咲が、質問3で最多票にならない。</span></div></div></div>
+    </div>
+  </article>
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">宮本 千夏<small>みやもと ちなつ</small></span><span class="rl">元・保健委員／看護師（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「宮本千夏です。保健委員でした。いまは隣の市の総合病院で看護師をしてます。今日は春日ちゃんと白井ちゃんを乗せて、車で来ました。雪道こわかった……。みんな元気そうでうれしいです。」</p></div>
+      <div><h4>あなたについて</h4><p>高校時代は保健委員で、ケガをした運動部の子の手当てをよくしていた。面倒見がよく、クラスのお姉さん役。看護学校を出て、いまは隣の市の「桐生総合病院」で働いている。理事長は桐生蓮の父だ。</p><p>看護師を目指したのは、高1の冬に母が倒れたとき、病室で手を握ってくれた若い看護師さんにあこがれたからだ。夜勤明けでも笑顔をくずさない人だった。いまの自分は、あの人のようになれているだろうか。最近、患者さんに「宮本さんは聞き上手ね」と言われることが増えた。自分の言いたいことは、10年間ずっと飲みこんだままなのに。</p><p>母が長く病気をしていて、治療費のために、給料のいいこの病院を辞めるわけにいかない。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>10年前の夜から、桐生はあなたにとって「怖い人」だ。病院に就職が決まったとき、桐生から電話があった。「いい病院だろ？ 親父に言っといてやったよ。あの夜のこと、ずっと忘れててくれよな」。</p><p>同窓会の案内が来たとき、行くのをやめようと思った。でも、春日ちゃんも来ると聞いて、行くことにした。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透は、保健室でよく頭痛薬をもらっていた、静かな男の子。10年前の3月9日、旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていたと聞いた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あの夜23:45ごろ、あなたは忘れ物を取りに学校へ戻り、旧校舎の非常階段を駆け下りてくる桐生を見た。手にスマホを2台持っていた。翌朝、透が亡くなったと聞いた。</p><p>あなたは誰にも言わなかった。桐生に口止めされ、そのあと病院に就職させてもらったからだ。10年間、ずっと黙ってきた。今夜こそ、言おうと決めて来た。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>16:30</dt><dd>自分の車で、春日と白井を乗せて着いた。</dd><dt>19:00</dt><dd>夕食。桐生に小声で「病院の仕事、続けたいよな？」と言われた。</dd><dt>21:05</dt><dd>スマホの充電器を忘れたので、桐生に借りた。</dd><dt>22:28</dt><dd>1階の女湯へ（脱衣所の札に名前を書いた）。23:08まで一人で入っていた。</dd><dt>23:09</dt><dd>風呂から出て廊下を通ると、となりの洗濯室で洗濯機が回る音がしていた。</dd><dt>23:12</dt><dd>充電器を返そうと201をノック。返事がない。ドアの下から明かりがもれていた。23:13に「充電器返しに来たけど寝てる？」とLINEした。</dd><dt>23:15</dt><dd>206（自分の部屋）で、母に電話をかけて少し話し、そのまま横になっていた。</dd><dt>23:55</dt><dd>ラウンジへ。カードの片づけを手伝った。</dd><dt>0:05</dt><dd>真琴と201へ。桐生くんが倒れていた。脈を確かめると、もう亡くなっていた。体は冷えはじめ、傷のまわりの血は乾きかけていた。看護師の経験から、亡くなって1時間はたっていると思った。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">宮本 千夏<small>みやもと ちなつ</small></span><span class="rl">元・保健委員／看護師（28）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない夜（10年前の3月9日）</h4><p>あの夜、旧校舎の非常階段の下の暗がりで、桐生はあなたに気づいて立ち止まった。「宮本？ ……見てないよな。何も」。いつもの笑顔だった。手の中で、2台のスマホの画面が光っていた。</p><p>次の朝、透くんが亡くなったと聞いて、保健室で吐いた。それでも言えなかった。母が入院したばかりで、桐生の家の病院にお世話になっていたから。</p><p>10年分の「言えなかった」を、今夜で終わりにしたい。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>早瀬くんは夕食のあと、スマホを見て真っ青になっていた。</li><li>真琴は22:10ごろ、2階で桐生くんと何か言い争っていたらしい（廊下に声がもれていた）。</li><li>森下くんは透の幼なじみ。高校時代、透をからかう桐生くんに怒鳴っていたのを覚えている。</li><li>春日ちゃんは、透が亡くなったあと1か月学校に来なかった。</li><li>白井ちゃんは夕食のあと、カメラと三脚を持って2階へ上がっていった。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>「亡くなって1時間はたっていた」は大事な情報。腕時計の23:40と合わないことに、みんなが気づくように話そう。</li><li>10年前に見たことを話すなら、春日ちゃんに味方になってもらうと信じてもらいやすい。</li><li>あなたは22:28〜23:08は風呂、23:15〜23:55は部屋で一人。どちらの時間もアリバイがないので、疑われやすい。</li><li>病院のことは、話さなくても10年前のことは話せる。話す順番を考えよう。</li><li>23:09に聞いた洗濯機の音は、誰かがその時間に何かを洗っていたということ。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>10年前の夜、非常階段を下りてくる桐生を見たことを全員の前で話し、しかも「桐生が透を死なせた」と信じられる（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、自分が最多票にならない。</span></div><div class="goal"><span class="pt">+1</span><span>「遺体は、見つけた0:05の時点で亡くなって1時間はたっていた」と、議論中に全員の前で伝える。</span></div><div class="goal"><span class="pt">+1</span><span>10年間黙っていた理由（桐生の父の病院で働いていること）が、ばれない（挙手で判定）。</span></div></div></div>
+    </div>
+  </article>
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">佐倉 真琴<small>さくら まこと</small></span><span class="rl">元・生徒会書記／ペンション経営（28）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「佐倉真琴です。生徒会で書記をやってました。いまはこのペンション、ゆきあかりを一人でやってます。父が建てた宿で、改装は森下くんのところにお願いしました。今夜は道が雪で通れなくなっちゃったけど、ゆっくりしていってね。」</p></div>
+      <div><h4>あなたについて</h4><p>高校時代は生徒会の書記。会長の桐生の下で、議事録や細かい仕事を全部引き受けていた。卒業後は地元の短大を出て、父のペンションを手伝った。3年前に父が亡くなり、一人で宿を継いだ。</p><p>生徒会では「真琴に頼めば何とかなる」と言われていた。文化祭の予算表も、卒業式の進行表も、夜中まで残って作った。会長の桐生は、それを自分の手柄のように先生に見せていた。文句を言ったことは一度もない。言っても無駄だと、早くから知っていた。</p><p>宿は好きだが、冬以外はお客が少なく、父の残した借金も重い。それでも、父が建てたこの場所を守りたい。</p></div>
+      <div><h4>桐生 蓮との関係</h4><p>去年、ペンションの土地を持っていた地主が、土地を桐生の会社に売った。桐生は「4月までに出ていってくれ。ここは社員の保養所にする」と言ってきた。今夜の同窓会の会場にここを選んだのも、嫌がらせだと思っている。</p><p>それでも宿代はきっちり前払いで振り込まれていた。断る理由も、余裕もなかった。</p></div>
+      <div><h4>浅野 透のこと</h4><p>浅野透は、生徒会室によく本を返しに来た図書委員。10年前の3月9日、旧校舎の非常階段から落ちて亡くなった。腕時計は23時41分で止まっていたと聞いた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>22:10、2階の廊下で桐生に「せめて夏まで待って」と頼みこんだが、「4月には出ていってもらう」と笑われ、言い争いになった。</p><p>22:44からは事務室で、ふもとの不動産屋に電話して、ペンションを出たあとの物件を相談していた。誰にも知られたくない。宿をたたむかもしれないことも、桐生に追い出されることも。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>16:00</dt><dd>森下くんがカプセルの缶を届けてくれた。事務室の棚に置いた。事務室の鍵はかけていなかった。</dd><dt>17:30</dt><dd>事務室から出てくる白井さんとはち合わせた。「トイレを探してて」と言っていた。</dd><dt>18:10</dt><dd>桐生と早瀬くんが到着。桐生はカプセルを201へ持って上がった。玄関の防犯カメラの記録では、これ以降、玄関から出入りした人はいない。</dd><dt>19:00</dt><dd>夕食を出す。20:30、桐生が森下くんの袖にワインをこぼした。</dd><dt>22:10</dt><dd>2階の廊下で桐生と言い争う。</dd><dt>22:30</dt><dd>キッチンで洗い物。ラウンジでは春日ちゃんがピアノを弾いていた。</dd><dt>22:44</dt><dd>事務室で、不動産屋と電話（22:58まで）。電話のあいだ、ピアノの音はずっと聞こえていた。</dd><dt>23:15</dt><dd>ラウンジでトランプ。春日ちゃん・森下くん・白井さんと0:00まで。森下くんは灰色のパーカーで「寝てたら汗かいちゃって」と言っていた。</dd><dt>0:05</dt><dd>宮本さんと201へ。ドアの鍵は開いていた。桐生が倒れていた。悲鳴を上げてしまった。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">佐倉 真琴<small>さくら まこと</small></span><span class="rl">元・生徒会書記／ペンション経営（28）</span></div>
+    <div class="body more">
+      <div><h4>父のペンション</h4><p>「ゆきあかり」という名前は、雪の夜に窓からもれる明かりのことだ、と父は言っていた。吹雪で遭難しかけた登山客が、この明かりを見つけて助かったことがあるらしい。</p><p>父が亡くなった冬、あなたは一人で雪かきをしながら、この宿を守ると決めた。改装のとき、森下くんは「親父さんの柱はそのまま残そう」と言って、ほとんど材料費だけで工事してくれた。</p><p>その宿を、桐生は「保養所にする」と簡単に言った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>森下くんは改装のとき、何日も泊まりこみで手伝ってくれた恩人。透くんの幼なじみだった。</li><li>早瀬くんは夕食のとき、ほとんど食べていなかった。</li><li>宮本さんは夕食のあと、桐生から充電器を借りていた。</li><li>白井さんは17:30に事務室から出てきた。カプセルを置いていた部屋だ。</li><li>早瀬くんは「仕事のメールがある」と言って、23:15のトランプに来なかった。</li><li>宮本さんは0:05、遺体の脈をとったあと、しばらく何も言わずに桐生を見下ろしていた。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>22:44〜22:58は事務室で電話中だった。通話の記録はあるが、相手が不動産屋だとわかると、追い出されそうなことがばれる。</li><li>ピアノがずっと聞こえていたことを言えば、春日ちゃんのアリバイになる。そのぶん春日ちゃんに恩を売れる。</li><li>白井さんが事務室から出てきたことは、質問3の大きな手がかり。言うタイミングを選ぼう。</li><li>宿の主人として、みんなの出入りや服装の変化を一番よく見ている。気づいたことを話して、議論をまとめる役になるとよい。</li><li>森下くんが疑われたら、恩人として助けてあげたい。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>桐生にペンションを取り上げられそうだったことが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、自分が最多票にならない。</span></div><div class="goal"><span class="pt">+1</span><span>白井美咲が、質問3で最多票になる。</span></div><div class="goal"><span class="pt">+1</span><span>森下大地が、質問1で最多票にならない。</span></div></div></div>
+    </div>
+  </article>
+  </div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>ネタバレ注意。</strong>各プレイヤーの封筒に、キャラシートと一緒に入れます。</p>
+    <button type="button" class="btn" id="gate-items">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden>
+  <p class="lead">持ち物カードは、見せても隠してもよい。見せれば本当だと証明できる。</p>
+  <div class="cards"><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd"><span class="owner">春日 奏</span><span class="ttl">スマホのスクリーンショット</span><p>10年前に保存した画面。</p><div class="log"><span>3/9 23:58</span><span>透：ごめん</span></div><p>透はいつも「ごめんね」と打っていた。この画面だけは、何度機種変更しても消せなかった。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd"><span class="owner">森下 大地</span><span class="ttl">浅野透の手紙</span><p>タイムカプセルの「10年後の浅野透へ」の中身。</p><p class="letter">10年後の俺へ。桐生の推薦入試は不正だ。明日、先生に言う。桐生には「言ったら殺す」と笑われた。もし俺に何かあったら、それは事故じゃない。大地、ごめん。春日のこと頼む。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd"><span class="owner">白井 美咲</span><span class="ttl">カメラの写真</span><div class="log"><span>22:48</span><span>バルコニーから斜めに見た201の窓。カーテンが開いていて、桐生が誰かと向かい合って立っている。相手は窓枠に隠れ、腕だけが写っている。袖は赤っぽいが、暗くて色ははっきりしない。</span><span>22:56</span><span>同じ窓。カーテンが閉まっている。明かりはついたまま。</span></div></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd"><span class="owner">早瀬 陽介</span><span class="ttl">スマホのLINE</span><p>今日 22:40　桐生 蓮</p><p class="letter">明日の朝、お前をクビにする。使い込みは全部お前がやったことにする。警察にもそう言う。</p><p>今日 22:41　白井 美咲「あと10分で着くね」</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd"><span class="owner">宮本 千夏</span><span class="ttl">病院の職員証</span><p>「桐生総合病院　看護部　宮本千夏」。</p><p>裏に、10年前の日付のメモがはさまっている。「3/9 23:45 旧校舎 非常階段 K」。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd"><span class="owner">佐倉 真琴</span><span class="ttl">事務室の電話の記録</span><div class="log"><span>22:44〜22:58</span><span>ふもと不動産（14分）</span></div><p>電話の横のメモ：「4月退去　物件　2DK　家賃5万まで」</p></div></div></div>
+  </div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>ネタバレ注意。</strong>切り分けて、場所ごとに番号の小さい順で上から重ねます。</p>
+    <button type="button" class="btn" id="gate-clues">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--night)"></i>調査1（16枚）</span>
+    <span><i class="sw" style="background:var(--kin)"></i>調査2で各場所に追加（8枚）</span>
+    <span><span class="star">★</span>引いたら即公開</span>
+  </div>
+  <h3>調査1</h3>
+  <div class="cards"><div class="card"><div class="hd"><span class="loc">201号室（桐生の部屋）①</span><span>CLUE 01</span></div><div class="bd"><span class="ttl">遺体 <span class="star">★</span></span><p>桐生は床にうつぶせに倒れている。後頭部に強く殴られた傷。体のまわりに、もみ合ったような跡はほとんどない。</p><p>右手の人さし指に、黒い指輪（パルスリング）がはまっている。</p></div></div><div class="card"><div class="hd"><span class="loc">201号室（桐生の部屋）②</span><span>CLUE 02</span></div><div class="bd"><span class="ttl">割れた腕時計 <span class="star">★</span></span><p>左手首の腕時計は、ガラスが割れて針が23時40分で止まっている。</p><p>よく見ると、竜頭（時刻を合わせるつまみ）が引き出されたままになっている。竜頭を引き出すと秒針が止まり、針を好きな時刻に回せる。</p></div></div><div class="card"><div class="hd"><span class="loc">201号室（桐生の部屋）③</span><span>CLUE 03</span></div><div class="bd"><span class="ttl">タイムカプセルの缶</span><p>床に、ふたの外れた金属の缶。角がへこみ、血がついている。缶の表面は、何かでふいたように指紋がない。</p><p>中に入っていた封筒が床に散らばっている。</p></div></div><div class="card"><div class="hd"><span class="loc">201号室（桐生の部屋）④</span><span>CLUE 04</span></div><div class="bd"><span class="ttl">カプセルの名簿とごみ箱</span><p>缶の中の名簿には30人の名前。封筒は28通しかない。浅野透と白井美咲の分が見つからない。</p><p>ごみ箱に、破られた空の封筒が一つ。「10年後の浅野透へ」。</p></div></div><div class="card"><div class="hd"><span class="loc">201号室（桐生の部屋）⑤</span><span>CLUE 05</span></div><div class="bd"><span class="ttl">机の上</span><p>ノートパソコンの充電ケーブルが、机の上にのびている。パソコン本体はない。</p><p>開いた手帳のメモ：「森下工務店 3月末で契約終了→機械代の残り請求」「ゆきあかり 4/1明け渡し」「早瀬 明朝」。</p></div></div><div class="card"><div class="hd"><span class="loc">2階 廊下・バルコニー ①</span><span>CLUE 06</span></div><div class="bd"><span class="ttl">共用バルコニー</span><p>2階のつきあたりの共用バルコニー。雪の上に三脚の跡と、小さな靴の跡が残っている。</p><p>ここからは201の窓が斜めによく見える。201の窓とバルコニーはつながっていない。</p></div></div><div class="card"><div class="hd"><span class="loc">2階 廊下・バルコニー ②</span><span>CLUE 07</span></div><div class="bd"><span class="ttl">201のドア</span><p>201のドアは、発見されたとき鍵がかかっていなかった。鍵は机の上にあった。</p><p>内側のドアノブだけ、指紋がほとんど残っていない。ふいたようだ。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 ラウンジ ①</span><span>CLUE 08</span></div><div class="bd"><span class="ttl">トランプの点数表</span><p>テーブルの上の点数表。「23:15スタート　春日・森下・白井・佐倉」。</p><p>欄外に真琴の字で「23:28 春日ちゃん抜け→23:35戻り」「0:00 カプセル！」。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 ラウンジ ②</span><span>CLUE 09</span></div><div class="bd"><span class="ttl">ピアノ</span><p>ラウンジのグランドピアノ。譜面台に、春日の手書きの楽譜。弾きこんだ跡がある。</p><p>このピアノに自動演奏の機能はない。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 洗濯室・浴場 ①</span><span>CLUE 10</span></div><div class="bd"><span class="ttl">洗濯機 <span class="star">★</span></span><p>洗濯機が1台、運転を終えて止まっている。中に、洗い終わった赤いニットが1枚。</p><p>操作パネルの表示：「前回の運転 23:02開始　40分コース」。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 洗濯室・浴場 ②</span><span>CLUE 11</span></div><div class="bd"><span class="ttl">女湯の脱衣所</span><p>入り口の札かけに「宮本 22:28」と書かれた札。</p><p>脱衣かごの横に、使ったタオルが一枚たたんで置いてある。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 事務室 ①</span><span>CLUE 12</span></div><div class="bd"><span class="ttl">防犯カメラ <span class="star">★</span></span><p>玄関の防犯カメラの記録。最後に映っているのは18:10、桐生と早瀬が入ってくるところ。そのあと0:30まで、玄関から出入りした人はいない。</p><p>夜は窓もすべて雪で開かない。外から誰かが入った様子はない。</p></div></div><div class="card"><div class="hd"><span class="loc">1階 事務室 ②</span><span>CLUE 13</span></div><div class="bd"><span class="ttl">事務室の棚</span><p>カプセルを置いていたという棚。ふたについていた土が、少し棚に落ちている。</p><p>事務室には鍵がついているが、今日はかけていなかったようだ。</p></div></div><div class="card"><div class="hd"><span class="loc">202号室（森下の部屋）①</span><span>CLUE 14</span></div><div class="bd"><span class="ttl">森下の部屋</span><p>ベッドの掛け布団は、まっすぐ整ったまま。横になったようなしわはほとんどない。</p><p>バッグの口から、着替え用のビニール袋が空になってのぞいている。</p></div></div><div class="card"><div class="hd"><span class="loc">205号室（春日の部屋）①</span><span>CLUE 15</span></div><div class="bd"><span class="ttl">春日の部屋</span><p>ベッドの上にサックスのケース。ケースのポケットに、色あせた写真が一枚。図書室の窓際で、春日と透が並んで笑っている。</p></div></div><div class="card"><div class="hd"><span class="loc">206号室（宮本の部屋）①</span><span>CLUE 16</span></div><div class="bd"><span class="ttl">宮本の部屋</span><p>机の上に、桐生のものらしい白いスマホ用充電器。</p><p>バッグの中に母親の入院の書類。病院名は「桐生総合病院」。</p></div></div></div>
+  <h3>調査2</h3>
+  <div class="cards"><div class="card p2"><div class="hd"><span class="loc">201号室（桐生の部屋）⑥ 調査2</span><span>CLUE 17</span></div><div class="bd"><span class="ttl">桐生のスマホ</span><p>机の上の桐生のスマホ。ロックはかかっているが、画面に通知が並んでいる。</p><div class="log"><span>22:52</span><span>パルスリング：心拍を検出できません</span><span>23:13</span><span>宮本千夏：充電器返しに来たけど寝てる？</span></div></div></div><div class="card p2"><div class="hd"><span class="loc">201号室（桐生の部屋）⑦ 調査2</span><span>CLUE 18</span></div><div class="bd"><span class="ttl">窓のカーテン</span><p>窓のカーテンはぴったり閉まっている。カーテンの合わせ目の端に、小さな血の跡がついている。</p><p>血のついた手でカーテンを閉めたように見える。</p></div></div><div class="card p2"><div class="hd"><span class="loc">2階 廊下・バルコニー ③ 調査2</span><span>CLUE 19</span></div><div class="bd"><span class="ttl">廊下のじゅうたん</span><p>201の前から階段へ向かうじゅうたんに、ところどころ小さなしみ。ふいたようで、色はほとんど残っていない。</p><p>202・203の前を通る道すじだ。</p></div></div><div class="card p2"><div class="hd"><span class="loc">1階 洗濯室・浴場 ③ 調査2</span><span>CLUE 20</span></div><div class="bd"><span class="ttl">洗濯機の中のニット</span><p>赤いニット（男物、Lサイズ）を広げてみる。右の袖口に、うすく茶色いしみが残っている。洗っても落ちきらなかったようだ。</p><p>ワインのしみも血のしみも、洗うと茶色っぽく残ることがある。</p></div></div><div class="card p2"><div class="hd"><span class="loc">1階 事務室 ③ 調査2</span><span>CLUE 21</span></div><div class="bd"><span class="ttl">マスターキー</span><p>事務室の壁に、全部屋のマスターキーが掛かっている。キーの下の壁に、うっすらほこりの輪。今夜、動かされた様子はない。</p></div></div><div class="card p2"><div class="hd"><span class="loc">202号室（森下の部屋）② 調査2</span><span>CLUE 22</span></div><div class="bd"><span class="ttl">森下のスマホ</span><p>ベッドの上のスマホ。画面に通知が残っている。</p><div class="log"><span>22:40</span><span>桐生 蓮：店の話だ。201に来い。今すぐ</span></div></div></div><div class="card p2"><div class="hd"><span class="loc">203号室（早瀬の部屋）① 調査2</span><span>CLUE 23</span></div><div class="bd"><span class="ttl">ベッドの下</span><p>ベッドの下に、ノートパソコンが押しこまれている。ふたに「PULSE 社長用」のステッカー。</p></div></div><div class="card p2"><div class="hd"><span class="loc">204号室（白井の部屋）① 調査2</span><span>CLUE 24</span></div><div class="bd"><span class="ttl">白井のバッグ</span><p>カメラバッグの内ポケットに封筒。「10年後の白井美咲へ」。封は開いている。</p><p class="letter">早瀬くんが好き。10年後は早瀬くんの隣にいたい。</p></div></div></div>
+  </div>
+</section>
+
+<section class="panel" id="solve" hidden>
+  <h2>解決編</h2>
+  <div class="warn gate" data-gate="solve">
+    <p><strong>投票が終わるまで開けないでください。</strong>印刷したら封筒に入れて封をします。</p>
+    <button type="button" class="btn" id="gate-solve">投票が終わったので開く</button>
+  </div>
+  <div class="gated" data-for="solve" hidden>
+  <div class="box" style="break-after:page">
+    <h3>秘密の挙手（投票のあと、このページだけ先に読む）</h3>
+    <p>次の文を1つずつ読み上げ、「本当だと思う人」に手を挙げてもらう。かっこ内の当事者は挙げない。当事者以外の過半数が挙げたら「ばれた（信じられた）」。<b>本当ではない文も混ざっている。</b>議論で根拠（証言やカード）が出なかったものには挙げない。結果をメモしたら、次のページへ。</p>
+    <ol>
+      <li>春日は、10年前に浅野透と付き合っていた（春日）</li>
+      <li>10年前、春日に届いた「ごめん」は、透ではなく桐生が透のスマホで送ったものだ（春日）</li>
+      <li>10年前の夜、桐生が浅野透を死なせた（宮本）</li>
+      <li>森下は、浅野透の手紙を持っている（森下）</li>
+      <li>森下工務店は、桐生に取引を切られそうだった（森下）</li>
+      <li>白井と早瀬は、こっそり付き合っている（白井・早瀬）</li>
+      <li>早瀬は、桐生に多額の借金をしていた（早瀬）</li>
+      <li>宮本が10年間黙っていたのは、桐生の父の病院で働いているからだ（宮本）</li>
+      <li>宮本は、高校時代に桐生と付き合っていた（宮本）</li>
+      <li>佐倉は、桐生にペンションを取り上げられそうだった（佐倉）</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>答え</h3>
+    <ol>
+      <li><b>桐生蓮を殺したのは 森下大地。</b></li>
+      <li><b>ノートパソコンを持ち出したのは 早瀬陽介。</b></li>
+      <li><b>カプセルから自分の手紙を抜いたのは 白井美咲。</b></li>
+    </ol>
+    <p class="note">秘密の挙手の 7 と 9 は、本当ではない文（ダミー）。誰の点数にも関係しない。ほかの文はすべて本当。</p>
+  </div>
+  <div class="read">
+    <span class="who">進行役 読み上げ</span>
+    <p>十年前の三月九日。浅野透は、生徒会長・桐生蓮の推薦入試の不正を、卒業式のあとで先生に打ち明けるつもりだった。その夜、旧校舎の非常階段で二人はもみ合い、透は落ちた。腕時計は二十三時四十一分で止まった。桐生は透のスマホを持ち去り、二十三時五十八分、春日奏に「ごめん」とだけ送った。悩んだ末の死に見せるために。階段を駆け下りる桐生を見たのは、宮本千夏ただ一人だった。</p>
+    <p>十年後の今夜。桐生はみんなより先にカプセルを開け、透の手紙を見つけた。そこには「もし俺に何かあったら、それは事故じゃない」と書かれていた。桐生は笑って、その手紙を燃やすつもりだった。</p>
+    <p>二十二時四十分、桐生は森下大地を201号室へ呼びつけた。取引を打ち切ると告げるために。机の上の手紙を読んだ森下に、桐生は言った。「腕はつかんでたけど、離しただけ」。二十二時五十二分、カプセルの缶が振り下ろされた。その瞬間、桐生の指のパルスリングが、心拍の途絶えを記録した。</p>
+    <p>森下は桐生の腕時計の竜頭を引き出し、針を二十三時四十分――トランプの最中の時刻――に合わせてガラスを割った。カーテンを閉め、透の手紙をポケットに入れ、血のついた赤いニットを洗濯機に放りこんだ。二十三時十五分、灰色のパーカーでトランプの輪に加わった。</p>
+    <p>同じ夜、もうひとつの扉が開いていた。横領の罪を着せられかけた早瀬陽介は、二十三時半に201を訪ね、すでに冷たくなった桐生を見つけた。腕時計は、まだ来ていない二十三時四十分をさしていた。早瀬は桐生のパソコンを抱えて逃げた。そして夕方、白井美咲は、十年前の自分の恋心を、カプセルからそっと抜き取っていた。</p>
+    <p>翌朝、雪の上に警察の車が並んだ。森下は、ポケットの手紙を自分から差し出した。「透は、事故じゃなかったんです」。0時に開くはずだったカプセルは、十年分の嘘と一緒に、ようやく開いた。</p>
+  </div>
+  <div class="box">
+    <h3>推理の筋道</h3>
+    <ol>
+      <li><b>腕時計の23:40はにせもの。</b>竜頭が引き出されたまま（＝誰かが針を動かした）。宮本の「0:05の時点で1時間はたっていた」。23:12のノックに返事がなく、23:13のLINEも未読。早瀬は23:30の時点で針が23:40だったのを見ている。</li>
+      <li><b>本当の時刻は22:52。</b>パルスリングの「心拍を検出できません 22:52」。白井の写真で、22:48はまだ桐生が立って誰かと話しており、22:56にはカーテンが閉まっている（カーテンの端に血の跡）。→ 犯行は22:48〜22:56。</li>
+      <li><b>外からの犯人ではない。</b>防犯カメラは18:10以降、出入りなし。窓も開かない。</li>
+      <li><b>22:52に一人だった人。</b>春日はピアノ（真琴が電話中ずっと音を聞いていた。自動演奏の機能はない）。真琴は電話中（通話記録）。白井はバルコニー（写真）。宮本は風呂（札）。早瀬と森下は部屋に一人。</li>
+      <li><b>赤い袖の人。</b>22:48の写真の相手は赤っぽい袖。夕食で赤い服は森下（赤いニット）と春日（えんじのカーディガン）。春日はピアノを弾いていて、23:15もカーディガンのまま。森下は灰色のパーカーに着替えていた。</li>
+      <li><b>決め手。</b>洗濯機は23:02に回されている（宮本も23:09に音を聞いた）。中は男物Lの赤いニットで、袖口にしみ。ワインのしみなら夕食後すぐ洗えばよく、「寝ていた」はずの23:02に洗う理由がない。ベッドは使った形跡がない。22:40の「201に来い」のLINE。22:42に201をノックする音（早瀬）。</li>
+      <li><b>動機。</b>手帳の「森下工務店 3月末で契約終了」。ごみ箱の破られた「浅野透へ」の封筒。透の手紙・春日の「ごめん」・宮本の目撃から、桐生が透を死なせたことがわかる。</li>
+      <li><b>パソコン（質問2）。</b>机に充電ケーブルだけ。春日が23:31に見た「紺のズボンに白いシャツの男」が203へ。203のベッドの下にパソコン。</li>
+      <li><b>手紙（質問3）。</b>名簿30人に封筒28通。透の分は桐生が開けて破いた（ごみ箱）。白井の分は、17:30に事務室から出てきた白井（真琴の証言）。白井のバッグに手紙。</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>点数の数え方</h3>
+    <ul>
+      <li>質問1で森下に投票：+4点。質問2で早瀬：+2点。質問3で白井：+2点。（森下は質問1、早瀬は質問2、白井は質問3の点なし）</li>
+      <li>「話す」「見せる」「伝える」は、議論中に全員の前ではっきりそうすれば達成。「ばれない」「信じられる」は、秘密の挙手の結果で決める。</li>
+      <li>「最多票にならない／なる」は、その質問でいちばん票が多かった人で判定（同数で並んだら、並んだ全員が最多票）。</li>
+      <li>個人の目的は、それぞれのキャラシートのとおり。投票の結果と、議論の中で起きたことから全員で確認する。同点ならMVPは複数。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>エピローグ</h3>
+    <ul>
+      <li><b>春日 奏</b>：春日は透の命日に、初めて自分から墓参りの花を買った。「ごめんね」と、透の打ち方で言ってみた。</li>
+      <li><b>森下 大地</b>：森下は取り調べで、10年前の電話のことを話した。透の手紙は、証拠として警察に預けられた。</li>
+      <li><b>白井 美咲</b>：白井は抜いた手紙を、早瀬に渡さずに燃やした。翌月、二人はもう会わないと決めた。</li>
+      <li><b>早瀬 陽介</b>：早瀬はパソコンを警察に提出し、裏帳簿のことをすべて話した。パルスの不正は、春のニュースになった。</li>
+      <li><b>宮本 千夏</b>：宮本は10年前のことを警察に話し、病院を辞めた。母の転院先は、春日が一緒に探してくれた。</li>
+      <li><b>佐倉 真琴</b>：土地の売買は白紙に戻った。「ゆきあかり」の窓には、今年の冬も明かりがともっている。</li>
+    </ul>
+  </div>
+  </div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚。推理の発表後、一斉に開きます。書けるのは6人のプレイヤーの名前だけ。</p>
+  <div class="vote"><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 桐生蓮を殺したのは</span><div class="ln"></div><span class="q">2. 桐生のノートパソコンを持ち出したのは</span><div class="ln"></div><span class="q">3. カプセルから自分の手紙を抜いたのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('capsule-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  ['chars', 'items', 'clues', 'solve'].forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () { unlock(n); try { sessionStorage.setItem('capsule-unlock-' + n, '1'); } catch (e) {} });
+    try { if (sessionStorage.getItem('capsule-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+  var start = 'howto';
+  try { start = localStorage.getItem('capsule-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+</script>
+<script>
+/* 公開ページ用：キャラシート・持ち物は名前の一覧、証拠カードは場所の一覧だけを出し、押すとその分だけ開く。
+   リンクを共有して、各自が自分の名前を押して遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  // ---- 3秒の長押しで開く（間違えてめくらないように）。閉じるのはタップ ----------------
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY; begin();
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') ) { e.preventDefault(); if (!e.repeat) begin(); }
+    });
+    b.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); }
+    });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編・GMブックの「表示する」も長押しにそろえる（元のボタンの動きはそのまま、長押しが済んだときだけ通す）
+  $$('[data-gate="solve"] .btn, [data-gate="gm"] .btn, [data-gate="solve"] button, [data-gate="gm"] button').forEach(function (b) {
+    if (b.dataset.plHold) return; b.dataset.plHold = '1';
+    hold(b, function () { b.click(); });
+    var p = el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。');
+    b.parentNode.insertBefore(p, b);
+  });
+
+  // 「表示する」の関門は、一覧から1人分ずつ開く形に置きかえる（解決編・GMブックはそのまま）
+  ['chars', 'items', 'clues', 'npc'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  // ---- 登場人物 -----------------------------------------------------------
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    return { i: i, name: txt(nm), rl: txt(s.querySelector('.slate .rl')), sheet: s, item: null };
+  });
+  $$('#items .card.item').forEach(function (c) {
+    var o = txt(c.querySelector('.owner'));
+    roles.forEach(function (r) { if (r.name === o) r.item = c; });
+  });
+
+  var views = {};
+  ['chars', 'items'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '名前を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '自分の名前を長押しすると、' + (tab === 'chars' ? 'あなたのキャラシートと持ち物カード' : 'あなたの持ち物カード') + 'だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', 'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。'));
+    var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open');
+    host.insertBefore(shown, host.firstChild);
+    host.insertBefore(roster, shown);
+    host.insertBefore(note, roster);
+    if (tab === 'items') $$('.cards, .lead', host).forEach(function (e) { if (e.parentNode === host) e.hidden = true; });
+    var v = views[tab] = { roster: roster, shown: shown, open: null, buttons: [] };
+    roles.forEach(function (r) {
+      var b = el('button', 'pl-person'); b.type = 'button';
+      b.append(el('b', null, r.name), el('span', 'r', r.rl));
+      b.setAttribute('aria-expanded', 'false');
+      hold(b, function () { show(tab, r.i); }, function () { return v.open === r.i; }, function () { show(tab, null); });
+      roster.appendChild(b); v.buttons.push(b);
+    });
+  });
+  function show(tab, i) {
+    var v = views[tab];
+    v.shown.textContent = '';
+    if (tab === 'chars') roles.forEach(function (r) { r.sheet.hidden = true; });
+    v.open = i;
+    v.buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    v.shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    if (tab === 'chars') { v.shown.appendChild(r.sheet); r.sheet.hidden = false; }
+    if (r.item) {
+      if (tab === 'chars') v.shown.appendChild(el('h3', null, '持ち物カード'));
+      var wrap = el('div', 'cards'); wrap.appendChild(r.item.cloneNode(true)); v.shown.appendChild(wrap);
+    }
+    v.shown.appendChild(btn('閉じる', 'ghost', function () { show(tab, null); v.roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+
+  // ---- 証拠カード・証言カード ----------------------------------------------
+  var CIRC = /[①-⑳]/;
+  ['clues', 'npc'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '場所を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '長押しすると、そのカードの中身だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', '調べる場所を宣言してから、自分で長押しして読んでください。開いたカードに「★ 即公開」と出たら、すぐ全員に読み上げます。'));
+    host.insertBefore(note, host.firstChild);
+  });
+  $$('#clues .card, #npc .card').forEach(function (c) {
+    var sp = c.querySelectorAll('.hd > span');
+    var loc = txt(sp[0]), id = txt(sp[sp.length - 1]);
+    var m = loc.match(CIRC);
+    var place = loc.replace(/[①-⑳]/g, '').replace(/調査[12]/g, '').replace(/\s+/g, ' ').trim();
+    var phase = (c.classList.contains('p2') || /調査2/.test(loc)) ? 2 : 1;
+    var cell = el('div', 'pl-cell');
+    c.parentNode.insertBefore(cell, c);
+    var row = el('button', 'pl-row'); row.type = 'button';
+    row.append(el('span', 'pl-place', place + (m ? ' ' + m[0] : '')), el('span', 'pl-id', id));
+    row.appendChild(el('span', 'pl-chip' + (phase === 2 ? ' p2' : ''), '調査' + phase));
+    // ★のカードかどうかは一覧では見せない。開いたカードの中で初めてはっきり出す
+    if (c.querySelector('.star')) {
+      var bd = c.querySelector('.bd') || c;
+      bd.insertBefore(el('p', 'pl-starnote', '★ 即公開：このカードは引いたらすぐ全員に読み上げる／見せる'), bd.firstChild);
+    }
+    row.setAttribute('aria-expanded', 'false');
+    var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+    function toggle(on) {
+      c.hidden = !on; close.hidden = !on;
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+    cell.append(row, c, close);
+    toggle(false);
+  });
+})();
+</script>
+</body>
+</html>

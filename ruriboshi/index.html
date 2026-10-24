@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>瑠璃星は夜明けに着く</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=BIZ+UDPGothic:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root {
+  --bg: #eef0f5; --surface: #ffffff; --ink: #1c2130; --muted: #5a6175; --line: #c8cddb;
+  --ai: #2b4a8b; --ai-soft: #e2e8f5; --kin: #9a5b26; --kin-soft: #f5e9da; --moss: #4b6b45;
+  --night: #161d36; --night-ink: #eef1f8; --teal: #2b4a8b; --teal-soft: #e6ecf7;
+  --f-display: "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "BIZ UDPGothic", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1220; --surface: #181d30; --ink: #e3e7f2; --muted: #9aa2b8; --line: #2d3550;
+    --ai: #8fa9e0; --ai-soft: #1d2540; --kin: #dca46e; --kin-soft: #33261b; --moss: #9cbf95;
+    --night: #0a0d18; --night-ink: #e3e7f2; --teal: #8fa9e0; --teal-soft: #1a2240; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1220; --surface: #181d30; --ink: #e3e7f2; --muted: #9aa2b8; --line: #2d3550;
+    --ai: #8fa9e0; --ai-soft: #1d2540; --kin: #dca46e; --kin-soft: #33261b; --moss: #9cbf95;
+    --night: #0a0d18; --night-ink: #e3e7f2; --teal: #8fa9e0; --teal-soft: #1a2240; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; margin: 0; }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.hero { background: var(--night); color: var(--night-ink); margin-inline: -16px; padding: 40px 16px 28px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1.6px), radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1.6px); background-size: 52px 52px, 31px 31px; background-position: 0 0, 15px 21px; opacity: .5; pointer-events: none; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; position: relative; }
+.can { width: 40px; height: 40px; border-radius: 50%; background: #d9b968; box-shadow: inset -9px -5px 0 rgba(0,0,0,.28), 0 0 18px rgba(217,185,104,.45); }
+.hero h1 { font-size: clamp(30px, 6vw, 52px); font-weight: 800; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .88; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ai); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--kin); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--kin); outline-offset: 2px; }
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.warn { border: 1px solid var(--kin); background: var(--kin-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--kin); }
+.btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--kin); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.read { border-left: 3px solid var(--ai); background: var(--ai-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--ai); }
+.note { font-size: 13px; color: var(--muted); }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 20px; font-weight: 800; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--ai); }
+.person.victim { border-color: var(--kin); }
+.person.victim .role { color: var(--kin); }
+.person .wear { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; }
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--night); color: var(--night-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate.cont .no::after { content: "（2枚目）"; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 800; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.intro h4 { color: var(--teal); }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--kin); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--kin); }
+.tips { border: 1px solid var(--ai); border-radius: 6px; padding: 12px 14px; }
+.tips h4 { color: var(--ai); }
+.tl { display: grid; grid-template-columns: 5.2em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--ai); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 4.6em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--ai); border-radius: 4px; text-align: center; padding: 1px 0; }
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 800; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--night); color: var(--night-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 800; font-size: 17px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.star { color: var(--kin); font-size: 12px; font-family: var(--f-body); font-weight: 700; border: 1px solid var(--kin); border-radius: 3px; padding: 0 5px; }
+.card.item .hd { background: var(--ai); color: var(--surface); }
+.card.p2 .hd { background: var(--kin); color: var(--surface); }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .log { font-family: var(--f-mono); font-size: 12.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+.letter { font-family: var(--f-display); font-weight: 700; border-left: 2px solid var(--line); padding-left: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.map svg { width: 100%; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .out { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.map .hot { fill: var(--kin-soft); stroke: var(--kin); stroke-width: 2; }
+.map .hall { fill: var(--ai-soft); stroke: var(--ai); stroke-width: 1; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 11px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--kin); font-weight: 700; }
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 10px; background: var(--surface); }
+.vote .q { font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.5em; }
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .map * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 58mm; align-content: center; padding: 6mm 8mm; }
+  .labels .nm { font-size: 22pt; }
+  .sheet { break-before: page; border: 0; border-radius: 0; }
+  .sheet .slate { padding: 4mm 6mm; }
+  .sheet .slate.cont { break-before: page; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { display: block; column-count: 2; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 8.6pt; line-height: 1.55; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > div:has(.tl) { break-inside: auto; }
+  .sheet .body p + p { margin-top: 1.2mm; }
+  .sheet .secret, .sheet .intro, .sheet .tips { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 8pt; }
+  .sheet .tl { grid-template-columns: 3.6em 1fr; gap: 1mm 2.5mm; }
+  .sheet .tl dt { font-size: 8pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 0.8mm; }
+  .sheet .goal { grid-template-columns: 4em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 8pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { border-style: dashed; }
+  .box, .person, .card { break-inside: avoid; }
+}
+</style>
+<style>
+/* 公開ページ用：名前・場所の一覧から開く表示。色は各キットのトークンから取る */
+:root { --pl-accent: var(--accent, var(--kin)); --pl-hi: var(--teal, var(--ai)); }
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--pl-hi); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+.pl-head { font-size: 20px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-row .pl-place { font-weight: 700; }
+.pl-row .pl-id { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.star { border-color: var(--pl-accent); color: var(--pl-accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--pl-hi); background: var(--pl-hi); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--pl-hi); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--pl-accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--pl-accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-starnote { border: 1.5px solid var(--pl-accent); color: var(--pl-accent); background: var(--surface); border-radius: 6px; padding: 6px 10px; font-weight: 700; font-size: 14px; }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--pl-accent); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="can" aria-hidden="true"></div>
+    <h1>瑠璃星は夜明けに着く</h1>
+    <p>引退する寝台列車の、最後の夜。終点に着く前に、社長が死んだ。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>7人・GM不要</span>
+      <span><b>TIME</b>約130〜140分</span>
+      <span><b>LEVEL</b>中級者向け</span>
+      <span><b>SETTING</b>現代・11月の豪華寝台列車</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション">
+  <div class="inner" role="tablist">
+    <button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button>
+    <button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button>
+    <button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button>
+    <button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="solve" aria-selected="false">解決編<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button>
+  </div>
+</nav>
+<main class="wrap">
+<div class="printonly">瑠璃星は夜明けに着く</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤーは、引退する豪華寝台列車「瑠璃星」の最後の夜に乗り合わせた7人になり、話し合いと証拠カードで真相を探します。GMはいりません。誰か1人が「進行役」として、このページの指示を読み上げてください。進行役もプレイヤーとして遊べます。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が書かれています。遊ぶ人は「遊び方」「事件概要」「人物一覧」「投票用紙」以外を見ないでください。</p>
+    <p class="note">印刷と切り分けは、遊ばない人に頼むのが一番です。自分でやるときは、なるべく文字を読まないようにしてください。「解決編」は投票が終わるまで開けません。</p>
+    <p class="note">12年前の鉄道の脱線事故（亡くなった人がいる）と、毒による死が出てきます。気になる人がいないか、遊ぶ前に一言確認してください。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>人数と時間</h3>
+      <ul>
+        <li>7人用（ちょうど7人で遊びます）・GMなし</li>
+        <li>約130〜140分</li>
+        <li>中級者向け。手がかりは何本もありますが、1枚で犯人がわかるカードはありません。いくつかの話をつなげて考えてください。</li>
+      </ul>
+      <p class="note">配役は封筒を裏返してシャッフルし、ランダムに選んでください。</p>
+    </div>
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラシート（1人2枚）と持ち物カード（宛名ラベルを貼った封筒に入れる）</li>
+        <li>証拠カード 調査1：16枚／調査2：9枚（場所ごとに番号の小さい順で上から重ね、裏向きに置く。調査2はまだしまっておく）</li>
+        <li>解決編（封筒に入れて封をする）</li>
+        <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
+        <li>投票用紙、筆記用具、タイマー</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box">
+    <h3>基本ルール</h3>
+    <ul>
+      <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+      <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+      <li>シートに書いていないことは「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+      <li>持ち物カード・引いたカードは、見せる・隠す・一部の人にだけ見せる・渡す、どれも自由。「見せて」と言われて断ってもよい（そのぶん怪しまれる）。</li>
+      <li>カードの中身を口で説明するときは嘘をついてもよい。ただしカードそのものは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+      <li><b>★のカードは、引いたらすぐ全員に読み上げる。</b></li>
+      <li>議論中は2人で席を外して「密談」してよい（1回3分まで）。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>進行表（進行役が読み上げる）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>やること</th></tr></thead>
+      <tbody>
+        <tr><td class="t">20分</td><td>読み込み</td><td>封筒を開け、キャラシート（2枚）と持ち物カードを黙読する。2枚目の「立ち回りのコツ」もよく読む。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>進行役が「事件概要」を読み上げる。ROLL 01から順に、1人1分で自己紹介（キャラシートの「自己紹介」を読み上げるか、自分の言葉で）。</td></tr>
+        <tr><td class="t">15分</td><td>調査1</td><td>ROLL 01から順番に、1人1枚ずつ「調べる場所」を宣言して、その束の一番上を引く。調査1のカードが全部なくなったら終わり。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。密談OK。</td></tr>
+        <tr><td class="t">10分</td><td>調査2</td><td>調査2のカード（赤茶色）を各場所に置き、ROLL 07から逆の順番で引く。全部なくなったら終わり。</td></tr>
+        <tr><td class="t">20分</td><td>議論2</td><td>最後の議論。15分たったら、全員「まだ見せていないカードを1枚だけ公開する」（持っていない人はなし）。</td></tr>
+        <tr><td class="t">15分</td><td>推理と投票</td><td>1人1分で推理を発表し、3つの質問に一斉に投票する。続けて、解決編の最初のページ「秘密の挙手」だけを読み上げて、挙手で判定する。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>進行役が解決編を読み上げ、点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="box">
+    <h3>投票する3つの質問</h3>
+    <ol>
+      <li><b>鷲尾恭介を殺したのは誰か</b>（正解で+4点）</li>
+      <li><b>スイートのカバンから、鷲尾の遺言書を持ち去ったのは誰か</b>（正解で+2点）</li>
+      <li><b>週刊誌に会社の内部の情報を流していた「内通者」は誰か</b>（正解で+2点）</li>
+    </ol>
+    <p class="note">書けるのは、7人のプレイヤーの名前だけです（鷲尾本人や、運転士の森川、亡くなった真壁敏夫は書けません）。自分の名前を書いてもかまいません。ただし、<b>答えが自分自身だった質問では、正解の点はもらえません</b>。</p>
+    <p>このほかに、全員に個人の目的があり、達成すると点数が入ります。合計点が一番高い人がMVPです。</p>
+    <p>目的のうち「〜がばれない」「〜と信じられる」は、言い張るだけでは決まりません。投票のあと、解決編の最初のページにある文を読み上げ、当事者以外の全員が「本当だと思う」なら手を挙げます。<b>過半数が手を挙げたら「ばれた（信じられた）」</b>ことになります。読み上げる文には本当ではないものも混ざっています。議論で根拠（証言やカード）が出なかったものには、手を挙げないでください。</p>
+  </div>
+  <div class="box">
+    <h3>遊ぶときのヒント</h3>
+    <ul>
+      <li>「鷲尾は、いつ、何を口にしたのか」を整理すると、ぐっと解きやすくなります。</li>
+      <li>列車は1本道です。1号車へ行くには、食堂車を通るしかありません。誰がいつどこを通ったかも大事です。</li>
+      <li>自分に関係ない秘密も、誰かの目的に関係しているかもしれません。気になったことはどんどん質問しましょう。</li>
+      <li>犯人になった人も大丈夫。キャラシートの「立ち回りのコツ」に、ばれにくい動き方が書いてあります（ほかの人のシートにも、それぞれのコツがあります）。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <div class="read">
+    <span class="who">進行役 読み上げ</span>
+    <p>十一月の終わり。海ぞいの港町・浜崎から、山あいの終点・天ヶ瀬まで。西海鉄道の豪華寝台列車「瑠璃星」は、今夜の運行を最後に引退する。</p>
+    <p>最後の夜を貸し切ったのは、西海鉄道の社長・鷲尾恭介。来月には会長になる男だ。招かれたのは、娘、秘書、記者、元運転士、そして配信者。乗務員は車掌と料理長、運転室の運転士がひとり。</p>
+    <p>ディナーの席で、鷲尾はグラスを掲げて言った。「瑠璃星は今夜で引退し、海外の会社に売る。そして明朝六時半、天ヶ瀬で、汐見線事故の慰霊碑の幕を引く」。十二年前、この会社の汐見線で快速列車が脱線し、四人が亡くなった。原因は「運転士の速度超過」とされている。</p>
+    <p>二十三時、展望ラウンジで最後の乾杯。鷲尾は上機嫌で、先頭のスイートへ引き上げていった。</p>
+    <p>零時十五分、列車は山の中で急停車した。線路に倒木。携帯は圏外になった。零時二十一分、それを知らせに行った車掌と秘書が、スイートの床に倒れている鷲尾を見つけた。外傷はなく、吐いた跡があった。息は、もうなかった。</p>
+    <p>救助が来られるのは、朝六時。――終点に着く前に、この中の誰かの嘘を、見つけなければならない。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li>0:21、1号車スイートの床に倒れている鷲尾を、相原と葛西が見つけた。外傷はなく、吐いた跡があった。</li>
+        <li>0:15、山あいの区間で線路に倒木。列車は急停車し、携帯は圏外。運転士の森川が無線で連絡し、救助は朝6時ごろになる。</li>
+        <li>22:30〜22:50、途中の星ヶ浦駅で「星見の停車」があった。</li>
+        <li>23:00、5号車ラウンジで全員で乾杯した。鷲尾は23:12ごろスイートへ戻った。</li>
+        <li>23:15〜0:10、小野寺が5号車ラウンジでライブ配信をしていた。</li>
+        <li>12年前の11月、西海鉄道汐見線で快速列車が脱線し、乗客3人と運転士の真壁敏夫が亡くなった。原因は「運転士の速度超過」とされた。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>列車のつくり</h3>
+      <ul>
+        <li>先頭から1号車（運転室・スイート）、2号車（食堂車）、3号車・4号車（個室寝台）、5号車（展望ラウンジ）の5両。</li>
+        <li>列車の中は1本道。1号車へ行くには、2号車の食堂車を通るしかない。</li>
+        <li>個室の扉はカードキー。外からカードで開けると、どのカードで開けたかが記録に残る。内側から開けたときは残らない。</li>
+        <li>運転室には運転士の森川だけがいて、走っているあいだは出られない。</li>
+        <li>列車のカメラは乗降口だけ（停車駅で乗り降りした人を記録する）。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box map"><h3>見取り図</h3><div class="tbl-wrap">
+<svg viewBox="0 0 660 230" role="img" aria-label="寝台列車瑠璃星の見取り図" style="min-width:600px">
+  <text x="10" y="18" class="ac">← 進行方向（先頭）</text>
+  <rect class="room" x="10" y="30" width="40" height="120"/><text class="sm" x="14" y="94">運転室</text>
+  <rect class="hot" x="50" y="30" width="80" height="120"/><text class="ac" x="62" y="86">スイート</text><text class="sm" x="64" y="102">（鷲尾）</text>
+  <text x="56" y="168" class="sm">1号車</text>
+  <rect class="room" x="140" y="30" width="45" height="120"/><text class="sm" x="146" y="86">厨房</text><text class="sm" x="144" y="100">（小窓）</text>
+  <rect class="hall" x="185" y="30" width="80" height="120"/><text x="198" y="86">食堂車</text><text class="sm" x="196" y="140">コート掛け</text>
+  <text x="166" y="168" class="sm">2号車</text>
+  <rect class="room" x="275" y="30" width="45" height="56"/><text class="sm" x="281" y="62">A 玲奈</text>
+  <rect class="room" x="320" y="30" width="45" height="56"/><text class="sm" x="326" y="62">B 葛西</text>
+  <rect class="room" x="275" y="94" width="45" height="56"/><text class="sm" x="281" y="126">C 久住</text>
+  <rect class="room" x="320" y="94" width="45" height="56"/><text class="sm" x="326" y="126">D 空室</text>
+  <rect class="hall" x="275" y="86" width="90" height="8"/>
+  <text x="300" y="168" class="sm">3号車</text>
+  <rect class="room" x="375" y="30" width="45" height="56"/><text class="sm" x="381" y="62">A 桑原</text>
+  <rect class="room" x="420" y="30" width="45" height="56"/><text class="sm" x="424" y="62">B 小野寺</text>
+  <rect class="room" x="375" y="94" width="55" height="56"/><text class="sm" x="378" y="120">乗務員室</text><text class="sm" x="378" y="134">相原・戸川</text>
+  <rect class="room" x="430" y="94" width="35" height="56"/><text class="sm" x="432" y="126">洗面所</text>
+  <rect class="hall" x="375" y="86" width="90" height="8"/>
+  <text x="400" y="168" class="sm">4号車</text>
+  <rect class="room" x="475" y="30" width="110" height="120"/><text x="490" y="86">展望ラウンジ</text><text class="sm" x="492" y="104">バー・配信の席</text>
+  <rect class="out" x="585" y="30" width="60" height="120"/><text class="sm" x="592" y="86">展望</text><text class="sm" x="592" y="100">デッキ</text>
+  <text x="510" y="168" class="sm">5号車</text>
+  <text class="sm" x="10" y="196">車両のあいだは通路でつながっている（1本道）。乗降口は各車両の端にある。</text>
+  <text class="sm" x="10" y="214">カードキーの記録と呼び出しボタンの記録は、4号車の乗務員室に集まる。</text>
+</svg></div></div>
+</section>
+
+<section class="panel" id="people" hidden>
+  <h2>人物一覧</h2>
+  <p class="lead">全員が知っている情報です。自己紹介はこの範囲で行います。</p>
+  <div class="people"><div class="person victim"><span class="role">被害者・西海鉄道 社長</span><span class="nm">鷲尾 恭介</span><span class="kana">わしお きょうすけ（61）</span><p>瑠璃星を走らせた本人。来月から会長になる。12年前、汐見線の事故のときは安全統括部長だった。</p><span class="wear">今夜の服装：濃紺のスーツ（ディナーのあとは上着なしでいたこともある）</span></div><div class="person"><span class="role">ROLL 01｜瑠璃星 チーフアテンダント（車掌）</span><span class="nm">相原 遥</span><span class="kana">あいはら はるか（32）</span><p>瑠璃星に7年乗ってきた車掌。客の名前と好みを一度で覚える。乗務員用のマスターカードを持っている。</p><span class="wear">今夜の服装：紺の制服に白い手袋</span></div><div class="person"><span class="role">ROLL 02｜社長の娘・インテリアデザイナー</span><span class="nm">鷲尾 玲奈</span><span class="kana">わしお れな（27）</span><p>2年前、瑠璃星の客車の改装（内装）を手がけた。父と同じ列車に乗るのは久しぶり。</p><span class="wear">今夜の服装：深緑のワンピース</span></div><div class="person"><span class="role">ROLL 03｜食堂車 料理長</span><span class="nm">戸川 修</span><span class="kana">とがわ おさむ（56）</span><p>瑠璃星の運行開始から10年、食堂車の厨房を守ってきた。山あいの村の生まれ。</p><span class="wear">今夜の服装：白いコックコート</span></div><div class="person"><span class="role">ROLL 04｜週刊誌記者</span><span class="nm">久住 真司</span><span class="kana">くすみ しんじ（44）</span><p>「週刊トリビューン」の記者。ラストランの取材で招かれた。</p><span class="wear">今夜の服装：グレーのジャケット</span></div><div class="person"><span class="role">ROLL 05｜社長秘書</span><span class="nm">葛西 美穂</span><span class="kana">かさい みほ（38）</span><p>経理部から社長室へ移って6年。鷲尾のスケジュールをすべて握っている。</p><span class="wear">今夜の服装：黒のパンツスーツ</span></div><div class="person"><span class="role">ROLL 06｜元・指導運転士</span><span class="nm">桑原 健一</span><span class="kana">くわばら けんいち（66）</span><p>汐見線で40年運転士をつとめた。毎年、瑠璃星に「名誉乗務員」として招かれている。</p><span class="wear">今夜の服装：茶色のツイードの上着</span></div><div class="person"><span class="role">ROLL 07｜鉄道系YouTuber</span><span class="nm">小野寺 蒼</span><span class="kana">おのでら そう（24）</span><p>チャンネル「そうてつ」を運営。西海鉄道の依頼で、ラストランを配信している。</p><span class="wear">今夜の服装：黒いパーカーにカメラ</span></div></div>
+  <p class="note">森川（もりかわ）：今夜の運転士。運転室から離れられない（プレイヤーではありません）。<br>真壁 敏夫（まかべ としお）：12年前の汐見線の事故で亡くなった運転士（当時46）。</p>
+</section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>ネタバレ注意。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden>
+  <h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3>
+  <div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">相原 遥<small>あいはら はるか</small></span><span class="rl">瑠璃星 チーフアテンダント（車掌）</span><span class="in">中身：キャラシート（ROLL 01・2枚）＋ 持ち物カード（ITEM 01）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">鷲尾 玲奈<small>わしお れな</small></span><span class="rl">社長の娘・インテリアデザイナー</span><span class="in">中身：キャラシート（ROLL 02・2枚）＋ 持ち物カード（ITEM 02）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">戸川 修<small>とがわ おさむ</small></span><span class="rl">食堂車 料理長</span><span class="in">中身：キャラシート（ROLL 03・2枚）＋ 持ち物カード（ITEM 03）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">久住 真司<small>くすみ しんじ</small></span><span class="rl">週刊誌記者</span><span class="in">中身：キャラシート（ROLL 04・2枚）＋ 持ち物カード（ITEM 04）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">葛西 美穂<small>かさい みほ</small></span><span class="rl">社長秘書</span><span class="in">中身：キャラシート（ROLL 05・2枚）＋ 持ち物カード（ITEM 05）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">桑原 健一<small>くわばら けんいち</small></span><span class="rl">元・指導運転士</span><span class="in">中身：キャラシート（ROLL 06・2枚）＋ 持ち物カード（ITEM 06）<br>合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">小野寺 蒼<small>おのでら そう</small></span><span class="rl">鉄道系YouTuber</span><span class="in">中身：キャラシート（ROLL 07・2枚）＋ 持ち物カード（ITEM 07）<br>合図があるまで開けないでください。</span></div></div>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">相原 遥<small>あいはら はるか</small></span><span class="rl">瑠璃星 チーフアテンダント（32）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「相原遥です。瑠璃星のチーフアテンダント、つまり車掌として7年乗ってきました。今夜が最後の乗務です。お客様のお名前とお好みは一度で覚えるのが自慢です。何かあれば、いつでも声をかけてください。」</p></div>
+      <div><h4>あなたについて</h4><p>港町・浜崎の生まれ。父は漁師で、小さいころは父の船より、港を出ていく列車のほうが好きだった。夜、布団の中で線路の音を数えながら眠った。高校を出て西海鉄道に入り、駅員、車掌を経て、25歳で瑠璃星の乗務に選ばれた。</p><p>仕事は細かい。お客様の名前、好きな飲み物、枕の高さまでノートに書く。7年でノートは23冊になった。鷲尾社長のぶんは1冊まるごとある。「ウイスキーは毎晩23時20分、氷は2つ。夜食は23時半」。</p><p>2年前、内装の打ち合わせで乗ってきた玲奈と出会った。仕事の話だけのつもりが、気づけば終電を何本も逃していた。いまは、誰よりも大切な人だ。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>社長は、列車の中では王様だった。料理が少し冷めれば戸川さんを怒鳴り、アテンダントの靴の汚れまで見ていた。それでも、瑠璃星を走らせてくれた人だと思って、7年頭を下げてきた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは玲奈と婚約している。指輪はまだ玲奈に渡せず、あなたが預かっている。ラストランが終わったら、二人で社長に話すつもりだった。</p><p>だが今夜22:15、社長にスイートへ呼ばれ、「玲奈とのことは知っている。ラストランが終わったら、お前は解雇だ。娘には二度と近づくな」と言われた。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>19:00</dt><dd>食堂車でディナーの給仕。社長は「暑い」と、上着を入口のコート掛けにかけた。</dd><dt>21:00</dt><dd>ディナーが終わる。21:08まで、皿を下げて厨房と客席を行き来した。21:05、社長は小野寺さんの撮影のため、上着を置いたまま展望デッキへ。すぐあと、葛西さんが社長の上着の内ポケットから紙を取り出していた。</dd><dt>22:15</dt><dd>スイートに呼ばれる（秘密のとおり）。社長が内側から開けた。22:20に出た。</dd><dt>22:30</dt><dd>星見の停車。乗降口で、降りた社長・桑原さん・久住さん・小野寺さんを見送った。22:45ごろ、3号車の扉の陰で玲奈と少しだけ話した。</dd><dt>23:00</dt><dd>ラウンジで乾杯。グラスをお盆で配った。</dd><dt>23:20</dt><dd>ウイスキーをスイートへ（マスターカード）。23:21に出た。</dd><dt>23:28</dt><dd>厨房へ夜食を取りに行く。戸川さんがコンソメに白い粉をさっと振っていた。「胃にやさしい塩だ」と言われた。</dd><dt>23:31</dt><dd>夜食をスイートへ（マスターカード）。社長は机に向かっていた。銀のピルケースが開いていて、グラスは2つとも空。「置いておけ。もう寝る」。23:32に出た。</dd><dt>23:36</dt><dd>0:15までラウンジのバーに立つ。</dd><dt>0:18</dt><dd>急停車を知らせにスイートへ。3号車で葛西さんが部屋から出てきて、一緒に来た。0:21、マスターカードで開けると、社長が倒れていた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">相原 遥<small>あいはら はるか</small></span><span class="rl">瑠璃星 チーフアテンダント（32）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない夜（7年前、瑠璃星の最初の運行）</h4><p>運行初日の夜、社長は乗務員を全員ラウンジに集めて言った。「この列車は、汐見線の事故で落ちた会社の信用を取り戻すための列車だ。客の前で一度でも頭を下げ忘れたら、降りてもらう」。社長が自分からあの事故の話をしたのは、あとにも先にもあの一度だけだった。</p><p>その夜遅く、デッキに一人で立って、汐見線の方角をずっと見ている桑原さんを見た。声はかけられなかった。</p><p>あなたはあの夜、ノートの1冊目の最初のページに書いた。「この列車に乗る人が、みんな無事に終点に着きますように」。7年、その一行だけは守ってきたつもりだった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>スイートの予備のカードキーは、先月の内装の最終点検のとき、玲奈に貸したままになっている。</li><li>戸川さんは、ディナーのあいだ社長に「料理も今夜で終わりだ、清々する」と言われ、皿を持つ手がふるえていた。</li><li>21:00〜21:08、戸川さんは厨房の小窓からずっとこちらを見ていた。自分が上着に近づいていないことは、戸川さんが知っているはず。</li><li>小野寺さんは乗る前から、社長の好みをやけに細かく聞いてきた。「社長は毎晩、何時ごろお休みですか」とも。</li><li>星ヶ浦駅のホームで、久住さんは胸ポケットに手を入れたまま、社長と桑原さんのすぐそばに立っていた。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>マスターカードで2回スイートに入ったことは記録に残る。隠さず、時刻と用事をはっきり言おう。</li><li>23:31に見た「開いたピルケースと空のグラス」は、社長が何を口にしたかを考える大事な材料。</li><li>婚約を隠したいなら、22:15のことは「仕事のことで叱られた」くらいにとどめるのも手。</li><li>戸川さんの白い粉は、あなたの切り札にも、戸川さんとの取引の材料にもなる。</li><li>玲奈が疑われたら、落ち着いてかばおう。ただし、かばいすぎると二人の関係が透ける。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>鷲尾玲奈と婚約していることが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、玲奈が最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+1</span><span>23:31に夜食を届けたとき、ピルケースが開いていて、グラスが2つとも空だったことを、議論中に全員の前で話す。</span></div><div class="goal"><span class="pt">+1</span><span>戸川が夜食に何かを入れたことを、あなた自身が議論中に指摘し、しかも、ばれる（挙手で判定）。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">鷲尾 玲奈<small>わしお れな</small></span><span class="rl">社長の娘・インテリアデザイナー（27）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「鷲尾玲奈です。鷲尾恭介の娘で、インテリアデザイナーをしています。2年前、この瑠璃星の客車の改装を担当しました。いま皆さんが座っている椅子の布も、私が選んだものです。最後の夜に乗れて、うれしいです。」</p></div>
+      <div><h4>あなたについて</h4><p>母は、あなたが9歳のときに家を出た。理由は、大人になってからなんとなくわかった。父は家でも社長だった。テストの点、友達、着る服まで父が決めた。逆らうと、何日も口をきいてもらえなかった。</p><p>逃げ場は絵だった。ノートの端に、架空の列車の客室を描いた。「ここに窓、ここにランプ、ここで眠る人は幸せ」。美大に進むと決めたとき、父は初めて「好きにしろ」と言った。見放されたのだと思った。</p><p>2年前、瑠璃星の改装の仕事が来た。父の会社の仕事だからと断るつもりだった。でも、くたびれた客車に乗った夜、「この列車をもう一度きれいにしたい」と思った。その打ち合わせで、遥と出会った。</p><p>遥は、あなたの描いたランプの位置を見て「これなら夜中に検札しても、お客様を起こさずにすみます」と言った。客室を「眠る人」の側からではなく「守る人」の側から見た言葉を、あなたは初めて聞いた。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>父は、あなたの仕事を一度もほめなかった。今夜のディナーでも「この列車は今夜で売る。お前の選んだ椅子も、向こうで張り替えられるだろう」と笑った。それでも、瑠璃星の内装が雑誌に載った日、父の書斎の机にその雑誌が開いて置いてあったのを、あなたは知っている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは相原遥と婚約している。父には言っていなかったが、どこかで知られた。今夜22:20、スイートで言われた。「相原と別れろ。遺言書はもう書き換えた。あいつと別れなければ、お前には一円も残さない」。</p><p>0:03、あなたは予備のカードキーを持ってスイートへ行った。もう一度だけ話すつもりだった。0:05に開けると、父は床に倒れていた。肩をゆすっても動かず、脈もなかった。頭が真っ白になった。気づくと、机の横のカバンから「遺言書在中」の封筒を開け、中身だけを持って部屋を出ていた。0:08に自分の部屋へ戻った。誰にも言っていない。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>18:30</dt><dd>ラウンジでウェルカムドリンク。父は小野寺さんのカメラに向かって上機嫌だった。</dd><dt>19:00</dt><dd>ディナー。20:30の父のあいさつで、瑠璃星を海外に売る話と、明朝の慰霊碑の除幕のことを初めて聞いた。</dd><dt>21:00</dt><dd>ディナーが終わり、自分の部屋（3号車A室）へ。</dd><dt>22:20</dt><dd>父に呼ばれてスイートへ（秘密のとおり）。父が内側から開けた。22:28に出た。</dd><dt>22:30</dt><dd>星見の停車。ホームには降りず、3号車の扉のところで遥と少しだけ話した。</dd><dt>23:00</dt><dd>ラウンジで乾杯。父は機嫌がよかった。23:13に自分の部屋へ戻った。</dd><dt>0:03</dt><dd>スイートへ（秘密のとおり）。途中の食堂車には誰もいなかった。0:08に戻った。</dd><dt>0:15</dt><dd>急停車。0:25ごろ、遥の声で、みんなが2号車の食堂車に集められた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">鷲尾 玲奈<small>わしお れな</small></span><span class="rl">社長の娘・インテリアデザイナー（27）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない日（10歳の春）</h4><p>10歳の誕生日、父がめずらしく早く帰ってきて「汐見線の視察に連れて行ってやる」と言った。運転室のうしろに立たせてもらうと、運転士さんが白い手袋で敬礼してくれた。名札は「真壁」だった。帰り道、父は一度も笑わなかったけれど、あなたの手をずっと握っていた。</p><p>その半年後、汐見線で脱線事故が起きた。ニュースでその名前を聞いたとき、父は黙ってテレビを消した。それから家で、汐見線の話が出たことはない。</p><p>瑠璃星の客室を描くとき、あなたはいつも運転室のうしろの、あの小さな窓を思い出していた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>父は毎晩寝る前、11時半ごろに胃薬のカプセルを1つ、ウイスキーで飲む。銀のピルケースを上着の内ポケットに入れている。</li><li>葛西さんは、毎月第2金曜だけは必ず定時で帰る。理由を聞いても笑ってはぐらかされる。</li><li>遺言書の書き換えは、葛西さんが公証役場の手配をしたはずだ。中身を知っているかもしれない。</li><li>久住さんは昔、汐見線の事故を取材していたらしい。父が「あの記者は金で黙る」と言っていたのを聞いたことがある。</li><li>戸川さんは、子どものころのあなたに、食堂車でこっそりプリンを作ってくれた人だ。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>0:05の予備のカードキーの記録が見つかると、まっ先に疑われる。「見つけたけど怖くて言えなかった」と先に打ち明けるのも一つの手。</li><li>遺言書（持ち物カード）を見せれば、遥との関係も、父との対立もばれる。見せる相手を選ぼう。</li><li>父が0:05より前に亡くなっていたと示せれば、殺したのはあなたではないと言える。</li><li>遥が疑われたら、さりげなく別の人に目を向けさせよう。</li><li>葛西さんと密談して、父が最後に何をしていたかを聞き出そう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>質問2（遺言書を持ち去ったのは誰か）で、あなたが最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、相原が最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+1</span><span>新しい遺言書の中身が、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に、葛西と2人だけで密談をする。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">戸川 修<small>とがわ おさむ</small></span><span class="rl">食堂車 料理長（56）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「料理長の戸川です。瑠璃星が走りはじめた日から10年、食堂車の厨房に立ってきました。今夜のディナーが、この列車で出す最後の料理です。お口に合いましたか。夜食やお飲み物も、遠慮なく言ってください。」</p></div>
+      <div><h4>あなたについて</h4><p>山あいの村の生まれ。家は小さな宿で、母が山菜と川魚の料理を出していた。春は母と山に入り、食べられる草と、食べてはいけない草を教わった。「トリカブトは若葉がニリンソウにそっくり。間違えたら、口にして十数分から30分で口と手足がしびれて、吐いて、脈が乱れる。そのまま死ぬこともある」。母は何度もそう言った。</p><p>15歳で大阪の料亭に住み込み、30年包丁を握った。自分の店も持ったが、5年で閉めた。そのとき声をかけてくれたのが、瑠璃星の料理長の話だった。揺れる厨房で、熱いスープを一滴もこぼさずに出す。それが自慢になった。</p><p>妻とは10年前に別れた。娘は今年、大学を出た。卒業式には行けなかった。瑠璃星の乗務の日だった。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>社長は料理に口を出さない代わりに、皿が遅れると客の前で怒鳴った。今夜のディナーでは「この列車の料理も今夜で終わりだ。清々する」と笑われた。瑠璃星が売られたら、あなたの仕事はない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>23:28、社長の夜食のコンソメに、下剤（酸化マグネシウムの粉）をひと振り入れた。殺すつもりなど少しもない。明朝の除幕式で、社長が腹を押さえてうろたえる顔が見たかった。それだけだ。</p><p>社長が死んだと聞いて、血の気が引いた。夜食は手つかずだったと聞いたが、白い粉を入れたことが知られたら、まっ先に疑われる。小びんはとっさにポケットに入れた。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>19:00</dt><dd>ディナー。厨房の小窓から、客席が半分だけ見える。社長の上着は入口のコート掛けにかかっていた。</dd><dt>21:00</dt><dd>21:08まで、相原が皿を下げに何度も来た。上着のほうへは行っていない。21:05、葛西さんがコート掛けのところで、社長の上着から紙を取り出していた。</dd><dt>21:10</dt><dd>小野寺くんが「夜の食堂車を撮らせてください」と来て、21:20まで客席を撮っていた。カメラの赤いランプが消えていた時間が少しあった気がする。</dd><dt>21:30</dt><dd>社長が戻ってきて上着を取り、1号車へ。</dd><dt>22:30</dt><dd>星見の停車のあいだ、乾杯のシャンパンを冷やしていた。厨房の窓から、ホームの端で社長と桑原さんが向かい合っているのが見えた。</dd><dt>23:00</dt><dd>ラウンジで乾杯。シャンパン1本を、全員のグラスに注いだ。</dd><dt>23:28</dt><dd>夜食を相原にわたす（秘密のとおり）。</dd><dt>23:32</dt><dd>相原が1号車から戻って、ラウンジへ行った。そのあと0:00まで厨房で片づけ。そのあいだ、食堂車を通った人は一人もいない。</dd><dt>0:00</dt><dd>4号車の乗務員室で横になる。0:15の急停車で飛び起きた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">戸川 修<small>とがわ おさむ</small></span><span class="rl">食堂車 料理長（56）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない日（12年前の11月）</h4><p>まだ大阪の店にいたころ、昼のニュースで汐見線の脱線の映像を見た。運転士の名前は真壁敏夫。帰省のたびに母の宿へ来ていた常連だ。山菜の天ぷらが好きで、いつも「息子が大きくなったら、運転室に乗せてやるんだ」と言っていた。</p><p>あんなに慎重な男が、速度を出しすぎて脱線した。どうしても信じられなかった。けれど、料理人に何が言えるだろう。あなたは黙って、次の日の仕込みをした。その日のだしは、なぜか何度とっても濁った。</p><p>瑠璃星の厨房に立つと決めたとき、どこかで、あの男が走った線路のそばで料理を出したいと思ったのかもしれない。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>桑原さんとは、瑠璃星の開業から10年の付き合い。毎晩、乗務のあとに厨房で一杯やる仲だ。今夜は一度も来なかった。</li><li>22:45ごろ、3号車の扉の陰で、相原と玲奈さんが小声で話しているのを見た。手が触れ合っていた。</li><li>社長は毎晩、23:20にウイスキー、23:30ごろに夜食を頼む。夜食には手をつけないことも多い。</li><li>乾杯のシャンパンは同じ瓶から全員に注ぎ、きれいに飲まれた。</li><li>小野寺くんは、厨房のことより、社長の食事の好みや薬のことを聞きたがった。</li><li>葛西さんは、ディナーのスープにほとんど口をつけなかった。顔色が悪かった。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>下剤のことがばれると、まっ先に疑われる。白い粉は「塩」で通せるかもしれない。</li><li>23:32〜0:00、食堂車を誰も通らなかったことは、あなたにしか言えない大事な証言。ただし、そのあいだ一人だったと認めることにもなる。</li><li>トリカブトの話は、あなたが一番詳しい。症状から、毒をいつ口にしたかを考える材料になる。</li><li>相原が疑われたら、21:00〜21:08のことを話してかばってやろう。</li><li>桑原さんが追いつめられていたら、味方になってやるといい。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>夜食に下剤を入れたことが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>質問1（殺したのは誰か）で、あなたが最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+1</span><span>トリカブトの中毒の進み方（口にしてから十数分〜30分でしびれる）を、議論中に全員の前で話す。</span></div><div class="goal"><span class="pt">+1</span><span>21:00〜21:08、相原が皿を下げていて上着に近づかなかったことを、議論中に全員の前で話す。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">久住 真司<small>くすみ しんじ</small></span><span class="rl">週刊誌記者（44）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「週刊トリビューンの久住です。瑠璃星のラストランの取材で、西海鉄道さんに招いていただきました。記事は来週号に載ります。皆さんの思い出話も、ぜひ聞かせてください。もちろん、書かれたくないことは書きません。」</p></div>
+      <div><h4>あなたについて</h4><p>東京の下町の印刷所の息子。父が刷っていたのは、近所の商店のチラシと町内会の会報だった。中学のとき、町内会長の使い込みを会報のすみに小さく書いたら、町じゅうが大騒ぎになった。父には殴られたが、母は「よく見たね」と言った。</p><p>大学を出て週刊誌の記者になった。政治家の秘書、病院の理事長、芸能事務所。追いかけた相手は数えきれない。「久住に狙われたら終わり」と言われるのが、ひそかな誇りだった。</p><p>ただ一本だけ、書かずに終わった記事がある。12年前の汐見線の事故だ。あの事故には裏がある。そう思いながら、あなたはペンを置いた。理由は、誰にも言っていない。</p><p>独身。部屋には資料の段ボールが天井まで積んである。いちばん古い箱には「汐見線」と書いてある。12年、一度も開けていないのに、引っ越しのたびに持って歩いている。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>鷲尾とは12年前からの顔見知りだ。今回の招待も鷲尾の名指しだった。ディナーで鷲尾はグラスを掲げ、「久住さんは物わかりのいい記者だ」と笑った。その笑い方が、ずっと胸に刺さっている。ラストランの記事の見出しは、もう決めてある。まだ誰にも見せていない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>12年前、汐見線の事故の取材で「点検記録が書きかえられた」という噂をつかんだ。そのとき鷲尾から「取材協力費」として300万円を受け取り、記事を止めた。父の印刷所が潰れかけていた年だった。</p><p>いまは、社長室の誰かから会社の内部の情報をもらい、鷲尾の不正を追っている。今回は汐見線の件にけりをつけるつもりで乗った。情報提供者の正体は、絶対に守る。それが、あの300万円のあとで自分に課した、ただ一つの決まりだ。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>18:30</dt><dd>ラウンジでウェルカムドリンク。乗務員と客の写真を何枚か撮った。</dd><dt>19:00</dt><dd>ディナー。鷲尾のあいさつで、慰霊碑の碑文が「運転士の過失により」だと聞いた。桑原さんの顔色が変わった。</dd><dt>21:00</dt><dd>ディナーが終わり、自分の部屋（3号車C室）で原稿を書く。書き出しの一行が、どうしても決まらなかった。</dd><dt>22:30</dt><dd>星見の停車。ホームに降りた。22:40、鷲尾と桑原さんがホームの端で言い争うのを、胸ポケットのICレコーダーで録った。</dd><dt>22:50</dt><dd>列車に戻る。22:52、3号車の廊下で、鷲尾が葛西さんに低い声で何か言っていた。葛西さんの顔から血の気が引いていくのが見えた。</dd><dt>23:00</dt><dd>ラウンジで乾杯。</dd><dt>23:10</dt><dd>0:20までラウンジのバーで飲んでいた。23:15から小野寺くんが配信を始め、映らないよう端の席に移った。桑原さんは23:30ごろから、デッキとラウンジを行き来していた。</dd><dt>0:15</dt><dd>急停車。0:25ごろ、食堂車に集められた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">久住 真司<small>くすみ しんじ</small></span><span class="rl">週刊誌記者（44）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない日（12年前の12月）</h4><p>事故の現場、汐見川の鉄橋の下へ花を置きに行った。地元の小学生が描いた絵が、柵に何枚も結んであった。その中に、運転士の帽子をかぶった男の人の絵があった。「おとうさん　ごめんなさい　はやくかえってきて」。名前は雨でにじんで読めなかった。</p><p>その一週間後、あなたは鷲尾から封筒を受け取った。帰りの新幹線で、あの絵のことばかり考えていた。封筒の厚みを、指がいまも覚えている。</p><p>あれから、どんな記事を書いても、どこかであの柵の前に立っている気がする。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>情報提供者は、毎月第2金曜の19時に、公衆電話からかけてくる。番号は非通知。声は落ち着いた女性。</li><li>社長室の古い会計の書類に、12年前の「取材協力費」が残っているかもしれない。経理にいた人なら知っている。</li><li>桑原さんは12年前、事故調査で「真壁は普段から速度を出しがちだった」と証言した。記録に残っている。</li><li>23:50ごろ、小野寺くんが配信で社長のことを何か話し、コメント欄がわいていた。よく聞いていなかった。</li><li>葛西さんは、乾杯のあいだ一度もグラスに口をつけなかった。</li><li>玲奈さんは乾杯のあと、相原さんの背中をずっと目で追っていた。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>300万円のことがばれたら、記者として終わり。疑われたら、質問で相手を追いこんで話をそらそう。</li><li>星ヶ浦駅の録音（持ち物カード）は強い武器。桑原さんの嘘を暴くのにも、汐見線の真相を示すのにも使える。</li><li>情報提供者が誰かを聞かれても、記者は情報源を明かさない。それで通そう。</li><li>23:10〜0:20はラウンジにいた。配信の映像に、ときどき映っているはず。</li><li>配信者の小野寺くんは、列車の中をずっと撮っていた。密談で探ってみよう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>12年前に鷲尾から金を受け取り、記事を止めたことが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>桑原が12年前に嘘の証言をしたことを、あなた自身が議論中に指摘し、しかも、ばれる（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>「汐見線の事故の前、継ぎ目の点検記録が書きかえられていた」という話を、議論中に全員の前で話す。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に、小野寺と2人だけで密談をする。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">葛西 美穂<small>かさい みほ</small></span><span class="rl">社長秘書（38）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「社長秘書の葛西です。経理部から社長室に移って6年になります。社長のスケジュールは、分単位で私の頭に入っています。今夜は社長のお供ですが、皆さんのお役にも立てればと思います。」</p></div>
+      <div><h4>あなたについて</h4><p>父は西海鉄道の保線員だった。夜中に線路を歩き、レールの継ぎ目を一つずつハンマーでたたいて確かめる仕事。「音が違えば、すぐわかる」が口ぐせだった。あなたは、父の油のしみた爪が好きだった。</p><p>父は、あなたが高校生のとき、人員削減で早期退職させられた。それから酒が増え、5年前に亡くなった。最期まで「点検を減らしたら、いつか事故が起きる」と言っていた。</p><p>あなたは商業高校から西海鉄道の経理部に入った。数字は嘘をつかないから好きだった。6年前、鷲尾に引き抜かれて社長秘書になった。社長の机の上には、数字にできないものばかりが並んでいた。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>社長は、あなたを「便利な女」と呼んだ。夜中の電話、家族への贈り物の手配、謝罪の手紙の代筆。断れば、次の日から席はないと思っていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは「週刊トリビューン」の久住に、会社の内部の情報を流している内通者だ。社長の不正を世に出したい。父が言っていた「点検の削減」のことも。連絡は毎月第2金曜の19時、公衆電話から。</p><p>今夜22:52、3号車の廊下で社長に耳打ちされた。「社内に週刊誌の犬がいる。明日、全員の通話記録を調べさせる」。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>18:30</dt><dd>ラウンジでウェルカムドリンク。社長の代わりに、乗務員と招待客へ今夜の予定表を配った。</dd><dt>19:00</dt><dd>ディナー。社長のあいさつの原稿は、あなたが3回書き直したもの。</dd><dt>21:05</dt><dd>社長に言われ、コート掛けの上着の内ポケットから明朝のスピーチ原稿を取り出した。内ポケットには銀のピルケースも入っていた。21:06に自分の部屋（3号車B室）へ。</dd><dt>21:45</dt><dd>22:10までスイートで社長と仕事。社長は除幕式のスピーチの「過失」の字を、何度も赤ペンで書き直させた。</dd><dt>22:30</dt><dd>星見の停車のあいだは自分の部屋。</dd><dt>22:52</dt><dd>廊下で社長に耳打ちされる（秘密のとおり）。</dd><dt>23:00</dt><dd>乾杯。グラスは持ったが、飲む気になれなかった。23:13に自分の部屋へ。</dd><dt>23:22</dt><dd>スピーチの最終確認でスイートをノック。社長が内側から開けた。23:25、社長は銀のケースからカプセルを1つ出し、ウイスキーで飲んだ。「お前も飲め」とグラスに注がれ、一口だけ飲んだ。23:27に自分の部屋へ。</dd><dt>0:03</dt><dd>隣の部屋（3号車A室）の扉が開いて閉まる音がした。数分して、また開いて閉まった。</dd><dt>0:18</dt><dd>急停車のあと廊下に出ると相原さんがいて、一緒にスイートへ。0:21、社長が倒れているのを見つけた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">葛西 美穂<small>かさい みほ</small></span><span class="rl">社長秘書（38）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない日（12年前、経理部にいたころ）</h4><p>汐見線の事故の一週間後、社長室から一枚の支払い伝票が回ってきた。「取材協力費　300万円　週刊トリビューン　久住真司」。上司は「何も聞くな」と言った。</p><p>その夜、父に電話した。「点検の記録、どうなってるの」。父は長いこと黙って、「お前は数字だけ見ていろ」と言った。父が泣いているのを聞いたのは、あれが最初で最後だった。</p><p>伝票の写しは、いまも机の引き出しの奥にしまってある。捨てることも、出すこともできないまま。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>社長は先月、遺言書を書き換えた。公証役場の手配をしたのはあなた。中身は「相原遥と別れない限り、娘の玲奈には相続させない」。</li><li>玲奈さんと相原さんのことは、社長が探偵に調べさせていた。</li><li>社長は毎晩、23:20にウイスキー、23:30ごろに胃薬のカプセルを飲んで寝る。</li><li>桑原さんは12年前の事故調査で、会社に都合のいい証言をした。それから社長は、桑原さんを毎年「名誉乗務員」として招いている。</li><li>小野寺さんの配信の契約は、本人が熱心に売りこんできたもの。「ラストランに乗れるなら、ギャラはいらない」と言った。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>社長が生きているのを最後に見たのは、たぶんあなた。疑われても、23:25のカプセルのことを落ち着いて話そう。</li><li>内通者だとばれると、社長への恨みを疑われる。第2金曜の話には気をつけて。</li><li>遺言書の中身は、玲奈さんへの切り札にも、取引にもなる。</li><li>久住さんは味方だが、12年前の300万円のことは許していない。</li><li>21:05に上着に触ったことは、相原さんや戸川さんに見られていたかもしれない。正直に話したほうが安全。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>質問3（内通者は誰か）で、あなたが最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+2</span><span>新しい遺言書の中身を、あなた自身が議論中に指摘し、しかも、ばれる（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>久住が12年前に鷲尾から金を受け取ったことを、あなた自身が議論中に指摘し、しかも、ばれる（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>23:25に社長がカプセルを1つ飲んだのを見たことを、議論中に全員の前で話す。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">桑原 健一<small>くわばら けんいち</small></span><span class="rl">元・指導運転士（66）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「桑原です。汐見線で40年、運転士をしておりました。若い運転士に運転を教える指導運転士もやりました。いまは引退して、瑠璃星には毎年『名誉乗務員』として乗せてもらっています。今夜で最後と聞いて、さみしいかぎりです。」</p></div>
+      <div><h4>あなたについて</h4><p>汐見線の沿線の、小さな駅のそばで生まれた。蒸気機関車の煙を浴びて育ち、18で国鉄に入った。民営化で西海鉄道になってからも、ずっと汐見線のハンドルを握った。</p><p>指導運転士として20人以上の若い運転士を育てた。いちばん出来がよかったのが真壁敏夫だ。慎重すぎて「カメ」とからかわれるほどだった。制帽の内側に、自分のイニシャル「M・T」を赤い糸で縫う癖があった。「これを見ると背筋が伸びるんです」と言っていた。</p><p>真壁には息子がいた。名前は「そう」。どんな字だったかは覚えていない。事故のとき、まだ12歳だった。「息子が運転士になりたいって言うんです」と、真壁は何度もうれしそうに話した。事故のあと、母親と町を出て、それきりだ。</p><p>引退してからは、沿線の小さな家で一人で暮らしている。妻は5年前に亡くなった。毎朝、始発の音で目を覚まし、窓から汐見線の上りを見送る。体が勝手に、指差し確認の形をとる。「信号よし、進路よし」。もう誰も見ていないのに。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>12年前、事故調査の聞き取りの前に鷲尾に呼ばれ、言われた。「真壁くんは、普段から少し速度を出しがちだった。そうですね？」。それから毎年、瑠璃星に招かれる。招待状が届くたびに胃が痛む。今夜のディナーでも、鷲尾は「桑原さんは我が社の宝です」とグラスを掲げた。拍手の中で、あなたは手を叩けなかった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは12年前、事故調査で「真壁は普段から速度を出しがちだった」と嘘の証言をした。退職金と、運転区の若い者たちの職を守るためだった。あの日から、指差し確認の声が、自分の耳にも嘘に聞こえる。</p><p>本当は知っていた。事故の3か月前から、継ぎ目の点検の記録が白紙だったこと。事故の翌日、その記録が誰かの字でびっしり埋められていたこと。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>18:30</dt><dd>ラウンジでウェルカムドリンク。小野寺くんに「汐見線のこと、あとで聞かせてください」と言われた。</dd><dt>19:00</dt><dd>ディナー。20:30の社長のあいさつで、慰霊碑の碑文が「運転士の過失により」だと聞いた。</dd><dt>21:08</dt><dd>展望デッキに出ると、社長が小野寺くんに撮られながら葉巻を吸っていた。社長は上着を着ていなかった。小野寺くんは21:10ごろ「食堂車も撮ってきます」と出ていった。</dd><dt>21:10</dt><dd>21:28まで、社長と二人きりで碑文のことで言い争った。社長は寒いと言って、21:28に戻っていった。</dd><dt>21:30</dt><dd>22:30まで自分の部屋（4号車A室）。</dd><dt>22:30</dt><dd>星見の停車。ホームの端で、もう一度社長に詰め寄った。</dd><dt>22:50</dt><dd>列車に戻る。</dd><dt>23:00</dt><dd>乾杯。</dd><dt>23:30</dt><dd>0:20までデッキとラウンジを行き来した。小野寺くんの配信のうしろに、たぶん何度か映っている。</dd><dt>0:15</dt><dd>急停車。0:25ごろ、食堂車に集められた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">桑原 健一<small>くわばら けんいち</small></span><span class="rl">元・指導運転士（66）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない日（12年前、事故の前の日）</h4><p>真壁は運転区で、あなたにこっそり言った。「桑原さん、汐見川の鉄橋の手前、継ぎ目の音がおかしいんです。点検の人、最近来てませんよね」。あなたは「上に言っておく」と答えた。言わなかった。言えば、また「運転区がうるさい」とにらまれると思った。</p><p>次の日の朝、真壁の快速は、あの継ぎ目のところで脱線した。</p><p>葬式で、あなたは誰よりも長く頭を下げた。顔を上げたら、真壁の息子と目が合ってしまう気がした。あの子がどんな顔をしていたのか、あなたはいまも思い出せない。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>星ヶ浦駅のホームで社長に詰め寄ったとき、久住さんがすぐそばに立っていた。何か聞かれたかもしれない。</li><li>戸川さんとは10年来の飲み仲間。口は悪いが、人を殺せるような男ではない。今夜は厨房に顔を出しそびれた。</li><li>相原くんは、乗務の合間に玲奈さんの姿を探していた。若いころの自分を見ているようだった。</li><li>小野寺くんは、真壁の話を聞きたがった。若いのに、汐見線の事故のことをよく知っていた。</li><li>23:50ごろ、ラウンジで小野寺くんが配信しながら笑っていた。社長のことを何か言っていた。</li><li>山育ちなので、トリカブトのことは知っている。口にして十数分から30分でしびれが出る。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>嘘の証言は、ばれたら一生の恥。けれど汐見線の真相を信じてもらうには、あなたの知っていることが要る。どこまで話すか、よく考えよう。</li><li>久住さんの録音には、あなたの声が入っているかもしれない。密談で消してもらうよう頼もう。</li><li>21:10〜21:28、社長が上着を着ていなかったことは、大事な手がかりかもしれない。</li><li>23:30からはラウンジにいた。配信に映っているはずだと言えば、身の潔白を示せる。</li><li>戸川さんが疑われたら、かばってやろう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>12年前に嘘の証言をしたことが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+2</span><span>「汐見線の事故の原因は、点検記録を書きかえて隠した点検不足だった」と信じられる（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>質問1（殺したのは誰か）で、戸川が最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に、久住に「星ヶ浦駅の録音を消す」とはっきり約束させる。</span></div></div></div>
+    </div>
+  </article>
+
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">小野寺 蒼<small>おのでら そう</small></span><span class="rl">鉄道系YouTuber（24）</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人です。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す内容）</h4><p>「小野寺蒼です。『そうてつ』というチャンネルで鉄道の動画を出しています。今夜は西海鉄道さんのご依頼で、瑠璃星のラストランを配信しています。23時15分からの深夜の生配信、皆さんもよかったら映ってください。」</p></div>
+      <div><h4>あなたについて</h4><p>汐見線の沿線の町で生まれた。父は運転士だった。休みの日は父と線路ぞいの土手に座り、通る列車を全部言い当てる遊びをした。父は制帽の内側に、自分のイニシャルを赤い糸で縫っていた。</p><p>12歳の11月、父の運転する快速が脱線した。父は死んだ。会社は「運転士の速度超過」と発表した。家の壁に「人殺しの家」と落書きされ、母は勤め先をやめた。母は旧姓の「小野寺」に戻り、二人で遠くの町へ移った。あなたの名前は、真壁蒼から小野寺蒼になった。</p><p>父の制帽だけは、母が捨てずに取っておいた。高校のとき、それをかぶって初めて動画を撮った。いつか父の名前を取り戻す。そのために、誰よりも鉄道を調べ、カメラの前でしゃべり続けてきた。</p></div>
+      <div><h4>鷲尾 恭介との関係</h4><p>鷲尾は12年前の安全統括部長。点検を減らし、記録を書きかえさせ、父ひとりに罪をかぶせた男だ。2年前、匿名の元保線員から届いた手紙で、そう確信した。証拠は、もうどこにも残っていない。そして鷲尾は明朝、「運転士の過失により」と刻んだ碑の幕を引く。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは鷲尾恭介を殺した。鷲尾は毎晩11時半ごろ、銀のピルケースから胃薬のカプセルを1つ出し、ウイスキーで飲んで寝る。ケースはいつも上着の内ポケット。2年前の「週刊トリビューン」のインタビューで、本人が得意げに話していた。</p><p>あなたは家で、トリカブトの根の粉を若草色の空のカプセルに詰めてきた。今夜、鷲尾に「展望デッキで葉巻を、上着なしで撮らせてください」と頼み、上着を食堂車に置かせた。21:14〜21:17、撮影を止めてコート掛けへ行き、ピルケースの土曜と日曜の仕切りのカプセルを、毒入りと入れ替えた。今夜は土曜。念のため日曜の分も替えた。毒が効くころ、あなたはラウンジで生配信をしている。</p></div>
+      <div><h4>今夜の行動</h4><dl class="tl"><dt>19:00</dt><dd>ディナー。20:50、鷲尾に葉巻の撮影を頼んだ。</dd><dt>21:05</dt><dd>21:10まで展望デッキで鷲尾を撮る。21:08に桑原さんが来た。</dd><dt>21:10</dt><dd>21:20まで食堂車で撮影。21:14〜21:17に入れ替えた（秘密のとおり）。厨房には戸川さんがいた。</dd><dt>21:20</dt><dd>自分の部屋（4号車B室）へ。</dd><dt>22:10</dt><dd>余った空のカプセルの袋と手袋、薬包紙を、4号車の洗面所のごみ箱の底に押しこんだ。</dd><dt>22:30</dt><dd>星見の停車。ホームで星を撮った。鷲尾と桑原さんが言い争い、久住さんがそばにいた。</dd><dt>23:00</dt><dd>乾杯。</dd><dt>23:15</dt><dd>0:10までラウンジで生配信。23:49、コメントで「社長は？」と聞かれ、つい答えた。「もう起きてこないと思いますよ。毎晩11時半に薬飲んで寝る人なんで」。</dd><dt>0:15</dt><dd>急停車。0:25ごろ、食堂車に集められた。</dd></dl></div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">小野寺 蒼<small>おのでら そう</small></span><span class="rl">鉄道系YouTuber（24）</span></div>
+    <div class="body more">
+      <div><h4>忘れられない夜（12年前、事故の前の晩）</h4><p>父は布団の中で言った。「鉄橋の手前の継ぎ目の音がおかしいんだ。明日、もう一度、上に言う」。あなたは「明日、運転室に乗せて」とだだをこねて、父を困らせた。それが、父の声を聞いた最後になった。</p><p>事故のあと、鉄橋の柵に絵を結びに行った。制帽をかぶった父の絵に「おとうさん　ごめんなさい　はやくかえってきて」と書いた。</p><p>あの柵の前で、大人たちは誰も、父の名前を口にしなかった。だからあなたは、カメラの前で鉄道の名前を呼び続けてきた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li>桑原さんは父の師匠だった人。父の葬式で、誰よりも長く頭を下げていた。あなたの顔は、たぶん覚えていない。</li><li>鷲尾の毎晩の習慣を書いたインタビュー記事は、久住さんの週刊誌のもの。久住さんも知っているはず。</li><li>21:05、デッキへ向かう途中、葛西さんが鷲尾の上着の内ポケットから紙を出しているのを見た。</li><li>相原さんは23:20と23:31の2回、スイートに入ったはず。マスターカードの記録が残る。</li><li>父の制帽は、いまも機材ケースの底に入れてある。</li><li>玲奈さんは10歳のころ、父の運転室を見学したことがあるらしい。本人は覚えているだろうか。</li></ul></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>毒がいつ入ったかがばれなければ、23:15〜0:10の生配信がアリバイになる。「乾杯のシャンパンか、ウイスキーか、夜食に毒が入っていた」という話にもっていこう。</li><li>0:05の予備のカードキーや、2回入った相原さんの記録は、みんなの目をそらす材料になる。玲奈さんに疑いを向けよう。</li><li>ピルケースの日曜の分を調べられると危ない。話題にのぼったら「社長の薬なんて知らない」で通そう。</li><li>21:14〜21:17の撮影の空白を聞かれたら、「バッテリーを替えていた」と答えよう。</li><li>桑原さんと密談して、父の話を聞きたい。ただし、気持ちを顔に出しすぎないこと。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>質問1（殺したのは誰か）で、あなたが最多票にならない（同数で並んでも「なった」とみなす）。</span></div><div class="goal"><span class="pt">+2</span><span>あなたが真壁敏夫の息子であることが、ばれない（挙手で判定）。</span></div><div class="goal"><span class="pt">+1</span><span>質問1（殺したのは誰か）で、鷲尾玲奈が単独で最多票になる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に、桑原と2人だけで密談をする。</span></div></div></div>
+    </div>
+  </article>
+  </div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>ネタバレ注意。</strong>各プレイヤーの封筒に、キャラシートと一緒に入れます。</p>
+    <button type="button" class="btn" id="gate-items">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden>
+  <p class="lead">持ち物カードは、見せても隠してもよい。見せれば本当だと証明できる。</p>
+  <div class="cards"><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd"><span class="owner">相原 遥</span><span class="ttl">小さな指輪の箱と手紙</span><p>制服の内ポケットに入れている。指輪の内側に「H&amp;R」の刻印。</p><p class="letter">遥へ。ラストランが終わったら、二人で父に話そう。指輪はそれまで預かっていて。逃げないでね。　玲奈</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd"><span class="owner">鷲尾 玲奈</span><span class="ttl">遺言書（公正証書の正本）</span><p>四つ折りにして、ワンピースのポケットに入れている。日付は先月。</p><p class="letter">……長女・玲奈が相原遥との婚約を解消しない限り、玲奈には一切を相続させず、全財産を鷲尾鉄道文化財団に遺贈する。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd"><span class="owner">戸川 修</span><span class="ttl">白い粉の小びん</span><p>コックコートのポケットに入れている。手のひらにおさまる茶色の小びん。中身は白い粉で、半分ほど減っている。</p><p>ラベルには「酸化マグネシウム」。厨房の棚の奥に置いていた私物。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd"><span class="owner">久住 真司</span><span class="ttl">ICレコーダーの録音</span><p>22:40、星ヶ浦駅のホームの端。</p><p class="letter">桑原「真壁は速度なんか出していない。継ぎ目の点検は3か月やっていなかった。あんたが記録を書かせたんだ」<br>鷲尾「証拠はあるのか。“真壁は普段から速度を出しがちだった”。そう言ったのは、桑原さん、あんただ」<br>桑原「……あの碑文だけは、やめてくれ」<br>鷲尾「明日の朝、幕を引くのは私だ」</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd"><span class="owner">葛西 美穂</span><span class="ttl">除幕式のスピーチ原稿</span><p>21:05に社長の上着から取り出したもの。</p><p class="letter">……十二年前、一人の運転士の過ちにより、尊い四つの命が失われました。私どもは二度と……</p><p>鷲尾の赤ペンの直し：「“過ち”を“過失”に。もっとはっきり」。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd"><span class="owner">桑原 健一</span><span class="ttl">古い点検記録のコピー</span><p>12年前の8〜10月、汐見川の鉄橋の手前の「継ぎ目点検記録」。ずっと手帳にはさんでいる。</p><p>3か月分の日付と点検者の欄が、すべて同じ青いペンの、同じ字で埋まっている。右下に、事故の翌日の日付の「受付」の印。</p></div></div><div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd"><span class="owner">小野寺 蒼</span><span class="ttl">スマホの画面（SNSの告知）</span><p>1週間前の投稿。</p><p class="letter">【告知】瑠璃星ラストラン、深夜の生配信やります！ 今夜23:15〜 展望ラウンジから。最後の夜を一緒に走ろう🚃</p><p>「いいね」が1.2万。</p></div></div></div>
+  </div>
+</section>
+
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>ネタバレ注意。</strong>切り分けて、場所ごとに番号の小さい順で上から重ねます。</p>
+    <button type="button" class="btn" id="gate-clues">準備する人なので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--night)"></i>調査1（16枚）</span>
+    <span><i class="sw" style="background:var(--kin)"></i>調査2で各場所に追加（9枚）</span>
+    <span><span class="star">★</span>引いたら即公開</span>
+  </div>
+  <h3>調査1</h3>
+  <div class="cards"><div class="card"><div class="hd"><span class="loc">1号車スイート①</span><span>CLUE 01</span></div><div class="bd"><span class="ttl">遺体 <span class="star">★</span></span><p>鷲尾は机のそばの床に倒れている。外傷はない。口のまわりと床に吐いた跡。右手は、机の上の呼び出しボタンのほうへのびていた。</p><p>服装はワイシャツにスラックス。上着は椅子の背にかけてある。</p></div></div><div class="card"><div class="hd"><span class="loc">1号車スイート②</span><span>CLUE 02</span></div><div class="bd"><span class="ttl">机の上</span><p>ウイスキーのデカンタ（3分の1ほど減っている）と、空のグラスが2つ。</p><p>銀のピルケース（月〜日の7つの仕切り）が、ふたを開けたまま置いてある。</p><p>メモ帳に、ふるえた字で「しびれ　カ」。</p></div></div><div class="card"><div class="hd"><span class="loc">1号車スイート③</span><span>CLUE 03</span></div><div class="bd"><span class="ttl">夜食のトレー</span><p>コンソメスープとサンドイッチ。まったく手がつけられていない。スープはすっかり冷めている。</p></div></div><div class="card"><div class="hd"><span class="loc">1号車スイート④</span><span>CLUE 04</span></div><div class="bd"><span class="ttl">革のカバン</span><p>机の横。口が開いている。中に「遺言書在中」と書かれた公証役場の封筒がある。封は切られていて、中身は空。</p><p>ほかに、薬局の袋（胃薬の箱）と、明日の除幕式の資料。</p></div></div><div class="card"><div class="hd"><span class="loc">1号車スイート⑤</span><span>CLUE 05</span></div><div class="bd"><span class="ttl">扉のカードキーの記録 <span class="star">★</span></span><p>乗務員室の端末に残っていたもの（21時以降）。</p><div class="log"><span>21:31</span><span>鷲尾のカード</span><span>23:13</span><span>鷲尾のカード</span><span>23:20</span><span>マスターカード（相原）</span><span>23:31</span><span>マスターカード（相原）</span><span>0:05</span><span>予備のカード</span><span>0:21</span><span>マスターカード（相原）</span></div><p>内側から開けたときは記録されない。</p></div></div><div class="card"><div class="hd"><span class="loc">2号車食堂車①</span><span>CLUE 06</span></div><div class="bd"><span class="ttl">コート掛け</span><p>食堂車の入口のそば。厨房の小窓からは、半分しか見えない位置。</p><p>ディナーのあいだ、ここに鷲尾の上着がかかっていた。</p></div></div><div class="card"><div class="hd"><span class="loc">2号車食堂車②</span><span>CLUE 07</span></div><div class="bd"><span class="ttl">サービス記録（相原の字）</span><div class="log"><span>19:10</span><span>社長、上着をコート掛けへ</span><span>21:05</span><span>社長、上着を置いて展望デッキへ（小野寺さんの撮影）</span><span>21:30</span><span>社長、上着を取りに戻る</span><span>23:20</span><span>ウイスキー（氷2）</span><span>23:28</span><span>夜食（コンソメ・サンド）</span></div></div></div><div class="card"><div class="hd"><span class="loc">2号車食堂車③</span><span>CLUE 08</span></div><div class="bd"><span class="ttl">厨房の調味料棚</span><p>塩、砂糖、片栗粉、粉ゼラチン。白い粉の容器がいくつも並んでいる。</p><p>棚の奥に、小さなびんが置いてあったような丸い跡がある。びんはない。</p></div></div><div class="card"><div class="hd"><span class="loc">3号車①</span><span>CLUE 09</span></div><div class="bd"><span class="ttl">3号車の廊下</span><p>A〜Dの扉が並ぶ。A室とB室は壁一枚で、扉の開け閉めの音がよく響く。D室は空き部屋で、鍵がかかっている。</p><p>廊下の先は2号車（食堂車）、うしろは4号車。</p></div></div><div class="card"><div class="hd"><span class="loc">3号車②</span><span>CLUE 10</span></div><div class="bd"><span class="ttl">乗降口カメラの記録</span><p>星ヶ浦駅での乗り降り。</p><div class="log"><span>22:31</span><span>鷲尾・桑原・久住・小野寺が降りる</span><span>22:48</span><span>4人とも戻る</span></div><p>ほかに乗り降りした人はいない。0:15の急停車のあと、扉は一度も開いていない。</p></div></div><div class="card"><div class="hd"><span class="loc">4号車①</span><span>CLUE 11</span></div><div class="bd"><span class="ttl">洗面所のごみ箱</span><p>底のほうに、丸めたビニール袋。中に、若草色の空のカプセルが3つと、薬包紙、使い捨てのゴム手袋。</p><p>薬包紙には、白っぽい粉が少しついている。</p></div></div><div class="card"><div class="hd"><span class="loc">4号車②</span><span>CLUE 12</span></div><div class="bd"><span class="ttl">乗務員室の呼び出しパネル</span><div class="log"><span>23:52</span><span>1号車スイート　呼び出し（応答なし）</span></div><p>今夜の呼び出しは、これ1件だけ。呼び出しの音は乗務員室の中でしか鳴らない。</p></div></div><div class="card"><div class="hd"><span class="loc">4号車B室（小野寺の部屋）①</span><span>CLUE 13</span></div><div class="bd"><span class="ttl">撮影の機材</span><p>三脚、予備のバッテリー、マイク、配信用のノートパソコン。</p><p>ノートパソコンの画面：「生配信　23:15〜0:10（アーカイブあり）」。</p></div></div><div class="card"><div class="hd"><span class="loc">4号車A室（桑原の部屋）①</span><span>CLUE 14</span></div><div class="bd"><span class="ttl">除幕式の案内状</span><p>テーブルの上。碑文の写しの「運転士の過失により」の文字が、ボールペンで何度もなぞられて、紙が破れかけている。</p></div></div><div class="card"><div class="hd"><span class="loc">5号車ラウンジ①</span><span>CLUE 15</span></div><div class="bd"><span class="ttl">バーカウンター</span><p>乾杯のシャンパンの空き瓶が1本と、グラスが9つ。どのグラスも空。</p><p>同じ瓶から注いだシャンパンを飲んで、具合が悪くなった人はほかにいない。</p></div></div><div class="card"><div class="hd"><span class="loc">5号車展望デッキ</span><span>CLUE 16</span></div><div class="bd"><span class="ttl">展望デッキの灰皿</span><p>葉巻の吸いさしが1本。</p><p>デッキは吹きさらしで、11月の夜はひどく冷える。上着なしで20分もいれば、体の芯まで凍える。</p></div></div></div>
+  <h3>調査2（赤茶色）</h3>
+  <div class="cards"><div class="card p2"><div class="hd"><span class="loc">1号車スイート⑥ 調査2</span><span>CLUE 17</span></div><div class="bd"><span class="ttl">ピルケースの中身</span><p>月〜金の仕切りは空。土曜の仕切りも空。日曜の仕切りにだけ、カプセルが1つ残っている。白と若草色。</p><p>カバンの薬局の袋に入っている同じ胃薬は、白と緑で、つなぎ目の形もちがう。</p></div></div><div class="card p2"><div class="hd"><span class="loc">1号車スイート⑦ 調査2</span><span>CLUE 18</span></div><div class="bd"><span class="ttl">鷲尾の手帳</span><p>今日のページ。</p><div class="log"><span>23:20</span><span>ウイスキー（相原）</span><span>23:30</span><span>薬・就寝</span><span>6:30</span><span>除幕</span></div><p>欄外に「週刊誌の犬→社長室？　カ…」と書いて、線で消してある。</p></div></div><div class="card p2"><div class="hd"><span class="loc">2号車食堂車④ 調査2</span><span>CLUE 19</span></div><div class="bd"><span class="ttl">厨房のごみ箱</span><p>丸めた紙ナプキンに、白い粉が少しこぼれた跡。</p><p>近くに、粉薬の袋の切れはし。「酸化マグネシウム」「便秘に」の文字が読める。</p></div></div><div class="card p2"><div class="hd"><span class="loc">3号車A室（玲奈の部屋）① 調査2</span><span>CLUE 20</span></div><div class="bd"><span class="ttl">化粧ポーチ</span><p>中に、カードキーが1枚。タグに「瑠璃星　1号車スイート　予備（内装点検用）」。</p></div></div><div class="card p2"><div class="hd"><span class="loc">3号車B室（葛西の部屋）① 調査2</span><span>CLUE 21</span></div><div class="bd"><span class="ttl">手帳とテレホンカード</span><p>手帳の毎月の第2金曜に、小さく「S」の印。</p><p>バッグのポケットに、使いかけのテレホンカードが5枚。</p></div></div><div class="card p2"><div class="hd"><span class="loc">3号車C室（久住の部屋）① 調査2</span><span>CLUE 22</span></div><div class="bd"><span class="ttl">取材ノート</span><p>「提供者：社長室（女性）。毎月第2金曜19時、公衆電話」</p><p>「汐見線：継ぎ目の点検記録、書きかえの噂。証拠なし」</p><p>ページの端に小さく「あの300万、まだ返せていない」。</p></div></div><div class="card p2"><div class="hd"><span class="loc">4号車B室（小野寺の部屋）② 調査2</span><span>CLUE 23</span></div><div class="bd"><span class="ttl">SDカードの撮影ファイル一覧</span><div class="log"><span>21:06:02〜21:09:48</span><span>展望デッキ</span><span>21:10:15〜21:13:52</span><span>食堂車</span><span>21:17:20〜21:19:58</span><span>食堂車</span><span>23:15:00〜0:10:12</span><span>ラウンジ（生配信）</span></div></div></div><div class="card p2"><div class="hd"><span class="loc">4号車B室（小野寺の部屋）③ 調査2</span><span>CLUE 24</span></div><div class="bd"><span class="ttl">機材ケースの底</span><p>古い運転士の制帽。くたびれているが、よく手入れされている。</p><p>内側に、赤い糸で「M・T」の縫い取り。</p></div></div><div class="card p2"><div class="hd"><span class="loc">5号車ラウンジ② 調査2</span><span>CLUE 25</span></div><div class="bd"><span class="ttl">配信のコメント欄</span><p>配信の確認用にラウンジのモニターにつないであった画面に、録画とコメントが残っている。</p><div class="log"><span>23:31</span><span>「桑原さん映ってるｗ」</span><span>23:49</span><span>「社長は？」</span><span></span><span>小野寺「もう起きてこないと思いますよ。毎晩11時半に薬飲んで寝る人なんで」</span><span>23:50</span><span>「くわしいｗ」</span><span>0:10</span><span>配信終了</span></div></div></div></div>
+  </div>
+</section>
+
+<section class="panel" id="solve" hidden>
+  <h2>解決編</h2>
+  <div class="warn gate" data-gate="solve">
+    <p><strong>投票が終わるまで開けないでください。</strong>印刷したら封筒に入れて封をします。</p>
+    <button type="button" class="btn" id="gate-solve">投票が終わったので開く</button>
+  </div>
+  <div class="gated" data-for="solve" hidden>
+  <div class="box" style="break-after:page">
+    <h3>はじめに：秘密の挙手（このページだけを読み上げる）</h3>
+    <p>投票用紙を全員が出したら、進行役は下の文を1つずつ読み上げます。（　）の当事者以外の全員が、目を閉じて、「本当だと思う」なら手を挙げます。当事者は目を開けて数えてかまいません。<b>当事者以外の過半数が手を挙げたら「ばれた（信じられた）」</b>とします。</p>
+    <p>この中には、本当ではない文も混ざっています。議論で根拠（証言やカード）が出なかったものには、手を挙げないでください。全部読み終えて、結果を書きとめてから、次のページへ進みます。</p>
+    <ol>
+      <li>相原遥と鷲尾玲奈は、婚約している。（当事者：相原・玲奈）</li>
+      <li>戸川修は、鷲尾の夜食に下剤を入れた。（当事者：戸川）</li>
+      <li>葛西美穂は、鷲尾の愛人だった。（当事者：葛西）</li>
+      <li>鷲尾の新しい遺言書には「相原と別れない限り、玲奈には相続させない」と書かれていた。（当事者：玲奈・相原）</li>
+      <li>久住真司は12年前、鷲尾から金を受け取り、汐見線の記事を止めた。（当事者：久住）</li>
+      <li>桑原健一は12年前、事故調査で嘘の証言をした。（当事者：桑原）</li>
+      <li>相原遥は、12年前の汐見線の事故の列車に乗っていた。（当事者：相原）</li>
+      <li>汐見線の事故の原因は、点検記録を書きかえて隠した、継ぎ目の点検不足だった。（当事者：桑原）</li>
+      <li>小野寺蒼は、運転士・真壁敏夫の息子である。（当事者：小野寺）</li>
+    </ol>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>文</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr></thead>
+      <tbody><tr><td>手を挙げた人数</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>当事者以外の人数</td><td>5</td><td>6</td><td>6</td><td>5</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr></tbody>
+    </table></div>
+    <p class="note">過半数の目安：当事者以外が6人なら4人以上、5人なら3人以上。</p>
+  </div>
+
+  <div class="box">
+    <h3>挙手の答え合わせ</h3>
+    <p><b>3（葛西が愛人）と7（相原が事故の列車に乗っていた）は、本当ではありません。</b>ほかの7つは、すべて本当です。</p>
+  </div>
+
+  <div class="box">
+    <h3>真相</h3>
+    <p class="read" style="font-size:15px">鷲尾恭介を殺したのは、<b>小野寺蒼</b>。12年前の汐見線の事故で亡くなった運転士・真壁敏夫の一人息子、真壁蒼だった。</p>
+    <p>事故のあと、蒼の家は「人殺しの家」と呼ばれた。母は旧姓の小野寺に戻り、二人は町を出た。蒼は鉄道の配信者になり、父の名前を取り戻す日を待っていた。2年前、匿名の元保線員の手紙で、事故の前から継ぎ目の点検が止められ、事故のあと記録が書きかえられたことを知る。命じたのは、当時の安全統括部長・鷲尾。だが証拠は残っておらず、鷲尾は明朝、「運転士の過失により」と刻んだ碑の幕を引こうとしていた。</p>
+    <p>鷲尾は毎晩11時半ごろ、上着の内ポケットの銀のピルケースから胃薬のカプセルを1つ出し、ウイスキーで飲んで寝る。2年前の週刊誌のインタビューで、本人がそう話していた。蒼は家でトリカブトの根の粉を若草色の空のカプセルに詰め、配信の仕事を売りこんで瑠璃星に乗った。</p>
+    <p>ディナーのあと、蒼は「展望デッキで葉巻を、上着なしで撮らせてください」と頼み、鷲尾に上着を食堂車に置かせた。21:10から食堂車を撮るふりをして、21:14〜21:17に撮影を止め、ピルケースの土曜と日曜のカプセルを毒入りと入れ替えた。余ったカプセルと手袋は、22:10に4号車の洗面所のごみ箱に捨てた。</p>
+    <p>23:25、鷲尾はスイートで、葛西の前で土曜のカプセルを飲んだ。トリカブトは口にして十数分から30分でしびれと吐き気が出る。鷲尾は23:52に呼び出しボタンを押したが、乗務員室には誰もいなかった。そのころ蒼は、1週間前から告知していた生配信の最中だった。毒が効く時刻に、ラウンジで大勢の目と画面に囲まれていること。それが蒼のアリバイだった。</p>
+    <p>0:05、予備のカードキーで入った玲奈は、すでに息のない父を見つけ、とっさに遺言書を持ち去った。0:21、相原と葛西が鷲尾を見つけた。</p>
+  </div>
+
+  <div class="box">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">時刻</th><th>できごと</th></tr></thead>
+      <tbody>
+        <tr><td class="t">19:00</td><td>ディナー。19:10、鷲尾が上着を食堂車のコート掛けにかける。20:30、あいさつ（瑠璃星の売却・慰霊碑の碑文）。20:50、小野寺が葉巻の撮影を頼む。</td></tr>
+        <tr><td class="t">21:00</td><td>ディナー終了。相原が21:08まで皿を下げる。</td></tr>
+        <tr><td class="t">21:05</td><td>鷲尾、上着を置いてデッキへ（小野寺が撮影）。葛西が上着からスピーチ原稿を取る。</td></tr>
+        <tr><td class="t">21:08</td><td>桑原がデッキへ。21:10、小野寺は食堂車へ。21:10〜21:28、鷲尾と桑原が言い争う。</td></tr>
+        <tr><td class="t">21:14</td><td><b>小野寺がピルケースの土・日のカプセルを毒入りと入れ替える（〜21:17）。</b></td></tr>
+        <tr><td class="t">21:30</td><td>鷲尾が上着を取り、スイートへ（21:31 鷲尾のカード）。</td></tr>
+        <tr><td class="t">21:45</td><td>葛西がスイートで仕事（〜22:10）。</td></tr>
+        <tr><td class="t">22:10</td><td>小野寺が4号車の洗面所に、余ったカプセルと手袋を捨てる。</td></tr>
+        <tr><td class="t">22:15</td><td>鷲尾が相原に解雇を告げる（〜22:20）。22:20〜22:28、玲奈に遺言書の話。</td></tr>
+        <tr><td class="t">22:30</td><td>星見の停車（〜22:50）。22:40、ホームで鷲尾と桑原が言い争い、久住が録音。22:45、相原と玲奈が3号車の扉の陰で話す。</td></tr>
+        <tr><td class="t">22:52</td><td>鷲尾が葛西に「週刊誌の犬」を調べると告げる。</td></tr>
+        <tr><td class="t">23:00</td><td>ラウンジで乾杯。23:12、鷲尾がスイートへ（23:13 鷲尾のカード）。</td></tr>
+        <tr><td class="t">23:15</td><td>小野寺の生配信開始（〜0:10）。久住・桑原もラウンジ。</td></tr>
+        <tr><td class="t">23:20</td><td>相原がウイスキーを届ける（マスター）。</td></tr>
+        <tr><td class="t">23:22</td><td>葛西がスイートへ。<b>23:25、鷲尾がカプセル（毒入り）をウイスキーで飲む。</b>23:27、葛西が出る。</td></tr>
+        <tr><td class="t">23:28</td><td>戸川が夜食のコンソメに下剤を入れる。23:31、相原が夜食を届ける（マスター）。23:32、出る。</td></tr>
+        <tr><td class="t">23:32</td><td>〜0:00、戸川が厨房で片づけ。食堂車を通った人はいない。</td></tr>
+        <tr><td class="t">23:49</td><td>小野寺が配信で「毎晩11時半に薬飲んで寝る人なんで」。</td></tr>
+        <tr><td class="t">23:52</td><td>鷲尾が呼び出しボタンを押す（応答なし）。まもなく死亡。</td></tr>
+        <tr><td class="t">0:03</td><td>玲奈がスイートへ。0:05、予備のカードで開け、遺体を見つけ、遺言書を持ち去る。0:08、戻る。</td></tr>
+        <tr><td class="t">0:15</td><td>倒木で急停車。0:21、相原と葛西が遺体を見つける。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>推理の筋道</h3>
+    <p><b>質問1：鷲尾を殺したのは小野寺蒼</b></p>
+    <ol>
+      <li><b>死因と時刻。</b>しびれ・吐いた跡・外傷なし（CLUE 01・02）。戸川と桑原の話では、トリカブトなら口にして十数分〜30分で症状が出る。23:52に呼び出し（CLUE 12）。毒を口にしたのは23:20〜23:40ごろ。</li>
+      <li><b>その時刻にスイートにあったもの。</b>23:32〜0:00、食堂車を通った人はいない（戸川）。毒は、そのとき部屋にすでにあったものに入っていた。</li>
+      <li><b>何に入っていたか。</b>シャンパンは23:00で時刻が合わず、全員が同じ瓶から飲んで無事（CLUE 15）。ウイスキーは葛西も飲んで無事。夜食は手つかず（CLUE 03）。残るのは、23:25に飲んだカプセル（葛西の証言、相原が見た開いたピルケース）。日曜の分だけ色ちがいのカプセルが残っている（CLUE 17）。メモの「カ」はカプセルの「カ」。</li>
+      <li><b>いつ入れ替えられたか。</b>ケースは上着の内ポケット。上着が持ち主から離れていたのは、19:10〜21:30の食堂車だけ。ディナーのあいだは全員の目があり、鷲尾もすぐそばにいた。人目がなくなったのは21:05〜21:30、鷲尾が上着なしでデッキにいたあいだ（CLUE 07・16、桑原の証言）。</li>
+      <li><b>誰ができたか。</b>21:05の葛西は、相原と戸川が見ている前で原稿を出しただけ。相原は21:08まで皿を下げていて、上着に近づいていない（戸川）。21:10〜21:20に食堂車にいたのは小野寺で、21:13:52〜21:17:20だけ撮影が止まっている（CLUE 23）。戸川も「赤いランプが消えていた時間があった」と見ている。鷲尾を上着なしでデッキへ連れ出したのも小野寺だった（CLUE 07）。</li>
+      <li><b>知っていたか、用意していたか。</b>小野寺は配信で「毎晩11時半に薬飲んで寝る人」と口にした（CLUE 25）。毎晩の薬の習慣を知っていた。空のカプセルと手袋は4号車の洗面所に捨てられていた（CLUE 11）。</li>
+      <li><b>なぜ。</b>機材ケースの制帽の「M・T」（CLUE 24）は、真壁敏夫が制帽に縫っていたイニシャル（桑原の話）。真壁の息子の名は「そう」。小野寺蒼は真壁の息子で、父を殺人者にした男を、父の線路のそばで殺した。生配信のアリバイは、毒が効く時刻に合わせて作ったものだった。</li>
+    </ol>
+    <p><b>質問2：遺言書を持ち去ったのは鷲尾玲奈</b>　0:05の「予備のカード」（CLUE 05）。予備のカードは玲奈に貸したまま（相原）で、玲奈の化粧ポーチにある（CLUE 20）。0:03ごろに隣のA室の扉の音（葛西）。カバンの遺言書の封筒は空（CLUE 04）。遺言書の中身を知っていたのは葛西。</p>
+    <p><b>質問3：内通者は葛西美穂</b>　久住のノートの「社長室の女性・毎月第2金曜19時・公衆電話」（CLUE 22）。葛西の手帳の第2金曜の「S」とテレホンカード（CLUE 21）。玲奈の「葛西さんは第2金曜だけ定時で帰る」。鷲尾の手帳の「週刊誌の犬→社長室？　カ…」（CLUE 18）。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数の数え方</h3>
+    <p><b>投票：</b>質問1の正解（小野寺）+4点、質問2の正解（玲奈）+2点、質問3の正解（葛西）+2点。答えが自分自身だった質問では、正解の点はもらえません。</p>
+    <p><b>「最多票」の判定：</b>「最多票にならない」は、同数で並んで一番多くても「なった」とみなします。「単独で最多票になる」は、ほかの誰とも並ばずに一番多いときだけ達成です。</p>
+    <p><b>挙手の目的：</b>「ばれない」は挙手で過半数に届かなければ達成。「ばれる」「信じられる」は過半数で達成。「あなた自身が指摘し、しかも、ばれる」は、議論中に本人が全員の前でその話を出していて、しかも挙手で過半数のときだけ達成です。</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>人物</th><th>目的（点）</th></tr></thead>
+      <tbody>
+        <tr><td>相原</td><td>婚約がばれない（挙手1）+3／質問1で玲奈が最多票にならない +2／ピルケースと空のグラスを話す +1／戸川の夜食を自分で指摘し、ばれる（挙手2）+1</td></tr>
+        <tr><td>玲奈</td><td>質問2で最多票にならない +3／質問1で相原が最多票にならない +2／遺言書の中身がばれない（挙手4）+1／葛西と密談 +1</td></tr>
+        <tr><td>戸川</td><td>下剤がばれない（挙手2）+3／質問1で最多票にならない +2／トリカブトの話をする +1／相原の21:00〜21:08を話す +1</td></tr>
+        <tr><td>久住</td><td>金を受け取ったことがばれない（挙手5）+3／桑原の嘘を自分で指摘し、ばれる（挙手6）+2／点検記録の書きかえの話をする +1／小野寺と密談 +1</td></tr>
+        <tr><td>葛西</td><td>質問3で最多票にならない +3／遺言書の中身を自分で指摘し、ばれる（挙手4）+2／久住の金を自分で指摘し、ばれる（挙手5）+1／23:25のカプセルを話す +1</td></tr>
+        <tr><td>桑原</td><td>嘘の証言がばれない（挙手6）+3／事故の原因が信じられる（挙手8）+2／質問1で戸川が最多票にならない +1／久住に録音を消すと約束させる +1</td></tr>
+        <tr><td>小野寺</td><td>質問1で最多票にならない +5／真壁の息子だとばれない（挙手9）+2／質問1で玲奈が単独で最多票 +1／桑原と密談 +1</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read">
+      <span class="who">進行役 読み上げ</span>
+      <p>朝六時。倒木がどけられ、瑠璃星はゆっくりと走りだした。山の向こうが白みはじめ、汐見川の鉄橋が、窓の外を過ぎていく。</p>
+      <p>小野寺蒼は、ラウンジのいちばん前の席で、父の制帽をひざに置いていた。「配信は、もうしません」。誰に言うでもなく、そうつぶやいた。</p>
+      <p>桑原は、手帳から古い点検記録のコピーを出し、久住にわたした。「書いてくれ。わしの名前も、全部」。久住は長いこと黙って、それを受け取った。葛西は、その横で小さくうなずいた。</p>
+      <p>玲奈は、ポケットの遺言書を相原に見せた。相原はそれを読まずに、四つにたたみ直して返した。「終点に着いたら、ちゃんと話そう」。戸川は厨房で、誰にも頼まれていないコンソメを、八人分温めていた。</p>
+      <p>天ヶ瀬の駅前には、白い布をかぶった碑が立っている。その幕を引く者は、もういない。――瑠璃星は、夜明けに着いた。</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚。推理の発表後、一斉に開きます。書けるのは7人のプレイヤーの名前だけ。</p>
+  <div class="vote"><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div><div class="slip"><span class="q">1. 鷲尾恭介を殺したのは</span><div class="ln"></div><span class="q">2. 遺言書を持ち去ったのは</span><div class="ln"></div><span class="q">3. 内通者は</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div></div>
+</section>
+</main>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('ruriboshi-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  ['chars', 'items', 'clues', 'solve'].forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () { unlock(n); try { sessionStorage.setItem('ruriboshi-unlock-' + n, '1'); } catch (e) {} });
+    try { if (sessionStorage.getItem('ruriboshi-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+  var start = 'howto';
+  try { start = localStorage.getItem('ruriboshi-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+</script>
+<script>
+/* 公開ページ用：キャラシート・持ち物は名前の一覧、証拠カードは場所の一覧だけを出し、押すとその分だけ開く。
+   リンクを共有して、各自が自分の名前を押して遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  // ---- 3秒の長押しで開く（間違えてめくらないように）。閉じるのはタップ ----------------
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY; begin();
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') ) { e.preventDefault(); if (!e.repeat) begin(); }
+    });
+    b.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); }
+    });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編・GMブックの「表示する」も長押しにそろえる（元のボタンの動きはそのまま、長押しが済んだときだけ通す）
+  $$('[data-gate="solve"] .btn, [data-gate="gm"] .btn, [data-gate="solve"] button, [data-gate="gm"] button').forEach(function (b) {
+    if (b.dataset.plHold) return; b.dataset.plHold = '1';
+    hold(b, function () { b.click(); });
+    var p = el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。');
+    b.parentNode.insertBefore(p, b);
+  });
+
+  // 「表示する」の関門は、一覧から1人分ずつ開く形に置きかえる（解決編・GMブックはそのまま）
+  ['chars', 'items', 'clues', 'npc'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  // ---- 登場人物 -----------------------------------------------------------
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    return { i: i, name: txt(nm), rl: txt(s.querySelector('.slate .rl')), sheet: s, item: null };
+  });
+  $$('#items .card.item').forEach(function (c) {
+    var o = txt(c.querySelector('.owner'));
+    roles.forEach(function (r) { if (r.name === o) r.item = c; });
+  });
+
+  var views = {};
+  ['chars', 'items'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '名前を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '自分の名前を長押しすると、' + (tab === 'chars' ? 'あなたのキャラシートと持ち物カード' : 'あなたの持ち物カード') + 'だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', 'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。'));
+    var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open');
+    host.insertBefore(shown, host.firstChild);
+    host.insertBefore(roster, shown);
+    host.insertBefore(note, roster);
+    if (tab === 'items') $$('.cards, .lead', host).forEach(function (e) { if (e.parentNode === host) e.hidden = true; });
+    var v = views[tab] = { roster: roster, shown: shown, open: null, buttons: [] };
+    roles.forEach(function (r) {
+      var b = el('button', 'pl-person'); b.type = 'button';
+      b.append(el('b', null, r.name), el('span', 'r', r.rl));
+      b.setAttribute('aria-expanded', 'false');
+      hold(b, function () { show(tab, r.i); }, function () { return v.open === r.i; }, function () { show(tab, null); });
+      roster.appendChild(b); v.buttons.push(b);
+    });
+  });
+  function show(tab, i) {
+    var v = views[tab];
+    v.shown.textContent = '';
+    if (tab === 'chars') roles.forEach(function (r) { r.sheet.hidden = true; });
+    v.open = i;
+    v.buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    v.shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    if (tab === 'chars') { v.shown.appendChild(r.sheet); r.sheet.hidden = false; }
+    if (r.item) {
+      if (tab === 'chars') v.shown.appendChild(el('h3', null, '持ち物カード'));
+      var wrap = el('div', 'cards'); wrap.appendChild(r.item.cloneNode(true)); v.shown.appendChild(wrap);
+    }
+    v.shown.appendChild(btn('閉じる', 'ghost', function () { show(tab, null); v.roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+
+  // ---- 証拠カード・証言カード ----------------------------------------------
+  var CIRC = /[①-⑳]/;
+  ['clues', 'npc'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '場所を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '長押しすると、そのカードの中身だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', '調べる場所を宣言してから、自分で長押しして読んでください。開いたカードに「★ 即公開」と出たら、すぐ全員に読み上げます。'));
+    host.insertBefore(note, host.firstChild);
+  });
+  $$('#clues .card, #npc .card').forEach(function (c) {
+    var sp = c.querySelectorAll('.hd > span');
+    var loc = txt(sp[0]), id = txt(sp[sp.length - 1]);
+    var m = loc.match(CIRC);
+    var place = loc.replace(/[①-⑳]/g, '').replace(/調査[12]/g, '').replace(/\s+/g, ' ').trim();
+    var phase = (c.classList.contains('p2') || /調査2/.test(loc)) ? 2 : 1;
+    var cell = el('div', 'pl-cell');
+    c.parentNode.insertBefore(cell, c);
+    var row = el('button', 'pl-row'); row.type = 'button';
+    row.append(el('span', 'pl-place', place + (m ? ' ' + m[0] : '')), el('span', 'pl-id', id));
+    row.appendChild(el('span', 'pl-chip' + (phase === 2 ? ' p2' : ''), '調査' + phase));
+    // ★のカードかどうかは一覧では見せない。開いたカードの中で初めてはっきり出す
+    if (c.querySelector('.star')) {
+      var bd = c.querySelector('.bd') || c;
+      bd.insertBefore(el('p', 'pl-starnote', '★ 即公開：このカードは引いたらすぐ全員に読み上げる／見せる'), bd.firstChild);
+    }
+    row.setAttribute('aria-expanded', 'false');
+    var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+    function toggle(on) {
+      c.hidden = !on; close.hidden = !on;
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+    cell.append(row, c, close);
+    toggle(false);
+  });
+})();
+</script>
+</body>
+</html>

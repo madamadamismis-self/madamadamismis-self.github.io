@@ -1,0 +1,1922 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>王様の命令は絶対（9人用）</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 夜の温泉旅館。藍染めの暖簾と、藤色・若葉色の浴衣を下敷きにした、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eceef3;
+  --surface: #fdfdff;
+  --ink: #1d2035;
+  --muted: #5d6178;
+  --line: #cdd0dc;
+  --accent: #8a3f6e;
+  --accent-soft: #f4e6ef;
+  --teal: #4c7a34;
+  --teal-soft: #e8f1e0;
+  --slate: #23284a;
+  --slate-ink: #eef0f8;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12131d; --surface: #1b1d2b; --ink: #e6e7f0; --muted: #9a9db3; --line: #33364a;
+    --accent: #d88ab8; --accent-soft: #38202f; --teal: #9cc77f; --teal-soft: #22301b;
+    --slate: #0c0d16; --slate-ink: #e6e7f0; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12131d; --surface: #1b1d2b; --ink: #e6e7f0; --muted: #9a9db3; --line: #33364a;
+  --accent: #d88ab8; --accent-soft: #38202f; --teal: #9cc77f; --teal-soft: #22301b;
+  --slate: #0c0d16; --slate-ink: #e6e7f0; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; margin: 0; }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* hero */
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: 40px 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.stripes { height: 14px; max-width: 320px; background: linear-gradient(90deg, #b48ac4 0 50%, #8fbf6a 50% 100%); opacity: .9; border-radius: 2px; }
+.hero h1 { font-size: clamp(30px, 6vw, 54px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+
+/* people list */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+/* character sheet */
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.slate.cont .no::after { content: "（2枚目）"; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.intro h4 { color: var(--teal); }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.tl { display: grid; grid-template-columns: 5.2em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.6em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+.note { font-size: 13px; color: var(--muted); }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.star { color: var(--accent); font-size: 12px; font-family: var(--f-body); font-weight: 700; border: 1px solid var(--accent); border-radius: 3px; padding: 0 5px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.p2 .hd { background: var(--accent); color: var(--surface); }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card ul { font-size: 14px; }
+.card .log { font-family: var(--f-mono); font-size: 12.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+.card .doc { font-family: var(--f-display); font-weight: 700; border-left: 2px solid var(--line); padding-left: 10px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+
+/* map */
+.maps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.map svg { width: 100%; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .out { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map .fence { stroke: var(--teal); stroke-width: 4; stroke-dasharray: 2 3; }
+.map .noren { stroke: var(--accent); stroke-width: 5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 11px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 10px; background: var(--surface); break-inside: avoid; }
+.vote .q { font-size: 13px; font-weight: 700; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.5em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .stripes, .tab, .map * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { break-before: page; border: 0; border-radius: 0; }
+  .sheet .slate { padding: 4mm 6mm; }
+  .sheet .slate.cont { break-before: page; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { display: block; column-count: 2; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 8.6pt; line-height: 1.55; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > div:has(> .tl), .sheet .body > .secret:has(.tl), .sheet .body > div:has(> p + p + p) { break-inside: auto; }
+  .sheet .body.more > div { break-inside: auto; }
+  .sheet .body.more li { break-inside: avoid; }
+  .sheet .body p + p { margin-top: 1.2mm; }
+  .sheet .secret { padding: 2.5mm 3mm; }
+  .sheet .intro { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 8pt; }
+  .sheet .tl { grid-template-columns: 3.6em 1fr; gap: 1mm 2.5mm; }
+  .sheet .tl dt { font-size: 8pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 0.8mm; }
+  .sheet .goal { grid-template-columns: 2.8em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 8pt; }
+  .sheet .note { font-size: 8pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { border-style: dashed; }
+  .vote { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .box, .person, .card { break-inside: avoid; }
+}
+</style>
+<style>
+/* 公開ページ用：名前・場所の一覧から開く表示。色は各キットのトークンから取る */
+:root { --pl-accent: var(--accent, var(--kin)); --pl-hi: var(--teal, var(--ai)); }
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--pl-hi); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+.pl-head { font-size: 20px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-row .pl-place { font-weight: 700; }
+.pl-row .pl-id { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.star { border-color: var(--pl-accent); color: var(--pl-accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--pl-hi); background: var(--pl-hi); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--pl-hi); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--pl-accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--pl-accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-starnote { border: 1.5px solid var(--pl-accent); color: var(--pl-accent); background: var(--surface); border-radius: 6px; padding: 6px 10px; font-weight: 700; font-size: 14px; }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--pl-accent); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="stripes"></div>
+    <h1>王様の命令は絶対</h1>
+    <p>卒業旅行の夜、王様ゲームの命令ひとつで、二人の浴衣が入れ替わった。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>9人 ＋ GM1人</span>
+      <span><b>TIME</b>約150分</span>
+      <span><b>LEVEL</b>大人向け・中級</span>
+      <span><b>SETTING</b>現代・伊豆の温泉旅館</span>
+      <span><b>CARDS</b>キャラシート9・持ち物9・証拠29</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs noprint" aria-label="セクション">
+  <div class="inner" role="tablist">
+    <button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button>
+    <button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button>
+    <button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button>
+    <button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button>
+  </div>
+</nav>
+
+<main class="wrap">
+<div class="printonly">王様の命令は絶対（9人用）</div>
+
+<!-- ============ 遊び方 ============ -->
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー9人がそれぞれ登場人物になり、話し合いと証拠カードで真相を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票用紙」だけを見てください。</p>
+    <p><strong>大人向けです。</strong>恋愛のもつれ、浮気・不倫、王様ゲームでの軽いスキンシップ、酔った相手との一夜の関係、飲酒運転の死亡事故が出てきます。性的な場面の具体的な描写はありませんが、遊ぶ前にメンバーに一言確認してください。</p>
+    <p class="note">印刷するときは、印刷したいタブを開いた状態でブラウザの印刷を使うと、そのタブだけが印刷されます（キャラシートは1人2ページ、カードは切り取り線つき）。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 9人分（1人2枚。それぞれ封筒に入れる）</li>
+        <li>持ち物カード 9枚（キャラシートと同じ封筒へ）</li>
+        <li>証拠カード 29枚（切り分けて、場所ごとに丸数字の順で裏向きに束ねる）</li>
+        <li>人物一覧・事件概要・見取り図（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙 9枚、筆記用具、タイマー</li>
+        <li>あれば名札（役名を書く）。割り箸があると王様ゲームの話がしやすい</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードと証拠カードは、見せる・隠す・一部の人にだけ見せる・渡す、どれも自由。「見せて」と言われて断ってもよい（そのぶん怪しまれる）。</li>
+        <li>カードの中身を口で説明するときも、上の範囲なら嘘をついてよい。ただしカードそのものは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li><b>★のついた証拠カードは、引いたらすぐ全員に公開する。</b></li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+        <li><b>この物語には、犯人ではないのに「犯人として名指しされたい」人物が一人だけいます。</b>自白をうのみにしないこと。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+          <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシート（2枚）と持ち物カードを黙読する。</td></tr>
+          <tr><td class="t">15分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で自己紹介（キャラシートの「自己紹介」を読み上げるか、自分の言葉で）。</td></tr>
+          <tr><td class="t">15分</td><td>調査1</td><td>1人2回、調べる場所を宣言してGMからカードを1枚ずつもらう。</td></tr>
+          <tr><td class="t">30分</td><td>議論1</td><td>情報交換と追及。密談OK。</td></tr>
+          <tr><td class="t">10分</td><td>調査2</td><td>1人1回。各場所に新しいカードが追加される。</td></tr>
+          <tr><td class="t">30分</td><td>議論2</td><td>10分たったら、残っているカードをGMが全部公開する。</td></tr>
+          <tr><td class="t">15分</td><td>推理と投票</td><td>1人30秒で推理を発表し、3つの問いに一斉に投票。続けて、GMが読み上げる「秘密」について挙手で判定。</td></tr>
+          <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>投票する3つの問い</h3>
+      <ol>
+        <li><b>天城隼人を殺したのは誰か</b>（当たれば +4点）</li>
+        <li><b>合宿費40万円を抜き取ったのは誰か</b>（+2点）</li>
+        <li><b>天城が1時に貸切風呂で会うはずだった相手は誰か</b>（+2点）</li>
+      </ol>
+      <p class="note">3つの問いの答えは、同じ人とは限りません。書けるのは、プレイヤーが演じている人物の名前だけです（天城本人は書けません）。自分の名前を書いてもかまいません。ただし、<b>答えが自分自身だった問いでは、正解の点はもらえません</b>（自分に入れても、自分の票が1つ増えるだけです）。</p>
+    </div>
+    <div class="box">
+      <h3>勝ち負けについて</h3>
+      <p>全員に、投票とは別の「個人の目的」があり、達成すると点数が入ります。犯人を当てられなくても、目的を果たせば高得点を狙えます。最後に点数が一番高い人がその回のMVPです。</p>
+      <p>目的のうち「〜がばれない」「〜がばれる」は、言い張るだけでは決まりません。投票のあと、GMが読み上げる文について、当事者以外の全員が「本当だと思う」なら手を挙げます。<b>過半数が手を挙げたら「ばれた」</b>ことになります。読み上げる文には、本当ではないものも混ざっています。議論で話題にならず、根拠（証言やカード）も出なかった秘密には、手を挙げないでください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 事件概要 ============ -->
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>三月十四日、土曜日。大学のイベントサークル「Carnival」の卒業旅行。四年生と後輩たち、それにOBの東を加えた九人は、伊豆の山奥にある古い温泉旅館「月見館」を一晩貸し切った。</p>
+    <p>夕方からの宴会は、代表・天城隼人の卒業スピーチで最高潮を迎えた。二十一時半、春の嵐で山道が土砂崩れを起こし、旅館は孤立した。けれど誰も気にしなかった。二十三時半からは、恒例の王様ゲーム。「王様の命令は、絶対！」</p>
+    <p>深夜一時四十分。貸切露天風呂から悲鳴が上がった。湯けむりの中、天城隼人が湯船に浮かんでいた。後頭部に傷があり、そばには割れた徳利のかけらが沈んでいた。</p>
+    <p>警察が来られるのは、夜が明けて道が通ってから。若女将の椎名志保が、震える声で言った。「皆さま、朝まで、どうか宴会場に」</p>
+    <p>――王様は死んだ。この中の誰かが、王様を殺した。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li><b>Carnival</b>：東京の私立大学のイベントサークル。部員は約60人。学園祭の後夜祭ライブ、夏の海の家イベント、クリスマスのクラブイベントを企画・運営している。資金はチケットの売り上げとOBからのスポンサー料。卒業旅行の夜の王様ゲームは、代々続く恒例行事。</li>
+        <li>遺体：貸切露天風呂の湯船。後頭部に殴られた傷があり、溺れたとみられる。湯船の底に、割れた備前焼の徳利のかけら。</li>
+        <li>発見：1:40、小田切さくらが見つけて悲鳴を上げた。</li>
+        <li>貸切風呂は30分ごとの予約制。予約は帳場の予約表に書く。入口には「使用中／空き」の札があるだけで、鍵はかからない。</li>
+        <li>貸切風呂へは、大浴場の前から渡り廊下を通るしかない。渡り廊下の入口には暖簾がかかっている。貸切風呂の露天と男湯の露天は、竹垣一枚で接している。</li>
+        <li>全員スマホを持っているので、時刻は正確。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>浴衣と王様ゲーム</h3>
+      <ul>
+        <li>男性は全員、旅館の紺の浴衣。女性は色浴衣を選べる。<b>澪は藤色、ひかるは若葉色、莉子は桜色、さくらは水色。</b>若女将の志保は仕事着の着物。</li>
+        <li>夜は冷えるので、全員が旅館の茶羽織（同じ柄）を浴衣の上に羽織っていた。</li>
+        <li>王様ゲームは23:30〜0:00、宴会場で。参加者は志保を除く9人。割り箸のくじ（「王」と1〜8）を毎回引き直す。くじを作ったのは幹事の澪。1年の藤井が書記としてホワイトボードに命令を書いた。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="maps">
+    <div class="box map">
+      <h3>1階</h3>
+      <svg viewBox="0 0 380 260" role="img" aria-label="1階の見取り図">
+        <rect class="room" x="20" y="20" width="140" height="90"/><text x="70" y="68">宴会場</text>
+        <rect class="room" x="20" y="150" width="70" height="90"/><text x="42" y="198">帳場</text>
+        <text class="sm" x="26" y="214">（奥に若女将の部屋）</text>
+        <rect class="room" x="90" y="190" width="70" height="50"/><text x="112" y="218">玄関</text>
+        <rect class="stair" x="100" y="122" width="50" height="40"/><text class="sm" x="114" y="146">階段</text>
+        <rect class="room" x="160" y="20" width="40" height="220"/><text x="166" y="100">廊</text><text x="166" y="114">下</text>
+        <text class="sm" x="164" y="160">自販機</text>
+        <rect class="room" x="200" y="20" width="90" height="90"/><text x="232" y="68">女湯</text>
+        <rect class="out" x="290" y="20" width="70" height="70"/><text class="sm" x="300" y="58">女湯の露天</text>
+        <rect class="room" x="200" y="120" width="90" height="90"/><text x="232" y="168">男湯</text>
+        <rect class="out" x="290" y="120" width="40" height="90"/><text class="sm" x="294" y="160">男湯</text><text class="sm" x="294" y="172">露天</text>
+        <line class="fence" x1="330" y1="120" x2="330" y2="210"/>
+        <rect class="hot" x="330" y="120" width="40" height="125"/><text class="ac" x="335" y="172">貸切</text><text class="ac" x="335" y="186">風呂</text>
+        <rect class="room" x="200" y="222" width="130" height="18"/><text class="sm" x="232" y="235">渡り廊下 →</text>
+        <line class="noren" x1="200" y1="222" x2="200" y2="240"/>
+      </svg>
+      <p class="note">赤い太線は渡り廊下の入口の暖簾。緑の点線は、男湯の露天と貸切風呂の露天を仕切る竹垣。</p>
+    </div>
+    <div class="box map">
+      <h3>2階（客室）</h3>
+      <svg viewBox="0 0 380 260" role="img" aria-label="2階の見取り図">
+        <rect class="room" x="20" y="20" width="100" height="80"/><text x="54" y="56">萩の間</text><text class="sm" x="30" y="74">天城・剣持・真木</text>
+        <rect class="room" x="120" y="20" width="80" height="80"/><text x="142" y="56">竹の間</text><text class="sm" x="152" y="74">東</text>
+        <rect class="room" x="200" y="20" width="70" height="80"/><text x="216" y="56">楓の間</text><text class="sm" x="226" y="74">藤井</text>
+        <rect class="room" x="270" y="20" width="90" height="80"/><text x="296" y="56">梅の間</text><text class="sm" x="302" y="74">（空室）</text>
+        <rect class="room" x="20" y="100" width="340" height="30"/><text x="34" y="120">廊下</text>
+        <rect class="room" x="20" y="130" width="110" height="90"/><text x="50" y="170">桔梗の間</text><text class="sm" x="46" y="188">澪・莉子</text>
+        <rect class="room" x="130" y="130" width="110" height="90"/><text x="166" y="170">菊の間</text><text class="sm" x="152" y="188">ひかる・さくら</text>
+        <rect class="room" x="240" y="130" width="60" height="50"/><text class="sm" x="248" y="158">女子トイレ</text>
+        <rect class="stair" x="300" y="130" width="60" height="50"/><text class="sm" x="320" y="158">階段</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 人物一覧 ============ -->
+<section class="panel" id="people" hidden>
+  <h2>人物一覧</h2>
+  <p class="lead">全員が知っている情報です。自己紹介はこの範囲で行います。</p>
+  <div class="people">
+    <div class="person victim"><span class="role">被害者・4年・代表（22）</span><span class="nm">天城 隼人</span><span class="kana">あまぎ はやと</span><p>Carnivalの代表。顔が広く、イベントを打てば必ず満員にする人気者。女性関係が派手なことでも有名。春から大手広告代理店に就職が決まっていた。</p></div>
+    <div class="person"><span class="role">4年・会計（22）</span><span class="nm">朝比奈 澪</span><span class="kana">あさひな みお</span><p>サークルの会計で、今回の旅行の幹事。天城の公認の恋人。しっかり者で、後輩からの信頼が厚い。浴衣は藤色。</p></div>
+    <div class="person"><span class="role">3年（21）</span><span class="nm">柚木 ひかる</span><span class="kana">ゆずき ひかる</span><p>イベントの装飾担当。小柄で、絵がうまい。澪によくなついている。浴衣は若葉色。</p></div>
+    <div class="person"><span class="role">4年（22）</span><span class="nm">早瀬 莉子</span><span class="kana">はやせ りこ</span><p>澪の高校からの親友。華やかで、サークルの「顔」の一人で、集客とSNSの担当。浴衣は桜色。</p></div>
+    <div class="person"><span class="role">4年・副代表（22）</span><span class="nm">剣持 大和</span><span class="kana">けんもち やまと</span><p>天城の右腕で、イベントの会場設営を仕切る。体が大きく、高校までは野球一筋だった。実家は静岡の酒屋。</p></div>
+    <div class="person"><span class="role">4年（22）</span><span class="nm">真木 颯太</span><span class="kana">まき そうた</span><p>盛り上げ役で、イベントではMC。飲み会の仕切りはいつも真木。</p></div>
+    <div class="person"><span class="role">2年（20）</span><span class="nm">小田切 さくら</span><span class="kana">おだぎり さくら</span><p>おとなしい2年生。イベントでは受付とチケットの担当。遺体の第一発見者。浴衣は水色。</p></div>
+    <div class="person"><span class="role">1年（19）</span><span class="nm">藤井 悠真</span><span class="kana">ふじい ゆうま</span><p>入ったばかりの1年生。写真と動画の係で、今夜の王様ゲームでは書記を任された。</p></div>
+    <div class="person"><span class="role">OB・イベント会社社長（30）</span><span class="nm">東 慎吾</span><span class="kana">あずま しんご</span><p>8年前の代表。いまはイベント会社を経営し、Carnivalのスポンサーでもある。今回の旅館を手配した。</p></div>
+    <div class="person"><span class="role">月見館の若女将（29）</span><span class="nm">椎名 志保</span><span class="kana">しいな しほ</span><p>3年前に東京から戻り、病気の父に代わって旅館を切り盛りしている。浴衣の貸し出しと貸切風呂の予約も彼女の担当。</p></div>
+  </div>
+</section>
+
+<!-- ============ キャラシート ============ -->
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。プレイヤーとして参加する人は開かないでください。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden>
+  <h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3>
+  <div class="labels">
+    <div class="lb"><span class="no">ROLL 01</span><span class="nm">朝比奈 澪<small>あさひな みお</small></span><span class="rl">4年・会計</span><span class="in">中身：キャラクターシート2枚（ROLL 01）＋ 持ち物カード（ITEM 01）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 02</span><span class="nm">柚木 ひかる<small>ゆずき ひかる</small></span><span class="rl">3年</span><span class="in">中身：キャラクターシート2枚（ROLL 02）＋ 持ち物カード（ITEM 02）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 03</span><span class="nm">早瀬 莉子<small>はやせ りこ</small></span><span class="rl">4年</span><span class="in">中身：キャラクターシート2枚（ROLL 03）＋ 持ち物カード（ITEM 03）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 04</span><span class="nm">剣持 大和<small>けんもち やまと</small></span><span class="rl">4年・副代表</span><span class="in">中身：キャラクターシート2枚（ROLL 04）＋ 持ち物カード（ITEM 04）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 05</span><span class="nm">真木 颯太<small>まき そうた</small></span><span class="rl">4年</span><span class="in">中身：キャラクターシート2枚（ROLL 05）＋ 持ち物カード（ITEM 05）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 06</span><span class="nm">小田切 さくら<small>おだぎり さくら</small></span><span class="rl">2年</span><span class="in">中身：キャラクターシート2枚（ROLL 06）＋ 持ち物カード（ITEM 06）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 07</span><span class="nm">藤井 悠真<small>ふじい ゆうま</small></span><span class="rl">1年</span><span class="in">中身：キャラクターシート2枚（ROLL 07）＋ 持ち物カード（ITEM 07）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 08</span><span class="nm">東 慎吾<small>あずま しんご</small></span><span class="rl">OB・イベント会社社長</span><span class="in">中身：キャラクターシート2枚（ROLL 08）＋ 持ち物カード（ITEM 08）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 09</span><span class="nm">椎名 志保<small>しいな しほ</small></span><span class="rl">月見館の若女将</span><span class="in">中身：キャラクターシート2枚（ROLL 09）＋ 持ち物カード（ITEM 09）<br>GMの合図があるまで開けないでください。</span></div>
+  </div>
+
+  <!-- 01 澪 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">朝比奈 澪<small>あさひな みお</small></span><span class="rl">4年・会計・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。天城隼人を殺したのはあなたです。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年の朝比奈澪です。Carnivalの会計で、今回の旅行の幹事をやっています。王様ゲームのくじも私が作りました。隼人とは、1年半前から付き合っています。……付き合って、いました。ごめんなさい、隼人がもういないなんて、まだ信じられなくて。浴衣は藤色です。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>小学5年のとき、両親が離婚した。母は夜の店で働き、帰りはいつも明け方。三つ下の弟・湊のお弁当を作り、宿題を見て、熱を出せば夜通し看病したのはあなただった。湊は「姉ちゃんがいれば平気」が口ぐせの、気の優しい子に育った。</p>
+        <p>奨学金で大学に入り、湊も同じ大学、同じCarnivalに入ってきた。2年前の12月、忘年会の帰りに、湊はOBの東から借りた車で自転車の高齢男性をはね、死なせた。湊は過失運転致死で有罪（執行猶予）となり、大学を辞めた。いまは遺族への償いをしながら、夜勤の工場で働いている。</p>
+        <p>あの冬、裁判のあいだずっとそばで支えてくれたのが天城だった。「湊のことは俺がなんとかする」。それから付き合い始めて1年半。感謝が恋だと、自分に言い聞かせてきた。</p>
+        <p>背が高く（170cm）、しっかり者で通っている。今夜の旅行の幹事で、王様ゲームの割り箸のくじもあなたが作った。爪は深いボルドーのネイル。</p>
+      </div>
+      <div class="secret">
+        <h4>今夜、本当にあったこと</h4>
+        <dl class="tl">
+          <dt>22:30</dt><dd>天城が男湯に行っているあいだに、置きっぱなしの彼のスマホを開いた（暗証番号は知っていた）。東とのLINE（持ち物カード）で知った。運転していたのは天城。湊は、天城の身代わりだった。莉子への「1時、貸切な」もあった。画面を自分のスマホで撮った。</dd>
+          <dt>23:00</dt><dd>王様ゲームのくじを作るとき、「1」の割り箸の根元に、爪で小さな切れ込みを入れた。</dd>
+          <dt>23:25</dt><dd>真木に耳打ちし、LINEも送った。「命令ネタ：1番が好きな人を一人選んで、こっそり浴衣交換して朝まで。私が言ったってナイショね」。自分から「浴衣を替えよう」と言えば、あとで必ず怪しまれる。王様の命令なら、ただの遊びで済む。</dd>
+          <dt>23:40</dt><dd>3回目、真木が王様。あなたは印の「1」を引き、袖に隠した。ゲームのあいだに、ひかるに耳打ちした。「1番、私なの。相手、ひかるにしていい？　あとでこっそりね」（選んだ理由は2枚目）。</dd>
+          <dt>0:45</dt><dd>交換したまま人前に出ればすぐばれるので、この時間まで待った。ひかるを2階の女子トイレに呼んで浴衣を交換。あなたは若葉色（Sサイズ）、ひかるは藤色。「先にお風呂行ってて、すぐ行くから」。あなたはトイレに残った。</dd>
+          <dt>1:03</dt><dd>髪をタオルで巻き、若葉色のまま、人目を避けて渡り廊下へ。暖簾に頭が当たりそうで、身をかがめた。</dd>
+          <dt>1:04</dt><dd>貸切露天で、天城が徳利を手に待っていた。「は？　莉子じゃねえの」。湊のことを問いつめると、笑った。「あいつが自分で言ったんだよ、代わりに捕まるって。お前だって悪くなかったろ、俺の女で」。</dd>
+          <dt>1:06</dt><dd>「湊に謝って！」。徳利で頭を殴り、湯に沈めた。動かなくなるまで、離さなかった。</dd>
+          <dt>1:09</dt><dd>札は「使用中」のまま、渡り廊下を戻って女湯の脱衣所へ。血のついた若葉色を脱いで、ひかるのかごの藤色と取り替え、洗面台で手を洗った。1:12、湯船のほうへ「ひかる、ごめん遅くなった。先に上がるね」と声をかけた。</dd>
+          <dt>1:14</dt><dd>桔梗の間へ。1:18に莉子、1:25にひかるが来た。ひかるは黙って、あなたの手を握った。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>あなたのアリバイ（みんなにはこう話す）</h4>
+        <p>「0:50ごろから女湯にいた。ひかると一緒。1:12に先に上がって、部屋に戻った」</p>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+5</span><span>問い1（殺したのは誰か）で、最多票にならない（逃げ切る）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>ひかるが、問い1で最多票にならない（もう誰も身代わりにしたくない）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>天城が湊に罪をかぶせていたことを、議論中に全員の前で明らかにする（動機を知られる危険がある）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>王様ゲームの「1番」が自分だったと、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+      <p class="note">ヒント：「桔梗の間」のカードは、自分で引けば隠しておける。</p>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">朝比奈 澪<small>あさひな みお</small></span><span class="rl">4年・会計・22歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（2年前の5月、湊の判決の日）</h4>
+        <p>判決は「懲役2年、執行猶予4年」。裁判所を出ると、湊は空を見上げて言った。「姉ちゃん、俺、これでよかったんだよ」。何がよかったのか、そのときはわからなかった。帰り道、天城は湊の肩を抱いて「よく頑張ったな」と言った。湊は、泣きそうな顔で笑った。</p>
+        <p>今夜、その意味がわかった。湊はずっと、天城との約束を守っていたのだ。</p>
+      </div>
+      <div>
+        <h4>ひかるを選んだ理由</h4>
+        <p>浴衣を取り替える相手は、女湯に一緒に行ける女の子でなければならない。莉子は1時に天城のところへ行く。さくらとは、それほど親しくない。ひかるなら、何も聞かずに言うとおりにしてくれる。</p>
+        <p>もし若葉色の浴衣を誰かに見られても、小柄なひかるに罪がかぶることはない。そう自分に言い聞かせた。あの子の気持ちに、うすうす気づいていながら。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：湊の人生を奪い、それを笑った男。後悔はしていない。ただ、手の震えが止まらない。</li>
+          <li>ひかる：何も聞かずに手を握ってくれた子。あの子を巻き込んだことだけは、悔やんでいる。</li>
+          <li>莉子：高校からの親友。天城と1時に会う約束をしていた。怒る気力も、もう残っていない。</li>
+          <li>剣持：天城の右腕。湊の事故のことも、何か知っていたのだろうか。</li>
+          <li>真木：命令を言ってくれた人。私の名前を出さないでいてくれるだろうか。</li>
+          <li>さくら：去年から、天城のそばに寄らなくなった。理由を聞いておけばよかった。</li>
+          <li>藤井：王様ゲームをずっと撮っていた。あの動画に何が映っているのか、気になる。</li>
+          <li>東：湊の身代わりを段取りした男。天城と同じくらい、許せない。</li>
+          <li>志保：浴衣を選ぶとき、「お背が高いのでLを」と言ってくれた人。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>落ち着いた口調で、場を仕切る。「まず、時間を整理しよう」。</li>
+          <li>恋人を亡くしたばかりなので、ときどき言葉に詰まってみせる。</li>
+          <li>ひかるが自白しはじめたら、止めるか、黙って見ているか――あなたが決めていい。</li>
+          <li>爪（ボルドーのネイル）を、無意識に袖で隠す癖がある。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 ひかる -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">柚木 ひかる<small>ゆずき ひかる</small></span><span class="rl">3年・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。けれど、<b>犯人として名指しされることがあなたの望み</b>です。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「3年の柚木ひかるです。イベントの装飾担当で、ポスターやフライヤーの絵を描いています。澪さんにはいつもお世話になっています。背が低いので、よく1年生に間違われます。浴衣は若葉色です。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>群馬の小さな町の生まれ。高校2年の冬、部活の先輩（女性）に手紙で想いを打ち明けた。翌朝、手紙は教室の黒板に貼られていた。誰がやったのかはわからない。「気持ち悪い」と書かれた机で3か月過ごし、そのあと学校に行けなくなった。通信制に移って、東京の大学に逃げるように進学した。</p>
+        <p>大学1年の新歓で、隅っこで絵を描いていたあなたに声をかけてくれたのが澪だった。高校のことを話すと、澪はしばらく黙ってから言った。「そのままでいいじゃん。ひかるは、ひかるのままで」。その一言で、あなたはもう一度生きてみようと思えた。</p>
+        <p>それから2年。イベントの装飾を任され、澪の隣にいられることが何よりうれしい。澪が天城の恋人であることも、自分の気持ちが報われないことも、わかっている。それでいい、と思ってきた。</p>
+        <p>絵は小さいころから得意で、中学では県のコンクールで入賞した。けれど高校のあの冬からは、人の顔が描けなくなった。また描けるようになったのは、澪に出会ってから。最初に描いた顔も、澪だった。</p>
+        <p>身長150cmと小柄で、浴衣はSサイズの若葉色。力仕事は苦手で、重いものは剣持や真木に運んでもらっている。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>王様ゲームの3回目の命令は「1番が誰か一人を選んで、こっそり浴衣交換」。そのすぐあと、澪に耳打ちされた。「1番、私なの。相手、ひかるにしていい？」。選ばれたのがうれしくて、うなずいた。0:45、澪に2階の女子トイレへ呼ばれ、二人で笑いながら浴衣を取り替えた。あなたは藤色（Lサイズ・長すぎて裾を引きずる）、澪は若葉色。</p>
+        <p>そして1:20、女湯から上がると、かごの藤色が消えて、自分の若葉色が戻っていた。<b>右袖に血、裾はびしょ濡れ、右肩の縫い目がほつれていた。</b>あなたは、何が起きたのかを悟った。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>23:40</dt><dd>3回目の命令のあと、澪に相手として選ばれた。</dd>
+          <dt>0:45</dt><dd>2階の女子トイレで澪と浴衣を交換。「先にお風呂行ってて、すぐ行くから」と言われた。</dd>
+          <dt>0:50</dt><dd>藤色のまま女湯へ。かごに藤色を入れ、ほとんど露天のほうにいた。ほかに客はいなかった。</dd>
+          <dt>0:55</dt><dd>脱衣所に誰かが入ってきて、すぐに出ていった気配がした。澪かと思ったが、来なかった。</dd>
+          <dt>1:12</dt><dd>脱衣所から澪の声。「ひかる、ごめん遅くなった。先に上がるね」。結局一緒に入れなかった。</dd>
+          <dt>1:20</dt><dd>上がると、浴衣が入れ替わっていた（上の「秘密」）。血のついた若葉色を着て、茶羽織で隠した。</dd>
+          <dt>1:25</dt><dd>桔梗の間へ。澪は藤色を着て、髪が濡れ、手が震えていた。莉子もいた。何も聞かずに、澪の手を一度だけ握った。</dd>
+          <dt>1:40</dt><dd>さくらの悲鳴。天城が死んだと聞いて、あなたは決めた。今度は、私が澪さんを守る。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>真木：王様ゲームの前、澪さんと何か耳打ちしていた。</li>
+          <li>藤井：ずっと動画を撮っていた。3回目の命令のとき、カメラはこっちを向いていた気がする。</li>
+          <li>莉子：澪さんの親友なのに、天城さんにささやかれて真っ赤になっていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>あなたの作戦（例）</h4>
+        <p>「1時ごろ女湯を抜け出し、若葉色の浴衣で貸切へ行った。天城さんに言い寄られて揉み合いになり、徳利で殴ってしまった。女湯に戻って血を洗った」。証拠カードで現場の様子を知って、話を補強しよう。持ち物の浴衣を見せるかどうかは、あなた次第。</p>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い1（殺したのは誰か）で、自分が最多票になる（身代わりになる）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い1で、自分に3票以上が入る（自分の1票も数える）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>0:45〜1:20に藤色の浴衣を着ていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>澪への想いを、最後まで自分の口からは明かさない。</span></div>
+        </div>
+      </div>
+      <p class="note">あなたは犯人ではないので、自分を守るため以外の嘘もついてよい。</p>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">柚木 ひかる<small>ゆずき ひかる</small></span><span class="rl">3年・21歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（大学1年の新歓の夜）</h4>
+        <p>二次会の居酒屋で、誰とも話せずにスケッチブックを開いていた。「それ、うまいね」と覗きこんだのが澪だった。終電を逃した二人で、夜明けまでファミレスにいた。高校のことを話したのは、家族以外では澪が初めてだった。</p>
+        <p>始発のホームで、澪は「ひかるの絵、いつかイベントのポスターにしよう」と笑った。半年後、本当にそうなった。あのポスターは、いまもあなたの部屋に貼ってある。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：澪さんを大事にしない人。何度も、澪さんの前で別の女の子と笑っていた。</li>
+          <li>澪：世界でいちばん大切な人。今度は、私が守る番。</li>
+          <li>莉子：澪さんの親友。でも、天城さんを見る目が親友のそれじゃない。</li>
+          <li>剣持：力持ちで優しい先輩。最近、お金のことでいらいらしている。</li>
+          <li>真木：王様ゲームの王様。「浴衣交換」なんて、どうして思いついたんだろう。</li>
+          <li>さくら：同室の後輩。今夜、私がお風呂に行くのを待っていたみたいに見えた。</li>
+          <li>藤井：ずっとスマホで撮っていた。あの動画は、困るかもしれない。</li>
+          <li>東：お金で何でも片づけるOB。苦手。</li>
+          <li>志保：浴衣を選ぶとき、「小柄な方にはSがお似合いです」と言ってくれた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>ふだんは控えめで、声も小さい。「〜です」「あの……」。</li>
+          <li>いきなり自白すると怪しまれる。疑われてから、追いつめられたように打ち明けるのが効果的。</li>
+          <li>澪が疑われたら、強めにかばう。ただ、かばいすぎると想いがばれる。</li>
+          <li>現場の細かいこと（凶器・時刻）を聞かれたら、カードで知った情報で答えよう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 莉子 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 莉子<small>はやせ りこ</small></span><span class="rl">4年・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年の早瀬莉子でーす。澪とは高校からの親友で、Carnivalでは集客とSNSを担当してました。春からアパレルの会社で働きます。浴衣は桜色。……隼人のこと、正直まだ信じられない。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>横浜生まれ。母は、ある会社の社長の「二番目の女」だった。父親が家に来るのは月に一度。母は父の前でだけ別人のように笑い、父が帰ると一晩じゅう泣いた。「欲しいものは、奪わなきゃ手に入らないのよ」。それが母の口ぐせだった。</p>
+        <p>中学2年のとき、いちばんの親友の彼氏を奪った。欲しかったわけではない。ただ、親友が持っているものが、急にまぶしく見えた。親友は泣いて、二度と口をきいてくれなかった。あのとき、自分の中に母と同じものがあると知った。</p>
+        <p>高校で出会った澪は、そんなあなたを知らずに、まっすぐ親友になってくれた。今度こそ大事にすると決めていた。なのに3か月前、酔った帰り道に天城に誘われて、断れなかった。それから月に何度も会っている。澪の顔を見るたびに、中学のあの日の自分が笑う。</p>
+        <p>華やかで、男子からも女子からも人気がある。口紅はコーラルピンク。卒業後はアパレルの会社に就職する。新しい街で、母とは違う生き方をするつもりだった。1年生のころ、剣持と半年だけ付き合っていた（サークルの誰にも言っていない）。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>天城と3か月前から関係がある。今夜も22:12に天城からLINEが来た。「1時、貸切な」。あなたは「うん」と返した。</p>
+        <p>1年生のとき、剣持と付き合っていたことも、誰にも知られたくない。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>22:12</dt><dd>天城からLINE「1時、貸切な」。</dd>
+          <dt>23:32</dt><dd>王様ゲーム1回目。「4番が3番の耳元で愛をささやく」。あなたは3番、天城が4番。澪の目の前で、天城が「今夜、待ってる」とささやいた。笑うしかなかった。</dd>
+          <dt>0:55</dt><dd>女湯の脱衣所で化粧直し。奥のかごに<b>藤色の浴衣</b>。露天のほうに、髪をタオルで巻いた後ろ姿が一つ見えた。澪だ、と思い、声をかけずに出た。</dd>
+          <dt>0:59</dt><dd>桔梗の間に戻る。澪はいなかった。</dd>
+          <dt>1:10</dt><dd>部屋を出る。1:12、天城に「いまから行く」とLINE。</dd>
+          <dt>1:15</dt><dd>貸切風呂の前。札は「使用中」。小声で「隼人？」と呼んだが返事がない。まさか、ほかの女と？　1:16「使用中ってなに？誰といるの」とLINEして、引き返した。階段で剣持とすれ違った。</dd>
+          <dt>1:18</dt><dd>桔梗の間。澪が藤色の浴衣で、髪を濡らして座っていた。「お風呂行ってた」と澪。あなたは「自販機」と嘘をついた。1:25、ひかるが来た。</dd>
+          <dt>1:40</dt><dd>悲鳴。貸切風呂へ。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>剣持：最近お金に困っている。今夜、天城の鞄のあたりをうろうろしていた。</li>
+          <li>東：宴会のあと、若女将と目配せしていた。</li>
+          <li>さくら：天城が近づくと、いつも震えている。</li>
+          <li>さくらと藤井：王様ゲームで手をつないだとき、二人とも真っ赤だった。たぶん付き合っている。</li>
+          <li>澪：旅行の前の日、一緒にネイルサロンに行った。澪は深いボルドー、あなたは桜色。</li>
+          <li>真木：王様ゲームの前、澪と何かこそこそ話していた。</li>
+          <li>志保：宴会のあいだ、東とだけは決して目を合わせなかった。かえって不自然だった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>0:55に女湯で見たことを話せば、澪のアリバイになる。でも、なぜそのとき化粧直しをしていたのかを聞かれたら困る。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い3（1時に会うはずだった相手）で、最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い1（殺したのは誰か）で、自分が最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>さくらと藤井が付き合っていることを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>1年生のとき剣持と付き合っていたことが、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 莉子<small>はやせ りこ</small></span><span class="rl">4年・22歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（中学2年、親友を失った夜）</h4>
+        <p>親友の彼氏と夏祭りに行ったのを、親友に見られた。人ごみの中で、親友はりんご飴を落として、ただ立っていた。あなたは目をそらした。その夜、母に話すと、母は笑った。「やるじゃない。あんたは私の娘ね」。</p>
+        <p>あの日から、褒められることがいちばん怖い。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：好きだったのか、奪いたかっただけなのか、自分でもわからない。</li>
+          <li>澪：大事な親友。だからこそ、知られたら終わり。</li>
+          <li>ひかる：澪にべったりの後輩。最近、澪を見る目が、ちょっと特別な気がする。</li>
+          <li>剣持：元彼。いまでも優しくしてくれる。それがつらい。</li>
+          <li>真木：軽い男。でも、人の秘密は守るタイプ。</li>
+          <li>さくら：天城の「被害者」の一人だと、噂で聞いた。私とは違う。……本当に？</li>
+          <li>藤井：かわいい1年生。さくらといるときだけ、妙に落ち着かない。</li>
+          <li>東：お金持ちのOB。天城と何かつながっている。</li>
+          <li>志保：きれいな人。東を見る目が、母が父を見ていた目に似ている。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>明るく華やか。「えー、マジで？」「それな」。</li>
+          <li>天城の話になると、ほんの少しだけ涙ぐむ。</li>
+          <li>澪の前では、いつも以上に「親友」を演じる。</li>
+          <li>剣持とは、ほかの人の前ではそっけなくする。</li>
+          <li>1:15に貸切風呂の前にいたことを隠すなら、「自販機に行っていた」で通すとよい。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 04 剣持 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">剣持 大和<small>けんもち やまと</small></span><span class="rl">4年・副代表・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年、副代表の剣持大和っす。隼人の右腕っていうか、まあ雑用係っす。高校までは野球ひと筋でした。実家は静岡の酒屋です。隼人をこんな目にあわせた奴、絶対に見つけます。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>静岡の酒屋の長男。小学生から野球ひと筋で、高校では甲子園を目指すエースだった。高校3年の夏、県大会の準決勝で右肩が鳴った。投げ続けて、負けて、肩は二度と元に戻らなかった。スカウトの名刺は、その日のうちに全部ゴミ箱に捨てた。</p>
+        <p>何をしたらいいかわからないまま大学に入り、新歓で天城に「お前、声デカいな。副代表やれよ」と言われた。初めて野球以外で誰かに必要とされた気がした。それから4年、天城の右腕として、汚れ役も引き受けてきた。</p>
+        <p>だが、天城がサークルのお金を少しずつ抜いていることにも、2年前から気づいている。イベントの売り上げ、OBからの寄付。帳簿は会計の澪を通る前に、天城の手で「調整」されていた。</p>
+        <p>実家の酒屋は、駅前にできた大型スーパーのせいで倒産寸前。月曜日（3/16）に40万円の手形が落ちなければ、店は終わる。父は電話で「お前は心配しなくていい」と言った。その声が震えていた。あなた自身の就職先は、まだ決まっていない。1年生のとき、莉子と半年だけ付き合っていた。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>0:10、萩の間で天城の鞄から合宿費の封筒を抜き、40万円を自分の財布に移した（持ち物カード）。天城がこれまで抜いてきた金を、取り返しただけだ、と自分に言い聞かせている。</p>
+        <p>莉子とは1年のときに別れたが、いまも気持ちが残っている。莉子が天城と関係していることも知っている。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>23:36</dt><dd>王様ゲーム2回目。「2番と8番がポッキーゲーム」。あなたは2番、相手は東。場が大いに盛り上がった。</dd>
+          <dt>0:10</dt><dd>萩の間で合宿費を抜く。封筒は天城の鞄に戻した。</dd>
+          <dt>0:20</dt><dd>宴会場に戻り、天城・真木と飲む。天城は「1時から用事」とにやにやしていた。</dd>
+          <dt>0:50</dt><dd>天城が備前焼の徳利を一本持って「ちょっと風呂」と出ていった。</dd>
+          <dt>1:00</dt><dd>玄関の外の軒下で、父に電話（1:01〜1:14）。「月曜の分、なんとかした」。帳場の窓ごしに、若女将がこちらを見ていた。</dd>
+          <dt>1:15</dt><dd>2階へ戻る途中、階段で莉子とすれ違った。大浴場のほうから来て、怒ったような顔をしていた。</dd>
+          <dt>1:20</dt><dd>萩の間で一人。誰もいなかった。</dd>
+          <dt>1:40</dt><dd>悲鳴。貸切風呂へ。東と二人で、天城を湯から引き上げた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>天城：今夜「1時から用事」と言っていた。相手はたぶん、女。</li>
+          <li>東：2年前、天城と二人で何度も会っていた。「湊の件」と言っていたのを聞いた。</li>
+          <li>さくら：去年の新歓のあと、天城が「あいつ、ちょろかった」と言っていた。殴りたかった。</li>
+          <li>澪：会計としてまじめにやっていた。帳簿の「調整」には、たぶん気づいていない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>電話していたことは通話履歴で証明できる。ただ、何の電話だったかを話すと、お金のことが知られてしまう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い2（合宿費を抜いたのは誰か）で、最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>40万円を抜いたのは自分だと、議論中に自分から全員の前で打ち明け、返すと約束する（+3とはまず両立しない。逃げ切るか、打ち明けるか）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>天城がサークルのお金を抜いていたことを、議論中に全員の前で明らかにする。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>東に「卒業したら、うちに来い」と、全員の前で言わせる。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">剣持 大和<small>けんもち やまと</small></span><span class="rl">4年・副代表・22歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（高校3年の夏、県大会の準決勝の夜）</h4>
+        <p>病院の待合室で、父は何も言わずに隣に座っていた。医者の「もう投げられません」を、父はあなたより先に泣きながら聞いた。帰りの軽トラックで、父はラジオもつけずに言った。「店は継がなくていい。お前は、お前の好きなことをやれ」。</p>
+        <p>好きなことは、もうなかった。だから今、父の店を守ることだけは、どんな手を使ってもやると決めている。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：恩人で、泥棒。死んだと聞いて、悲しいのか、ほっとしたのか、わからない。</li>
+          <li>澪：まじめな会計。帳簿のことを教えてやればよかったのかもしれない。</li>
+          <li>ひかる：小さいのに、イベントの装飾をいつも徹夜で仕上げる。根性がある。</li>
+          <li>莉子：元カノ。天城なんかに渡したくなかった。</li>
+          <li>真木：盛り上げ役。でも、高校の話になると絶対に乗ってこない。</li>
+          <li>さくら：天城の一番の被害者だと思う。何もしてやれなかった。</li>
+          <li>藤井：よく働く1年。さくらと一緒にいるところを、何度か見かけた。</li>
+          <li>東：金を出すOB。天城の「金づる」でもあり、逆に天城に弱みを握られているようにも見える。</li>
+          <li>志保：電話のあいだ、帳場の窓からずっとこちらを見ていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>体育会系。声が大きく、「っす」が抜けない。</li>
+          <li>まわりを仕切りたがるが、お金の話になると急に口数が減る。</li>
+          <li>右肩をときどき回す癖がある。</li>
+          <li>莉子が疑われると、思わず強い口調でかばってしまう。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 05 真木 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">真木 颯太<small>まき そうた</small></span><span class="rl">4年・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年の真木颯太でーす！　イベントのMCと、飲み会と、盛り上げ担当。今夜の王様ゲームも俺が仕切ってました。春からはOBの東さんの会社にお世話になります。……こんな空気、俺がいちばん苦手なんだけどな。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>千葉の海沿いの町の出身。父は漁師で、家はいつも騒がしかった。人を笑わせるのが得意で、クラスでも部活でも、気がつけば中心にいた。飲み会を仕切らせたら、サークルで右に出る者はいない。王様ゲームの「王様」が似合う男、と言われている。</p>
+        <p>高校の同級生の九条は、同じ大学の別のサークルにいる。性格は正反対だが、なぜかずっと連絡を取り合っている。どちらも、相手から目を離すのが怖かった。理由は、二人だけが知っている。</p>
+        <p>女の子には軽いと思われているし、実際そうふるまっている。でも本当は、誰とも深く付き合ったことがない。人に近づかれると、高校3年の夏のことを話してしまいそうになるからだ。</p>
+        <p>天城とは馬が合った。二人で飲むと朝まで笑っていられた。ただ、天城が酔って「女なんて酒を飲ませれば一発」と言ったとき、初めて本気で腹が立った。卒業後は、OBの東のイベント会社に就職が決まっている。九条は「あの人はやめとけ」と言ったが、理由は言わなかった。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>高校3年の夏祭りの夜、九条と二人で、酔った他校生と河原で喧嘩になった。もみ合ううちに、相手が川に落ちた。二人は怖くなって逃げた。相手は通りかかった人に助けられたが、一時は意識不明だった。「突き落とした少年2人」はいまも見つかっていない。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>23:25</dt><dd>澪に耳打ちされ、LINEも来た。「命令ネタ：1番が好きな人を一人選んで、こっそり浴衣交換して朝まで。私が言ったってナイショね」（持ち物カード）。面白いと思った。</dd>
+          <dt>23:40</dt><dd>3回目で王様を引き、その命令を出した。「1番は、好きな人を一人選んで、こっそり浴衣を交換して朝まで過ごすこと！　相手はナイショ、ばれたら罰ゲーム！」。1番が誰かも、名乗らないルールにした。</dd>
+          <dt>0:20</dt><dd>宴会場で天城・剣持と飲む。</dd>
+          <dt>0:50</dt><dd>天城が徳利を持って風呂へ。</dd>
+          <dt>0:55</dt><dd>一人で男湯へ。ほとんど露天にいた。</dd>
+          <dt>1:05</dt><dd>竹垣の向こう（貸切風呂の露天）から、女の声。「……に謝って！」。続けて、ばしゃばしゃと激しい水音。高校のあの夜を思い出して、体が動かなかった。「関わるな」と自分に言い聞かせた。</dd>
+          <dt>1:30</dt><dd>男湯を出て萩の間へ。剣持がいた。</dd>
+          <dt>1:40</dt><dd>悲鳴。貸切風呂へ。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>天城：0:50、「1時に約束がある」と言いながら、いちばんいい備前の徳利を持っていった。</li>
+          <li>莉子：王様ゲームで天城にささやかれたとき、顔が赤くなった。あれは演技じゃない。</li>
+          <li>剣持：0:10ごろ、しばらく宴会場から消えていた。</li>
+          <li>東：0:20ごろ、「先に寝る」と言って出ていった。若女将もすぐ後に宴会場を出た。</li>
+          <li>藤井：王様ゲームのあいだ、ずっとスマホで動画を撮っていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>1:05に聞いた声と水音は重要な手がかり。でも、聞いたのに助けに行かなかった理由を聞かれたら、高校のことを話さずに答えられるだろうか。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>九条との高校3年の夏の出来事が、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>1:05に竹垣ごしに聞いた女の声と水音のことを、議論中に全員の前で話す。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>東と志保の関係を、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>東に「春から待ってる」と、全員の前で言わせる。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">真木 颯太<small>まき そうた</small></span><span class="rl">4年・22歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（高校3年、夏祭りの夜）</h4>
+        <p>河原の暗がりで、相手が「おい」と九条の肩をつかんだ。あなたが割って入り、三人でもつれ合った。気がつくと、相手の姿がなかった。黒い川面に、泡だけが浮いていた。九条が「逃げよう」と言ったのか、あなたが言ったのか、もう覚えていない。</p>
+        <p>翌朝のニュースで、相手が助かったと知った。二人で泣いた。そして、二度とこの話はしないと誓った。今夜の水音は、あの夜とそっくりだった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：一緒にいて楽しい男だった。でも、女の子を「一発」と言う奴だった。</li>
+          <li>澪：しっかり者。浴衣交換の命令なんて、澪らしくないことを言うなと思った。</li>
+          <li>ひかる：小さくて、守ってやりたくなる子。</li>
+          <li>莉子：派手だけど、根はさびしがり。天城とは何かある。</li>
+          <li>剣持：まっすぐな奴。最近、無理して笑っている。</li>
+          <li>さくら：天城の話をすると、いつも席を立つ。</li>
+          <li>藤井：真面目な1年。書記を頼んだら、全部きっちり書いていた。</li>
+          <li>東：羽振りのいいOB。若女将とただならぬ雰囲気だった。</li>
+          <li>志保：きれいな若女将。宴会のあいだ、ずっと東を気にしていた。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>明るくノリがいい。「いやいやいや」「マジ卍」（死語）。</li>
+          <li>重い空気が苦手で、すぐ冗談を言う。</li>
+          <li>川や水の話になると、急に黙る。</li>
+          <li>王様ゲームの命令のことを聞かれたら、最初は「俺が考えた」と胸を張ってもいい。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 06 さくら -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">小田切 さくら<small>おだぎり さくら</small></span><span class="rl">2年・20歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「2年の小田切さくらです。Carnivalでは受付とチケットの担当です。教育学部で、小学校の先生を目指しています。……天城さんを見つけたのは、私です。1時半から貸切風呂を予約していたので。すみません、まだ手が震えていて。浴衣は水色です。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>長野の高原の町で、厳しい両親に育てられた。門限は18時、テレビは1日1時間。大学で東京に出てきて、初めて自分で服を選び、初めて夜の街を歩いた。何もかもがまぶしかった。教育学部で、地元に帰って小学校の先生になるのが夢。</p>
+        <p>1年前の4月、Carnivalの新歓コンパ。お酒を飲んだのはその夜が初めてだった。天城が「かわいいね」と隣に座り、次々にグラスを満たした。途中から記憶がない。朝、目が覚めると天城の部屋のベッドにいた。天城はシャワーを浴びながら笑った。「昨日のこと、誰にも言うなよ。言っても誰も信じないけど」（持ち物カード）。</p>
+        <p>それから天城はあなたを無視し、陰で「ちょろかった」と笑っていたと聞いた。サークルを辞めようと思った。でも、辞めたら負けだと思った。だから、天城の近くには決して寄らずに、ここにいる。</p>
+        <p>半年前、1年生の藤井が初めての飲み会で潰れたとき、あなたが介抱した。藤井は翌日、律儀にお礼のお菓子を持ってきた。それから少しずつ話すようになり、3か月前から付き合っている。サークルの誰にも言っていない。天城に知られたら、何を言いふらされるかわからなかったから。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>藤井と付き合っている。今夜も1:05から、ひかるが女湯に行ったあとの菊の間で、二人でいた。1:30からの貸切風呂も、二人で入るつもりで「菊の間」の名前で予約していた。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>22:05</dt><dd>帳場で、貸切風呂の1:30を「菊の間」で予約した。</dd>
+          <dt>23:50</dt><dd>王様ゲーム4回目。王様は天城。「5番が王様の膝の上で一杯飲む」。5番はあなただった。断れなかった。天城の手が腰に回ったとき、吐きそうになった。</dd>
+          <dt>23:55</dt><dd>5回目。「7番と5番が手をつないで、命令が終わるまで離さない」。7番は藤井。顔を見られなかった。</dd>
+          <dt>0:50</dt><dd>ひかるが女湯へ行くのを見送り、菊の間で藤井を待つ。</dd>
+          <dt>1:05</dt><dd>藤井が缶ジュースを2本持って来た。「さっき、若葉色の浴衣の人が、こそこそ貸切のほうへ行ったよ」。ひかるさん？　お風呂に行ったはずなのに。</dd>
+          <dt>1:35</dt><dd>藤井と二人で貸切風呂へ。1:38に着くと、時間を過ぎているのに札は「使用中」。</dd>
+          <dt>1:40</dt><dd>そっと戸を開けて中をのぞくと、湯船に天城が浮かんでいた。悲鳴を上げた。藤井が帳場へ走った。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>莉子：去年、天城の部屋から朝帰りするところを見たことがある。</li>
+          <li>剣持：天城を見る目が、最近とても冷たい。</li>
+          <li>藤井から聞いた話：0:56ごろ、2階の廊下の窓から、渡り廊下を急ぎ足で戻ってくる着物の女性が見えたらしい。</li>
+          <li>澪：会計で、いつも優しい先輩。天城の彼女なのが不思議だった。</li>
+          <li>真木：天城の下品な冗談に、一度も笑ったことがない。</li>
+          <li>ひかる：同室の先輩。0:48ごろ、廊下から「お風呂行ってくるね」と声をかけてきた。ちらっと見えた浴衣は藤色っぽかった（廊下が暗くてよく見えなかった）。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>一人で貸切風呂に行ったことにするなら、なぜ1:30に予約したのかを聞かれる。藤井とどこまで話を合わせるか、考えておこう。</li><li>莉子が二人のことをばらしそうなら、「去年、莉子さんが天城さんの部屋から朝帰りするのを見た」と密談で伝えれば、止められるかもしれない。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>藤井と付き合っていることが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>1年前の新歓の夜に天城にされたことを、議論中に全員の前で明かす。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>藤井が、問い1（殺したのは誰か）で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>天城が誰かに送ったLINE（ほかの人の持ち物カード）を、自分の目で見る。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">小田切 さくら<small>おだぎり さくら</small></span><span class="rl">2年・20歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（半年前、藤井が潰れた夜）</h4>
+        <p>居酒屋のトイレの前で座り込んでいた藤井に、水を渡した。「無理して飲まなくていいんだよ」。そう言ったのは、1年前の自分に言いたかった言葉だった。藤井は真っ赤な顔で「すみません、すみません」と繰り返した。</p>
+        <p>帰り道、藤井は酔いがさめたあとも、あなたが家に入るまで遠くから見送っていた。その律儀さに、久しぶりに声を出して笑った。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：死んでもいいとまでは思わなかった。……本当に？　自分でもわからない。</li>
+          <li>澪：優しい先輩。天城がどんな男か、知っていたのだろうか。</li>
+          <li>ひかる：同室の先輩。絵がとても上手で、いつも澪さんの話をしている。</li>
+          <li>莉子：天城の「女」の一人。それでも、あの人を憎めない。</li>
+          <li>剣持：天城の右腕。でも、私のことでは天城に怒ってくれた、と後で聞いた。</li>
+          <li>真木：明るいけど、天城の下品な話には笑わない人。</li>
+          <li>藤井：大切な人。巻き込みたくない。</li>
+          <li>東：天城と仲のいいOB。近づきたくない。</li>
+          <li>志保：大人の女性。予約のとき「どなたとご一緒に？」と聞かれて、どきっとした。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>おとなしく、言葉を選んで話す。「……はい」「あの、」。</li>
+          <li>天城の名前が出るたびに、少し体をこわばらせる。</li>
+          <li>藤井とは目を合わせないように気をつける（合わせると、ばれそうで）。</li>
+          <li>1年前のことを話すと決めたら、ゆっくり、はっきり話す。</li>
+          <li>遺体を見つけたときのことは、思い出すだけで声が震える。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 07 藤井 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">藤井 悠真<small>ふじい ゆうま</small></span><span class="rl">1年・19歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「1年の藤井悠真です。秋田出身です。サークルでは写真と動画の係をしていて、今夜の王様ゲームでは書記をやりました。ホワイトボードの命令は、全部僕の字です。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>秋田の進学校の出身。勉強しかしてこなかった。友だちも少なく、高校の思い出といえば、写真部で撮った田んぼと雪の写真くらい。東京の大学に受かったとき、「せめて大学では、普通の大学生らしいことをしてみたい」と思って、いちばん派手そうなCarnivalに入った。</p>
+        <p>初めての飲み会で、断れずに飲み続けて潰れた。トイレの前で動けなくなっていたあなたに水をくれたのが、2年のさくらだった。「無理して飲まなくていいんだよ」。翌日お礼のお菓子を持っていくと、さくらは声を出して笑った。それから少しずつ話すようになり、3か月前から付き合っている。誰にも言っていない。さくらに「天城さんにだけは知られたくない」と言われたから。</p>
+        <p>カメラが好きで、サークルでは写真と動画の係。今夜も王様ゲームの様子を、ずっとスマホで撮っていた（持ち物カード）。書記も任され、ホワイトボードに命令を全部書いた。</p>
+        <p>几帳面で、何でもメモする。人の顔と名前を覚えるのは苦手だが、色や形はよく覚えている。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>さくらと付き合っている。1:00に自販機へ行ったのは、さくらの分も含めて2本買うため。1:05からはずっと菊の間で、さくらと二人きりだった。1:30からの貸切風呂も、二人で入るつもりだった。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>23:30</dt><dd>王様ゲーム開始。書記をしながら、スマホで動画を回し続けた。</dd>
+          <dt>23:40</dt><dd>3回目、王様の真木が「1番は誰か一人を選んで、こっそり浴衣交換！」。1番も、その相手も名乗らないルール。みんなで顔を見回して笑った。</dd>
+          <dt>23:55</dt><dd>5回目。「7番と5番が手をつなぐ」。7番はあなた、5番はさくら。手汗がひどかった。</dd>
+          <dt>0:56</dt><dd>楓の間を出る。廊下の窓から、渡り廊下を急ぎ足で戻ってくる着物の女性が見えた。</dd>
+          <dt>1:00</dt><dd>大浴場前の自販機で、缶ジュースを2本買う。</dd>
+          <dt>1:03</dt><dd>自販機の前から、<b>若葉色の浴衣の女性</b>が渡り廊下の暖簾をくぐるのが見えた。後ろ姿で、髪をタオルで巻いていた。暖簾をくぐるとき、身をかがめていた。茶羽織は着ていなかった。</dd>
+          <dt>1:05</dt><dd>菊の間へ。さくらに「若葉色の浴衣の人が、こそこそ貸切のほうへ行った」と話した。</dd>
+          <dt>1:35</dt><dd>さくらと貸切風呂へ。1:40、さくらの悲鳴。帳場へ走って若女将を呼んだ。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>王様ゲームの1回目は「4番が3番の耳元で愛をささやく」。天城が莉子に何かささやいていた。</li>
+          <li>剣持：0:10ごろ、宴会場をこっそり抜けて2階へ上がっていった。</li>
+          <li>真木：命令を出す前、スマホを見て一人でにやっとしていた。</li>
+          <li>澪：くじを作ったのは澪。「私、くじ運いいんだよね」と笑っていた。</li>
+          <li>ひかる：0:48ごろ、楓の間の戸を開けたら、浴衣の裾を引きずって階段を降りていく小さな後ろ姿が見えた。たぶんひかるさん。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>王様ゲームの動画と、1:03に見た人は、事件の鍵かもしれない。でも、なぜ1:00に自販機にいたのか、その後どこにいたのかを聞かれたら……。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>さくらと付き合っていることが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>問い3（1時に会うはずだった相手）で、さくらに1票も入らない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>王様ゲームの動画（持ち物カード）を、議論中に2人以上に見せる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>0:56に渡り廊下を急ぎ足で戻ってくる着物の女性を見たことを、議論中に全員の前で話す。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">藤井 悠真<small>ふじい ゆうま</small></span><span class="rl">1年・19歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（高校3年の冬、合格発表の前の夜）</h4>
+        <p>雪の降る夜、写真部の部室で一人、3年間の写真を整理していた。人物の写真は一枚もなかった。田んぼ、雪、鳥、駅のホーム。「お前、人間に興味ないの？」と顧問に笑われたことを思い出した。</p>
+        <p>大学では人を撮ろう、と決めた。半年前、初めて撮った人物写真は、居酒屋の帰り道で振り向いたさくらだった。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：かっこいい先輩だと思っていた。さくらに何をしたのか、少しずつわかってきた。</li>
+          <li>澪：何でもできる先輩。くじ運がいいと笑っていた顔が、妙に頭に残っている。</li>
+          <li>ひかる：さくらの同室の先輩。浴衣がぶかぶかだった。</li>
+          <li>莉子：きれいな先輩。天城さんの「ささやき」のとき、本気で照れていた。</li>
+          <li>剣持：面倒見のいい副代表。でも今夜は、どこか落ち着かない。</li>
+          <li>真木：王様ゲームの王様。楽しそうだった。</li>
+          <li>さくら：大切な人。何があっても守る。</li>
+          <li>東：お金持ちのOB。若女将と仲がよさそう。</li>
+          <li>志保：着物姿の若女将。0:56に渡り廊下から急いで戻ってきたのは、たぶんこの人。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>真面目な敬語。「えっと、記録によると……」。</li>
+          <li>メモ魔。聞いた時刻をメモしながら話す。</li>
+          <li>さくらが責められると、我を忘れてかばいそうになる。</li>
+          <li>見たものは「色」と「形」でくわしく説明できる。</li>
+          <li>動画を見せる相手は選ぼう。犯人に見せると、隠されるかもしれない。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 08 東 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">東 慎吾<small>あずま しんご</small></span><span class="rl">OB・イベント会社社長・30歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「OBの東です。8年前の代表で、いまはイベント会社をやっている。Carnivalのスポンサーもしていて、この旅館を手配したのも俺だ。隼人は、うちの会社にもよく遊びに来ていた、かわいい後輩だった。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>8年前のCarnivalの代表。大学3年の夏、主催したクラブイベントで、1年生の男子が急性アルコール中毒で倒れた。救急車を呼ぶと警察沙汰になる。あなたは仲間と彼をタクシーで病院に運び、「勝手に飲みすぎた」ことにした。彼は助かった。そして、あなたは学んだ。「問題は、表に出なければ問題じゃない」。</p>
+        <p>卒業後、イベント会社を立ち上げ、いまは社員30人。Carnivalのスポンサーとして毎年お金を出し、優秀な後輩を自分の会社に引き抜いてきた。去年結婚し、先月、娘が生まれた。</p>
+        <p>2年前の12月、忘年会のあと。天城が泣きながら電話をかけてきた。「東さんの車で、人をはねちゃいました」。運転していたのは酒を飲んだ天城。助手席には、酒を飲んでいない1年生の湊。あなたは現場に駆けつけ、警察が来る前に二人を入れ替えた。「運転してたのは湊。飲んでないから、執行猶予で済む。天城には未来がある」。湊は泣きながらうなずいた。身代わりの段取りは、それ自体が犯罪だ。表に出れば、天城だけでなく、あなたの会社も家族も終わる。</p>
+        <p>娘が生まれた日、病院の廊下で、なぜか湊の顔が浮かんだ。それ以来、眠りが浅い。今回の旅館を探していたとき、この月見館で若女将の志保に出会った。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>若女将の志保と、3か月前から関係を持っている。今夜も0:30から、空室の「梅の間」の名前で貸切風呂を予約し、二人で過ごした。</p>
+        <p>そして2年前、湊を天城の身代わりにする段取りをしたのは、あなただ。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>21:40</dt><dd>帳場で、貸切風呂の0:30を「梅の間」で予約した（梅の間は空室）。</dd>
+          <dt>23:55</dt><dd>王様ゲーム5回目、あなたが王様。「7番と5番が手をつなぐ」。藤井とさくらが真っ赤になった。</dd>
+          <dt>0:20</dt><dd>「先に寝る」と宴会場を出て、竹の間へ。</dd>
+          <dt>0:28</dt><dd>貸切風呂へ。0:32、志保が来た。</dd>
+          <dt>0:56</dt><dd>志保が先に出た。</dd>
+          <dt>0:58</dt><dd>あなたが出ると、渡り廊下で、徳利を持った天城とすれ違った。「東さん、若女将と？　やるっすね。大丈夫、黙ってますって。湊のことで、俺らとっくに共犯じゃないっすか（笑）」。天城はそのまま貸切風呂に入っていった。</dd>
+          <dt>1:00</dt><dd>竹の間に戻る。一人で、眠れずにいた。</dd>
+          <dt>1:40</dt><dd>悲鳴。貸切風呂へ。剣持と二人で、天城を湯から引き上げた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>天城：0:58には生きていた。徳利を持って、上機嫌だった。</li>
+          <li>澪：湊の姉。湊の事故の真相は、知らないはず。</li>
+          <li>剣持：最近、会社に「バイトでもいいから雇ってくれ」と頭を下げてきた。</li>
+          <li>さくら：去年の新歓のあと、天城が「あの子、ちょろかった」と自慢していた。</li>
+          <li>志保：1:02に「さっき渡り廊下で天城に見られた」とLINEした。返事は「大丈夫」だけ。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>0:58に天城とすれ違ったことは、犯行時刻を絞る大事な証言。でも、なぜそこにいたのかを話せば、志保とのことが知られる。</li><li>剣持は会社に雇ってほしがり、真木は春から入社する。全員の前で「うちに来い」「待ってる」と言ってやれば、二人は喜ぶだろう。密談で、口止めの取引に使ってもいい。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>問い1（殺したのは誰か）で、自分も志保も最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>志保との関係が、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>2年前、湊を天城の身代わりにする段取りをしたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>真木と九条が高校のとき人を川に落として逃げたことを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる（真木への切り札）。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">東 慎吾<small>あずま しんご</small></span><span class="rl">OB・イベント会社社長・30歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（2年前の12月、事故の夜）</h4>
+        <p>雨上がりの県道。ヘッドライトの先に、ひしゃげた自転車が転がっていた。天城は運転席で震え、助手席の湊は、倒れた老人のそばにひざまずいて「大丈夫ですか」と繰り返していた。あなたは湊の肩をつかんで言った。「湊、お前が運転してたことにしてくれ。お前なら執行猶予で済む。天城の人生を、ここで終わらせるわけにいかない」。</p>
+        <p>湊は、長いあいだ黙っていた。それから、「わかりました」と言った。あの声を、あなたは毎晩思い出す。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：自分の若いころにそっくりだった。だから助けた。それが間違いだったのかもしれない。</li>
+          <li>澪：湊の姉。目を合わせられない。</li>
+          <li>ひかる：おとなしい3年生。絵がうまいと聞いている。</li>
+          <li>莉子：華やかな4年生。天城と二人で消えるのを、何度か見た。</li>
+          <li>剣持：不器用だが、信用できる男。会社に雇ってやりたい。</li>
+          <li>真木：うちの会社向きの盛り上げ役。ただ、採用のあと、真木の地元の取引先から噂を聞いた。高校3年の夏祭りの夜、他校生が河原で川に落ちて意識不明になった事件に、真木と九条が関わっていたらしい。</li>
+          <li>さくら：天城の「被害者」。あいつの悪い癖を、止めなかったのは自分だ。</li>
+          <li>藤井：真面目な1年生。カメラの腕はいい。</li>
+          <li>志保：妻と娘がいるのに、どうしても離れられない人。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>社長らしく余裕のある口調。「まあまあ、落ち着こう」。</li>
+          <li>学生たちを「お前ら」と呼ぶ。</li>
+          <li>左手の薬指（指輪を外した跡）を、無意識にさする。</li>
+          <li>湊の名前が出ると、一瞬だけ言葉に詰まる。</li>
+          <li>0:58のことを話すなら、「眠れなくて大浴場に行った帰りだ」とごまかしてもいい。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- 09 志保 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">椎名 志保<small>しいな しほ</small></span><span class="rl">月見館の若女将・29歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「月見館の若女将、椎名志保でございます。3年前に東京から戻り、父に代わって宿を預かっております。浴衣の貸し出しと貸切風呂のご予約は、私が承っておりました。このようなことになり、本当に申し訳ございません。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>月見館の一人娘。子どものころから旅館を継ぐのが嫌で、高校を出ると東京の大学へ進み、広告代理店に就職した。徹夜続きでも、華やかな仕事が楽しかった。同じ会社の先輩と婚約し、式場も決まっていた。</p>
+        <p>3年前、父が脳梗塞で倒れた。母はとうに亡く、旅館を継げるのはあなたしかいなかった。婚約者は「伊豆の山奥なんて無理だ」と言い、あなたは指輪を返して、一人で帰ってきた。それからは、客の少ない古い旅館を必死で守っている。</p>
+        <p>3か月前、今回の宿を探しに来た東と出会った。東京の匂いのする人だった。夜、帳場で昔の仕事の話をしているうちに、気がつけば惹かれていた。東に妻と、生まれたばかりの娘がいることは知っている。</p>
+        <p>浴衣の貸し出しと貸切風呂の予約は、あなたの仕事。客の背丈を見て浴衣のサイズを選ぶのは、母に教わった若女将の腕の見せどころだ。旅館の仕事は嫌いだったはずなのに、帳場に座っていると、亡くなった母の声が聞こえる気がする。「お客様の背丈をよく見なさい。浴衣は、その方の一晩を決めるのよ」。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>東と関係を持っている。今夜も0:32から0:56まで、東が「梅の間」（空室）の名前で予約した貸切風呂で、二人で過ごした。</p>
+        <p>1月の下見のとき、天城にしつこく口説かれ、頬を叩いたことがある。天城は「ネットに書いてやる」と笑った。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>15:00</dt><dd>チェックイン。女性のお客様には色浴衣を選んでいただき、背丈を見てサイズを合わせた。帳場の貸出帳に書いた（下の「浴衣のサイズ」）。</dd>
+          <dt>22:00</dt><dd>宴会場で土砂崩れを知らせる。貸切風呂の予約を受け付けた（21:40 東様「梅の間」0:30、21:50 天城様「萩の間」1:00、22:05 小田切様「菊の間」1:30）。</dd>
+          <dt>0:25</dt><dd>宴会場の片付けを終え、帳場へ。</dd>
+          <dt>0:32</dt><dd>貸切風呂で東と会う。</dd>
+          <dt>0:56</dt><dd>先に出て、渡り廊下を急いで帳場へ戻った。髪にさしていたべっ甲の簪がないことに、まだ気づいていない。</dd>
+          <dt>1:00</dt><dd>帳場で帳簿つけ。1:01〜1:14、玄関の外の軒下で剣持様が電話をしているのが、窓から見えた。</dd>
+          <dt>1:40</dt><dd>藤井様が「人が死んでる！」と駆けこんできた。110番すると、警察は土砂崩れで朝まで来られないという。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>天城：1月の下見のとき、口説かれて頬を叩いた。今夜も、宴会のあいだにやにやとこちらを見ていた。</li>
+          <li>剣持：1:01〜1:14は、ずっと玄関の外で電話をしていた。</li>
+          <li>浴衣のサイズ：朝比奈様（170cmほど）藤色L、早瀬様（158cmほど）桜色M、小田切様（155cmほど）水色S、柚木様（150cmほど）若葉色S。男性は紺のLかLL。</li>
+          <li>莉子：チェックインのとき、天城と小声で何か話していた。</li>
+          <li>東：1:02にLINEが来た。「さっき渡り廊下で天城に見られた」。あなたは「大丈夫」とだけ返した。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>浴衣のサイズや予約のことは、あなたにしか答えられない。ただ、「0:30の梅の間」は誰の予約かと聞かれたら、どう答えるか考えておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>東との関係が、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>東が、問い1（殺したのは誰か）で最多票にならない（大切な人を守る）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>1月の下見のとき天城の頬を叩いたことを、最後まで誰にも話さない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>剣持が1:01〜1:14に玄関の外で電話していたことを、議論中に全員の前で証言する。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slate cont"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">椎名 志保<small>しいな しほ</small></span><span class="rl">月見館の若女将・29歳</span></div>
+    <div class="body more">
+      <div>
+        <h4>忘れられない夜（3年前、東京を離れた夜）</h4>
+        <p>最後の出社の日、婚約者は送別会に来なかった。一人で東京駅のホームに立ち、踊り子号を待った。返した指輪の跡が、左手の薬指にまだ白く残っていた。車窓に映る自分の顔が、母にそっくりだと初めて思った。</p>
+        <p>伊豆に着いた夜、病院のベッドの父は「すまんな」とだけ言った。あれから、あなたは一度も泣いていない。東の前を除いては。</p>
+      </div>
+      <div>
+        <h4>ほかの人への思い</h4>
+        <ul>
+          <li>天城：失礼な客。死んだと聞いても、正直、同情はできない。でも、うちの旅館で。</li>
+          <li>澪：礼儀正しい幹事さん。浴衣のサイズを選ぶとき、少しだけ寂しそうだった。</li>
+          <li>ひかる：小柄でかわいらしい方。Sでも少し長いくらいだった。</li>
+          <li>莉子：華やかな方。天城様を見る目が、私が東さんを見る目と同じだった。</li>
+          <li>剣持：礼儀正しい大きな方。電話のあいだ、何度も頭を下げていた。</li>
+          <li>真木：にぎやかな方。宴会を上手に回していた。</li>
+          <li>さくら：おとなしい方。予約のとき「どなたとご一緒に」と聞いたら、真っ赤になった。</li>
+          <li>藤井：真面目な1年生。帳場に駆けこんできたとき、声が裏返っていた。</li>
+          <li>東：大切な人。けれど、守らなければならないのは、この旅館だ。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>演じ方のヒント</h4>
+        <ul>
+          <li>若女将らしい丁寧な言葉。「〜でございます」「お客様」。</li>
+          <li>旅館のことを聞かれたら、誇りをもって答える。</li>
+          <li>東と目が合うと、すぐにそらす。</li>
+          <li>簪のことを聞かれたら、髪に手をやってはっとする。</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+  </div>
+</section>
+
+<!-- ============ 持ち物カード ============ -->
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>各プレイヤーの封筒に、キャラシートと一緒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden>
+  <p class="lead">持ち主は、見せる・隠すを自由に決められます。</p>
+  <div class="cards">
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd">
+      <span class="owner">朝比奈 澪</span><span class="ttl">スマホの写真（天城のLINE）</span>
+      <div class="log"><span>2年前12/21</span><span>東「運転してたのは湊ってことで話つけた。お前は何も言うな」</span><span>先週</span><span>天城→東「湊がぐちぐち言ってるらしいけど黙らせとくんで。姉貴も手なずけてるし（笑）」</span><span>今夜22:12</span><span>天城→R「1時、貸切な」</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd">
+      <span class="owner">柚木 ひかる</span><span class="ttl">若葉色の浴衣（いま着ている）</span>
+      <p>茶羽織の下に着ている、Sサイズの若葉色の浴衣。</p>
+      <ul><li>右袖に、茶色く乾いた血のしみ</li><li>裾がふくらはぎの高さまで濡れて、湯の匂いがする</li><li>右肩の縫い目がほつれて、糸が切れている</li></ul>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd">
+      <span class="owner">早瀬 莉子</span><span class="ttl">スマホのLINE画面（天城）</span>
+      <div class="log"><span>22:12</span><span>天城「1時、貸切な」</span><span>22:13</span><span>自分「うん」</span><span>1:12</span><span>自分「いまから行く」</span><span>1:16</span><span>自分「使用中ってなに？誰といるの」（既読なし）</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd">
+      <span class="owner">剣持 大和</span><span class="ttl">財布と通話履歴</span>
+      <p>財布に一万円札が40枚、帯がついたまま折りたたんである。</p>
+      <div class="log"><span>通話</span><span>1:01〜1:14（13分）「親父」</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd">
+      <span class="owner">真木 颯太</span><span class="ttl">スマホのLINE画面（澪）</span>
+      <div class="log"><span>23:26</span><span>澪「命令ネタ：1番が好きな人を一人選んで、こっそり浴衣交換して朝まで。私が言ったってナイショね」</span><span>23:26</span><span>自分「天才か」</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd">
+      <span class="owner">小田切 さくら</span><span class="ttl">1年前のLINE</span>
+      <p>消せずに残している、1年前の4月のメッセージ。</p>
+      <div class="log"><span>天城</span><span>「昨日のこと、誰にも言うなよ。言っても誰も信じないけど」</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd">
+      <span class="owner">藤井 悠真</span><span class="ttl">王様ゲームの動画</span>
+      <p>23:30〜0:00の動画。3回目（23:40）、真木が「1番は誰か一人と、こっそり浴衣交換！」と叫んだ瞬間を一時停止すると：</p>
+      <p>画面の端で、<b>ボルドーのネイルの手</b>が、「1」と書かれた割り箸をそっと茶羽織の袖に隠している。顔は映っていない。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 08</span></div><div class="bd">
+      <span class="owner">東 慎吾</span><span class="ttl">ポケットの中身</span>
+      <p>外した結婚指輪。</p>
+      <p>スマホの待ち受けは、先月生まれた娘の写真。通知に志保から「さっきは、ありがとう（0:58）」。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 09</span></div><div class="bd">
+      <span class="owner">椎名 志保</span><span class="ttl">東からの手紙</span>
+      <p>帯のあいだにはさんでいる手紙。</p>
+      <p class="doc">「来月、また宿を取ります。今度は仕事じゃなく。――S」</p>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 証拠カード ============ -->
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>切り分けて、場所ごとに丸数字の順で上から重ねます。プレイヤーは場所を宣言し、GMはその束の一番上のカードを渡します。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--slate)"></i>調査1から使うカード（20枚）</span>
+    <span><i class="sw" style="background:var(--accent)"></i>調査2で各場所の束の下に追加（9枚）</span>
+    <span><span class="star">★</span>引いたら即公開</span>
+  </div>
+  <p class="note">場所は8つ：貸切風呂／渡り廊下／女湯／男湯／宴会場／帳場／女子の部屋（桔梗・菊）／男子の部屋（萩・竹・楓）</p>
+
+  <h3>調査1</h3>
+  <div class="cards">
+    <div class="card"><div class="hd"><span class="loc">貸切風呂 ①</span><span>CLUE 01</span></div><div class="bd">
+      <span class="ttl">遺体と凶器 <span class="star">★</span></span>
+      <p>天城は湯船の中で仰向け。後頭部に、何か硬いもので殴られた傷。湯を大量に飲んでおり、溺れたとみられる。</p>
+      <p>湯船の底に、割れた備前焼の徳利。破片の一つに血と髪の毛。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">貸切風呂 ②</span><span>CLUE 02</span></div><div class="bd">
+      <span class="ttl">スマートウォッチ <span class="star">★</span></span>
+      <p>天城の手首の防水スマートウォッチ。心拍の記録：</p>
+      <div class="log"><span>0:59〜1:03</span><span>90前後（安静）</span><span>1:04〜1:05</span><span>120まで上昇</span><span>1:06</span><span>急激に乱れる</span><span>1:07以降</span><span>計測なし</span></div>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">貸切風呂 ③</span><span>CLUE 03</span></div><div class="bd">
+      <span class="ttl">脱衣所の天城のスマホ</span>
+      <p>ロックがかかっている。ロック画面の通知：</p>
+      <div class="log"><span>1:12</span><span>R🍒「いまから行く」</span><span>1:16</span><span>R🍒「使用中ってなに？誰といるの」</span></div>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">貸切風呂 ④</span><span>CLUE 04</span></div><div class="bd">
+      <span class="ttl">脱衣所の床</span>
+      <p>脱衣かごの陰に、べっ甲の簪（かんざし）が一本落ちている。女性用だ。</p>
+      <p>簪は乾いている。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">渡り廊下 ①</span><span>CLUE 05</span></div><div class="bd">
+      <span class="ttl">入口の暖簾</span>
+      <p>藍染めの暖簾。下端は床から<b>160cm</b>。それより背の高い人は、頭を下げないと当たる。</p>
+      <p>貸切風呂の入口の札は、いまも「使用中」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">渡り廊下 ②</span><span>CLUE 06</span></div><div class="bd">
+      <span class="ttl">廊下の床</span>
+      <p>濡れた素足の足跡が、貸切風呂のほうから戻ってきて、大浴場の前で<b>女湯</b>ののれんのほうへ曲がっている。</p>
+      <p>階段のほうへ向かう足跡はない。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">女湯 ①</span><span>CLUE 07</span></div><div class="bd">
+      <span class="ttl">脱衣所の鏡台</span>
+      <p>ゴミ箱に、コーラルピンクの口紅を押さえたティッシュ。</p>
+      <p>鏡台の上に、ファンデーションの粉が少しこぼれている。誰かが念入りに化粧を直したようだ。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">女湯 ②</span><span>CLUE 08</span></div><div class="bd">
+      <span class="ttl">脱衣所の洗面台</span>
+      <p>排水口のまわりに、うっすらと赤い水の跡。誰かが急いで何かを洗い流したようだ。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">男湯 ①</span><span>CLUE 09</span></div><div class="bd">
+      <span class="ttl">露天の竹垣</span>
+      <p>男湯の露天と貸切風呂の露天は、竹垣一枚で仕切られている。高さ2.5m、上には忍び返し。乗り越えた跡はない。</p>
+      <p>竹垣ごしに、向こうの湯の音や話し声がはっきり聞こえる。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">男湯 ②</span><span>CLUE 10</span></div><div class="bd">
+      <span class="ttl">脱衣所</span>
+      <p>かごに、使い終わったバスタオルが1枚。まだ湿っている。萩の間の札がついている。</p>
+      <p>曇った鏡に、指で書いたような「ごめん」の文字が残っている。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">宴会場 ①</span><span>CLUE 11</span></div><div class="bd">
+      <span class="ttl">王様ゲームの割り箸</span>
+      <p>コップに割り箸が9本。「王」と1〜8の数字が、マジックで書いてある（澪の字）。</p>
+      <p><b>「1」の割り箸だけ、根元に爪でつけたような小さな切れ込みがある。</b></p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">宴会場 ②</span><span>CLUE 12</span></div><div class="bd">
+      <span class="ttl">ホワイトボード <span class="star">★</span></span>
+      <p>書記・藤井の字で、王様ゲームの記録。</p>
+      <div class="log"><span>①23:32</span><span>4番が3番の耳元で愛をささやく</span><span>②23:36</span><span>2番と8番がポッキーゲーム</span><span>③23:40</span><span>1番が誰か一人を選び、こっそり浴衣交換して朝まで（相手はナイショ・ばれたら罰ゲーム）</span><span>④23:50</span><span>5番が王様の膝の上で一杯飲む</span><span>⑤23:55</span><span>7番と5番が手をつないで離さない</span></div>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">宴会場 ③</span><span>CLUE 13</span></div><div class="bd">
+      <span class="ttl">天城の席</span>
+      <p>灰皿に吸い殻。徳利が何本も並んでいるが、旅館自慢の<b>備前焼の徳利が一本足りない</b>。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">帳場 ①</span><span>CLUE 14</span></div><div class="bd">
+      <span class="ttl">貸切風呂の予約表 <span class="star">★</span></span>
+      <div class="log"><span>0:00</span><span>（空き）</span><span>0:30</span><span>梅の間</span><span>1:00</span><span>萩の間</span><span>1:30</span><span>菊の間</span><span>2:00</span><span>（空き）</span></div>
+      <p class="note">梅の間は、今夜は空室のはず。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">帳場 ②</span><span>CLUE 15</span></div><div class="bd">
+      <span class="ttl">浴衣の貸出帳</span>
+      <div class="log"><span>朝比奈様</span><span>藤色 L</span><span>柚木様</span><span>若葉色 S</span><span>早瀬様</span><span>桜色 M</span><span>小田切様</span><span>水色 S</span><span>男性</span><span>紺 L・LL</span></div>
+      <p class="note">若女将の字で、余白に「S＝身長150cm前後向け」。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">女子の部屋 ①</span><span>CLUE 16</span></div><div class="bd">
+      <span class="ttl">桔梗の間・澪の鞄</span>
+      <p>手帳に挟まれた写真。高校生くらいの男の子と澪が並んで笑っている。裏に「湊　高校卒業式」。</p>
+      <p>新聞の切り抜き：「自転車の男性はねられ死亡　運転の大学1年・朝比奈湊容疑者を逮捕」。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">女子の部屋 ②</span><span>CLUE 17</span></div><div class="bd">
+      <span class="ttl">菊の間の布団</span>
+      <p>二組の布団のうち、片方だけが二人分くらいに乱れている。</p>
+      <p>枕元に、開けた缶ジュースが2本。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">男子の部屋 ①</span><span>CLUE 18</span></div><div class="bd">
+      <span class="ttl">萩の間・天城の鞄</span>
+      <p>封筒「合宿費　40万円　Carnival会計」（澪の字）。<b>中は空。</b></p>
+      <p>鞄の内ポケットに、別のサークル口座の通帳。この2年で、何度も現金が引き出されている。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">男子の部屋 ②</span><span>CLUE 19</span></div><div class="bd">
+      <span class="ttl">萩の間・剣持の鞄</span>
+      <p>実家の酒屋あての書類のコピー。</p>
+      <p class="doc">「約束手形　支払期日：3月16日　金額：金四十万円　剣持酒店」</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">男子の部屋 ③</span><span>CLUE 20</span></div><div class="bd">
+      <span class="ttl">竹の間・東の鞄</span>
+      <p>クリアファイルに、2年前の示談書の控え。</p>
+      <p class="doc">「加害者 朝比奈湊　被害者遺族 ……　立会人 東慎吾」</p>
+      <p>余白に東の字で「車両所有者：東。保険で対応。湊には月5万」。</p>
+    </div></div>
+  </div>
+
+  <h3>調査2（各場所の束の下に追加）</h3>
+  <div class="cards">
+    <div class="card p2"><div class="hd"><span class="loc">貸切風呂 ⑤</span><span>CLUE 21</span></div><div class="bd">
+      <span class="ttl">湯船の縁石</span>
+      <p>縁石のすき間に、小さな爪のかけらのようなもの。<b>深いボルドーのマニキュア</b>が塗られている。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">渡り廊下 ③</span><span>CLUE 22</span></div><div class="bd">
+      <span class="ttl">暖簾の裏側</span>
+      <p>暖簾の裏、<b>床から140cmほどの高さ</b>に、薄い血のこすれ跡。誰かが血のついた袖で暖簾を払ったようだ。</p>
+      <p class="note">人が腕を少し上げたとき、袖が当たるのはだいたい肩の高さ。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">女湯 ③</span><span>CLUE 23</span></div><div class="bd">
+      <span class="ttl">脱衣かご</span>
+      <p>一番奥のかごの底に、若葉色の糸くずと、乾きかけた小さな血のしみ。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">宴会場 ④</span><span>CLUE 24</span></div><div class="bd">
+      <span class="ttl">宴会場のゴミ箱</span>
+      <p>くしゃくしゃのメモ。天城の字。</p>
+      <p class="doc">「合宿費 → 先に使っとく。澪には言うな」</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">帳場 ③</span><span>CLUE 25</span></div><div class="bd">
+      <span class="ttl">若女将の部屋</span>
+      <p>化粧台に、男物の高級腕時計。裏に「S.A.」の刻印。</p>
+      <p>簪立てに、べっ甲の簪の片割れ（対の一本だけ）。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">帳場 ④</span><span>CLUE 26</span></div><div class="bd">
+      <span class="ttl">帳場の窓</span>
+      <p>窓からは玄関の外の軒下がよく見える。軒下の灰皿に、まだ新しい吸い殻が3本。</p>
+      <p>渡り廊下は、ここからは見えない。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">女子の部屋 ③</span><span>CLUE 27</span></div><div class="bd">
+      <span class="ttl">桔梗の間・洗面所</span>
+      <p>ゴミ箱に、濡れたハンドタオル。かすかに鉄のような匂いがする。</p>
+      <p>藤色の浴衣用の腰ひもが、一度ほどいて急いで結び直したようによじれている。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">女子の部屋 ④</span><span>CLUE 28</span></div><div class="bd">
+      <span class="ttl">菊の間・ひかるのスケッチブック</span>
+      <p>最後のページに、澪の横顔のスケッチが何枚も。</p>
+      <p>隅に小さく、「言えないままでいい」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">男子の部屋 ④</span><span>CLUE 29</span></div><div class="bd">
+      <span class="ttl">楓の間・藤井のカメラ</span>
+      <p>23:50、王様ゲーム4回目の写真。天城の膝の上のさくら。</p>
+      <p><b>天城がさくらの耳元に口を寄せ、何かささやいている。</b>さくらはうつむいている。</p>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ GMブック ============ -->
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相、進行のコツ、エンディングが書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+
+  <div class="box">
+    <h3>真相</h3>
+    <p><b>犯人は朝比奈澪。</b>2年前、澪の弟・湊は、天城が飲酒運転で起こした死亡事故の身代わりになった。段取りをしたのはOBの東。今夜22:30、澪は天城のスマホでその事実と、天城が湊と自分を笑いものにしていたことを知った。同時に、天城が親友の莉子と「1時に貸切風呂」で会う約束をしていることも知った。</p>
+    <p>澪は王様ゲームのくじに印をつけて「1」を引き、真木をそそのかして「1番が誰か一人を選んで、こっそり浴衣交換」の命令を出させた。自分から交換を言い出せば怪しまれるが、王様の命令なら遊びで済む。澪が選んだのは、何も聞かずに従ってくれる柚木ひかる。0:45、ひかるが風呂へ行く直前に2階の女子トイレで交換し（交換したまま人前に出ればすぐばれるので、直前まで待った）、澪は若葉色（S）、ひかるは藤色（L）を着ることになった。</p>
+    <p>0:50、澪はひかるを先に女湯へ行かせた。かごの藤色が「澪は女湯にいる」アリバイになる。1:03、澪は若葉色の浴衣で貸切風呂へ。1:06、天城を徳利で殴り、湯に沈めた。女湯に戻って浴衣を元に戻し、ひかるに声をかけて部屋へ帰った。</p>
+    <p>血のついた若葉色を受け取ったひかるは、すべてを察し、澪の身代わりになると決めた。</p>
+    <p class="note">ほかの2つの問いの答え：<b>合宿費を抜いたのは剣持</b>（0:10、萩の間で。実家の手形のため）。<b>1時に会うはずだったのは莉子</b>（1:15に札が「使用中」だったので引き返した）。</p>
+  </div>
+
+  <div class="box">
+    <h3>浴衣の入れ替わり（ここが核心）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">時間</th><th>澪（170cm）</th><th>ひかる（150cm）</th></tr></thead>
+      <tbody>
+        <tr><td class="t">〜0:45</td><td>藤色 L</td><td>若葉色 S</td></tr>
+        <tr><td class="t">0:45〜1:10</td><td><b>若葉色 S</b>（丈が短く足首が出る。肩が窮屈で縫い目がほつれる）</td><td><b>藤色 L</b>（長すぎて裾を引きずる）</td></tr>
+        <tr><td class="t">1:10〜</td><td>藤色 L に戻す（女湯のかごから）</td><td>若葉色 S に戻る（血・濡れ・ほつれつき）</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">時刻</th><th>出来事</th></tr></thead>
+      <tbody>
+        <tr><td class="t">15:00</td><td>チェックイン。志保が浴衣を貸し出す（澪 藤色L、ひかる 若葉色S）。</td></tr>
+        <tr><td class="t">18:30</td><td>宴会。21:30、土砂崩れ（22:00に志保が知らせる）。</td></tr>
+        <tr><td class="t">21:40〜22:05</td><td>貸切風呂の予約：東「梅の間」0:30、天城「萩の間」1:00、さくら「菊の間」1:30。</td></tr>
+        <tr><td class="t">22:12</td><td>天城→莉子「1時、貸切な」。</td></tr>
+        <tr><td class="t">22:30</td><td>澪、天城のスマホを見て真相を知る。画面を撮影。</td></tr>
+        <tr><td class="t">23:00</td><td>澪、くじを作り「1」に印をつける。</td></tr>
+        <tr><td class="t">23:25</td><td>澪、真木に命令をそそのかす（LINE 23:26）。</td></tr>
+        <tr><td class="t">23:30</td><td>王様ゲーム開始（藤井が撮影・書記）。</td></tr>
+        <tr><td class="t">23:40</td><td>③王様・真木「1番が誰か一人を選んで、こっそり浴衣交換」。1＝澪。澪はひかるに耳打ちして相手に選ぶ。</td></tr>
+        <tr><td class="t">23:50</td><td>④王様・天城、5番さくらを膝に。</td></tr>
+        <tr><td class="t">0:10</td><td>剣持、萩の間で合宿費40万円を抜く。</td></tr>
+        <tr><td class="t">0:20</td><td>東、竹の間へ。天城・剣持・真木は宴会場で飲む。</td></tr>
+        <tr><td class="t">0:32</td><td>東と志保、貸切風呂で密会（〜0:56）。</td></tr>
+        <tr><td class="t">0:45</td><td>澪とひかる、2階女子トイレで浴衣を交換。澪、ひかるに「先にお風呂行ってて」。澪はトイレで待つ。</td></tr>
+        <tr><td class="t">0:50</td><td>ひかる、藤色で女湯へ。天城、備前の徳利を持って宴会場を出る。</td></tr>
+        <tr><td class="t">0:55</td><td>真木、男湯へ。莉子、女湯の脱衣所で化粧直し（藤色を見て澪がいると思う）。</td></tr>
+        <tr><td class="t">0:56</td><td>志保、貸切を出る（簪を落とす）。藤井が窓から見る。</td></tr>
+        <tr><td class="t">0:58</td><td>東、貸切を出て、渡り廊下で天城とすれ違う。天城、貸切へ。</td></tr>
+        <tr><td class="t">1:00</td><td>藤井、自販機。剣持、玄関の外で電話（1:01〜1:14、志保が窓から見る）。</td></tr>
+        <tr><td class="t">1:03</td><td>澪（若葉色）、渡り廊下へ。藤井が後ろ姿を目撃。</td></tr>
+        <tr><td class="t">1:04</td><td>澪、天城を問いつめる。</td></tr>
+        <tr><td class="t">1:05〜1:06</td><td><b>犯行。</b>真木が竹垣ごしに女の声と水音を聞く。</td></tr>
+        <tr><td class="t">1:05</td><td>藤井、菊の間でさくらと合流。</td></tr>
+        <tr><td class="t">1:09</td><td>澪、女湯へ戻り、浴衣を元に戻して手を洗う（暖簾の裏に血）。</td></tr>
+        <tr><td class="t">1:12</td><td>澪、ひかるに声をかけて上がる。莉子→天城「いまから行く」。</td></tr>
+        <tr><td class="t">1:14</td><td>澪、桔梗の間へ。</td></tr>
+        <tr><td class="t">1:15</td><td>莉子、貸切の前で「使用中」を見て引き返す（1:16 LINE）。階段で剣持とすれ違う。</td></tr>
+        <tr><td class="t">1:18</td><td>莉子、桔梗の間へ。</td></tr>
+        <tr><td class="t">1:20</td><td>ひかる、女湯から上がり、浴衣の血に気づく。</td></tr>
+        <tr><td class="t">1:25</td><td>ひかる、桔梗の間へ。</td></tr>
+        <tr><td class="t">1:30</td><td>真木、男湯を出る。</td></tr>
+        <tr><td class="t">1:40</td><td>さくら（と藤井）、遺体を発見。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>王様ゲームのくじ（誰が何番だったか）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>回</th><th>王様</th><th>命令</th><th>当たった人</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>剣持</td><td>4番が3番の耳元で愛をささやく</td><td>4＝天城、3＝莉子</td></tr>
+        <tr><td>②</td><td>莉子</td><td>2番と8番がポッキーゲーム</td><td>2＝剣持、8＝東</td></tr>
+        <tr><td>③</td><td>真木</td><td>1番が誰か一人を選んで、こっそり浴衣交換</td><td>1＝澪（相手にひかるを選んだ。二人とも名乗っていない）</td></tr>
+        <tr><td>④</td><td>天城</td><td>5番が王様の膝の上で一杯飲む</td><td>5＝さくら</td></tr>
+        <tr><td>⑤</td><td>東</td><td>7番と5番が手をつなぐ</td><td>7＝藤井、5＝さくら</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>推理の筋道（プレイヤーにたどり着いてほしい流れ）</h3>
+    <ol>
+      <li><b>犯行は1:06ごろ。</b>スマートウォッチ（CLUE 02）。東の「0:58には生きていた」、真木の「1:05の女の声と水音」とも合う。</li>
+      <li><b>犯人は女湯へ戻った。</b>濡れた足跡（CLUE 06）、女湯の洗面台の赤い水（CLUE 08）、かごの若葉色の糸と血（CLUE 23）。竹垣は越えられない（CLUE 09）ので、男湯の真木は外れる。</li>
+      <li><b>1:03に見られたのは「若葉色の女」。</b>暖簾（160cm）をくぐるとき身をかがめていた（藤井）。若葉色はひかるの浴衣だが、暖簾の血は140cmの高さ（CLUE 22）で、150cmのひかるの袖の位置には高すぎる（ひかるはSでも長いくらい：CLUE 15・志保）。若葉色の浴衣の肩のほつれ（ひかるの持ち物）も、体の大きい人が着た跡。</li>
+      <li><b>浴衣が入れ替わっていた。</b>王様ゲームの「1番が誰か一人を選んで、こっそり浴衣交換」（CLUE 12）。くじを作ったのは澪で、「1」にだけ印（CLUE 11）。動画のボルドーのネイル（藤井の持ち物。ボルドーが澪の色だと知っているのは莉子）。命令を考えたのは澪（真木のLINE）。ひかるが0:50ごろ藤色の裾を引きずっていた（藤井・さくら）。</li>
+      <li><b>澪のアリバイは崩れる。</b>莉子が0:55に見たのは「藤色の浴衣」と「後ろ姿一つ」。中身はひかる。澪は1:12に声をかけただけ。</li>
+      <li><b>決め手：</b>縁石のボルドーのマニキュアのかけら（CLUE 21）。ひかるの浴衣の肩のほつれ（体の大きい人が着た）。真木が竹垣ごしに聞いた「……に謝って！」という女の声。</li>
+      <li><b>動機：</b>湊の写真と新聞（CLUE 16）、示談書（CLUE 20）、天城のLINE（澪の持ち物）。</li>
+      <li><b>ひかるの自白を見破る：</b>体格（暖簾・血の高さ・肩のほつれ）が合わない。ひかるは女湯にいたが、若葉色を着ていたのは0:50〜1:20のあいだ澪のほう。</li>
+    </ol>
+    <p class="note">主なミスリード：ひかる（自白・血のついた浴衣）、莉子（1時の約束・1:15に現場前）、剣持（金・鞄）、志保（簪・渡り廊下から戻る着物の女）、東（0:58に現場前・示談）、真木（現場の隣にいて黙っていた・鏡の「ごめん」）、さくらと藤井（第一発見者・アリバイの嘘・ささやかれる写真）。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>証拠カードの配り方</h3>
+      <ul>
+        <li>調査1：場所ごとに CLUE 01〜20 を丸数字の順に重ねて置く。1人2回、場所を宣言してもらい、その束の一番上を渡す。束がなくなった場所は選べない。</li>
+        <li>調査2：各場所の残りの束の下に CLUE 21〜29 を丸数字の順に追加。1人1回。</li>
+        <li>議論2の10分経過時点で、まだ誰も引いていないカードをGMが全部読み上げて公開する。</li>
+        <li>★カード（01・02・12・14）は、引いた人がその場で読み上げる。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>進行のコツ</h3>
+      <ul>
+        <li>ひかるの自白で議論が止まりそうになったら、「本当にその人にできたのか、体格や時刻で確かめてみよう」と全員に問いかける。</li>
+        <li>浴衣交換に誰も気づかないときは、「王様ゲームの3回目、1番は誰で、誰と交換したんだろう」とつぶやく。</li>
+        <li>大人向けの要素は、プレイヤーが話しにくそうなら無理に深掘りさせない。秘密は「明かすと点数」になる人だけが明かせばよい。</li>
+        <li>人数が多いので、議論1の途中で「まだ話していない人」に一言ずつ話してもらう。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>投票と点数</h3>
+    <ul>
+      <li>1人30秒ずつ推理を発表したあと、投票用紙の3つの問いにそれぞれ名前を書いて一斉に公開。自分の名前を書いてもよい（ひかるが自分に入れるのは作戦のうち）。</li>
+      <li>問いごとに最多票の人が「名指しされた人」。同数の場合は、同数の人だけで1分ずつ弁明し、再投票。それでも同数なら全員を名指しされた扱いにする。</li>
+      <li>正解した人への点数：問い1 +4点、問い2 +2点、問い3 +2点。ただし答え本人（問い1の澪、問い2の剣持、問い3の莉子）は、その問いの正解点をもらえない。</li>
+      <li>個人の目的：各キャラシートの点数。合計が一番高い人がMVP。</li>
+      <li>「明かす」「話す」「証言する」「言わせる」は、議論中に全員の前ではっきり口にすれば達成。「ばれる／ばれない」は、下の「秘密の挙手」で判定する。「自分で指摘し、しかもばれる」は、その本人が全員の前で指摘していて、挙手でもばれた場合だけ達成（ほかの人がばらしても点にならない）。</li>
+    </ul>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>人物</th><th>個人の目的（判定のポイント）</th></tr></thead>
+      <tbody>
+        <tr><td>澪</td><td>+5 問い1で最多票にならない／+2 ひかるが問い1で最多票にならない／+1 天城が湊に罪をかぶせたことを全員の前で明かす／+1 「1番」だったとばれない</td></tr>
+        <tr><td>ひかる</td><td>+3 問い1で自分が最多票／+2 問い1で自分に3票以上（自分の票を含む）／+1 藤色を着ていたことがばれない／+1 澪への想いを自分からは明かさない</td></tr>
+        <tr><td>莉子</td><td>+3 問い3で最多票にならない／+2 問い1で最多票にならない／+1 さくらと藤井の交際を自分で指摘し、ばれる／+1 剣持との過去がばれない</td></tr>
+        <tr><td>剣持</td><td>+3 問い2で最多票にならない／+2 40万円を抜いたと自分から打ち明け、返すと約束する／+1 天城の使い込みを全員の前で明かす／+1 東に「うちに来い」と全員の前で言わせる</td></tr>
+        <tr><td>真木</td><td>+3 高校の事件がばれない／+2 1:05の声と水音を全員の前で話す／+1 東と志保の関係を自分で指摘し、ばれる／+1 東に「春から待ってる」と全員の前で言わせる</td></tr>
+        <tr><td>さくら</td><td>+3 藤井との交際がばれない／+2 天城にされたことを全員の前で明かす／+1 藤井が問い1で最多票にならない／+1 天城のLINE（他人の持ち物）を見る</td></tr>
+        <tr><td>藤井</td><td>+3 さくらとの交際がばれない／+2 問い3でさくらに1票も入らない／+1 動画を2人以上に見せる／+1 0:56に着物の女性を見たことを全員の前で話す</td></tr>
+        <tr><td>東</td><td>+3 自分も志保も問い1で最多票にならない／+2 志保との関係がばれない／+1 身代わりの段取りがばれない／+1 真木と九条の高校の事件を自分で指摘し、ばれる</td></tr>
+        <tr><td>志保</td><td>+3 東との関係がばれない／+2 東が問い1で最多票にならない／+1 天城の頬を叩いたことを話さない／+1 剣持の電話（1:01〜1:14）を全員の前で証言する</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>秘密の挙手（投票のあと、真相を読み上げる前に）</h3>
+    <p>GMが1つずつ読み上げ、「本当だと思う人」に手を挙げてもらう。かっこ内の当事者は挙げない。当事者以外の過半数が挙げたら「ばれた」。本人が否定し続けていても、みんなが信じれば「ばれた」になる。議論で根拠（証言やカード）が出なかったものには挙げないよう、先に伝えておく。「（ダミー）」の文は本当ではない。読み上げるときは区別せず、ほかと同じように読む（全部本当だと思われないようにするため）。点数には関係しない。</p>
+    <ol>
+      <li>王様ゲームの「1番」は、澪だった（澪）</li>
+      <li>ひかるは0:45〜1:20、藤色の浴衣を着ていた（ひかる・澪）</li>
+      <li>莉子と剣持は、昔付き合っていた（莉子・剣持）</li>
+      <li>さくらと藤井は、付き合っている（さくら・藤井）</li>
+      <li>真木と九条は、高校のとき人を川に落として逃げた（真木）</li>
+      <li>東と志保は、関係を持っている（東・志保）</li>
+      <li>2年前、湊を身代わりにする段取りをしたのは東だ（東）</li>
+      <li>真木と莉子は、付き合っている（真木・莉子）（ダミー）</li>
+      <li>ひかるは、天城に告白されたことがある（ひかる）（ダミー）</li>
+    </ol>
+  </div>
+  <div class="read">
+    <span class="who">エンディングA ／ 澪に最多票が集まったとき</span>
+    <p>澪は、ボルドーの爪を見つめていた。長い沈黙のあと、ゆっくり顔を上げた。</p>
+    <p>「2年前、湊は、隼人の代わりに捕まったの。隼人は、それを笑ってた。湊も、私も、隼人の『便利なもの』だった」</p>
+    <p>「王様の命令は絶対。……一度くらい、私が王様になってみたかった」</p>
+    <p>ひかるが立ち上がりかけた。「澪さん、違う、私が――」。澪は首を振って、ひかるの手を一度だけ握った。「ありがとう。もう、誰も身代わりにしたくないの」</p>
+    <p>夜明け、土砂の片づいた山道を、パトカーが上ってきた。澪は藤色の浴衣のまま、自分の足で乗りこんだ。窓の外に、若葉色の浴衣の小さな影が、いつまでも立っていた。</p>
+  </div>
+
+  <div class="read">
+    <span class="who">エンディングB ／ ひかるに最多票が集まったとき</span>
+    <p>「……はい。私がやりました」。ひかるは、まっすぐ前を見て言った。若葉色の袖の血を、隠そうともしなかった。</p>
+    <p>夜明けに着いた警察は、ひかるを連れていった。けれど、取り調べは三日で終わった。浴衣の肩のほつれ、暖簾の血の高さ、縁石に残ったボルドーのマニキュア。小柄な彼女に、あの犯行はできなかった。</p>
+    <p>四日目の朝、澪が警察署に現れた。「身代わりは、もういらないから」。それが、澪の最後の言葉だった。</p>
+    <p>王様の命令は絶対。けれど、あの夜の本当の王様は、誰の命令も聞かなかった。</p>
+  </div>
+
+  <div class="read">
+    <span class="who">エンディングC ／ それ以外の人に最多票が集まったとき</span>
+    <p>疑いの目を向けられたまま、長い夜が明けた。到着した警察は、縁石のマニキュアのかけらと、藤井のスマホの動画を見つけた。ボルドーの爪の手が、「1」の割り箸を袖に隠していた。</p>
+    <p>澪は抵抗しなかった。「湊に、謝らせたかっただけ」。名指しされた人は、その日のうちに疑いが晴れた。けれど、あの夜みんなで交わした言葉は、もう取り消せない。</p>
+  </div>
+
+  <div class="box">
+    <h3>エピローグ（読み上げてもよいし、各自に任せてもよい）</h3>
+    <ul>
+      <li><b>朝比奈澪</b>：澪の裁判で、湊は初めて、2年前の夜の本当のことを証言した。</li>
+      <li><b>柚木ひかる</b>：ひかるは、面会室のガラス越しに一枚の絵を見せた。若葉色と藤色の浴衣で並んで笑う、二人の絵だった。</li>
+      <li><b>早瀬莉子</b>：莉子は澪に手紙を書いた。三十枚書いて、一枚も出せなかった。</li>
+      <li><b>剣持大和</b>：剣持は40万円を澪の母親に送り、実家の店をたたんで、父と二人で働きはじめた。</li>
+      <li><b>真木颯太</b>：真木は4年ぶりに九条と地元の河原へ行き、あの夜のことを警察に話した。</li>
+      <li><b>小田切さくら</b>：さくらは、1年前のことを大学の相談窓口に話した。隣には藤井がいた。</li>
+      <li><b>藤井悠真</b>：藤井は、王様ゲームの動画を消さずに警察に渡した。それから、さくらの写真を撮りつづけた。</li>
+      <li><b>東慎吾</b>：東は、2年前の事故の段取りについて自首した。妻は娘を連れて実家に帰った。</li>
+      <li><b>椎名志保</b>：志保は東からの手紙を燃やし、月見館の帳場に一人で立ちつづけた。</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 投票用紙 ============ -->
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚。推理の発表後、一斉に開きます。</p>
+  <div class="vote">
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><span class="q">① 天城を殺したのは</span><div class="ln"></div><span class="q">② 合宿費を抜き取ったのは</span><div class="ln"></div><span class="q">③ 1時に会うはずだったのは</span><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('ousama-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  ['chars', 'items', 'clues', 'gm'].forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('ousama-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('ousama-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  var start = 'howto';
+  try { start = localStorage.getItem('ousama-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+</script>
+<script>
+/* 公開ページ用：キャラシート・持ち物は名前の一覧、証拠カードは場所の一覧だけを出し、押すとその分だけ開く。
+   リンクを共有して、各自が自分の名前を押して遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  // ---- 3秒の長押しで開く（間違えてめくらないように）。閉じるのはタップ ----------------
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY; begin();
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') ) { e.preventDefault(); if (!e.repeat) begin(); }
+    });
+    b.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); }
+    });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編・GMブックの「表示する」も長押しにそろえる（元のボタンの動きはそのまま、長押しが済んだときだけ通す）
+  $$('[data-gate="solve"] .btn, [data-gate="gm"] .btn, [data-gate="solve"] button, [data-gate="gm"] button').forEach(function (b) {
+    if (b.dataset.plHold) return; b.dataset.plHold = '1';
+    hold(b, function () { b.click(); });
+    var p = el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。');
+    b.parentNode.insertBefore(p, b);
+  });
+
+  // 「表示する」の関門は、一覧から1人分ずつ開く形に置きかえる（解決編・GMブックはそのまま）
+  ['chars', 'items', 'clues', 'npc'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  // ---- 登場人物 -----------------------------------------------------------
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    return { i: i, name: txt(nm), rl: txt(s.querySelector('.slate .rl')), sheet: s, item: null };
+  });
+  $$('#items .card.item').forEach(function (c) {
+    var o = txt(c.querySelector('.owner'));
+    roles.forEach(function (r) { if (r.name === o) r.item = c; });
+  });
+
+  var views = {};
+  ['chars', 'items'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '名前を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '自分の名前を長押しすると、' + (tab === 'chars' ? 'あなたのキャラシートと持ち物カード' : 'あなたの持ち物カード') + 'だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', 'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。'));
+    var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open');
+    host.insertBefore(shown, host.firstChild);
+    host.insertBefore(roster, shown);
+    host.insertBefore(note, roster);
+    if (tab === 'items') $$('.cards, .lead', host).forEach(function (e) { if (e.parentNode === host) e.hidden = true; });
+    var v = views[tab] = { roster: roster, shown: shown, open: null, buttons: [] };
+    roles.forEach(function (r) {
+      var b = el('button', 'pl-person'); b.type = 'button';
+      b.append(el('b', null, r.name), el('span', 'r', r.rl));
+      b.setAttribute('aria-expanded', 'false');
+      hold(b, function () { show(tab, r.i); }, function () { return v.open === r.i; }, function () { show(tab, null); });
+      roster.appendChild(b); v.buttons.push(b);
+    });
+  });
+  function show(tab, i) {
+    var v = views[tab];
+    v.shown.textContent = '';
+    if (tab === 'chars') roles.forEach(function (r) { r.sheet.hidden = true; });
+    v.open = i;
+    v.buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    v.shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    if (tab === 'chars') { v.shown.appendChild(r.sheet); r.sheet.hidden = false; }
+    if (r.item) {
+      if (tab === 'chars') v.shown.appendChild(el('h3', null, '持ち物カード'));
+      var wrap = el('div', 'cards'); wrap.appendChild(r.item.cloneNode(true)); v.shown.appendChild(wrap);
+    }
+    v.shown.appendChild(btn('閉じる', 'ghost', function () { show(tab, null); v.roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+
+  // ---- 証拠カード・証言カード ----------------------------------------------
+  var CIRC = /[①-⑳]/;
+  ['clues', 'npc'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '場所を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '長押しすると、そのカードの中身だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', '調べる場所を宣言してから、自分で長押しして読んでください。開いたカードに「★ 即公開」と出たら、すぐ全員に読み上げます。'));
+    host.insertBefore(note, host.firstChild);
+  });
+  $$('#clues .card, #npc .card').forEach(function (c) {
+    var sp = c.querySelectorAll('.hd > span');
+    var loc = txt(sp[0]), id = txt(sp[sp.length - 1]);
+    var m = loc.match(CIRC);
+    var place = loc.replace(/[①-⑳]/g, '').replace(/調査[12]/g, '').replace(/\s+/g, ' ').trim();
+    var phase = (c.classList.contains('p2') || /調査2/.test(loc)) ? 2 : 1;
+    var cell = el('div', 'pl-cell');
+    c.parentNode.insertBefore(cell, c);
+    var row = el('button', 'pl-row'); row.type = 'button';
+    row.append(el('span', 'pl-place', place + (m ? ' ' + m[0] : '')), el('span', 'pl-id', id));
+    row.appendChild(el('span', 'pl-chip' + (phase === 2 ? ' p2' : ''), '調査' + phase));
+    // ★のカードかどうかは一覧では見せない。開いたカードの中で初めてはっきり出す
+    if (c.querySelector('.star')) {
+      var bd = c.querySelector('.bd') || c;
+      bd.insertBefore(el('p', 'pl-starnote', '★ 即公開：このカードは引いたらすぐ全員に読み上げる／見せる'), bd.firstChild);
+    }
+    row.setAttribute('aria-expanded', 'false');
+    var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+    function toggle(on) {
+      c.hidden = !on; close.hidden = !on;
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+    cell.append(row, c, close);
+    toggle(false);
+  });
+})();
+</script>
+</body>
+</html>

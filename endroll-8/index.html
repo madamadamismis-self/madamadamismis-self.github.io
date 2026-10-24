@@ -1,0 +1,1540 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>エンドロールは流れない（8人用）</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 撮影現場のスレート（カチンコ）を下敷きにした、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eceef1;
+  --surface: #ffffff;
+  --ink: #1b2230;
+  --muted: #5a6476;
+  --line: #c6ccd5;
+  --accent: #b3303a;
+  --accent-soft: #f6e3e4;
+  --teal: #1e6a73;
+  --teal-soft: #dfeef0;
+  --slate: #232a36;
+  --slate-ink: #f2f3f5;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151b; --surface: #1a2029; --ink: #e5e8ed; --muted: #9aa3b1; --line: #313a48;
+    --accent: #e3666e; --accent-soft: #3a2226; --teal: #63b6bf; --teal-soft: #1b3236;
+    --slate: #0b0e13; --slate-ink: #e5e8ed; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151b; --surface: #1a2029; --ink: #e5e8ed; --muted: #9aa3b1; --line: #313a48;
+  --accent: #e3666e; --accent-soft: #3a2226; --teal: #63b6bf; --teal-soft: #1b3236;
+  --slate: #0b0e13; --slate-ink: #e5e8ed; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* hero */
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: 40px 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.stripes { height: 14px; background: repeating-linear-gradient(135deg, var(--slate-ink) 0 18px, transparent 18px 36px); opacity: .85; max-width: 320px; }
+.hero h1 { font-size: clamp(30px, 6vw, 54px); font-weight: 900; letter-spacing: .04em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+
+/* people list */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+/* character sheet */
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.intro h4 { color: var(--teal); }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.tl { display: grid; grid-template-columns: 5.2em 1fr; gap: 6px 12px; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.6em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+.note { font-size: 13px; color: var(--muted); }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.star { color: var(--accent); font-size: 12px; font-family: var(--f-body); font-weight: 700; border: 1px solid var(--accent); border-radius: 3px; padding: 0 5px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.p2 .hd { background: var(--accent); color: var(--surface); }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card ul { font-size: 14px; }
+.card .log { font-family: var(--f-mono); font-size: 12.5px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+
+/* map */
+.maps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.map svg { width: 100%; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .out { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map .door { stroke: var(--accent); stroke-width: 4; }
+.map .win { stroke: var(--teal); stroke-width: 4; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 11px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+.map .cam { fill: var(--teal); }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 18px; background: var(--surface); }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.6em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .culprit, .goal .pt, .read, .warn, .stripes, .tab, .map * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 58mm; align-content: center; padding: 6mm 8mm; }
+  .labels .nm { font-size: 22pt; }
+  .sheet { break-before: page; border: 0; border-radius: 0; }
+  .sheet .slate { padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { display: block; column-count: 2; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 8.6pt; line-height: 1.55; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .secret { padding: 2.5mm 3mm; }
+  .sheet .intro { padding: 2.5mm 3mm; }
+  .sheet .body { font-size: 8.3pt; line-height: 1.52; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 8pt; }
+  .sheet .tl { grid-template-columns: 3.6em 1fr; gap: 1mm 2.5mm; }
+  .sheet .tl dt { font-size: 8pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 0.8mm; }
+  .sheet .goal { grid-template-columns: 2.8em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 8pt; }
+  .sheet .note { font-size: 8pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { border-style: dashed; }
+  .box, .person, .card { break-inside: avoid; }
+}
+</style>
+<style>
+/* 公開ページ用：名前・場所の一覧から開く表示。色は各キットのトークンから取る */
+:root { --pl-accent: var(--accent, var(--kin)); --pl-hi: var(--teal, var(--ai)); }
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--pl-hi); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+.pl-head { font-size: 20px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row[aria-expanded="true"] { border-color: var(--pl-hi); box-shadow: inset 0 0 0 1px var(--pl-hi); }
+.pl-row .pl-place { font-weight: 700; }
+.pl-row .pl-id { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.star { border-color: var(--pl-accent); color: var(--pl-accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--pl-hi); background: var(--pl-hi); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--pl-hi); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--pl-accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--pl-accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-starnote { border: 1.5px solid var(--pl-accent); color: var(--pl-accent); background: var(--surface); border-radius: 6px; padding: 6px 10px; font-weight: 700; font-size: 14px; }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--pl-accent); outline-offset: 2px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="stripes"></div>
+    <h1>エンドロールは流れない</h1>
+    <p>映画研究会の夏合宿。明日の上映会を前に、監督が死んだ。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>8人 ＋ GM1人</span>
+      <span><b>TIME</b>約120分</span>
+      <span><b>SETTING</b>現代・湖畔の貸別荘</span>
+      <span><b>CARDS</b>キャラシート8・持ち物8・証拠25</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs noprint" aria-label="セクション">
+  <div class="inner" role="tablist">
+    <button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button>
+    <button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button>
+    <button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button>
+    <button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class="lock">秘</span></button>
+    <button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button>
+  </div>
+</nav>
+
+<main class="wrap">
+<div class="printonly">エンドロールは流れない（8人用）</div>
+
+<!-- ============ 遊び方 ============ -->
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー8人がそれぞれ登場人物になり、話し合いと証拠カードで犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票用紙」だけを見てください。</p>
+    <p class="note">印刷するときは、印刷したいタブを開いた状態でブラウザの印刷を使うと、そのタブだけが印刷されます（キャラシートは1人1ページ、カードは切り取り線つき）。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 8枚（それぞれ封筒に入れる）</li>
+        <li>持ち物カード 8枚（キャラシートと同じ封筒へ）</li>
+        <li>証拠カード 25枚（切り分けて、場所ごとに番号順で裏向きに束ねる）</li>
+        <li>人物一覧・事件概要・見取り図（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙 8枚、筆記用具、タイマー</li>
+        <li>あれば名札（役名を書く）</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードと証拠カードは、見せる・隠す・一部の人にだけ見せる・渡す、どれも自由。「見せて」と言われて断ってもよい（そのぶん怪しまれる）。</li>
+        <li>カードの中身を口で説明するときも、上の範囲なら嘘をついてよい。ただしカードそのものは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li><b>★のついた証拠カードは、引いたらすぐ全員に公開する。</b></li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+          <tr><td class="t">10分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+          <tr><td class="t">10分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で自己紹介（キャラシートの「自己紹介」を読み上げるか、自分の言葉で）。</td></tr>
+          <tr><td class="t">10分</td><td>調査1</td><td>1人2回、調べる場所を宣言してGMからカードを1枚ずつもらう。</td></tr>
+          <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。密談OK。</td></tr>
+          <tr><td class="t">5分</td><td>調査2</td><td>1人1回。「庭・湖畔」が調べられるようになり、各場所に新しいカードが追加される。</td></tr>
+          <tr><td class="t">25分</td><td>議論2</td><td>10分たったら、GMが残っているカードを全部公開する。</td></tr>
+          <tr><td class="t">15分</td><td>推理と投票</td><td>1人30秒で「犯人は誰か、なぜか」を発表し、一斉に投票。続けて、GMが読み上げる「秘密」について挙手で判定。</td></tr>
+          <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>勝ち負けについて</h3>
+    <p><b>犯人に投票した人は +4点</b>（犯人本人は除く）。投票に書けるのは、プレイヤーが演じている人物の名前だけです（黒崎本人は書けません）。自分の名前を書いてもかまいません。</p>
+    <p>それとは別に、全員に「個人の目的」があり、達成すると点数が入ります。犯人を当てられなくても、目的を果たせば高得点を狙えます。最後に点数が一番高い人がその回のMVPです。</p>
+    <p>目的のうち「〜がばれない」「〜がばれる」「信じられる」は、言い張るだけでは決まりません。投票のあと、GMが読み上げる文について、当事者以外の全員が「本当だと思う」なら手を挙げます。<b>過半数が手を挙げたら「ばれた（信じられた）」</b>ことになります。読み上げる文には、本当ではないものも混ざっています。議論で話題にならず、根拠（証言やカード）も出なかった秘密には、手を挙げないでください。</p>
+  </div>
+</section>
+
+<!-- ============ 事件概要 ============ -->
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>八月の終わり。○○大学映画研究会「ルミエール」の八人と、新作に出演した他大学のゲスト一人は、山梨・西湖のほとりの貸別荘「ロッジ・ハーフムーン」に来ていた。</p>
+    <p>目的は、代表の黒崎蓮が撮った新作『エンドロール』の上映会。黒崎は去年、『夜明けのプール』で全国学生映画祭のグランプリを獲った。新作は、彼の卒業制作でもある。</p>
+    <p>十九時からは庭でバーベキュー。二十一時に解散すると、黒崎は「明日の最終調整をする。邪魔するなよ」と言って、二階の編集部屋にこもった。</p>
+    <p>二十三時十分。差し入れのコーヒーを持って上がった宮本凛の悲鳴が、別荘に響いた。黒崎は編集部屋の床に倒れていた。後頭部を殴られ、もう息はなかった。そばにはグランプリのトロフィーが転がっていた。</p>
+    <p>台風の影響で、別荘へ続く道は土砂崩れでふさがれている。警察の到着は明日の朝になるという。</p>
+    <p>――今夜、この中の誰かが黒崎を殺した。朝が来る前に、それが誰なのかを確かめなければならない。</p>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li>遺体：編集部屋の床にうつ伏せ。後頭部に殴られた跡。発見時、体はまだ温かかった。</li>
+        <li>凶器：グランプリのトロフィー（ガラス製・約2kg）。台座に血。指紋は拭き取られていた。</li>
+        <li>外階段：到着時、管理人から「外階段は今日ペンキを塗ったので、明日まで使わないで」と言われている。</li>
+        <li>飲み物：合宿のルールで、配った缶には自分の名前を書くことになっていた。</li>
+        <li>リビングには、陽向がメイキング用のタイムラプスカメラを置いていた（階段が映る向き）。</li>
+        <li>湖までは、玄関から出る「表の道」と、庭から出る「庭の小道」の2本がある。どちらも徒歩5分ほど。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>BBQ以降の部屋割り</h3>
+      <ul>
+        <li>2階 編集部屋：黒崎（作業部屋として一人で使用）</li>
+        <li>2階 和室：大河内（OBなので個室）</li>
+        <li>2階 女子部屋：白石・早川・宮本・桐谷</li>
+        <li>1階 男子部屋：森・佐伯・小野寺</li>
+      </ul>
+      <p class="note">陽向（小野寺）の性別は演じる人に合わせて自由に決めてかまいません。部屋は男子部屋のままで大丈夫です。</p>
+    </div>
+  </div>
+
+  <div class="maps">
+    <div class="box map">
+      <h3>1階</h3>
+      <svg viewBox="0 0 380 250" role="img" aria-label="1階の見取り図">
+        <rect class="out" x="10" y="8" width="360" height="46" rx="4"/>
+        <text x="150" y="28">庭（BBQテラス）</text>
+        <text class="sm" x="150" y="44">← 庭の小道（湖へ 徒歩5分）</text>
+        <rect class="stair" x="78" y="16" width="36" height="34"/>
+        <text class="sm" x="80" y="13">外階段</text>
+        <rect class="room" x="20" y="60" width="110" height="90"/><text x="44" y="108">男子部屋</text>
+        <rect class="room" x="20" y="150" width="110" height="80"/><text x="54" y="194">洗面所</text>
+        <rect class="room" x="130" y="60" width="150" height="110"/><text x="186" y="90">リビング</text>
+        <rect class="stair" x="150" y="122" width="50" height="44"/><text class="sm" x="162" y="148">階段</text>
+        <circle class="cam" cx="252" cy="146" r="6"/>
+        <line x1="246" y1="146" x2="204" y2="144" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3 3"/>
+        <text class="sm" x="222" y="164">カメラ</text>
+        <rect class="room" x="130" y="170" width="150" height="60"/><text x="190" y="198">玄関</text>
+        <text class="sm" x="148" y="218">表の道（湖へ 徒歩5分）→</text>
+        <rect class="room" x="280" y="60" width="80" height="90"/><text x="298" y="108">キッチン</text>
+        <rect class="room" x="280" y="150" width="80" height="80"/><text x="308" y="194">浴室</text>
+      </svg>
+    </div>
+    <div class="box map">
+      <h3>2階</h3>
+      <svg viewBox="0 0 380 250" role="img" aria-label="2階の見取り図">
+        <rect class="out" x="120" y="16" width="240" height="44"/>
+        <text x="200" y="42">バルコニー</text>
+        <rect class="stair" x="82" y="16" width="38" height="44"/>
+        <text class="sm" x="82" y="12">外階段（使用禁止）</text>
+        <rect class="room" x="20" y="60" width="100" height="90"/><text x="56" y="110">和室</text>
+        <line class="win" x1="44" y1="60" x2="80" y2="60"/><text class="sm" x="40" y="76">窓</text>
+        <rect class="hot" x="120" y="60" width="110" height="90"/><text class="ac" x="148" y="110">編集部屋</text>
+        <line class="door" x1="150" y1="60" x2="200" y2="60"/><text class="sm" x="146" y="76">ガラス戸</text>
+        <rect class="room" x="230" y="60" width="130" height="90"/><text x="270" y="110">女子部屋</text>
+        <line class="win" x1="270" y1="60" x2="320" y2="60"/>
+        <rect class="room" x="20" y="150" width="340" height="36"/><text x="34" y="173">廊下</text>
+        <rect class="stair" x="150" y="186" width="50" height="44"/><text class="sm" x="162" y="212">階段</text>
+        <rect class="room" x="280" y="186" width="80" height="44"/><text x="306" y="212">トイレ</text>
+      </svg>
+      <p class="note">バルコニーに出られるのは、編集部屋のガラス戸と外階段だけ。女子部屋の窓はバルコニーに面しているが、出入りはできない。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 人物一覧 ============ -->
+<section class="panel" id="people" hidden>
+  <h2>人物一覧</h2>
+  <p class="lead">全員が知っている情報です。自己紹介はこの範囲で行います。</p>
+  <div class="people">
+    <div class="person victim"><span class="role">被害者・4年・代表／監督</span><span class="nm">黒崎 蓮</span><span class="kana">くろさき れん（22）</span><p>カリスマ的な監督。『夜明けのプール』で全国学生映画祭グランプリ。大河内の紹介で、映像制作会社「スタジオ・ノクト」に内定している。</p></div>
+    <div class="person"><span class="role">4年・撮影担当</span><span class="nm">森 拓海</span><span class="kana">もり たくみ</span><p>黒崎とは高校の映画部からの親友で、全作品の撮影を担当。無口。趣味は星空写真。妹の千尋も昨年ルミエールに入り『夜明けのプール』に出演したが、今年の4月、大学の屋上から転落して亡くなった（警察の判断は事故）。</p></div>
+    <div class="person"><span class="role">4年・脚本担当</span><span class="nm">白石 葵</span><span class="kana">しらいし あおい</span><p>サークルの脚本係。『夜明けのプール』のクレジットは「脚本・監督：黒崎蓮／脚本協力：白石葵」。</p></div>
+    <div class="person"><span class="role">3年・主演</span><span class="nm">早川 美咲</span><span class="kana">はやかわ みさき</span><p>ルミエールの看板女優で、黒崎の恋人（サークル公認）。『夜明けのプール』の主演。</p></div>
+    <div class="person"><span class="role">3年・会計／録音担当</span><span class="nm">佐伯 健太</span><span class="kana">さえき けんた</span><p>お調子者のムードメーカー。サークルのお金の管理と、撮影時の録音を担当。</p></div>
+    <div class="person"><span class="role">2年・編集担当</span><span class="nm">宮本 凛</span><span class="kana">みやもと りん</span><p>新作『エンドロール』の編集を手伝っていた。遺体の第一発見者。</p></div>
+    <div class="person"><span class="role">OB（27）</span><span class="nm">大河内 修</span><span class="kana">おおこうち おさむ</span><p>6年前の代表。スタジオ・ノクトのプロデューサー。今回の別荘を手配し、費用の一部も出してくれた。</p></div>
+    <div class="person"><span class="role">1年・メイキング担当（19）</span><span class="nm">小野寺 陽向</span><span class="kana">おのでら ひなた</span><p>合宿のメイキング映像を任されている新入生。リビングにタイムラプスカメラを置いていた。</p></div>
+    <div class="person"><span class="role">ゲスト・他大学3年・俳優</span><span class="nm">桐谷 瑠奈</span><span class="kana">きりたに るな</span><p>他大学の映画サークル所属。映画祭で黒崎と知り合い、新作『エンドロール』のヒロインとしてゲスト出演。上映会のために合宿にも参加している。</p></div>
+  </div>
+</section>
+
+<!-- ============ キャラシート ============ -->
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。プレイヤーとして参加する人は開かないでください。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden>
+  <h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3>
+  <div class="labels">
+    <div class="lb"><span class="no">ROLL 01</span><span class="nm">森 拓海<small>もり たくみ</small></span><span class="rl">4年・撮影担当</span><span class="in">中身：キャラクターシート（ROLL 01）＋ 持ち物カード（ITEM 01）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 02</span><span class="nm">白石 葵<small>しらいし あおい</small></span><span class="rl">4年・脚本担当</span><span class="in">中身：キャラクターシート（ROLL 02）＋ 持ち物カード（ITEM 02）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 03</span><span class="nm">早川 美咲<small>はやかわ みさき</small></span><span class="rl">3年・主演</span><span class="in">中身：キャラクターシート（ROLL 03）＋ 持ち物カード（ITEM 03）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 04</span><span class="nm">佐伯 健太<small>さえき けんた</small></span><span class="rl">3年・会計／録音担当</span><span class="in">中身：キャラクターシート（ROLL 04）＋ 持ち物カード（ITEM 04）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 05</span><span class="nm">宮本 凛<small>みやもと りん</small></span><span class="rl">2年・編集担当</span><span class="in">中身：キャラクターシート（ROLL 05）＋ 持ち物カード（ITEM 05）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 06</span><span class="nm">大河内 修<small>おおこうち おさむ</small></span><span class="rl">OB・27歳</span><span class="in">中身：キャラクターシート（ROLL 06）＋ 持ち物カード（ITEM 06）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 07</span><span class="nm">小野寺 陽向<small>おのでら ひなた</small></span><span class="rl">1年・メイキング担当・19歳</span><span class="in">中身：キャラクターシート（ROLL 07）＋ 持ち物カード（ITEM 07）<br>GMの合図があるまで開けないでください。</span></div>
+    <div class="lb"><span class="no">ROLL 08</span><span class="nm">桐谷 瑠奈<small>きりたに るな</small></span><span class="rl">ゲスト・他大学3年・俳優</span><span class="in">中身：キャラクターシート（ROLL 08）＋ 持ち物カード（ITEM 08）<br>GMの合図があるまで開けないでください。</span></div>
+  </div>
+
+  <!-- 森 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">森 拓海<small>もり たくみ</small></span><span class="rl">4年・撮影担当</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。黒崎蓮を殺したのはあなたです。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年の森拓海、撮影担当です。黒崎とは、高校の映画部からずっと一緒に映画を撮ってきました。趣味は星空写真。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>黒崎とは高校の映画部からの付き合い。黒崎が撮りたい画を、いつもあなたが形にしてきた。口数は少ないが、カメラの腕はサークルで一番。</p>
+        <p>妹の千尋は昨年ルミエールに入り、『夜明けのプール』で泣くシーンを「演じた」。上映後、千尋の泣き顔はネットで「ガチ泣き女」として出回り、千尋は部屋にこもった。今年の4月12日未明、千尋は大学の屋上から転落して亡くなった（警察は事故と判断）。何があったのか、千尋は最後まで話してくれなかった。</p>
+      </div>
+      <div class="secret">
+        <h4>今夜、本当にあったこと</h4>
+        <dl class="tl">
+          <dt>21:50</dt><dd>知らないアカウントからDM。「黒崎さんのPCの『素材_CHIHIRO』フォルダを見てください。千尋さんが亡くなった理由が、そこにあります」</dd>
+          <dt>22:00</dt><dd>SDカードを届けるふりをして編集部屋へ。黒崎がトイレに立った隙に（22:03）フォルダを開いた。黒崎と別れた直後の千尋が、ひとりで泣いている隠し撮りの映像。『夜明けのプール』のあの場面は演技ではなかった。メモには「本人には内緒。リアルな涙」。<br>同じフォルダに、千尋から黒崎へのLINEのスクリーンショットがあった。亡くなる前夜。「お願い、あの映像を消して。もう外を歩けない。消してくれないなら、私もう無理」。黒崎の返信は「作品は作品。消さない」。<br>さらに、明日上映する『エンドロール』にも千尋の泣き顔が使われていた。最後のクレジットには「C.に捧ぐ」。<br>部屋を出る前に、バルコニー側のガラス戸の鍵をこっそり開けておいた。</dd>
+          <dt>22:10</dt><dd>1階へ。</dd>
+          <dt>22:15</dt><dd>リビングで飲んでいた大河内に「湖で星を撮ってくる」と言い、黒い上着を着て玄関から出た。玄関ポーチで電話していた桐谷に「星撮り？」と聞かれ、「うん」とだけ答えて表の道を湖へ。</dd>
+          <dt>22:20</dt><dd>湖畔に三脚を立て、カメラをインターバル撮影（30秒ごとに80枚）に設定。カメラをその場に残し、庭の小道で別荘へ引き返した。</dd>
+          <dt>22:35</dt><dd>庭から、使用禁止の外階段をそっと上ってバルコニーへ。暗くて手すりをつかんでしまった（右袖にペンキがついたことに、あなたは気づいていない）。</dd>
+          <dt>22:38</dt><dd>ガラス戸の外で待っていると、白石葵が来て黒崎と口論を始めた（脚本のことでもめているらしい）。白石が出ていくまで待った。</dd>
+          <dt>22:48</dt><dd>ガラス戸から部屋に入った。「あの映像を消せ。明日も流すな」と詰め寄ると、黒崎は笑った。「死んだ人間の涙は、もう二度と撮れない。だから価値があるんだよ。明日の上映で、千尋はまた主役になれる」</dd>
+          <dt>22:50</dt><dd>気がつくと、机の上のトロフィーで黒崎の後頭部を殴っていた。</dd>
+          <dt>22:51</dt><dd>上着の袖でトロフィーの指紋を拭き、ガラス戸から出て外階段を下り、庭の小道を走って湖へ。</dd>
+          <dt>22:59</dt><dd>湖畔でカメラを回収（ちょうど80枚目）。早川美咲から22:54にLINE「湖まで来たけど、いないじゃん」。23:01に既読をつけたが、返信はしていない。</dd>
+          <dt>23:05</dt><dd>玄関から戻る（リビングに陽向がいた）。男子部屋で上着を脱ぎ、スポーツバッグの奥に押し込んだ。佐伯がゲームをしていたが、見られたかどうかはわからない。</dd>
+          <dt>23:10</dt><dd>凛の悲鳴。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>あなたのアリバイ（みんなにはこう話す）</h4>
+        <p>「22:15から23:05まで、ずっと湖で星を撮っていた」。証拠として、持ち物カードの写真80枚を見せられる。</p>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>白石葵：本当の脚本家。22:40ごろ黒崎と激しく口論していた。話せば、あなたがバルコニーにいたことがバレる。</li>
+          <li>大河内修：22:15から2階の和室にいるはず。犯行時刻に2階にいたのは大河内だけ。疑いを向けやすい。</li>
+          <li>早川美咲：最近あなたに妙に優しい。今夜、あなたを探して湖まで来ていたらしい。</li>
+          <li>宮本凛：千尋の高校の同級生。あのDMは凛が送ったのかもしれない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+5</span><span>投票で最多票にならない（逃げ切る）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>白石葵か大河内修が、単独で最多票になる（罪をなすりつけきる）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>使用禁止の外階段を使ったことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>宮本凛が、最多票にならない。</span></div>
+        </div>
+      </div>
+      <p class="note">ヒント：「森のスポーツバッグ」のカードは、自分で引けば隠しておける。</p>
+    </div>
+  </article>
+
+  <!-- 白石 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">白石 葵<small>しらいし あおい</small></span><span class="rl">4年・脚本担当</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「4年の白石葵、脚本担当です。『夜明けのプール』には『脚本協力』でクレジットされています。黒崎くんとは、1年のときから一緒に作品を作ってきました。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>2年前に書いた脚本『プールの底の朝』を黒崎に見せた。黒崎は「これ、撮らせてくれ」と言い、少しだけ手を入れて『夜明けのプール』として撮った。クレジットは「脚本・監督：黒崎蓮／脚本協力：白石葵」。「次の映画祭では直す」と約束したのに、グランプリを獲ってからは話をはぐらかすばかりだった。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>1年生の新歓で「お前の書く台詞は生きてる」と最初に言ってくれたのが黒崎だった。尊敬していたし、少しだけ恋に近い気持ちを抱いた時期もある。だからこそ、あの裏切りが許せない。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>『夜明けのプール』の本当の脚本家はあなた。そして今夜、そのことで黒崎と口論した。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>19:30</dt><dd>BBQの乾杯で黒崎が言った。「明日の『エンドロール』は俺の最高傑作だ。ある人に捧げた作品でもある」。また誰かの物語を自分のものにしたのか、と思った。</dd>
+          <dt>20:30</dt><dd>庭の隅で、黒崎が大河内を問い詰めているのを立ち聞きした（下の「知っていること」参照）。</dd>
+          <dt>21:00</dt><dd>キッチンで凛と片付け。</dd>
+          <dt>22:38</dt><dd>凛に「女子部屋に忘れ物を取りに行く」と言って2階へ。</dd>
+          <dt>22:40</dt><dd>編集部屋で黒崎に「明日の上映会で、本当の脚本家は私だと言って」と迫った。用意した「クレジット訂正の同意書」に署名を求めたが、黒崎は「脚本なんて素材だよ。映画は監督のものだ」と笑って紙を破り、ゴミ箱に捨てた。あなたは「なら明日、みんなの前で全部話す」と言い捨てた。<br>口論の途中、バルコニー側のカーテンが一瞬ふくらんだ気がした。窓は閉まっていると思っていたので少し変だと思ったが、頭に血がのぼっていて気にしなかった。</dd>
+          <dt>22:46</dt><dd>1階へ。キッチンに戻り、凛と片付けの続き。</dd>
+          <dt>23:10</dt><dd>悲鳴を聞いて2階へ。床に倒れた黒崎と、転がったトロフィーを見て足がすくんだ。あのトロフィーは、私の脚本で獲ったものなのに。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>20:30ごろ、BBQの最中に黒崎が大河内を庭の隅に呼び、「明日の上映会でみんなに言いますよ。困るのは大河内さんでしょう」と話しているのを聞いた。</li>
+          <li>佐伯は最近、お金の話になると目をそらす。</li>
+          <li>美咲は最近、黒崎とうまくいっていないようだった。</li>
+          <li>凛は今夜ずっとスマホを気にしていた。21:50ごろ何かを打ち込んだあと、真っ青な顔で手を止めていた。</li>
+          <li>『エンドロール』の脚本は「俺が一人で書いた」と黒崎は言い張り、あなたには一度も読ませてくれなかった。</li>
+          <li>拓海は黒崎の親友のはずなのに、千尋が亡くなってから二人がまともに話しているのを見ていない。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>22:38〜22:46に2階にいたことはタイムラプスに映っている。何をしに行ったのか、どこまで話すか決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>『夜明けのプール』の本当の脚本家は自分だと、議論中に全員の前で明かし、しかも挙手でも信じられる。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>大河内が会社を解雇されていたことを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>口論の途中でバルコニー側のカーテンがふくらんだことを、議論中に全員の前で話す。</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 早川 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">早川 美咲<small>はやかわ みさき</small></span><span class="rl">3年・主演</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「3年の早川美咲です。『夜明けのプール』の主演でした。蓮……黒崎さんの、彼女です。……彼女、でした。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>黒崎の映画に出て「ルミエールの顔」になった。でも最近の黒崎は、あなたを作品の部品のようにしか見ていない。気がつけば、撮影の合間に黙って重い機材を持ってくれる森拓海のことばかり目で追っている。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>付き合って1年半。最初は夢のようだったが、去年の映画祭のころから、黒崎はあなたを名前ではなく「主演」と呼ぶようになった。千尋の葬儀の日、一度も泣かなかった拓海の横顔が、今も忘れられない。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>今夜、黒崎に別れ話をした。そして、森拓海に惹かれている。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>19:30</dt><dd>BBQの乾杯で黒崎が言った。「明日の『エンドロール』は俺の最高傑作だ。ある人に捧げた作品でもある」。自分のことではないと、すぐにわかった。</dd>
+          <dt>20:50</dt><dd>片付けの途中、拓海が一人で湖のほうを見ていた。「星、撮るの？」と聞くと「……今夜はいい空だから」とだけ。</dd>
+          <dt>21:40</dt><dd>編集部屋へ行き、別れを切り出した。黒崎は「お前は俺の映画の中でしか輝けない」と言った。</dd>
+          <dt>21:55</dt><dd>1階へ下り、そのまま浴室へ。22:45まで入浴。</dd>
+          <dt>22:47</dt><dd>黒崎からLINE「さっきはごめん。明日ちゃんと話そう」。22:48に「もう話すことない」と返した。</dd>
+          <dt>22:50</dt><dd>拓海が湖で星を撮っていると聞いていたので、話がしたくて玄関から出た（リビングに陽向がいた）。サンダルのまま、表の道で湖へ。</dd>
+          <dt>22:54</dt><dd>湖畔に着くと、三脚に載ったカメラが「カシャ」と鳴っているだけで、拓海はいなかった。写真を撮って「湖まで来たけど、いないじゃん」とLINE。名前を呼んでみたが返事はない。</dd>
+          <dt>22:56</dt><dd>暗くて怖くなり、表の道で引き返した。</dd>
+          <dt>23:02</dt><dd>別荘に戻る。足は泥だらけ。</dd>
+          <dt>23:10</dt><dd>悲鳴を聞いて、洗面所で足の泥を落としていた手が止まった。2階へ駆け上がると、少し遅れて拓海も上がってきた。顔が真っ白だった。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>黒崎は先週、「大河内さん、ちょっとヤバいかもな」とつぶやいていた。</li>
+          <li>凛は拓海の妹・千尋と高校の同級生で、とても仲が良かった。</li>
+          <li>葵は『夜明けのプール』のクレジットのことで、黒崎ともめていたらしい。</li>
+          <li>最近、黒崎のスマホに「R」という名前からよくLINEが来ていた。</li>
+          <li>黒崎は、編集部屋のバルコニー側のガラス戸にいつも鍵をかけていた。「機材を盗まれたら困る」と神経質なくらいだった。</li>
+          <li>大河内さんはBBQのあと「酔った」と言っていたが、グラスの中身はほとんど減っていなかった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>21:40〜21:55に2階にいたことはタイムラプスに映っている。別れ話のことをどこまで話すか決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>湖に行ったとき、三脚のそばに拓海がいなかったことを、自分の口からは言わない（拓海を守る）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>黒崎に「R」という別の相手がいたことを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>森拓海に惹かれていることが、ばれない（挙手で判定）。</span></div>
+        </div>
+      </div>
+      <p class="note">湖で見たことを話すかどうかは、あなた次第です。</p>
+    </div>
+  </article>
+
+  <!-- 佐伯 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">佐伯 健太<small>さえき けんた</small></span><span class="rl">3年・会計／録音担当</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「3年の佐伯健太っす！　会計と録音担当。ムードメーカーって言われてますけど、今日はさすがに……。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>お調子者のムードメーカー。サークルの会計を任されている。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>黒崎は録音担当としてのあなたの耳を信用してくれていて、「佐伯の音がないと俺の映画は成立しない」と言ってくれたこともある。でも先週、帳簿のことがばれてからは、目も合わせてくれない。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>今年、サークル費から20万円を使い込んだ（スマホゲームの課金）。先週それが黒崎にばれて、「合宿中に全額返せ。返さないなら上映会で発表する」と言われていた。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>14:32</dt><dd>買い出しのついでに、町のコンビニで10万円をおろした。</dd>
+          <dt>20:45</dt><dd>BBQで、ジュースを黒崎のシャツにこぼしてしまい、「使えねえな」と全員の前で怒鳴られた。</dd>
+          <dt>21:00</dt><dd>男子部屋でゲーム。</dd>
+          <dt>21:50</dt><dd>洗面所に行こうと廊下に出たら、キッチンで葵が凛に「今夜、蓮にはっきり言う。もう黙ってない」と小声で話しているのが聞こえた。</dd>
+          <dt>22:25</dt><dd>2階の編集部屋へ。10万円を渡し「残りは来月……」と頭を下げた。黒崎は封筒に「佐伯 残り10」と書いて机の引き出しにしまい、「まあいいよ」と珍しく機嫌がよかった。黒崎はスマホを見ながら「明日の上映会、面白くなるぞ」と一人で笑っていた。</dd>
+          <dt>22:30</dt><dd>1階に戻り、男子部屋でゲームの続き。ずっと一人だった。ヘッドホンをしていたので、外の音は聞こえていない。</dd>
+          <dt>23:05</dt><dd>拓海が男子部屋に入ってきた。息が上がっていて、黒い上着を脱ぐと、スポーツバッグの奥にぐいぐい押し込んでいた。「湖、寒かった？」と聞くと「……ああ」とだけ返ってきた。</dd>
+          <dt>23:10</dt><dd>悲鳴を聞いて、拓海と一緒に2階へ駆け上がった。拓海は倒れている黒崎を見ても、一言も発しなかった。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>黒崎と美咲は、最近うまくいっていなかった。</li>
+          <li>大河内さんは「ノクトのプロデューサー」と言うが、最近は仕事の話をまったくしなくなった。</li>
+          <li>陽向はまだ19歳。今日の昼、クーラーボックスの缶ビールをじっと見ていた。</li>
+          <li>拓海は千尋が亡くなってから、黒崎の話になると黙ってその場を離れるようになった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>22:25〜22:30に2階にいたことはタイムラプスに映っている。何をしに行ったのか聞かれたら、どう答えるか決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>サークル費を使い込んでいたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>陽向が缶ビールを飲んだことを、自分で議論中に全員の前で指摘し、しかも挙手でもばれる。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>23:05に拓海が黒い上着をスポーツバッグの奥に押し込んでいたことを、議論中に全員の前で話す。</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 宮本 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">宮本 凛<small>みやもと りん</small></span><span class="rl">2年・編集担当</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「2年の宮本凛です。新作の編集を手伝っていました。……黒崎さんを見つけたのは、私です。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>高校時代の親友・森千尋に誘われて、ルミエールに入った。千尋は部屋にこもるようになってから、あなたにだけ理由を話してくれた。「映画祭のスクリーンで、自分の本当の涙を見たの。蓮さんにふられて、一人で泣いてたときの。消してって頼んでも、消してくれない」。その2週間後、千尋は大学の屋上から転落して亡くなった。</p>
+        <p>先週、『エンドロール』の編集のために黒崎のPCを借りたとき、「素材_CHIHIRO」というフォルダを見つけた。メモには「本人には内緒。リアルな涙」。中には、千尋が亡くなる前の晩に黒崎へ送ったLINEのスクリーンショットもあった。「お願い、あの映像を消して」。黒崎の返事は「作品は作品。消さない」。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>編集の腕を買われて、2年なのに新作を任された。黒崎は仕事には厳しいけれど公平で、あなたは本気で尊敬していた。千尋のことを知るまでは。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>千尋に何があったかを知っていること。そして今夜21:50、捨てアカウントで拓海にDMを送ったこと。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>19:30</dt><dd>BBQの乾杯で黒崎が言った。「明日の『エンドロール』は俺の最高傑作だ。ある人に捧げた作品でもある」。千尋のことだと、あなたにはわかった。グラスを持つ手が震えた。</dd>
+          <dt>21:00</dt><dd>キッチンで片付けと明日の上映会の準備。葵が一緒だったが、22:38〜22:46は「忘れ物」と言って席を外していた。</dd>
+          <dt>21:50</dt><dd>キッチンから拓海にDMを送った。21:52に既読がついた。</dd>
+          <dt>22:46</dt><dd>葵が戻ってきた。目が赤く、手には何も持っていなかった（「忘れ物」を取りに行ったはずなのに）。</dd>
+          <dt>23:08</dt><dd>黒崎にコーヒーを持って2階へ（リビングの陽向に「差し入れ？」と聞かれた）。</dd>
+          <dt>23:10</dt><dd>編集部屋をノックしたが返事がないので開けた。黒崎が倒れ、床にトロフィーが転がっていた。バルコニー側のガラス戸のカーテンが風で揺れ、部屋が冷えていた。黒崎の椅子は倒れ、空のマグカップが床に転がっていた。悲鳴をあげた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>葵はクレジットのことで、ずっと悩んでいた。</li>
+          <li>佐伯は先週、黒崎に何か言われて真っ青になっていた。</li>
+          <li>『エンドロール』の編集データには、千尋の泣き顔が使われている。明日、それがみんなの前で上映されるはずだった。</li>
+          <li>拓海はDMに既読をつけたが、返信はなかった。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>第一発見者は疑われやすい。キッチンにいたことは葵と陽向が証明してくれるが、22:38〜22:46だけは一人だった。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>黒崎が千尋にしたこと（隠し撮りし、消してと頼まれても消さなかった）を、議論中に全員の前で明かし、しかも挙手でも信じられる。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>匿名DMを送ったのが自分だということが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>森拓海が、最多票にならない（巻き込んだのは私だから）。</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 大河内 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">大河内 修<small>おおこうち おさむ</small></span><span class="rl">OB・27歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「OBの大河内だ。6年前の代表で、いまはスタジオ・ノクトのプロデューサー。この別荘も俺が手配した。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>6年前のルミエール代表。卒業後スタジオ・ノクトに入ったが、3か月前に解雇された（失敗した企画の責任を押しつけられた）。誰にも言えず、今も「ノクトのプロデューサー」を名乗っている。黒崎の「内定」も、あなたが「上に話を通しておく」と言っただけで、会社は何も知らない。</p>
+        <p>今夜20:30ごろ、黒崎に庭の隅へ呼ばれた。「今日ノクトに電話したら、大河内さんはもう退職されてるって言われました。内定も嘘ですよね。明日の上映会でみんなに言いますよ」</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>黒崎の才能を最初に見抜いたのはあなただ。「ノクトに来い」と言ったのも本心だった。会社を追われたあとも、黒崎の前でだけは「頼れる先輩」でいたかった。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>会社を解雇されていること。黒崎の内定が嘘だったこと。そして、今夜は寝ていなかったこと。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>21:00</dt><dd>リビングで一人で飲む……ふりをしていた。あとで黒崎と話をつけるつもりで、グラスの中身はこっそり水にしていた。</dd>
+          <dt>22:15</dt><dd>拓海が「湖で星を撮ってくる」と玄関から出ていくのを見送ったあと、「酔った、寝る」と2階の和室へ。</dd>
+          <dt>22:20</dt><dd>寝つけず、和室の窓辺でタバコを吸った。</dd>
+          <dt>22:30</dt><dd>和室で、黒崎に送るLINEを何度も書いては消した。「頼む、明日だけは言わないでくれ」。結局、送れなかった。</dd>
+          <dt>22:50</dt><dd>隣の編集部屋から「ドン」と鈍い音。黒崎が何か落としたのだろうと思った。</dd>
+          <dt>22:52</dt><dd>もう一本吸おうと窓を開けると、黒っぽい上着の人影が外階段を駆け下り、庭の小道（湖のほう）へ消えた。顔は見えなかった。使用禁止なのに、と思ったが、関わりたくなくて布団に戻った。</dd>
+          <dt>23:10</dt><dd>悲鳴が聞こえたが、すぐには出ていかなかった。寝ていたふりをするため、少し待ってから寝ぼけた顔で和室を出た。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>拓海は22:15に湖へ出ていった。黒い上着を着ていた。（ただ、この合宿で黒っぽい上着を持ってきている人は他にもいる）</li>
+          <li>佐伯が会計のノートを見ながら青い顔をしていた。</li>
+          <li>22:20に窓辺でタバコを吸ったときは、外階段にもバルコニーにも誰もいなかった。</li>
+          <li>千尋の葬儀のあと、拓海はあなたに「蓮は葬式に来ませんでした」とだけ言った。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>犯行時刻に2階にいたのは、あなただけに見える。黙っていれば最有力の容疑者だ。何をどこまで話すか決めておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>会社を解雇されていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>白石葵が、最多票にならない（巻き込まれただけの後輩）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>22:52に外階段を駆け下りる人影を見たことを、議論中に全員の前で話す（起きていたとばれる危険がある）。</span></div>
+        </div>
+      </div>
+      <p class="note">22:50の音や外階段の人影の話をすると、あなたが起きていたことがバレます。犯行時刻に2階にいたのは、あなただけに見えるはずです。</p>
+    </div>
+  </article>
+
+  <!-- 小野寺 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">小野寺 陽向<small>おのでら ひなた</small></span><span class="rl">1年・メイキング担当・19歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「1年の小野寺陽向です！　メイキング担当で、リビングにタイムラプスカメラを置いていました。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>合宿のメイキング映像を任されて張り切っている新入生。リビングに、階段とソファが映る向きでタイムラプスカメラを置いた（21:00開始）。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>黒崎に憧れてルミエールに入った。「メイキングも作品だ。全部撮れ」と言われたのが嬉しくて、今日は朝からずっとカメラを回している。入部してすぐ、黒崎に「お前のメイキング、本編より面白いな」と言われたのが、今も一番の自慢だ。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>22:35ごろ、クーラーボックスの缶ビールをこっそり1本飲んだ（ルール通り、缶に自分の名前を書いてしまった）。それがカメラに映っているとまずいと思い、22:50に録画を手で止めた。みんなには「電池が切れた」と言うつもり。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>19:30</dt><dd>BBQの乾杯を撮影。黒崎は「明日の『エンドロール』は、ある人に捧げた作品だ」と言った。</dd>
+          <dt>21:00</dt><dd>外に出て、夜の別荘の外観や庭を撮影（湖へは行っていない）。</dd>
+          <dt>22:15</dt><dd>拓海が三脚を持って玄関から出て、表の道を湖へ歩いていくのが見えた。</dd>
+          <dt>22:20</dt><dd>庭から別荘の外観を撮っていると、2階の和室の窓が開き、大河内さんがタバコを吸っていた。「酔ったから寝る」と言っていたはずなのに、しばらく編集部屋のほうをじっと見ていた。</dd>
+          <dt>22:30</dt><dd>リビングに戻り、23:10までソファにいた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>リビングで見たこと</h4>
+        <dl class="tl">
+          <dt>22:30</dt><dd>佐伯が階段を下りて、男子部屋へ。</dd>
+          <dt>22:38</dt><dd>葵が2階へ。22:46に下りてきて、キッチンへ。</dd>
+          <dt>22:40</dt><dd>桐谷さんが玄関から入ってきて、目を赤くしたまま浴室のほうへ。</dd>
+          <dt>22:50</dt><dd>2階で「ドン」と小さな音がした気がした（大河内さんが酔って転んだのかと思った）。<br>同じころ、美咲がサンダルで玄関から出ていった。</dd>
+          <dt>23:02</dt><dd>美咲が戻ってきた。足が泥だらけで、顔色が悪かった。</dd>
+          <dt>23:05</dt><dd>拓海が三脚を持って戻ってきた。黒い上着を着ていて、息が上がり、髪が汗で湿っていた。男子部屋へ。</dd>
+          <dt>23:08</dt><dd>凛がコーヒーを持って2階へ。「差し入れ？」と聞いた。</dd>
+          <dt>23:10</dt><dd>悲鳴を聞いて、真っ先に階段を駆け上がった。編集部屋の入口で凛が座りこみ、コーヒーが床にこぼれていた。とっさにカメラを向けかけて、やめた。</dd>
+        </dl>
+        <p style="margin-top:8px"><b>22:50から23:08まで、階段を上り下りした人は一人もいない。</b>これは断言できる。</p>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>大河内さんはリビングで飲んでいたが、グラスの中身は水のように見えた。</li>
+          <li>今日の昼、佐伯さんが町のコンビニのATMの前で、長いこと立っていた。</li>
+          <li>メイキングのインタビューで、拓海さんだけは撮影を断った。「今年は、撮られる気分じゃない」。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>タイムラプスの映像は、みんなのアリバイに関わる。録画が止まった理由を聞かれたら、どう答える？</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>19歳なのに缶ビールを飲んだことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>「22:50から23:08まで、階段を上り下りした人はいない」と、議論中に全員の前で証言する。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>録画を自分で止めたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>昼に佐伯が町のATMの前に長いこと立っていたことを、議論中に全員の前で話す。</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 桐谷 -->
+  <article class="sheet">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">桐谷 瑠奈<small>きりたに るな</small></span><span class="rl">ゲスト・他大学3年・俳優</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro">
+        <h4>自己紹介（オープニングでみんなに話す内容）</h4>
+        <p>「他大学3年の桐谷瑠奈です。新作『エンドロール』に、ヒロインとしてゲスト出演しました。」</p>
+      </div>
+      <div>
+        <h4>あなたについて</h4>
+        <p>他大学の映画サークルに所属。去年の映画祭で黒崎と知り合い、新作『エンドロール』のヒロインに抜擢された。ルミエールの合宿にはゲストとして参加している。</p>
+      </div>
+      <div>
+        <h4>黒崎との関係</h4>
+        <p>映画祭の打ち上げで「君を撮りたい」と言われたのが始まり。黒崎の言葉は、いつも映画の台詞みたいだった。</p>
+      </div>
+      <div class="secret">
+        <h4>秘密</h4>
+        <p>3か月前から黒崎と付き合っている。黒崎には恋人の美咲がいることを知っていたが、「この合宿中に美咲とは別れる」と約束されていた。黒崎のスマホには「R」の名前で登録されている。</p>
+      </div>
+      <div>
+        <h4>今夜の行動</h4>
+        <dl class="tl">
+          <dt>19:30</dt><dd>BBQの乾杯で黒崎が言った。「明日の『エンドロール』は俺の最高傑作だ。ある人に捧げた作品でもある」。自分のことかと胸が高鳴ったが、黒崎は一度もこちらを見なかった。</dd>
+          <dt>21:20</dt><dd>黒崎からLINE「やっぱり美咲とは別れられない。この合宿で終わりにしよう」。「ふざけないで。明日の上映会で全部言うから」と返した。</dd>
+          <dt>21:30</dt><dd>外の玄関ポーチで、地元の友だちに電話。泣きながら黒崎の話をしていた（22:38まで）。</dd>
+          <dt>22:15</dt><dd>拓海が三脚とカメラバッグを持って玄関から出てきた。「星撮り？」と聞くと「うん」とだけ答え、表の道を湖のほうへ歩いていった。</dd>
+          <dt>22:40</dt><dd>中に入る（リビングに陽向がいた）。脱衣所で、美咲がお風呂から出るのを待った。22:45、出てきた美咲とすれ違った。美咲も目が赤かった。</dd>
+          <dt>22:45</dt><dd>浴室へ。23:05まで入浴。湯気がこもるので、庭に面した窓を少し開けていた。</dd>
+          <dt>22:52</dt><dd>窓の外の砂利道を、誰かが「ザッザッ」と走っていく音がした。足音は湖のほうへ遠ざかっていった。</dd>
+          <dt>23:05</dt><dd>お風呂から出る。</dd>
+          <dt>23:10</dt><dd>脱衣所で髪を乾かしていると、2階から悲鳴が聞こえた。駆けつけると、黒崎が倒れていた。</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>ほかの人について知っていること</h4>
+        <ul>
+          <li>黒崎は先週、「大河内さんのコネも、もういらないかもな」と笑っていた。</li>
+          <li>黒崎は美咲のことを「俺の映画の顔」と呼んでいたが、本人の前では冷たかった。</li>
+          <li>拓海は22:15に、表の道を通って湖へ向かった。</li>
+          <li>21:30〜22:38にポーチにいた間、玄関を出入りしたのは、22:15に出ていった拓海と、22:30に外から戻ってきた陽向だけ。</li>
+        </ul>
+      </div>
+      <div>
+        <h4>議論のヒント</h4>
+        <ul><li>浴室にいた22:45〜23:05は、誰もあなたを見ていない。黒崎との関係を隠したまま、どう潔白を示すか考えておこう。</li></ul>
+      </div>
+      <div>
+        <h4>目的</h4>
+        <div class="goals">
+          <div class="goal"><span class="pt">+3</span><span>黒崎と付き合っていたことが、ばれない（挙手で判定）。</span></div>
+          <div class="goal"><span class="pt">+2</span><span>投票で最多票にならない。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>22:52に浴室の窓の外を誰かが走っていった足音のことを、議論中に全員の前で話す。</span></div>
+          <div class="goal"><span class="pt">+1</span><span>21:30〜22:38に玄関を出入りした人を、議論中に全員の前で証言する。</span></div>
+        </div>
+      </div>
+      <p class="note">浴室の窓は庭に面していて、人が通れる大きさです。犯行時刻にあなたを見た人はいません。疑われるかもしれません。</p>
+    </div>
+  </article>
+  </div>
+</section>
+
+<!-- ============ 持ち物カード ============ -->
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>各プレイヤーの封筒に、キャラシートと一緒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden>
+  <p class="lead">持ち主は、見せる・隠すを自由に決められます。</p>
+  <div class="cards">
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd">
+      <span class="owner">森 拓海</span><span class="ttl">一眼レフカメラ</span>
+      <p>今夜、湖畔で撮った星空の写真が80枚。どれも同じ構図で、湖と星空が写っている。</p>
+      <div class="log"><span>01</span><span>22:20:00</span><span>02</span><span>22:20:30</span><span>03</span><span>22:21:00</span><span>04</span><span>22:21:30</span><span>…</span><span>…</span><span>79</span><span>22:59:00</span><span>80</span><span>22:59:30</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd">
+      <span class="owner">白石 葵</span><span class="ttl">スマホのメモ</span>
+      <p>今日の昼に書いたメモ。</p>
+      <p>「22:40　編集部屋で蓮と話す。<br>明日の上映会でクレジットを直さないなら、全部話す。<br>同意書を持っていく」</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd">
+      <span class="owner">早川 美咲</span><span class="ttl">スマホのLINE画面</span>
+      <div class="log"><span>22:47</span><span>黒崎蓮「さっきはごめん。明日ちゃんと話そう」</span><span>22:48</span><span>自分「もう話すことない」</span></div>
+      <div class="log"><span>22:54</span><span>自分→森拓海「湖まで来たけど、いないじゃん」</span><span></span><span>＋写真1枚：三脚に載ったカメラだけが写っている。周りに人はいない。</span><span>23:01</span><span>既読（返信なし）</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd">
+      <span class="owner">佐伯 健太</span><span class="ttl">ATMの利用明細</span>
+      <div class="log"><span>日時</span><span>本日 14:32</span><span>場所</span><span>富士河口湖町のコンビニATM</span><span>取引</span><span>お引き出し ¥100,000</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd">
+      <span class="owner">宮本 凛</span><span class="ttl">スマホ（捨てアカウント）</span>
+      <p>21:50　森拓海さんへのDM</p>
+      <p>「黒崎さんのPCの『素材_CHIHIRO』フォルダを見てください。千尋さんが亡くなった理由が、そこにあります。」</p>
+      <p class="mono" style="font-size:12.5px">21:52 既読</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd">
+      <span class="owner">大河内 修</span><span class="ttl">名刺入れとタバコ</span>
+      <p>名刺「スタジオ・ノクト プロデューサー 大河内修」が20枚ほど。</p>
+      <p>メンソールのタバコ。残り7本。</p>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd">
+      <span class="owner">小野寺 陽向</span><span class="ttl">カメラ操作アプリ</span>
+      <p>タイムラプスカメラをスマホから操作できるアプリの履歴。</p>
+      <div class="log"><span>21:00:00</span><span>録画開始</span><span>22:50:12</span><span>録画停止（手動操作）</span></div>
+    </div></div>
+    <div class="card item"><div class="hd"><span class="loc">持ち物</span><span>ITEM 08</span></div><div class="bd">
+      <span class="owner">桐谷 瑠奈</span><span class="ttl">スマホのLINE画面と通話履歴</span>
+      <div class="log"><span>21:20</span><span>黒崎蓮「やっぱり美咲とは別れられない。この合宿で終わりにしよう」</span><span>21:21</span><span>自分「ふざけないで。明日の上映会で全部言うから」</span></div>
+      <div class="log"><span>通話</span><span>21:30〜22:38（68分）地元の友だち</span></div>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 証拠カード ============ -->
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>切り分けて、場所ごとに番号の小さい順で上から重ねます。プレイヤーは場所を宣言し、GMはその束の一番上のカードを渡します。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--slate)"></i>調査1から使うカード（16枚）</span>
+    <span><i class="sw" style="background:var(--accent)"></i>調査2で各場所の束の下に追加（9枚）</span>
+    <span><span class="star">★</span>引いたら即公開</span>
+  </div>
+
+  <h3>調査1</h3>
+  <div class="cards">
+    <div class="card"><div class="hd"><span class="loc">編集部屋 ①</span><span>CLUE 01</span></div><div class="bd">
+      <span class="ttl">ガラス戸 <span class="star">★</span></span>
+      <p>バルコニー側のガラス戸は、鍵が開いていた。ほかの窓はすべて内側から施錠されている。</p>
+      <p>発見時、カーテンが風で揺れていた。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">編集部屋 ②</span><span>CLUE 02</span></div><div class="bd">
+      <span class="ttl">ノートPC <span class="star">★</span></span>
+      <p>新作『エンドロール』の編集画面が開いたまま。</p>
+      <p>編集ソフトの自動保存ログによると、<b>最後の操作は22:41</b>。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">編集部屋 ③</span><span>CLUE 03</span></div><div class="bd">
+      <span class="ttl">黒崎のスマホ</span>
+      <p>顔認証でロックされている。ロック画面に通知が1件。</p>
+      <p class="mono" style="font-size:13px">早川美咲：もう話すことない（22:48）</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">編集部屋 ④</span><span>CLUE 04</span></div><div class="bd">
+      <span class="ttl">机の引き出し</span>
+      <p>封筒に入った現金10万円。</p>
+      <p>封筒の表に、黒崎の字で「佐伯 残り10」。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">バルコニー ①</span><span>CLUE 05</span></div><div class="bd">
+      <span class="ttl">外階段の手すり <span class="star">★</span></span>
+      <p>「ペンキ塗りたて・使用禁止」の貼り紙。管理人のメモ「本日16時塗装。一晩で乾きます」。ペンキの色は深緑。</p>
+      <p>手すりの中ほどに、何かがこすれて塗装がはげた跡がある。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">バルコニー ②</span><span>CLUE 06</span></div><div class="bd">
+      <span class="ttl">バルコニーの床</span>
+      <p>ガラス戸の前に、湿った土が少し落ちている。庭の土と同じ色。</p>
+      <p>そのそばの床に、誰かがしばらく立っていたような靴の跡がいくつか重なっている。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">女子部屋 ①</span><span>CLUE 07</span></div><div class="bd">
+      <span class="ttl">白石のバッグ</span>
+      <p>印刷された脚本『プールの底の朝』第1稿。表紙に「作：白石葵」、日付は2年前の4月。</p>
+      <p>読んでみると、『夜明けのプール』とほとんど同じ話。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">女子部屋 ②</span><span>CLUE 08</span></div><div class="bd">
+      <span class="ttl">早川のサンダル</span>
+      <p>入口に脱いであるサンダル。泥で汚れていて、まだ湿っている。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">女子部屋 ③</span><span>CLUE 09</span></div><div class="bd">
+      <span class="ttl">桐谷のポーチ</span>
+      <p>カードケースの中に、黒崎と桐谷が顔を寄せて写った写真。</p>
+      <p>裏に黒崎の字で「Rへ」。日付は3か月前。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">和室 ①</span><span>CLUE 10</span></div><div class="bd">
+      <span class="ttl">大河内の鞄</span>
+      <p>クリアファイルに「退職証明書」。会社名はスタジオ・ノクト。退職日は3か月前。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">和室 ②</span><span>CLUE 11</span></div><div class="bd">
+      <span class="ttl">窓辺の灰皿</span>
+      <p>灰皿がわりの空き缶に、メンソールの吸い殻が2本。1本はつい最近消されたように新しい。</p>
+      <p>布団は敷いてあるが、ほとんど乱れていない。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">男子部屋 ①</span><span>CLUE 12</span></div><div class="bd">
+      <span class="ttl">森のスポーツバッグ</span>
+      <p>奥に押し込まれた黒い上着。</p>
+      <p><b>右袖に、乾きかけの深緑のペンキ</b>がついている。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">男子部屋 ②</span><span>CLUE 13</span></div><div class="bd">
+      <span class="ttl">佐伯のノート</span>
+      <p>サークルの会計帳簿。今年度の欄に、赤ペンで「−200,000 使途不明」と書き込みがある。黒崎の字。</p>
+    </div></div>
+
+    <div class="card"><div class="hd"><span class="loc">リビング ①</span><span>CLUE 14</span></div><div class="bd">
+      <span class="ttl">タイムラプス映像 <span class="star">★</span></span>
+      <p>階段の上り下りの記録（21:00〜22:50）</p>
+      <div class="log">
+        <span>21:05</span><span>黒崎 ↑</span>
+        <span>21:40</span><span>早川 ↑</span><span>21:55</span><span>早川 ↓</span>
+        <span>22:00</span><span>森 ↑</span><span>22:10</span><span>森 ↓</span>
+        <span>22:15</span><span>大河内 ↑（以後、下りてこない）</span>
+        <span>22:25</span><span>佐伯 ↑</span><span>22:30</span><span>佐伯 ↓</span>
+        <span>22:38</span><span>白石 ↑</span><span>22:46</span><span>白石 ↓</span>
+        <span>22:50</span><span>録画が止まる</span>
+      </div>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">リビング ②</span><span>CLUE 15</span></div><div class="bd">
+      <span class="ttl">リビングのゴミ箱</span>
+      <p>お菓子の袋の下に隠すように、空いた缶ビールが1本。</p>
+      <p>缶にはマジックで「ひなた」と書いてある。</p>
+    </div></div>
+    <div class="card"><div class="hd"><span class="loc">浴室 ①</span><span>CLUE 16</span></div><div class="bd">
+      <span class="ttl">浴室の窓</span>
+      <p>庭に面した窓。人がやっと通れるくらいの大きさで、鍵は開いている。</p>
+    </div></div>
+  </div>
+
+  <h3>調査2（各場所の束の下に追加。「庭・湖畔」はここから）</h3>
+  <div class="cards">
+    <div class="card p2"><div class="hd"><span class="loc">編集部屋 ⑤</span><span>CLUE 17</span></div><div class="bd">
+      <span class="ttl">PCのフォルダ</span>
+      <p>デスクトップに「素材_CHIHIRO」というフォルダ。中には、若い女性が一人で泣いている映像。隠し撮りのようなアングルだ。</p>
+      <p>ファイルのメモ：「本人には内緒。リアルな涙」</p>
+      <p>LINEのスクリーンショットも1枚。4月11日、森千尋「お願い、あの映像を消して。消してくれないなら、私もう無理」→ 黒崎「作品は作品。消さない」。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">編集部屋 ⑥</span><span>CLUE 18</span></div><div class="bd">
+      <span class="ttl">編集部屋のゴミ箱</span>
+      <p>破られた紙。つなぎ合わせると「クレジット訂正の同意書」。</p>
+      <p>白石葵の署名はあるが、黒崎の署名欄は空白。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">女子部屋 ④</span><span>CLUE 19</span></div><div class="bd">
+      <span class="ttl">宮本の荷物</span>
+      <p>高校の卒業アルバム。付箋のついたページに、宮本凛と森千尋が肩を組んで笑っている写真。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">和室 ③</span><span>CLUE 20</span></div><div class="bd">
+      <span class="ttl">和室の窓</span>
+      <p>少し開いていて、窓枠に灰が落ちている。</p>
+      <p>この窓からは、外階段がよく見える。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">男子部屋 ③</span><span>CLUE 21</span></div><div class="bd">
+      <span class="ttl">森のカメラバッグ</span>
+      <p>インターバルタイマーつきのリモコン。</p>
+      <p>設定が残っている：<b>「30秒間隔・80枚」</b></p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">リビング ③</span><span>CLUE 22</span></div><div class="bd">
+      <span class="ttl">タイムラプスカメラ本体</span>
+      <p>バッテリー残量は52%。電池切れで止まったわけではない。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">浴室 ②</span><span>CLUE 23</span></div><div class="bd">
+      <span class="ttl">浴室の窓の外</span>
+      <p>窓の真下は花壇。土はやわらかいのに、足跡も踏まれた跡もない。</p>
+      <p>すぐ横を、砂利敷きの庭の小道が通っている。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">庭・湖畔 ①</span><span>CLUE 24</span></div><div class="bd">
+      <span class="ttl">外階段の下</span>
+      <p>芝生に、新しいスニーカーの足跡。庭の小道（湖のほう）へ続いている。</p>
+    </div></div>
+    <div class="card p2"><div class="hd"><span class="loc">庭・湖畔 ②</span><span>CLUE 25</span></div><div class="bd">
+      <span class="ttl">湖畔の撮影ポイント</span>
+      <p>地面に三脚の脚の跡が3つ。</p>
+      <p>その周りには、長い時間人が立っていたような踏み跡がほとんどない。</p>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ GMブック ============ -->
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相、進行のコツ、エンディングが書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+
+  <div class="box">
+    <h3>真相</h3>
+    <p><b>犯人は森拓海。</b>4月に亡くなった妹・千尋の隠し撮り映像を、黒崎が無断で『夜明けのプール』に使い、千尋が死の直前に「消して」と頼んでも拒んでいたこと、さらに明日の上映会でまたその映像を流そうとしていたことを今夜知った。問い詰めると黒崎は「死んだ人間の涙だから価値がある」と笑い、森はトロフィーで殴った。</p>
+    <p>森は湖畔でカメラをインターバル撮影に設定して「ずっと湖にいた」アリバイを作り、使用禁止の外階段からバルコニーへ。事前に鍵を開けておいたガラス戸から編集部屋に入った。主階段を使わなかったのは、撮影担当としてリビングのタイムラプスカメラの存在を知っていたからでもある。</p>
+  </div>
+
+  <div class="box">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">時刻</th><th>出来事</th></tr></thead>
+      <tbody>
+        <tr><td class="t">14:32</td><td>佐伯、町のATMで10万円をおろす。</td></tr>
+        <tr><td class="t">16:00</td><td>管理人が外階段の手すりを塗装。</td></tr>
+        <tr><td class="t">19:00</td><td>全員で庭のBBQ。</td></tr>
+        <tr><td class="t">20:30</td><td>黒崎、大河内に解雇と嘘の内定を問い詰める（白石が立ち聞き）。</td></tr>
+        <tr><td class="t">21:00</td><td>解散。陽向がタイムラプス開始、外で撮影へ。白石・宮本はキッチン、佐伯・森は男子部屋、大河内はリビング。</td></tr>
+        <tr><td class="t">21:05</td><td>黒崎、2階の編集部屋へ。</td></tr>
+        <tr><td class="t">21:20</td><td>黒崎、桐谷に別れのLINE。21:30〜22:38、桐谷は玄関ポーチで電話。</td></tr>
+        <tr><td class="t">21:40</td><td>早川、2階で黒崎に別れ話。21:55に下りて入浴（〜22:45）。</td></tr>
+        <tr><td class="t">21:50</td><td>宮本、匿名で森にDM。</td></tr>
+        <tr><td class="t">22:00</td><td>森、編集部屋へ。22:03にフォルダを見る。ガラス戸の鍵を開けておく。22:10に下りる。</td></tr>
+        <tr><td class="t">22:15</td><td>森、玄関から表の道で湖へ（桐谷が見ている）。大河内、和室へ。</td></tr>
+        <tr><td class="t">22:20</td><td>森、湖畔でインターバル撮影開始。カメラを置いて庭の小道で戻る。大河内、窓辺で一服。</td></tr>
+        <tr><td class="t">22:25</td><td>佐伯、編集部屋で10万円を返す。22:30に下りる。</td></tr>
+        <tr><td class="t">22:30</td><td>陽向、リビングへ（以後23:10までソファ）。</td></tr>
+        <tr><td class="t">22:35</td><td>森、外階段からバルコニーへ（右袖にペンキ）。陽向、ビールを飲む。</td></tr>
+        <tr><td class="t">22:38</td><td>白石、2階へ。22:40〜22:45口論、22:46に下りる。森はガラス戸の外で聞いている。</td></tr>
+        <tr><td class="t">22:40</td><td>桐谷、中へ。22:45〜23:05入浴（窓を少し開けている）。</td></tr>
+        <tr><td class="t">22:41</td><td>PCの最後の操作。</td></tr>
+        <tr><td class="t">22:47</td><td>黒崎→早川にLINE。22:48、早川が返信。</td></tr>
+        <tr><td class="t">22:48</td><td>森、ガラス戸から入室。</td></tr>
+        <tr><td class="t">22:50</td><td><b>犯行。</b>大河内・陽向が物音を聞く。陽向が録画を手動停止。早川が玄関から湖へ。</td></tr>
+        <tr><td class="t">22:52</td><td>森、外階段を下りて庭の小道へ。大河内が窓から人影を目撃。桐谷が浴室の窓の外に走る足音を聞く。</td></tr>
+        <tr><td class="t">22:54</td><td>早川、湖畔でカメラだけを見つけて撮影、森にLINE。22:56に表の道で引き返す。</td></tr>
+        <tr><td class="t">22:59</td><td>森、湖畔でカメラ回収（80枚目）。23:01、LINEを既読。</td></tr>
+        <tr><td class="t">23:02</td><td>早川、帰着。</td></tr>
+        <tr><td class="t">23:05</td><td>森、帰着。男子部屋で上着をバッグに押し込む（佐伯が目撃）。</td></tr>
+        <tr><td class="t">23:08</td><td>宮本、コーヒーを持って2階へ。23:10、遺体を発見。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>推理の筋道（プレイヤーにたどり着いてほしい流れ）</h3>
+    <ol>
+      <li>黒崎は22:47まで生きていた（早川のLINE、黒崎のスマホの通知）。犯行は22:50ごろ（大河内・陽向の物音）。</li>
+      <li>22:46以降、主階段で2階へ上がった人はいない（タイムラプスは22:50まで、そのあとは陽向の証言）。<br>→ 犯行時刻に2階にいたのは大河内だけ…に見える。<b>ここが最大のミスリード。</b></li>
+      <li>ところが、ガラス戸の鍵が開いていた、バルコニーに庭の土、使用禁止の外階段の手すりにこすれた跡、外階段の下に足跡。<br>→ 犯人は外から外階段を使って出入りした。</li>
+      <li>その時間に外にいたのは森（湖）と早川（22:50〜）。早川は22:50に玄関から出たところを陽向が見ているうえ、サンダルだった（足跡はスニーカー）。浴室にいた桐谷も疑われうるが、窓の下の花壇に足跡がない（CLUE 23）。</li>
+      <li>森のアリバイ写真は30秒ぴったりの間隔。カメラバッグのリモコンも「30秒間隔・80枚」。湖畔に踏み跡がなく、早川が22:54に撮った写真にはカメラしか写っていない。<br>→ アリバイは自動撮影で作られたもの。</li>
+      <li>決め手：森の上着の右袖に深緑のペンキ。大河内が見た「黒っぽい上着の人影」。桐谷が聞いた、湖へ走る足音。佐伯が見た、上着を隠す森。</li>
+      <li>補助の手がかり（キャラシートの証言）：早川（ガラス戸は黒崎がいつも施錠していた → 鍵を開けられたのは、その夜に部屋へ入った早川・森・佐伯・白石のだれか）。<br>ミスリード：陽向（22:20、寝たはずの大河内が和室の窓から編集部屋を見ていた）、佐伯（21:50、白石が「今夜はっきり言う」と話していた）、早川・陽向（大河内のグラスの中身は水）。</li>
+      <li>動機：「素材_CHIHIRO」と、そのフォルダが開かれた22:03（森が2階にいた時間）。宮本のDM。</li>
+    </ol>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>証拠カードの配り方</h3>
+      <ul>
+        <li>調査1：場所ごとに CLUE 01〜16 を番号順に重ねて置く（「浴室」も調査1から選べる）。1人2回、場所を宣言してもらい、その束の一番上を渡す。束がなくなった場所は選べない。</li>
+        <li>調査2：各場所の残りの束の下に CLUE 17〜25 を追加し、「庭・湖畔」を新しく開放。1人1回。</li>
+        <li>議論2の10分経過時点で、まだ誰も引いていないカードをGMが全部読み上げて公開する。</li>
+        <li>★カード（01・02・05・14）は、引いた人がその場で読み上げる。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>進行のコツ</h3>
+      <ul>
+        <li>議論が止まったら「22:50に2階にいたのは誰？」「外階段は誰が使える？」と、全員に向けて問いかける。特定の人を名指しはしない。</li>
+        <li>大河内に疑いが集中しすぎたら、残りカードの公開を少し早めてよい。</li>
+        <li>森の人が嘘をつくのに困っていたら、こっそり「白石の口論を利用して、白石に疑いを向けてもいい」と伝える。</li>
+        <li>シートにない質問には「シートに書かれていないことは、設定と矛盾しない範囲で自由に答えていい」と案内する。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>投票と点数</h3>
+    <ul>
+      <li>1人30秒ずつ推理を発表したあと、投票用紙に名前を書いて一斉に公開。自分に投票してもよい。</li>
+      <li>最多票の人が「犯人として名指しされた人」になる。同数の場合は、同数の人だけで1分ずつ弁明し、再投票。それでも同数なら全員を名指しされた扱いにする。</li>
+      <li>犯人に投票：+4点（森以外）。個人の目的：各キャラシートの点数（下の表）。</li>
+      <li>「明かす」「話す」「証言する」は、議論中に全員の前ではっきり口にすれば達成。「言わない」は、エンディングまで自分の口から一度も言わなければ達成。「ばれる／ばれない」「信じられる」は、下の「秘密の挙手」で判定する。「自分で指摘し、しかもばれる」は、その本人が全員の前で指摘していて、挙手でもばれた場合だけ達成（ほかの人がばらしても点にならない）。</li>
+      <li>点数を数えたら、合計が一番高い人がMVP。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>個人の目的（判定のポイント）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>人物</th><th>個人の目的</th></tr></thead>
+      <tbody>
+        <tr><td>森</td><td>+5 最多票にならない／+2 白石か大河内が単独最多票／+1 外階段を使ったことがばれない／+1 凛が最多票にならない</td></tr>
+        <tr><td>白石</td><td>+3 本当の脚本家だと明かし、挙手で信じられる／+2 最多票にならない／+1 大河内の解雇を自分で指摘し、ばれる／+1 カーテンのことを全員の前で話す</td></tr>
+        <tr><td>早川</td><td>+3 最多票にならない／+2 湖に森がいなかったことを自分からは言わない／+1 黒崎の「R」を自分で指摘し、ばれる／+1 森への気持ちがばれない</td></tr>
+        <tr><td>佐伯</td><td>+3 使い込みがばれない／+2 最多票にならない／+1 陽向のビールを自分で指摘し、ばれる／+1 森が上着を隠していたことを全員の前で話す</td></tr>
+        <tr><td>宮本</td><td>+3 黒崎が千尋にしたことを明かし、挙手で信じられる／+2 DMを送ったことがばれない／+1 最多票にならない／+1 森が最多票にならない</td></tr>
+        <tr><td>大河内</td><td>+3 解雇がばれない／+2 最多票にならない／+1 白石が最多票にならない／+1 22:52の人影のことを全員の前で話す</td></tr>
+        <tr><td>小野寺</td><td>+3 ビールがばれない／+2 階段の証言をする／+1 録画を止めたことがばれない／+1 佐伯のATMのことを全員の前で話す</td></tr>
+        <tr><td>桐谷</td><td>+3 黒崎との交際がばれない／+2 最多票にならない／+1 22:52の足音のことを全員の前で話す／+1 玄関の出入りを証言する</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>秘密の挙手（投票のあと、真相を読み上げる前に）</h3>
+    <p>GMが1つずつ読み上げ、「本当だと思う人」に手を挙げてもらう。かっこ内の当事者は挙げない。当事者以外の過半数が挙げたら「ばれた（信じられた）」。本人が否定し続けていても、みんなが信じれば「ばれた」になる。議論で根拠（証言やカード）が出なかったものには挙げないよう、先に伝えておく。「（ダミー）」の文は本当ではない。読み上げるときは区別せず、ほかと同じように読む（全部本当だと思われないようにするため）。点数には関係しない。</p>
+    <ol>
+      <li>森は、使用禁止の外階段を使った（森）</li>
+      <li>『夜明けのプール』の本当の脚本家は、白石だ（当事者なし）</li>
+      <li>早川は、森に惹かれている（早川）</li>
+      <li>佐伯は、サークル費を使い込んでいた（佐伯）</li>
+      <li>匿名のDMを送ったのは、凛だ（宮本）</li>
+      <li>黒崎は千尋の泣き顔を隠し撮りし、消してと頼まれても消さなかった（当事者なし）</li>
+      <li>大河内は、会社を解雇されていた（大河内）</li>
+      <li>陽向は、缶ビールを飲んだ（小野寺）</li>
+      <li>陽向は、録画を自分で止めた（小野寺）</li>
+      <li>桐谷は、黒崎と付き合っていた（桐谷）</li>
+      <li>大河内は、早川に言い寄っていた（大河内・早川）（ダミー）</li>
+      <li>陽向は、黒崎から口止め料をもらっていた（小野寺）（ダミー）</li>
+    </ol>
+  </div>
+
+  <div class="read">
+    <span class="who">エンディングA ／ 森に最多票が集まったとき</span>
+    <p>森は、しばらく黙っていた。それから、膝の上のカメラにそっと手を置いた。</p>
+    <p>「22時3分。蓮がトイレに立った隙に、あのフォルダを開いた。千尋が泣いてた。それと、千尋が死ぬ前の晩に蓮に送ったLINE。『お願い、消して』って」</p>
+    <p>「消してくれって、頼みに行っただけなんだ。あいつは笑って、死んだ人間の涙だから価値があるって言った。明日、千尋はまた主役になれるって。それで……気がついたら」</p>
+    <p>誰も、何も言えなかった。凛だけが、小さく「ごめんなさい」とつぶやいた。DMを送ったのは自分だと。</p>
+    <p>朝になって、警察が来た。森は自分から車に乗り込んだ。湖の上には、彼が撮らなかった朝焼けが広がっていた。</p>
+    <p>翌日予定されていた『エンドロール』の上映会は、中止になった。黒崎蓮の最後の作品は、誰にも観られないまま終わった。――エンドロールは、流れなかった。</p>
+  </div>
+
+  <div class="read">
+    <span class="who">エンディングB ／ 森以外が名指しされたとき</span>
+    <p>疑いの目を向けられたまま、長い夜が明けた。</p>
+    <p>朝、到着した警察は、男子部屋のスポーツバッグから深緑のペンキがついた上着を見つけた。外階段の手すりと同じペンキだった。湖畔のカメラのリモコンには「30秒間隔・80枚」の設定が残っていた。</p>
+    <p>森拓海は、抵抗しなかった。「千尋は、消してほしいと頼んだんです。あいつはそれを、作品と呼んだ」。それだけを言った。</p>
+    <p>名指しされた人は、その日のうちに疑いが晴れた。けれど、あの夜みんなで交わした言葉は、もう取り消せない。――エンドロールは、流れなかった。</p>
+  </div>
+
+  <div class="box">
+    <h3>エピローグ（読み上げてもよいし、各自に任せてもよい）</h3>
+    <ul>
+      <li><b>白石葵</b>：半年後、白石は『プールの底の朝』を自分の名前で書き直し、別の映画祭に送った。</li>
+      <li><b>早川美咲</b>：早川は、面会室のガラス越しに、一度だけ森と話した。何を話したかは誰も知らない。</li>
+      <li><b>佐伯健太</b>：佐伯は残りの10万円を、黙ってサークルの口座に戻した。</li>
+      <li><b>宮本凛</b>：宮本は千尋の墓を訪ねた。長いあいだ、何も言わずにそこに座っていた。</li>
+      <li><b>大河内修</b>：大河内は初めて、後輩たちに「実はもう会社にいないんだ」と打ち明けた。</li>
+      <li><b>桐谷瑠奈</b>：桐谷の出演シーンは、誰にも観られないままハードディスクの中に残った。</li>
+      <li><b>小野寺陽向</b>：陽向のメイキング映像は、22:50で途切れたまま、誰にも編集されなかった。</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- ============ 投票用紙 ============ -->
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚。推理の発表後、一斉に開きます。</p>
+  <div class="vote">
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+    <div class="slip"><b>犯人だと思う人</b><div class="ln"></div><span class="note">投票した人</span><div class="ln"></div></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('endroll-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  ['chars', 'items', 'clues', 'gm'].forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('endroll-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('endroll-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    ['chars', 'items', 'clues', 'gm'].forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('endroll-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+</script>
+<script>
+/* 公開ページ用：キャラシート・持ち物は名前の一覧、証拠カードは場所の一覧だけを出し、押すとその分だけ開く。
+   リンクを共有して、各自が自分の名前を押して遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  // ---- 3秒の長押しで開く（間違えてめくらないように）。閉じるのはタップ ----------------
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY; begin();
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') ) { e.preventDefault(); if (!e.repeat) begin(); }
+    });
+    b.addEventListener('keyup', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); }
+    });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編・GMブックの「表示する」も長押しにそろえる（元のボタンの動きはそのまま、長押しが済んだときだけ通す）
+  $$('[data-gate="solve"] .btn, [data-gate="gm"] .btn, [data-gate="solve"] button, [data-gate="gm"] button').forEach(function (b) {
+    if (b.dataset.plHold) return; b.dataset.plHold = '1';
+    hold(b, function () { b.click(); });
+    var p = el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。');
+    b.parentNode.insertBefore(p, b);
+  });
+
+  // 「表示する」の関門は、一覧から1人分ずつ開く形に置きかえる（解決編・GMブックはそのまま）
+  ['chars', 'items', 'clues', 'npc'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  // ---- 登場人物 -----------------------------------------------------------
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    return { i: i, name: txt(nm), rl: txt(s.querySelector('.slate .rl')), sheet: s, item: null };
+  });
+  $$('#items .card.item').forEach(function (c) {
+    var o = txt(c.querySelector('.owner'));
+    roles.forEach(function (r) { if (r.name === o) r.item = c; });
+  });
+
+  var views = {};
+  ['chars', 'items'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '名前を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '自分の名前を長押しすると、' + (tab === 'chars' ? 'あなたのキャラシートと持ち物カード' : 'あなたの持ち物カード') + 'だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', 'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。'));
+    var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open');
+    host.insertBefore(shown, host.firstChild);
+    host.insertBefore(roster, shown);
+    host.insertBefore(note, roster);
+    if (tab === 'items') $$('.cards, .lead', host).forEach(function (e) { if (e.parentNode === host) e.hidden = true; });
+    var v = views[tab] = { roster: roster, shown: shown, open: null, buttons: [] };
+    roles.forEach(function (r) {
+      var b = el('button', 'pl-person'); b.type = 'button';
+      b.append(el('b', null, r.name), el('span', 'r', r.rl));
+      b.setAttribute('aria-expanded', 'false');
+      hold(b, function () { show(tab, r.i); }, function () { return v.open === r.i; }, function () { show(tab, null); });
+      roster.appendChild(b); v.buttons.push(b);
+    });
+  });
+  function show(tab, i) {
+    var v = views[tab];
+    v.shown.textContent = '';
+    if (tab === 'chars') roles.forEach(function (r) { r.sheet.hidden = true; });
+    v.open = i;
+    v.buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    v.shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    if (tab === 'chars') { v.shown.appendChild(r.sheet); r.sheet.hidden = false; }
+    if (r.item) {
+      if (tab === 'chars') v.shown.appendChild(el('h3', null, '持ち物カード'));
+      var wrap = el('div', 'cards'); wrap.appendChild(r.item.cloneNode(true)); v.shown.appendChild(wrap);
+    }
+    v.shown.appendChild(btn('閉じる', 'ghost', function () { show(tab, null); v.roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+
+  // ---- 証拠カード・証言カード ----------------------------------------------
+  var CIRC = /[①-⑳]/;
+  ['clues', 'npc'].forEach(function (tab) {
+    var host = $('[data-for="' + tab + '"]');
+    if (!host) return;
+    var note = el('div', 'pl-banner');
+    note.appendChild(el('b', null, '場所を3秒長押しすると開きます'));
+    note.appendChild(el('span', null, '長押しすると、そのカードの中身だけが開きます。閉じるときは押すだけでOK。'));
+    note.appendChild(el('span', 'pl-note', '調べる場所を宣言してから、自分で長押しして読んでください。開いたカードに「★ 即公開」と出たら、すぐ全員に読み上げます。'));
+    host.insertBefore(note, host.firstChild);
+  });
+  $$('#clues .card, #npc .card').forEach(function (c) {
+    var sp = c.querySelectorAll('.hd > span');
+    var loc = txt(sp[0]), id = txt(sp[sp.length - 1]);
+    var m = loc.match(CIRC);
+    var place = loc.replace(/[①-⑳]/g, '').replace(/調査[12]/g, '').replace(/\s+/g, ' ').trim();
+    var phase = (c.classList.contains('p2') || /調査2/.test(loc)) ? 2 : 1;
+    var cell = el('div', 'pl-cell');
+    c.parentNode.insertBefore(cell, c);
+    var row = el('button', 'pl-row'); row.type = 'button';
+    row.append(el('span', 'pl-place', place + (m ? ' ' + m[0] : '')), el('span', 'pl-id', id));
+    row.appendChild(el('span', 'pl-chip' + (phase === 2 ? ' p2' : ''), '調査' + phase));
+    // ★のカードかどうかは一覧では見せない。開いたカードの中で初めてはっきり出す
+    if (c.querySelector('.star')) {
+      var bd = c.querySelector('.bd') || c;
+      bd.insertBefore(el('p', 'pl-starnote', '★ 即公開：このカードは引いたらすぐ全員に読み上げる／見せる'), bd.firstChild);
+    }
+    row.setAttribute('aria-expanded', 'false');
+    var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+    function toggle(on) {
+      c.hidden = !on; close.hidden = !on;
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+    cell.append(row, c, close);
+    toggle(false);
+  });
+})();
+</script>
+</body>
+</html>

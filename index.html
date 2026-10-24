@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>マダミス本棚</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* 一列の棚：作品ごとに1段、人数の版はリンクのチップで並べる。上に「何人で遊ぶ？」の絞り込み */
+:root {
+  --bg: #eceef2;
+  --panel: #f8f9fb;
+  --fg: #1a1e29;
+  --muted: #5c6475;
+  --line: #d3d7e0;
+  --accent: #8c1d2c;
+  --chip: #ffffff;
+  --display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12141b; --panel: #1b1e28; --fg: #e8eaf0; --muted: #9aa1b2;
+    --line: #2f3442; --accent: #e27a86; --chip: #232734; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12141b; --panel: #1b1e28; --fg: #e8eaf0; --muted: #9aa1b2;
+  --line: #2f3442; --accent: #e27a86; --chip: #232734; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--body); line-height: 1.6; }
+.wrap {
+  max-width: 46rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 2rem 3rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+header h1 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 6vw, 2.4rem); margin: 0; letter-spacing: .04em; text-wrap: balance; }
+header p { margin: .25rem 0 0; color: var(--muted); font-size: .9rem; }
+.filter { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.filter .lb { font-size: .8rem; color: var(--muted); letter-spacing: .08em; margin-right: .25rem; }
+.filter button {
+  font: inherit; font-size: .85rem; min-width: 2.6rem; padding: .3rem .6rem; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--chip); color: var(--fg); cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.filter button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.filter button:focus-visible, .ver:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.shelf { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.kit { padding-block: 1.1rem; border-bottom: 1px solid var(--line); display: grid; gap: .5rem; }
+.kit h2 { font-family: var(--display); font-weight: 600; font-size: 1.3rem; margin: 0; text-wrap: balance; }
+.meta { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .82rem; color: var(--muted); }
+.meta span { white-space: nowrap; }
+.blurb { margin: 0; font-size: .9rem; min-width: 0; }
+.vers { display: flex; flex-wrap: wrap; gap: .5rem; }
+.ver {
+  display: inline-flex; align-items: baseline; gap: .35rem; padding: .35rem .75rem; border-radius: .4rem;
+  background: var(--panel); border: 1px solid var(--line); color: var(--fg); text-decoration: none; font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.ver::after { content: "→"; font-size: .75rem; color: var(--accent); }
+.ver:hover { border-color: var(--accent); }
+.ver.off { opacity: .4; }
+.ver.soon { color: var(--muted); border-style: dashed; }
+.ver.soon::after { content: "準備中"; font-size: .7rem; color: var(--muted); }
+.empty { color: var(--muted); font-size: .9rem; padding-block: 1rem; }
+footer { font-size: .78rem; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .ver { transition: border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>マダミス本棚</h1>
+    <p>これまでに作ったマーダーミステリーの一覧です。人数の版を押すと、遊ぶページが開きます。</p>
+  </header>
+
+  <div class="filter" id="filter" role="group" aria-label="人数で絞り込む">
+    <span class="lb">何人で遊ぶ？</span>
+  </div>
+
+  <ul class="shelf" id="shelf"></ul>
+  <p class="empty" id="empty" hidden>その人数で遊べる作品はまだありません。</p>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+// 新しい作品を作ったら、ここに1件足す。players はその版で遊ぶプレイヤーの人数（GMは含めない）
+const KITS = [
+  { title: "瑠璃星は夜明けに着く", gm: false, time: "約130〜140分", level: "中級",
+    blurb: "引退する寝台特急の最終運行。山中で緊急停車した夜、スイートで社長が倒れていた。",
+    versions: [{ label: "7人用", players: [7], url: "ruriboshi/" }] },
+  { title: "十年目のタイムカプセル", gm: false, time: "約120〜130分", level: "初心者向け",
+    blurb: "雪のペンションで高校の同窓会。0時にタイムカプセルを開ける約束の夜、幹事が殺される。",
+    versions: [{ label: "6人用", players: [6], url: "timecapsule/" }] },
+  { title: "王様の命令は絶対", gm: true, time: "約150分", level: "中級・大人向け",
+    blurb: "サークルの卒業旅行で温泉旅館を貸し切り。土砂崩れで孤立した夜の王様ゲーム。",
+    versions: [{ label: "10人用", players: [10], url: "ousama-10/" },
+               { label: "9人用", players: [9], url: "ousama-9/" },
+               { label: "8人用", players: [8], url: "ousama-8/" }] },
+  { title: "十一番目の鐘", gm: true, time: "約150分", level: "中級",
+    blurb: "昭和11年、信州の洋館で還暦祝い。嵐で吊り橋が落ち、館に閉じ込められた夜に当主が殺される。",
+    versions: [{ label: "10人用", players: [10], url: "kane-10/" },
+               { label: "11人用", players: [11], url: "kane-11/" },
+               { label: "12人用", players: [12], url: "kane-12/" }] },
+  { title: "月白堂、雪の夜に", gm: false, time: "約100〜130分", level: "中級",
+    blurb: "京都・西陣の老舗和菓子屋。跡目披露の前夜、大雪の中で当主が亡くなる。",
+    versions: [{ label: "3〜5人用", players: [3, 4, 5], url: "tsukishirodo/" }] },
+  { title: "エンドロールは流れない", gm: true, time: "約100〜120分", level: "初心者〜",
+    blurb: "大学の映画研究会の夏合宿。湖畔の貸別荘で、上映会の前夜に監督が殺される。",
+    versions: [{ label: "7人用", players: [7], url: "endroll-7/" },
+               { label: "6人用", players: [6], url: "endroll-6/" },
+               { label: "8人用", players: [8], url: "endroll-8/" }] },
+];
+const UPDATED = "2026年10月24日";
+
+const shelf = document.getElementById("shelf");
+const filter = document.getElementById("filter");
+let pick = null;
+
+const counts = [...new Set(KITS.flatMap(k => k.versions.flatMap(v => v.players)))].sort((a, b) => a - b);
+const all = document.createElement("button");
+all.type = "button"; all.id = "f-all"; all.textContent = "すべて";
+filter.appendChild(all);
+const btns = [all];
+counts.forEach(n => {
+  const b = document.createElement("button");
+  b.type = "button"; b.id = "f-" + n; b.textContent = n + "人"; b.dataset.n = n;
+  filter.appendChild(b); btns.push(b);
+});
+filter.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  pick = b.dataset.n ? Number(b.dataset.n) : null;
+  render();
+});
+
+function render() {
+  btns.forEach(b => b.setAttribute("aria-pressed", String((b.dataset.n ? Number(b.dataset.n) : null) === pick)));
+  shelf.textContent = "";
+  let shown = 0;
+  KITS.forEach(k => {
+    const vers = [...k.versions].sort((a, b) => a.players[0] - b.players[0]);
+    if (pick !== null && !vers.some(v => v.players.includes(pick))) return;
+    shown++;
+    const li = document.createElement("li"); li.className = "kit";
+    const h = document.createElement("h2"); h.textContent = k.title; li.appendChild(h);
+    const m = document.createElement("div"); m.className = "meta";
+    [k.gm ? "＋GM 1人" : "GMなし", k.time, k.level].forEach(t => { const s = document.createElement("span"); s.textContent = t; m.appendChild(s); });
+    li.appendChild(m);
+    const p = document.createElement("p"); p.className = "blurb"; p.textContent = k.blurb; li.appendChild(p);
+    const vs = document.createElement("div"); vs.className = "vers";
+    vers.forEach(v => {
+      const el = document.createElement(v.url ? "a" : "span");
+      el.className = "ver" + (v.url ? "" : " soon") + (pick !== null && !v.players.includes(pick) ? " off" : "");
+      el.textContent = v.label;
+      if (v.url) el.href = v.url;
+      vs.appendChild(el);
+    });
+    li.appendChild(vs);
+    shelf.appendChild(li);
+  });
+  document.getElementById("empty").hidden = shown > 0;
+}
+document.getElementById("foot").textContent = `全${KITS.length}作品・最終更新 ${UPDATED}。人数はGMを除いたプレイヤーの数です。`;
+render();
+</script>
+</body>
+</html>
