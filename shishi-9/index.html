@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>獅子は夜半に昇る（9人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 天文台の観測ログと星図を下敷きにした、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #e8e9ef;
+  --surface: #fbfbfd;
+  --ink: #161a2b;
+  --muted: #586078;
+  --line: #cdd0dc;
+  --accent: #9a2f45;
+  --accent-soft: #f3e0e5;
+  --teal: #3a4a8e;
+  --teal-soft: #e2e5f4;
+  --slate: #0f1530;
+  --slate-ink: #eef0f8;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0e1a; --surface: #141a2c; --ink: #e4e7f2; --muted: #98a0b8; --line: #2a3150;
+    --accent: #ec8a9c; --accent-soft: #3a1f29; --teal: #a3b2f0; --teal-soft: #1c2342;
+    --slate: #070a14; --slate-ink: #e4e7f2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0e1a; --surface: #141a2c; --ink: #e4e7f2; --muted: #98a0b8; --line: #2a3150;
+    --accent: #ec8a9c; --accent-soft: #3a1f29; --teal: #a3b2f0; --teal-soft: #1c2342;
+    --slate: #070a14; --slate-ink: #e4e7f2; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #d9a441, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #4a3a2a; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+
+.map .road { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1; }
+.map .door { fill: var(--accent); stroke: none; }
+.map .trail { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.intro p { font-family: var(--f-display); font-weight: 700; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 12px 14px; display: grid; gap: 6px; }
+.answer h4 { color: var(--teal); margin-bottom: 0; }
+.tl.ans { grid-template-columns: 6.6em 1fr; }
+.tl.ans dt { color: var(--ink); font-family: var(--f-body); font-weight: 700; font-size: 12.5px; }
+.tips { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.tips h4 { color: var(--teal); margin-bottom: 0; }
+.card .star { font-size: 12px; font-weight: 700; color: var(--accent); border-top: 1px dashed var(--line); padding-top: 6px; }
+.stmts { gap: 8px; }
+.stmts li { font-weight: 700; }
+.epi-item { display: grid; gap: 2px; }
+.epi-item b { font-family: var(--f-display); }
+.truth { display: grid; gap: 18px; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .tips, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl), .sheet .body > .answer { break-inside: auto; }
+  .sheet .tl dt { break-after: avoid; }
+  .sheet .tl dd { break-inside: avoid; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .tips, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet .tl.ans { display: block; }
+  .sheet .tl.ans dt { font-size: 9pt; padding: 0; }
+  .sheet .tl.ans dd { margin: 0 0 1.6mm; }
+  .gate2 { display: none !important; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { display: block; }
+  .sheet .tl:not(.ans) dt { float: left; width: 3.4em; clear: left; }
+  .sheet .tl:not(.ans) dd { margin: 0 0 1.2mm 3.8em; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>獅子は夜半に昇る</h1>
+    <p>しし座流星群の夜。山の上の私設天文台で、ドームの中の天文台長が殺された。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>9人（GMなし）</span>
+      <span><b>TIME</b>約150分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・山の上の私設天文台</span>
+      <span><b>CARDS</b>キャラシート9・持ち物9・証拠30</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">解決編<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">獅子は夜半に昇る（9人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー9人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。<b>GM（進行役）はいりません。</b>プレイヤーの誰か1人が「司会」になり、このページを読み上げながら進めます（司会が犯人でもかまいません）。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには、ほかの人の秘密や真相が書かれています。キャラシートは自分の分だけ、解決編は投票が終わってから開いてください。</p>
+    <p class="note">このシナリオには、殺人と、過去の事故による死が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>はじめての人へ</h3>
+    <ul>
+      <li>このシナリオは<b>犯人がばれにくい</b>作りです。何人もの人が、事件の時間に「本当とは違うこと」を言っています。嘘をついている人が、そのまま犯人とはかぎりません。</li><li>決め手は、1枚のカードではなく、<b>何枚かのカードと何人かの証言を組み合わせて</b>はじめて見えてきます。</li>
+      <li>マーダーミステリーは、<b>犯人当てと、役になりきる会話を楽しむゲーム</b>です。上手に推理できなくても、自分の目的を目指して話せば十分楽しめます。</li>
+      <li>キャラシートの2枚目に、<b>「聞かれたときの答え方」</b>と<b>「立ち回りのコツ」</b>が全員分あります。困ったら、そこを見ながら話してください。</li>
+      <li>嘘をついてよいのは、主に<b>自分の秘密を守るとき</b>です。犯人以外も、知られたくないことは隠してかまいません。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 9人分（1人2枚）と持ち物カード 9枚。宛名ラベルを貼った封筒に、1人分ずつ入れる</li>
+        <li>証拠カード 30枚（調査1が18枚、調査2が12枚）</li>
+        <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
+        <li>投票用紙 9枚、筆記用具、タイマー</li>
+        <li>解決編（封筒に入れて、投票まで開けない）</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はOK。</li>
+        <li>シートに書かれていないことを聞かれたら、「覚えていない」か、設定と食い違わない範囲で自由に答える。</li>
+        <li>持ち物カード・証拠カードは、見せる・隠す・渡すは自由。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は、2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <ol>
+      <li>証拠カードを場所ごとに分け、<b>裏向きにして番号順（①が上）に重ねて</b>置く。調査2のカードは、調査2まで別にしておく。</li>
+      <li>司会から時計回りに、1人ずつ順番に<b>場所を1つ選び、その場所のいちばん上のカードを1枚</b>引く。</li>
+      <li>引いたカードは自分だけが読む。<b>★即公開</b>と書いてあるカードは、すぐに全員に読み上げる。</li>
+      <li>カードがなくなるまで、順番に引き続ける。カードのなくなった場所は選べない。</li>
+    </ol>
+    <p class="note">引いたカードは自分の手元に置いておく。議論で、見せても、隠しても、内容を話しても（嘘をついても）かまいません。</p>
+    <p class="note">場所ごとの枚数：</p><div class="tbl-wrap"><table><thead><tr><th>場所</th><th class="t">調査1</th><th class="t">調査2</th></tr></thead><tbody><tr><td>ドーム</td><td class="t">4枚</td><td class="t">3枚</td></tr><tr><td>観測広場</td><td class="t">3枚</td><td class="t">1枚</td></tr><tr><td>ラウンジ</td><td class="t">3枚</td><td class="t">2枚</td></tr><tr><td>書斎</td><td class="t">2枚</td><td class="t">2枚</td></tr><tr><td>倉庫</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>発電機小屋</td><td class="t">1枚</td><td class="t">—</td></tr><tr><td>駐車場</td><td class="t">2枚</td><td class="t">2枚</td></tr><tr><td>尾根の小道</td><td class="t">1枚</td><td class="t">1枚</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。司会がこのページを読む。</td></tr>
+        <tr><td class="t">15分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>司会が事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">10分</td><td>調査1</td><td>調査1のカードを、なくなるまで順番に引く。</td></tr>
+        <tr><td class="t">30分</td><td>議論1</td><td>情報交換と追及。密談OK。まずは「22:30〜23:05に、どこで何をしていたか」と「22:41の火球をどこで、どう見たか」を全員に聞くのがおすすめ。</td></tr>
+        <tr><td class="t">10分</td><td>調査2</td><td>調査2のカードを、なくなるまで順番に引く。</td></tr>
+        <tr><td class="t">30分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を話し、投票用紙に3問の答えを書いて一斉に見せる。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>司会が解決編を開き、秘密の挙手 → 真相 → 点数の順に進める。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票と点数</h3>
+    <ul>
+      <li><b>問1「鳴沢修造を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</li>
+      <li>書けるのはプレイヤーが演じている人物の名前だけ（鳴沢修造は書けない）。それぞれの問いで、票がいちばん多かった人を「最多票」と呼ぶ。同じ数で並んだら、その全員が最多票。</li>
+      <li>それとは別に、全員に<b>「目的」が4つ</b>あり、達成すると点が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。</li>
+      <li>最後に点数がいちばん高い人が、その回のMVPです。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>秘密の挙手（投票のあとにやります）</h3>
+    <p>「〜がばれない」「〜がばれる」「〜が信じられる」という目的は、投票のあとの<b>秘密の挙手</b>で決めます。</p>
+    <ol>
+      <li>司会が解決編を開き、最初に並んでいる文を1つずつ読み上げる。</li>
+      <li>読むたびに、その文が「本当だと思う人」が手を挙げる。</li>
+      <li>文に名前が出てくる<b>当事者</b>は、手を挙げない。</li>
+      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた（信じられた）」。</li>
+      <li>文の中には<b>本当ではないダミーが2つ</b>まじっている。ダミーに手を挙げても減点はない。どれがダミーかは、真相と一緒にわかる。</li>
+    </ol>
+    <p class="note">例：「AとBは昔、夫婦だった」→ AとBは手を挙げない。残り5人のうち3人が挙げたら「ばれた」。</p>
+    <p class="note">「自分で指摘し」とある目的は、議論中にその人が自分の口で言っていないと達成になりません。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングで司会が読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">司会 読み上げ</span>
+    <p>十一月十七日、しし座流星群の極大の夜。長野の山の上にある私設天文台「星見ヶ丘天文台」で、毎年恒例の観測会が開かれた。空は雲ひとつない快晴、気温は氷点下二度。</p><p>観測会の決まりは一つ。二十一時から二十三時までは、星を見やすくするために、建物の外の明かりをすべて消す。足もとを照らすのは、赤いライトだけだ。</p><p>二十二時三十分、ドームで撮影をしていた台長の鳴沢修造から、全員のトランシーバーに声が届いた。「これから彗星の撮影に入る。二十三時にラウンジで大事な発表をする。それまで、誰もドームに来ないでくれ」。</p><p>二十二時四十一分、南西の空に大きな火球が流れ、広場から歓声が上がった。</p><p>二十三時。ラウンジに全員が集まった。けれど、鳴沢は来ない。二十三時七分、ドームに様子を見に行った者が、望遠鏡の足もとに倒れている鳴沢を見つけた。頭を殴られ、もう息はなかった。</p><p>山を下りる一本道は、夕方の落石でふさがっている。警察が着くのは、早くても夜明けだという。</p><p>――獅子は夜半に昇る。夜明けまでに、この中の誰かを見つけなければならない。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：ドームの中、望遠鏡の足もと。後頭部を殴られている。そばに、望遠鏡のおもり（カウンターウェイト、約5kg）が落ちている。</li><li>鳴沢がトランシーバーで最後に話したのは22:30。遺体が見つかったのは23:07。</li><li>23:10、医師の小早川が遺体を調べ、「亡くなって15〜20分くらい」と言った。</li><li>21:00〜23:00は外の明かりを消していた。赤いライトでは、顔も服の色もほとんど見分けがつかない。</li><li>ドームのスリット（屋根の開き口）は、南西の低い空に向けて開いていた。</li><li>観測会の参加者は、全員がグループLINE「星見ヶ丘 観測会」に入っている（堂島をのぞく）。</li><li>事件のあとの騒ぎの中で、<b>書斎の金庫の遺言書</b>と、<b>倉庫の古いレンズ</b>がなくなっていることがわかった。</li></ul>
+    </div>
+    <div class="box">
+      <h3>投票の3つの問い</h3>
+      <ul><li>問1　鳴沢修造を殺したのは誰か（+4）</li><li>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</li><li>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</li></ul>
+      <p class="note">3つの答えが別の人とはかぎりません。</p>
+    </div>
+  </div>
+  
+    <div class="maps">
+    <div class="box map"><h3>見取り図</h3>
+    
+    <svg viewBox="0 0 420 330" role="img" aria-label="星見ヶ丘天文台の見取り図">
+      <text class="sm" x="372" y="20">北 ↑</text>
+      <rect class="room" x="20" y="14" width="250" height="70"/><text x="112" y="44">観測広場</text><text class="sm" x="44" y="64">マットと寝袋が並ぶ。東の空がよく見える</text>
+      <rect class="room" x="280" y="30" width="120" height="110"/><text x="314" y="62">ラウンジ</text><text class="sm" x="292" y="80">ライブ配信・トイレ</text><text class="sm" x="292" y="96">2階：書斎・客室</text>
+      <rect class="stair" x="70" y="96" width="140" height="18"/><text class="sm" x="100" y="109">杉林（南西の空をさえぎる）</text>
+      <circle class="hot" cx="140" cy="168" r="44"/><text class="ac" x="122" y="166">ドーム</text><text class="sm" x="112" y="182">スリット→南西</text>
+      <rect class="door" x="136" y="120" width="10" height="8"/>
+      <rect class="room" x="280" y="150" width="120" height="50"/><text x="320" y="180">倉庫</text>
+      <rect class="room" x="200" y="215" width="70" height="45"/><text class="sm" x="207" y="242">発電機小屋</text>
+      <rect class="road" x="280" y="215" width="120" height="95"/><text x="314" y="248">駐車場</text><text class="sm" x="290" y="266">南西の空がひらける</text>
+      <path class="trail" d="M60 300 L20 230 L40 140"/><text class="sm" x="24" y="318">西の尾根へ（歩いて10分）</text>
+      <rect class="road" x="290" y="310" width="110" height="14"/><text class="sm" x="296" y="321">ふもとへの道（落石）</text>
+    </svg>
+    <p class="note">ドームの入り口は北側に一つ。トイレはラウンジの外側から入る（外トイレ）。観測広場からドームまで歩いて2分、ラウンジから駐車場まで1分。広場からは、南西の低い空はドームと杉林に隠れて見えない。</p></div>
+    </div>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。</p><div class="people"><div class="person victim"><span class="role">被害者・星見ヶ丘天文台の台長</span><span class="nm">鳴沢 修造</span><span class="kana">なるさわ しゅうぞう（68）</span><p>元・大学教授。アマチュア天文家として新しい彗星を三つ見つけた、この世界の有名人。私財で山の上に天文台を建て、毎年しし座流星群の夜に観測会を開いてきた。気難しく、自分の名声を何より大事にする。</p></div><div class="person"><span class="role">天文台の職員・台長の娘（31）</span><span class="nm">鳴沢 遥香</span><span class="kana">なるさわ はるか</span><p>鳴沢の一人娘。東京の大学で天文学を学んだあと戻ってきて、天文台の運営とライブ配信を任されている。今夜もラウンジから観測会を配信していた。</p><p class="look">服装：紺のダウン、ニット帽、首から一眼レフ</p></div><div class="person"><span class="role">大学准教授・鳴沢の元弟子（42）</span><span class="nm">秋月 俊介</span><span class="kana">あきづき しゅんすけ</span><p>信州の大学で天文学を教える准教授。かつて鳴沢の一番弟子だったが、八年前に仲たがいして天文台を去った。今夜は八年ぶりに観測会に来た。</p><p class="look">服装：グレーのフリース、黒いニット帽、赤と緑の切りかえができるヘッドライト</p></div><div class="person"><span class="role">台長の妻（52）</span><span class="nm">鳴沢 真理子</span><span class="kana">なるさわ まりこ</span><p>鳴沢の妻。もとは大学で鳴沢の秘書をしていて、十年前に結婚した。天文にはあまり興味がなく、観測会ではいつも裏方。</p><p class="look">服装：キャメルのロングコート、パールのイヤリング、室内ばき</p></div><div class="person"><span class="role">町役場 観光課長（47）</span><span class="nm">宇佐美 健</span><span class="kana">うさみ けん</span><p>ふもとの町の観光課長。「星のきれいな町」として観光客を呼ぶ計画を進めていて、天文台を町に寄付してほしいと鳴沢に頼んでいた。</p><p class="look">服装：町のロゴ入りのジャンパー、作業ズボン、長靴。たばこを吸う</p></div><div class="person"><span class="role">星景写真家（26）</span><span class="nm">九重 さやか</span><span class="kana">ここのえ さやか</span><p>星空と風景を一緒に撮る「星景写真」で人気の若手写真家。SNSのフォロワーは十万人以上。今夜は鳴沢に招かれて、初めて観測会に来た。</p><p class="look">服装：黒いダウン、三脚を背負ったリュック、ミラーレスカメラ</p></div><div class="person"><span class="role">天文台の管理人（63）</span><span class="nm">堂島 剛</span><span class="kana">どうじま たけし</span><p>天文台ができた三十年前から、管理人として住みこみで働いている。発電機の世話から雪かきまで、何でもこなす。無口で、スマホは持っていない。</p><p class="look">服装：茶色の作業着、厚手の青いゴム手袋、毛糸の帽子</p></div><div class="person"><span class="role">町の診療所の医師（34）</span><span class="nm">小早川 玲奈</span><span class="kana">こばやかわ れな</span><p>ふもとの町で診療所を開いている医師。七年前から鳴沢の主治医。学生のころは天文部で、鳴沢の観測会にも通っていた。夫と四歳の息子がいる。</p><p class="look">服装：白いダウン、ベージュのマフラー、往診かばん</p></div><div class="person"><span class="role">大学1年・天文部（19）</span><span class="nm">三上 蒼汰</span><span class="kana">みかみ そうた</span><p>信州の大学の一年生で、天文部。高校生のころから観測会に通い、鳴沢に目をかけられてきた。手づくりの望遠鏡で彗星を探している。</p><p class="look">服装：青いマウンテンパーカー、手袋、手づくりの双眼鏡を首から</p></div><div class="person"><span class="role">望遠鏡メーカー「志賀光学」社長（55）</span><span class="nm">志賀 誠</span><span class="kana">しが まこと</span><p>父の代から続く望遠鏡メーカーの二代目社長。天文台の望遠鏡は、ほとんどが志賀光学の製品。鳴沢は長年の大事なお得意さまだった。</p><p class="look">服装：紺のダウンジャケット、銀ぶちの眼鏡、革の手袋</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>ネタバレ注意。</strong>1人分ずつ封筒に入れて配ります。自分のシート以外は見ないでください。</p>
+    <button type="button" class="btn" id="gate-chars">表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">鳴沢 遥香<small>なるさわ はるか</small></span><span class="rl">天文台の職員・台長の娘</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">秋月 俊介<small>あきづき しゅんすけ</small></span><span class="rl">大学准教授・鳴沢の元弟子</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">鳴沢 真理子<small>なるさわ まりこ</small></span><span class="rl">台長の妻</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">宇佐美 健<small>うさみ けん</small></span><span class="rl">町役場 観光課長</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">九重 さやか<small>ここのえ さやか</small></span><span class="rl">星景写真家</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">堂島 剛<small>どうじま たけし</small></span><span class="rl">天文台の管理人</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">小早川 玲奈<small>こばやかわ れな</small></span><span class="rl">町の診療所の医師</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">三上 蒼汰<small>みかみ そうた</small></span><span class="rl">大学1年・天文部</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">志賀 誠<small>しが まこと</small></span><span class="rl">望遠鏡メーカー「志賀光学」社長</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="haruka">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">鳴沢 遥香<small>なるさわ はるか</small></span><span class="rl">天文台の職員・台長の娘・31歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鳴沢遥香です。父の天文台で働いてます。今夜はラウンジで流星群のライブ配信をしてました。……みなさん、寒い中ありがとうございました。こんなことになるなんて」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは天文台の隣の家で育った。父は昼は大学で教え、夜はドームにこもって彗星を探した。幼いころ、父の膝の上で望遠鏡をのぞいたのが、いちばん古い記憶だ。</p><p>母はあなたが十二歳のときに亡くなった。十年前、父は秘書だった真理子さんと再婚した。真理子さんとは、今もどこかよそよそしい。</p><p>父は名声にこだわる人だった。新しい彗星に自分の名前がつくことを、何より誇りにしていた。今夜の「大事な発表」も、四つ目の新彗星のことだろうと、あなたは思っている。</p><p>でも、その彗星を最初に見つけたのは父ではないかもしれない。先月、天文部の学生・三上くんが撮った画像を、父が「確認する」と言って持っていくのを、あなたは見ていた。</p><p>あなたには、誰にも言っていない恋人がいる。父の元弟子の<b>秋月俊介</b>だ。父は八年前に秋月さんを「裏切り者」と呼んで追い出した。二人のことを知れば、父は許さないだろう。</p><p>父は最近、急にやせた。病院の話をすると、いつもはぐらかされた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>秋月俊介と、二年前からひそかに付き合っている。</b>父が死んだ今、秋月さんが疑われるのがいちばん怖い。今夜22:20ごろ、秋月さんから「先生と話してくる」とLINEが来た。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>秋月俊介</b>：恋人。22:20に「先生と話してくる」とLINEが来た。そのあと、どうなったかは聞けていない。</li><li><b>鳴沢真理子</b>：父の後妻。今夜は「頭が痛い」と言って、22時ごろ2階に上がった。</li><li><b>宇佐美健</b>：町の観光課長。父に天文台を町に寄付してほしいと頼んでいた。</li><li><b>九重さやか</b>：星景写真家。父が妙に気にかけていて、今夜の観測会にも父が自分で招いた。</li><li><b>堂島剛</b>：三十年前から天文台の管理人。あなたにとっては、もう一人の祖父のような人。</li><li><b>小早川玲奈</b>：町の診療所の医師で、父の主治医。21:50ごろ、薬を届けにドームへ行っていた。</li><li><b>三上蒼汰</b>：天文部の大学生。父の弟子のような存在。彗星の画像のことが気になっている。</li><li><b>志賀誠</b>：望遠鏡メーカーの社長。22:38ごろ「ちょっとトイレ」とラウンジを出て、22:45ごろ戻ってきた。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>落ち着いていて、てきぱきと話す。父のことになると、怒りと悲しみがまじった顔をする。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">鳴沢 遥香<small>なるさわ はるか</small></span><span class="rl">天文台の職員・台長の娘・31歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測会が始まる。ラウンジでライブ配信を始める（〜23:00。画面にはラウンジのテーブルと、窓の外の夜空が映っている）。</dd><dt>22:20</dt><dd>秋月さんからLINE「先生と話してくる」。</dd><dt>22:30</dt><dd>父のトランシーバーの声を聞く。</dd><dt>22:38</dt><dd>志賀さんが「トイレ」とラウンジを出る。</dd><dt>22:41</dt><dd>広場のほうから歓声。ラウンジの窓は北向きで、火球は見えなかった。</dd><dt>22:44</dt><dd>トランシーバーで「父さん、火球見た？」と呼ぶ。<b>返事がなかった。</b>撮影中でも、父はいつも一言は返してくれるのに。</dd><dt>22:45</dt><dd>志賀さんがラウンジに戻ってくる。</dd><dt>23:00</dt><dd>配信を終える。父が来ない。</dd><dt>23:05</dt><dd>志賀さんとドームへ。23:07、倒れている父を見つける。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:00〜23:00</dt><dd>「ずっとラウンジで配信してた。録画が残ってる」（本当）</dd><dt>22:44</dt><dd>「父を呼んだけど、返事がなかった」（本当。言えば時刻の手がかりになる）</dd><dt>秋月さんのこと</dt><dd>「父の元弟子。今はほとんど会ってない」（付き合っていることは伏せる）</dd><dt>23:05〜23:07</dt><dd>「志賀さんとドームへ行って、父を見つけた」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。配信の録画があるので、あなたへの疑いは薄い。そのぶん、みんなの話をまとめる役になれる。</li><li>22:44に父が返事をしなかったことは、犯行の時刻を絞る大事な手がかりかもしれない。小早川先生の言う「亡くなって15〜20分」と合うだろうか。</li><li>秋月さんが疑われたら、かばいたい。でも、かばいすぎると二人の関係がばれる。</li><li>遺言書がなくなったことも気になる。金庫の番号を知っていそうなのは誰だろう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「遥香と秋月は、ひそかに付き合っている」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問2（遺言書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、<b>秋月俊介</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="akizuki">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">秋月 俊介<small>あきづき しゅんすけ</small></span><span class="rl">大学准教授・鳴沢の元弟子・42歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「秋月です。昔、鳴沢先生のところで星を教わっていました。八年ぶりに来ました。……先生とは、いろいろありましたが、この空だけは昔のままです」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは二十歳で鳴沢の弟子になり、十四年間ドームに通った。四つの新彗星のうち、二つ目はあなたが最初に見つけたものだった。けれど論文に載ったのは「鳴沢彗星」という名前だけだった。</p><p>八年前、あなたはそのことを学会で口にした。鳴沢は激怒し、あなたを「恩知らずの裏切り者」と呼んで天文台から追い出した。あなたの研究者人生は、一度そこで止まった。</p><p>それでも、あなたは鳴沢の娘・<b>遥香</b>と、二年前から付き合っている。いつか鳴沢に認めてもらいたいと思っていたが、その日は来なかった。</p><p>先月、天文部の学生・<b>三上蒼汰</b>から相談を受けた。「僕が見つけた彗星を、先生が自分の名前で報告しようとしている」。あなたには、それが八年前の自分と重なった。</p><p>今夜こそ、鳴沢に言うつもりだった。「三上くんの名前で報告してください」と。</p><p>遥香とは、いつか鳴沢に結婚を認めてもらうつもりだった。八年ぶりにこの山に来たのは、そのためでもあった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>22:20、ドームへ行き、鳴沢と言い争った。</b>「三上くんの彗星を横取りするな」と言うと、鳴沢は「証拠はあるのか。あの画像を撮った望遠鏡は私のものだ」と笑った。22:28、怒りをこらえてドームを出た。そのとき鳴沢は生きていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：恋人。22:20に「先生と話してくる」とLINEした。</li><li><b>鳴沢真理子</b>：先生の後妻。昔は先生の秘書で、あなたとも顔見知り。</li><li><b>宇佐美健</b>：町の観光課長。22:20ごろ、ドームへ向かうとき、駐車場のほうにたばこの火が見えた。</li><li><b>九重さやか</b>：写真家。22:10ごろ、赤いライトを持って西の尾根のほうへ歩いていった。</li><li><b>堂島剛</b>：管理人。八年前、追い出されるあなたを、黙って駐車場まで送ってくれた。</li><li><b>小早川玲奈</b>：先生の主治医。今夜、先生の顔色をしきりに気にしていた。</li><li><b>三上蒼汰</b>：先生に彗星を横取りされそうな学生。あなたの味方をしてくれる。</li><li><b>志賀誠</b>：望遠鏡メーカーの社長。22:12ごろ、ドームの入り口から出てくる赤いライトを見た。たぶん志賀さんだと思う。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>静かで理屈っぽい話し方。鳴沢の話になると、つい「先生」と呼んでしまう。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">秋月 俊介<small>あきづき しゅんすけ</small></span><span class="rl">大学准教授・鳴沢の元弟子・42歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場のいちばん東の端のマットに寝転ぶ。</dd><dt>22:12</dt><dd>ドームの入り口から誰かが出てくるのを見る（体格からして志賀さん？）。</dd><dt>22:20</dt><dd>遥香にLINEしてから、ドームへ。霜の降りた草を踏んで歩いた。</dd><dt>22:28</dt><dd>鳴沢と言い争ったあと、ドームを出る。</dd><dt>22:29</dt><dd>広場に戻る途中、三上くんとすれ違う。「どうでした？」と聞かれ、首を横に振った。</dd><dt>22:30</dt><dd>鳴沢のトランシーバーの声を聞く。（まだ生きている）</dd><dt>22:41</dt><dd>ドームの向こうの空が明るくなる。火球そのものは見えなかった。LINEに「空が明るくなった！」と書く。</dd><dt>22:52</dt><dd>トイレへ（〜22:58）。</dd><dt>23:00</dt><dd>ラウンジに集まる。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜23:00</dt><dd>「ずっと広場の東の端で寝転んでた」（ドームへ行ったことは伏せる）</dd><dt>22:41</dt><dd>「ドームの向こうが光っただけで、火球は見えなかった」（本当）</dd><dt>22:52〜22:58</dt><dd>「トイレに行ってた」（本当）</dd><dt>22:12</dt><dd>ドームから出てくる人影（志賀さん？）を見たことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、鳴沢とは因縁があり、事件の直前にドームへ行っている。それがばれたら、いちばん疑われるだろう。</li><li>ドームへ行ったのは22:20〜22:28で、22:30には鳴沢の声がしていた。もしばれたら、そのことを強く言おう。</li><li>三上くんの彗星のことは、みんなに知ってほしい。それは鳴沢の本当の姿を知らせることでもある。</li><li>広場の東の端からドームまでの霜には、あなたの足跡が残っているかもしれない。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="mariko">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">鳴沢 真理子<small>なるさわ まりこ</small></span><span class="rl">台長の妻・52歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鳴沢の妻の真理子です。わたくし、星のことはさっぱりで……。夫はいつもドームにこもりきりでしたから、今夜も、まさかこんな」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは二十年前、大学の教授室で鳴沢の秘書になった。几帳面で、予定と書類の管理はお手のものだった。前の奥さまが亡くなったあと、鳴沢を支えたのはあなただ。</p><p>十年前に結婚したが、鳴沢の心はいつも空と、亡くなった前の奥さまにあった。それでもあなたは、この家と天文台を守ってきたつもりだ。</p><p>ひと月前、あなたは書斎で、鳴沢が書きかけた<b>新しい遺言書</b>の下書きを見てしまった。「天文台と土地は町に寄付する」「九重さやかに一千万円を遺す」。あなたの取り分は、今の家だけだった。</p><p>九重さやか。あの若い写真家は、いったい何者なのか。二十七年前、鳴沢には若い助手がいたと聞いたことがある。</p><p>今夜、鳴沢は「二十三時に大事な発表をする」と言った。遺言のことかもしれない。あなたは、その前に手を打つことにした。</p><p>金庫の番号は、二人の結婚記念日。鳴沢がそれを番号にしてくれたことだけは、あなたの小さな誇りだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>22:35、書斎の金庫から新しい遺言書を持ち出した。</b>金庫の番号は、秘書時代から知っている。遺言書は自分の部屋の旅行かばんの底に隠した。22:45に部屋へ戻った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：夫の娘。あなたを「真理子さん」としか呼ばない。</li><li><b>秋月俊介</b>：夫の元弟子。八年前、夫に追い出された。</li><li><b>宇佐美健</b>：町の観光課長。夫に天文台の寄付を頼んでいた。寄付が決まれば、彼の手柄になる。</li><li><b>九重さやか</b>：遺言書に名前があった写真家。目もとが夫に似ている気がする。</li><li><b>堂島剛</b>：管理人。2階の書斎の窓から、22:40ごろ、駐車場で堂島さんの軽トラの荷台の明かりがついているのが見えた。</li><li><b>小早川玲奈</b>：夫の主治医。夫が最近飲んでいる強い痛み止めは、彼女が出している。</li><li><b>三上蒼汰</b>：夫がかわいがっていた学生。</li><li><b>志賀誠</b>：望遠鏡メーカーの社長。最近、夫あての電話がしつこかった。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ていねいな山の手言葉。困ると「わたくし、何も存じません」と繰り返す。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">鳴沢 真理子<small>なるさわ まりこ</small></span><span class="rl">台長の妻・52歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>ラウンジで、お茶や毛布を配る。</dd><dt>22:00</dt><dd>「頭が痛い」と言って2階の自分の部屋へ。</dd><dt>22:30</dt><dd>夫のトランシーバーの声を部屋で聞く。</dd><dt>22:35</dt><dd>書斎へ行き、金庫から遺言書を持ち出す。</dd><dt>22:40</dt><dd>書斎の窓から、駐車場で軽トラの荷台の明かりがついているのを見る。</dd><dt>22:41</dt><dd>書斎の窓から、<b>南西の空に大きな火球</b>が見えた。緑色で、とちゅうで二つに割れた。</dd><dt>22:45</dt><dd>部屋に戻り、遺言書を旅行かばんの底に隠す。</dd><dt>22:58</dt><dd>ラウンジに下りる。</dd><dt>23:07</dt><dd>ドームで夫が見つかったと聞く。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜22:58</dt><dd>「頭が痛くて、ずっと自分の部屋で横になってました」（書斎のことは伏せる）</dd><dt>22:41</dt><dd>「火球？　部屋のカーテンを閉めていたので、何も」（書斎の窓から見えたことは伏せる）</dd><dt>遺言書</dt><dd>「金庫の番号なんて、夫しか知りません」</dd><dt>22:40</dt><dd>駐車場の軽トラの明かり（堂島さん）のことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、遺言書が消えたとわかれば、あなたが真っ先に疑われる。遺言書の中身（寄付と、九重への遺贈）は、できれば誰にも知られたくない。</li><li>九重さやかが夫の隠し子だとしたら……。それがばれれば、遺産の話はもっとややこしくなる。</li><li>駐車場の軽トラの明かりのことは、話せば堂島さんに目が向く。使いどころを考えよう。</li><li>火球のことを細かく話すと、部屋ではなく書斎にいたことがばれるかもしれない。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問2（遺言書を持ち去ったのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="usami">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">宇佐美 健<small>うさみ けん</small></span><span class="rl">町役場 観光課長・47歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「町の観光課の宇佐美です。この天文台は、町の宝だと思ってます。星を見に、全国から人が来る町にしたい。……先生には、ずっとお願いしてたんですがねえ」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたはこの町で生まれ、町役場に二十五年勤めてきた。若い人が出ていき、商店が閉まっていくのを、ずっと見てきた。</p><p>三年前、「星空の町」計画を立ち上げた。目玉は星見ヶ丘天文台だ。町のものになれば、補助金で宿泊施設を建てられる。鳴沢には何度も頭を下げたが、返事はいつも「考えておく」だった。</p><p>あなたには、町の人には言えない趣味がある。<b>古いレンズや望遠鏡の収集</b>だ。天文台の倉庫に、昔ドイツで作られた貴重な対物レンズが眠っていることを、あなたは知っていた。</p><p>先月、管理人の<b>堂島剛</b>から持ちかけられた。「倉庫のレンズを、こっそり安く譲ってもいい。金がいるんだ」。あなたは迷ったすえに、うなずいた。</p><p>鳴沢は寄付の話のたびに「町の役人に星の何がわかる」と鼻で笑った。それでもあなたは、毎月この山に上がってきた。</p><p>今夜の観測会も、町の広報誌に載せる写真のために来た、ということになっている。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>堂島から、倉庫の古いレンズを30万円で買い取る約束をしていた。</b>（本当の値打ちは数百万円）今夜22:38、駐車場で堂島の軽トラにレンズのケースが積まれるのを見届け、代金の半分を渡した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：台長の娘。寄付の話には賛成してくれそうだ。</li><li><b>秋月俊介</b>：22:20ごろ、駐車場から、赤と緑のライトがドームへ向かうのが見えた。あんなライトは秋月さんのだ。</li><li><b>鳴沢真理子</b>：台長の妻。寄付の話には、はっきり反対している。</li><li><b>九重さやか</b>：写真家。22:10ごろ、西の尾根へ向かうのを見た。</li><li><b>堂島剛</b>：レンズを売ってくれる管理人。22:35〜22:46、駐車場で一緒にいた。</li><li><b>小早川玲奈</b>：町の診療所の先生。町の人はみんな世話になっている。</li><li><b>三上蒼汰</b>：天文部の学生。</li><li><b>志賀誠</b>：22:39ごろ駐車場に来て、自分の車の中で何かごそごそしていた。22:44ごろラウンジのほうへ戻っていった。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>人当たりがよく、よくしゃべる。町の話になると熱がこもる。都合が悪くなると、たばこを探すふりをする。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">宇佐美 健<small>うさみ けん</small></span><span class="rl">町役場 観光課長・47歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場で流れ星を見る。</dd><dt>22:15</dt><dd>たばこを吸いに駐車場へ。</dd><dt>22:20</dt><dd>赤と緑のライトがドームへ向かうのを見る。</dd><dt>22:35</dt><dd>堂島さんが軽トラを駐車場に回してくる。</dd><dt>22:38</dt><dd>倉庫から運んだレンズのケースが荷台に積まれる。代金の半分の15万円を渡す。</dd><dt>22:39</dt><dd>志賀さんが来て、自分の車に乗りこむ。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。LINEに「駐車場から見えた、でかい！」と書く。</dd><dt>22:46</dt><dd>堂島さんと別れる。</dd><dt>22:50</dt><dd>ラウンジへ戻る。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:15〜22:50</dt><dd>「駐車場でたばこを吸ってた。堂島さんと世間話をしてた」（レンズのことは伏せる）</dd><dt>22:41</dt><dd>「駐車場からよく見えた。緑で、二つに割れた」（本当）</dd><dt>22:20</dt><dd>赤と緑のライトのこと（秋月さん）は、言うかどうか自由</dd><dt>22:39</dt><dd>「志賀さんが来て、自分の車で何かしてた」（言うかどうか自由）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。駐車場にいたことは、堂島さんと志賀さんが知っている。レンズの話さえ出なければ、あなたは安全だ。</li><li>寄付を断られていたあなたにも、動機があると思われるかもしれない。</li><li>秋月さんがドームへ行ったことを話せば、疑いをそらせる。</li><li>志賀さんが「トイレにいた」と言ったら、駐車場で見たことを話すか考えよう。話せば、あなたが駐車場にいた理由も聞かれる。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問3（レンズを持ち出したのは誰か）で、<b>堂島剛</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="kokonoe">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">九重 さやか<small>ここのえ さやか</small></span><span class="rl">星景写真家・26歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「写真家の九重です。星と景色を一緒に撮ってます。今夜は西の尾根で、流星と天文台を一枚におさめるつもりでした。……鳴沢先生に呼んでもらえたの、うれしかったのに」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは母一人に育てられた。母は若いころ、ある大学の研究室で天文の助手をしていたという。父親のことを聞くと、母はいつも「星の好きな人だった」とだけ言った。</p><p>去年、母が病気で亡くなった。遺品の中に、古い手紙の束があった。差出人は<b>鳴沢修造</b>。「君と、生まれてくる子のことは、一生かけて償う」。あなたは、自分が鳴沢の娘だと知った。</p><p>鳴沢に会ってから一年、あなたは月に一度この山に通い、尾根から天文台を撮り続けた。父と娘として話せたのは、尾根の上で二人きりのときだけだった。</p><p>あなたは鳴沢に会いに行った。鳴沢は泣いて謝り、「ちゃんと遺すものは遺す」と言った。でも、世間に娘だと名乗ることは許してくれなかった。「家族を傷つけたくない」と。</p><p>あなたは星景写真の仕事で、暗闇の撮影に慣れている。カメラの画像を見れば、星がどう写ったかで、撮ったときに何が起きたかがわかる。<b>星が全部同じ向きに短い弧を描いて写るのは、カメラ（望遠鏡）が動いたとき。流れ星なら、一本の線だけ</b>だ。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>あなたは鳴沢修造の隠し子。</b>今夜、鳴沢は「二十三時の発表で、遺言のことも話す」と言っていた。あなたは、娘として名前を呼ばれるのを、少しだけ期待していた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：腹ちがいの姉。向こうは何も知らない。</li><li><b>秋月俊介</b>：22:10、尾根へ向かうとき、広場の東の端に寝転んでいた。</li><li><b>鳴沢真理子</b>：父の妻。今夜、あなたを見る目が冷たかった。</li><li><b>宇佐美健</b>：町の人。22:10ごろ、駐車場のほうへ歩いていくのを見た。</li><li><b>堂島剛</b>：管理人。尾根への道を教えてくれた、優しい人。</li><li><b>小早川玲奈</b>：お医者さん。22:10、広場の西の端のマットにいた。寝袋がふくらんでいた。</li><li><b>三上蒼汰</b>：天文部の学生。小早川先生の隣のマットにいた。</li><li><b>志賀誠</b>：22:13、尾根へ向かう途中にドームの入り口の前を通ると、志賀さんが出てきた。分厚い封筒を手に持っていた。あなたの写真にも写っている。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るく、人なつっこい。写真の話になると早口になる。父のことを話すときだけ、声が小さくなる。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">九重 さやか<small>ここのえ さやか</small></span><span class="rl">星景写真家・26歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>22:10</dt><dd>三脚をかついで西の尾根へ。</dd><dt>22:13</dt><dd>ドームの入り口から、封筒を持った志賀さんが出てくるのを見る（写真に写った）。</dd><dt>22:25</dt><dd>尾根に着き、天文台と南西の空にカメラを向けて連写を始める。</dd><dt>22:41</dt><dd><b>大きな火球が写る。</b>南西の低い空、緑色で、とちゅうで二つに割れた。</dd><dt>22:50</dt><dd>撮影を終えて、尾根を下りる。</dd><dt>23:02</dt><dd>ラウンジに着く。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:10〜23:02</dt><dd>「西の尾根で撮影してた。カメラに時刻つきの写真が残ってる」（本当）</dd><dt>22:41</dt><dd>「ばっちり撮れた。緑で、二つに割れた」（本当。写真を見せれば証明できる）</dd><dt>鳴沢との関係</dt><dd>「先生に写真を気に入ってもらって、呼んでもらった」（娘であることは伏せる）</dd><dt>22:13</dt><dd>「ドームから封筒を持った志賀さんが出てきた」（写真がある。言うかどうか自由）</dd><dt>22:50〜23:02</dt><dd>「尾根を下りてきた。暗くて12分かかった」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。写真の時刻があなたのアリバイ。ただし「カメラの時計は変えられる」と言われるかもしれない。</li><li>あなたが鳴沢の娘だと知られれば、遺産のために殺したと疑われる。</li><li>星の写り方の知識は、きっと誰かのカードを読み解くのに役立つ。</li><li>22:50〜23:02の帰り道は、誰にも見られていない。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「九重は、鳴沢の隠し子である」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問2（遺言書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="dojima">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">堂島 剛<small>どうじま たけし</small></span><span class="rl">天文台の管理人・63歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「管理人の堂島です。三十年、ここで働いとります。……先生とは、いろいろあったけど、三十年は三十年ですわ」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは林業をやめたあと、鳴沢に拾われて天文台の管理人になった。ドームの屋根の雪下ろしも、発電機の燃料入れも、全部あなたの仕事だ。</p><p>十二年前のしし座流星群の夜を、あなたは忘れられない。ふもとの国道で、幼なじみの<b>田所さん</b>が車にはねられて死んだ。犯人は見つかっていない。</p><p>あの夜、観測会に来ていた先生の若いお客さんの一人が、白い軽自動車で早めに帰っていった。<b>翌朝、その車が前のバンパーをへこませて駐車場に戻ってきた</b>のを、あなたは見た。「鹿にぶつけた」と先生は言った。大学生くらいの女の子の車だった。顔はよく覚えていない。</p><p>妻の病気の治療費で、あなたには借金がある。先月、町の<b>宇佐美</b>に、倉庫の古いレンズを買ってくれないかと持ちかけた。先生はもう何年も、あのレンズを見てもいなかった。</p><p>三十年、先生のドームの屋根を守ってきた。給料は安く、休みもなかった。それでも、ドームのスリットが開いて星がのぞく瞬間が、あなたは好きだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜22:35〜22:38、倉庫から古いレンズのケースを持ち出し、駐車場の軽トラに積んだ。</b>宇佐美さんから代金の半分（15万円）を受け取った。「発電機の燃料を入れに行く」と言って出たが、本当は燃料など入れていない。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：孫のように思っているお嬢さん。</li><li><b>秋月俊介</b>：八年前、先生に追い出された人。いい青年だった。</li><li><b>鳴沢真理子</b>：先生の奥さん。金庫の番号を知っているのは、先生と奥さんだけのはず。</li><li><b>宇佐美健</b>：レンズを買ってくれる人。22:35〜22:46、駐車場で一緒にいた。</li><li><b>九重さやか</b>：写真家。目もとが若いころの先生にそっくりで、どきりとした。22:10ごろ、尾根への道を聞かれて教えた。</li><li><b>小早川玲奈</b>：町の診療所の先生。<b>診察のとき、いつも薄い青いゴム手袋をはめる。</b></li><li><b>三上蒼汰</b>：天文部の学生。</li><li><b>志賀誠</b>：22:39ごろ駐車場に来て、自分の車の中で何かしていた。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ぶっきらぼうな山言葉（「〜だで」「〜ずら」）。口数は少ないが、うそをつくときは目をそらす。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">堂島 剛<small>どうじま たけし</small></span><span class="rl">天文台の管理人・63歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>発電機小屋と広場を見回る。</dd><dt>22:35</dt><dd>「発電機に燃料を入れてくる」と言って、倉庫からレンズのケースを運び出し、軽トラを駐車場へ。</dd><dt>22:38</dt><dd>荷台にケースを積み、宇佐美さんから15万円を受け取る。</dd><dt>22:39</dt><dd>志賀さんが自分の車に乗りこむのが見えた。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。（あなたはスマホを持っていない）</dd><dt>22:46</dt><dd>軽トラの荷台にシートをかけ、宇佐美さんと別れる。</dd><dt>22:55</dt><dd>ラウンジへ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:35〜22:55</dt><dd>「発電機小屋で燃料を入れてた。そのあと駐車場で宇佐美さんと一服」（レンズのことは伏せる）</dd><dt>22:41</dt><dd>「駐車場からよう見えた。緑で、二つに割れた」（本当）</dd><dt>12年前の夜</dt><dd>白い軽自動車のことを話すかどうかは自由。</dd><dt>22:39</dt><dd>「志賀さんが駐車場に来とった」（言うかどうか自由）</dd><dt>手袋</dt><dd>「わしの手袋は厚手の作業用だで」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でもレンズのことがばれれば、先生と金のことでもめていたと思われる。</li><li>発電機の燃料は、本当は入れていない。燃料の量を調べられたらまずい。</li><li>十二年前の田所さんの事故の犯人を、あなたはずっと知りたかった。今夜の事件と関係があるのだろうか。</li><li>宇佐美さんとは口裏を合わせてある。でも、宇佐美さんが先にしゃべったら終わりだ。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問3（レンズを持ち出したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="kobayakawa">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">小早川 玲奈<small>こばやかわ れな</small></span><span class="rl">町の診療所の医師・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。鳴沢修造を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「小早川です。町で診療所をやっています。学生のころから、この観測会には何度も来ていて……鳴沢先生には、本当にお世話になりました」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは医学部の学生だったころ、天文部で鳴沢の講演を聞き、観測会に通うようになった。星を見ていると、勉強の苦しさを忘れられた。</p><p><b>十二年前のしし座流星群の夜</b>、あなたは観測会を早めに抜け、白い軽自動車で山を下りた。国道のカーブで、暗い道を歩いていた男性をはねた。怖くて、そのまま逃げた。男性は亡くなった。</p><p>翌朝、あなたは車を返しに天文台へ戻った。鳴沢はバンパーのへこみを見て、すべてを察した。「鹿にぶつけたことにしておく。君の将来を、こんなことでつぶしてはいけない」。</p><p>その日から、鳴沢はあなたの恩人で、あなたの秘密を握る人になった。七年前、町に診療所を開くと、鳴沢は主治医になれと言った。ここ数年は、決まりを超える量の強い痛み止めを出させられている。</p><p>鳴沢は、すい臓のがんで、もう長くない。それを知っているのは、主治医のあなただけだ。</p><p>今夜21:50、ドームに薬を届けると、鳴沢は言った。「回顧録を書いている。来年の春に出す。私は罪を清算して死にたい。<b>十二年前の夜のことも書く</b>。名前は伏せるが、わかる人にはわかるだろう」。あなたには、夫と四歳の息子がいる。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>あなたが鳴沢修造を殺した。</b>22:33に「トイレ」と言って広場を離れ、ドームへ。22:40、望遠鏡のおもりで頭を殴った。回顧録のノートから最後のページを破り取り、往診かばんに入れた。くわしい動きは2枚目のとおり。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：先生の娘。22:44、トランシーバーで先生を呼ぶ声がした。返事はなかった。（あなたはそのときドームを出たところだった）</li><li><b>秋月俊介</b>：先生の元弟子。22:29ごろ、ドームのほうから広場へ戻ってくる赤と緑のライトが見えた。</li><li><b>鳴沢真理子</b>：先生の妻。先生の病気のことは知らないはず。</li><li><b>宇佐美健</b>：町の観光課長。診療所の患者さん。</li><li><b>九重さやか</b>：写真家。西の尾根へ撮影に行った。</li><li><b>堂島剛</b>：管理人。十二年前の朝、駐車場であなたの車を見ていたかもしれない。</li><li><b>三上蒼汰</b>：隣のマットにいた学生。暗くて、こちらの顔はほとんど見えていないはず。</li><li><b>志賀誠</b>：望遠鏡メーカーの社長。先生とは何かもめていたらしい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>やわらかく、ていねいな話し方。医師らしく冷静にふるまうが、子どもの話をするときだけ声がふるえる。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">小早川 玲奈<small>こばやかわ れな</small></span><span class="rl">町の診療所の医師・34歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>22:00</dt><dd>ドームから広場の西の端のマットに戻る（隣は三上くん）。</dd><dt>22:33</dt><dd>三上くんに「ちょっとトイレ」と言って立つ。寝袋はふくらませておいた。</dd><dt>22:36</dt><dd>外トイレの前の踏み固められた道からドームへ。回顧録をやめてと頼むが、断られる。</dd><dt>22:40</dt><dd>床のおもりで先生の後頭部を殴る。望遠鏡が大きく揺れ、<b>診察用の薄い青い手袋の指先が、望遠鏡の金具に引っかかって破れた。</b></dd><dt>22:41</dt><dd><b>スリットの向こうの南西の空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。</dd><dt>22:43</dt><dd>回顧録の最後のページを破り取る。グループLINEに「見た!? 緑の火球、とちゅうで二つに割れた！」と書く。</dd><dt>22:44</dt><dd>おもりを拭いてドームを出る（机のトランシーバーから遥香さんの声）。22:47、広場のマットに戻る。</dd><dt>23:10</dt><dd>遺体を調べ、<b>「亡くなって15〜20分」とうそを言う。</b></dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:33〜22:47</dt><dd>「外のトイレに行って、22:38ごろには広場に戻って、寝袋でうとうとしてた」</dd><dt>22:42の三上くん</dt><dd>呼びかけに答えなかったのは「寝てたのかも」</dd><dt>火球</dt><dd>「広場の西の端で立ち上がって見た」（「広場からは見えない」と言われたら「少し歩いたから」）</dd><dt>死亡時刻</dt><dd>「体の温かさからみて22:50〜22:55ごろ」と言い張る</dd><dt>手袋の切れ端</dt><dd>「23:10に遺体を調べたとき、破れたのかも」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li><b>あなたは犯人。</b>ほかにも何人もが本当と違うことを言っている。医師として、落ち着いた「まとめ役」になろう。</li><li>死亡時刻を22:50〜22:55だと思わせれば、その時間にアリバイのない人に疑いが向く。</li><li>LINEの火球の書きこみは失敗だったかもしれない。十二年前のことと結びつけられないよう、誰かの秘密を暴いて話をそらそう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b>（逃げ切る）</span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="mikami">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">三上 蒼汰<small>みかみ そうた</small></span><span class="rl">大学1年・天文部・19歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「三上です。大学一年で、天文部です。高校のころから、ここの観測会に来てます。……先生は、僕に星の探し方を教えてくれた人です」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは中学生のとき、テレビで「鳴沢彗星」のニュースを見て、彗星探しにのめりこんだ。高校一年で観測会に来て、鳴沢に「君は目がいい」と言われたのが、人生でいちばんうれしかった。</p><p>先月、天文台の小さな望遠鏡を借りて撮った画像に、見慣れないぼんやりした光が写っていた。新彗星かもしれない。あなたは震える手で、鳴沢に画像を送った。</p><p>鳴沢の返事は「確認する」だけだった。一週間後、天文台のパソコンに、鳴沢の名前で書かれた「新天体発見報告」の下書きがあるのを、あなたは見てしまった。</p><p>あなたは秋月さんに相談した。秋月さんは「八年前、僕も同じことをされた」と言った。</p><p>今夜の「大事な発表」が、その彗星のことなら……。あなたは、自分の名前を取り戻したかった。</p><p>天文部の仲間には、まだ何も話していない。話せば「鳴沢先生を疑うのか」と言われるのが怖かった。</p><p>今夜、ドームの撮影用パソコンには、毎晩のように見ていた2分ごとの画像が並んでいたはずだ。あれを見れば、いつ何が起きたかわかるかもしれない。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>鳴沢の新彗星を最初に見つけたのは、あなた。</b>証拠として、自分のスマホに、日付と時刻の入った元の画像を残してある。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：台長の娘。秋月さんとひそかに付き合っている。（先月、二人が駐車場で手をつないでいるのを見た）</li><li><b>秋月俊介</b>：相談相手。22:29、ドームのほうから戻ってくる秋月さんとすれ違った。「どうでした？」と聞くと、首を横に振った。</li><li><b>鳴沢真理子</b>：台長の奥さん。</li><li><b>宇佐美健</b>：町の人。</li><li><b>九重さやか</b>：写真家。22:10に尾根へ行った。</li><li><b>堂島剛</b>：管理人さん。</li><li><b>小早川玲奈</b>：隣のマットの先生。22:33に「ちょっとトイレ」と立った。<b>22:42、「火球すごかったですね」と小声で話しかけたが、返事がなかった。</b>寝袋はふくらんでいたので、寝ているのだと思った。22:47ごろ、もぞもぞ動く気配がした。</li><li><b>志賀誠</b>：望遠鏡メーカーの社長。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し人見知り。星の話になると目を輝かせる。年上の人には「〜です」をつける。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">三上 蒼汰<small>みかみ そうた</small></span><span class="rl">大学1年・天文部・19歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場の西の端のマットへ。隣は小早川先生。</dd><dt>22:25</dt><dd>トイレの帰り、22:29、ドームのほうから戻ってくる秋月さんとすれ違う。</dd><dt>22:30</dt><dd>鳴沢のトランシーバーの声。</dd><dt>22:33</dt><dd>小早川先生が「ちょっとトイレ」と立つ。</dd><dt>22:41</dt><dd>ドームの向こうの空がぱっと明るくなる。火球そのものは見えなかった。LINEに「ドームの向こうが光った！　見えなかった〜」と書く。</dd><dt>22:42</dt><dd>隣の寝袋に話しかけるが、返事がない。</dd><dt>22:47</dt><dd>隣の寝袋がもぞもぞ動く。</dd><dt>23:00</dt><dd>ラウンジへ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜23:00</dt><dd>「ずっと広場の西の端にいた。22:25にトイレに行ったくらい」（本当）</dd><dt>22:41</dt><dd>「ドームの向こうが光っただけ。広場の西の端からは、南西の低い空はドームと杉林で見えない」（本当）</dd><dt>小早川先生</dt><dd>「22:33にトイレに立って、そのあとは隣で寝てた……と思う」（暗くて顔は見ていない）</dd><dt>22:29</dt><dd>「ドームのほうから戻ってくる秋月さんとすれ違った」（言うかどうか自由）</dd><dt>彗星</dt><dd>「僕が見つけたんです。元の画像があります」（言うかどうか自由）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、彗星を横取りされそうだったあなたにも、動機があると思われるかもしれない。</li><li>彗星のことは、みんなに信じてほしい。元の画像がスマホにあることを、使いどころで話そう。</li><li>隣のマットの小早川先生のことは、見たこと・聞いたことを正直に話せばいい。それが誰の助けになるかは、あなたにもわからない。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div><div class="goal"><span class="pt">+2</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="shiga">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">志賀 誠<small>しが まこと</small></span><span class="rl">望遠鏡メーカー「志賀光学」社長・55歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「志賀光学の志賀です。鳴沢先生には、親父の代からごひいきにしていただいて……。うちの望遠鏡で、先生は彗星を見つけてくださった。誇りでした」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは父から会社を継ぎ、職人十五人の小さな工場を守ってきた。「鳴沢彗星を見つけた望遠鏡」は、会社のいちばんの宣伝文句だ。</p><p>半年前、志賀光学の新型の赤道儀（望遠鏡を載せる台）で、<b>おもりを留める金具がゆるむ不具合</b>が見つかった。おもりが落ちて、客がけがをしかけた。あなたは公表せず、こっそり部品を取り替えて回っている。</p><p>先月、鳴沢のドームの赤道儀でも、金具がゆるんだ。鳴沢は「リコールしなければ、雑誌に書く」と言った。リコールになれば、会社はつぶれる。</p><p>今夜、あなたは決めた。お金で黙ってもらうしかない。</p><p>鳴沢は、志賀光学の望遠鏡を「日本一だ」と言ってくれた人でもあった。二十年前、父の葬式で弔辞を読んでくれたのも鳴沢だった。</p><p>工場の職人たちには、家族がいる。その顔が、今夜もずっと頭から離れない。</p><p>赤道儀のおもりは約5kg。金具がゆるめば、足もとに落ちてくる。鳴沢のドームの赤道儀は、まだ部品を取り替えていない。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>22:12、ドームで鳴沢に200万円の入った封筒を渡そうとして、突き返された。</b>封筒は自分の車のトランクに隠すつもりで、22:38に「トイレ」と言ってラウンジを出て、駐車場へ行った。22:44にラウンジへ戻った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：台長の娘。22:38に「トイレ」と言ってラウンジを出た。（本当は駐車場へ）</li><li><b>秋月俊介</b>：鳴沢の元弟子。</li><li><b>鳴沢真理子</b>：台長の奥さん。</li><li><b>宇佐美健</b>：22:39、駐車場で堂島さんと一緒にいた。軽トラの荷台に、細長いケースが見えた。</li><li><b>九重さやか</b>：22:13、ドームを出たところで、カメラを持ったこの人とすれ違った。見られたかもしれない。</li><li><b>堂島剛</b>：管理人。22:39、駐車場で宇佐美さんと何か話していた。</li><li><b>小早川玲奈</b>：鳴沢の主治医。</li><li><b>三上蒼汰</b>：天文部の学生。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>腰が低く、何かと「恐縮です」と言う。追い詰められると、眼鏡を何度もかけ直す。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">志賀 誠<small>しが まこと</small></span><span class="rl">望遠鏡メーカー「志賀光学」社長・55歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>ラウンジで、遥香さんの配信を手伝う。</dd><dt>22:10</dt><dd>ドームへ。22:12、封筒を渡そうとして突き返される。</dd><dt>22:13</dt><dd>ドームを出たところで、カメラを持った九重さんとすれ違う。</dd><dt>22:15</dt><dd>ラウンジに戻る。</dd><dt>22:38</dt><dd>「トイレ」と言ってラウンジを出て、駐車場の自分の車へ。封筒をトランクに隠す。</dd><dt>22:39</dt><dd>駐車場に宇佐美さんと堂島さん。軽トラの荷台に細長いケース。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色だった。LINEに「緑色！」と書く。</dd><dt>22:44</dt><dd>ラウンジに戻る。</dd><dt>23:05</dt><dd>遥香さんとドームへ。23:07、倒れている鳴沢を見つける。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:10〜22:15</dt><dd>「ラウンジの外の空気を吸ってた」（ドームへ行ったことは伏せる）</dd><dt>22:38〜22:44</dt><dd>「トイレに行ってた」（駐車場のことは伏せる）</dd><dt>22:41</dt><dd>「トイレの窓から見えた」（本当は駐車場から。トイレの窓は北向きなので、ばれるかもしれない）</dd><dt>22:39</dt><dd>駐車場の軽トラの細長いケースのことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、鳴沢を口止めしようとしていたこと、事件の時間に「トイレ」とうそをついたことがばれれば、疑われる。</li><li>LINEに「緑色！」と書いたのは、うかつだった。トイレからは火球は見えないはずだ。</li><li>駐車場で見た軽トラのケースのことは、話せば疑いをそらせる。</li><li>本当のことを言うなら、「駐車場にいて、宇佐美さんと堂島さんが証人だ」と言える。ただし、封筒のことを聞かれる。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問3（レンズを持ち出したのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>ネタバレ注意。</strong>持ち主のキャラシートと一緒に、封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><div class="cards"><div class="card item" data-owner="鳴沢 遥香" data-label="鳴沢 遥香の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd"><span class="owner">持ち主：鳴沢 遥香</span><span class="ttl">ライブ配信の録画</span><div class="txt">スマホに残った配信の録画。21:00〜23:00、ラウンジのテーブルと北向きの窓が映っている。22:10に志賀が席を立ち、22:15に戻る。22:38にまた席を立ち、22:44に戻る。22:44、遥香の「父さん、火球見た？」という声。トランシーバーからの返事はない。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="秋月 俊介" data-label="秋月 俊介の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd"><span class="owner">持ち主：秋月 俊介</span><span class="ttl">遥香とのLINE</span><div class="txt">「22:20 先生と話してくる」「22:21 遥香：気をつけて。けんかしないでね」。そのあとのやりとりはない。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="鳴沢 真理子" data-label="鳴沢 真理子の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd"><span class="owner">持ち主：鳴沢 真理子</span><span class="ttl">旅行かばんの底の封筒</span><div class="txt">封をした封筒。表に鳴沢の字で「遺言書」。中には「天文台と土地は町に寄付する」「九重さやかに一千万円を遺す」と書いてある。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="宇佐美 健" data-label="宇佐美 健の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd"><span class="owner">持ち主：宇佐美 健</span><span class="ttl">手帳のメモ</span><div class="txt">「11/17 堂島さん　レンズ　30万（半分は当日）」。その下に、ドイツ製の古い対物レンズの値段を調べたらしい書きこみ「相場 400〜500万」。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="九重 さやか" data-label="九重 さやかの持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd"><span class="owner">持ち主：九重 さやか</span><span class="ttl">カメラの画像</span><div class="txt">時刻つきの連写。「22:13 ドームの入り口、封筒を持った男性（志賀に見える）」「22:41 南西の低い空に緑の火球、とちゅうで二つに分かれる」。手前に、ドームのスリットからもれる赤い光が写っている。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="堂島 剛" data-label="堂島 剛の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd"><span class="owner">持ち主：堂島 剛</span><span class="ttl">作業着のポケット</span><div class="txt">一万円札が15枚入った封筒。封筒には町役場の名前が印刷されている。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="小早川 玲奈" data-label="小早川 玲奈の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd"><span class="owner">持ち主：小早川 玲奈</span><span class="ttl">往診かばん</span><div class="txt">聴診器、血圧計、薬の袋。内ポケットに、何枚かの紙を折りたたんで入れてある。ノートから破り取ったような、ぎざぎざの端。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="三上 蒼汰" data-label="三上 蒼汰の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 08</span></div><div class="bd"><span class="owner">持ち主：三上 蒼汰</span><span class="ttl">スマホの元画像</span><div class="txt">先月の日付と時刻が入った天体写真。「10/14 2:13 撮影　三上蒼汰」。ぼんやりした小さな光の点に、自分で赤い丸をつけてある。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="志賀 誠" data-label="志賀 誠の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 09</span></div><div class="bd"><span class="owner">持ち主：志賀 誠</span><span class="ttl">車のトランクの封筒</span><div class="txt">分厚い封筒。中に一万円札の束が二つ（200万円）。封筒の表に「鳴沢先生」と書いて、線で消してある。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>ネタバレ注意。</strong>場所ごとに番号順に、裏向きに重ねて置きます。調査2のカードは調査2まで別にしておきます。</p>
+    <button type="button" class="btn" id="gate-clues">表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">場所の右の丸数字が、重ねる順番です（①がいちばん上）。</p><div class="cards"><div class="card clue" data-label="ドーム ①" data-phase="1"><div class="hd"><span class="loc">ドーム ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="ttl">遺体のようす</span><p>鳴沢は望遠鏡の足もとに倒れている。後頭部を一度、強く殴られている。そばに望遠鏡のおもり（約5kg）。おもりの表面は、布で拭いたようにきれいで、指紋は見えない。</p><p class="star">★ 即公開：このカードは、引いたらすぐ全員に読み上げる</p></div></div><div class="card clue" data-label="ドーム ②" data-phase="1"><div class="hd"><span class="loc">ドーム ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="ttl">撮影用パソコンの記録</span><p>望遠鏡のカメラは2分ごとに1枚ずつ撮影していた。22:30〜22:38の画像は、星が小さな点に写っている。<b>22:40の画像は、すべての星が同じ向きの短い弧</b>になっている。22:42以降の画像は、ドームの壁しか写っていない。</p></div></div><div class="card clue" data-label="ドーム ③" data-phase="1"><div class="hd"><span class="loc">ドーム ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="ttl">机の上の回顧録</span><p>革表紙のノート。表紙に「回顧録　鳴沢修造」。<b>最後の何ページかが、ぎざぎざに破り取られている。</b>残っているページの最後の行は「ここからは、私が十二年間黙ってきたことを書く」。</p></div></div><div class="card clue" data-label="ドーム ④" data-phase="1"><div class="hd"><span class="loc">ドーム ④</span><span class="ph">調査1</span><span>CLUE 04</span></div><div class="bd"><span class="ttl">ドームの床</span><p>霜のとけた靴跡がいくつも重なっていて、誰のものかは見分けられない。望遠鏡のそばの床に、<b>青いゴム手袋の指先の切れ端</b>が落ちている。薄くて、破れやすいゴム。</p></div></div><div class="card clue" data-label="観測広場 ①" data-phase="1"><div class="hd"><span class="loc">観測広場 ①</span><span class="ph">調査1</span><span>CLUE 05</span></div><div class="bd"><span class="ttl">広場からの眺め</span><p>観測広場はドームの北にある。広場のどこに立っても、<b>南西の低い空は、ドームと杉林に隠れて見えない。</b>見えるのは、東から北の空と、頭の真上だけ。</p></div></div><div class="card clue" data-label="観測広場 ②" data-phase="1"><div class="hd"><span class="loc">観測広場 ②</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="ttl">西の端のマット</span><p>二つ並んだマット。片方には青い寝袋（三上のもの）。もう片方には白い寝袋（小早川のもの）。白い寝袋の上の霜は、ところどころとけている。</p></div></div><div class="card clue" data-label="観測広場 ③" data-phase="1"><div class="hd"><span class="loc">観測広場 ③</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="ttl">広場の霜</span><p>草には一面に霜が降りている。<b>広場の東の端からドームの入り口まで</b>、霜を踏んだ跡がまっすぐ続いている（行きと帰りで二本）。ドームの入り口のまわりは、ラウンジや外トイレからの道と合流していて、足跡でぐちゃぐちゃ。</p></div></div><div class="card clue" data-label="ラウンジ ①" data-phase="1"><div class="hd"><span class="loc">ラウンジ ①</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="ttl">グループLINE「星見ヶ丘 観測会」</span><p>22:41 三上「ドームの向こうが光った！見えなかった〜」<br>22:42 秋月「空が明るくなった！」<br>22:43 宇佐美「駐車場から見えた、でかい！」<br>22:43 <b>小早川「見た!? 緑の火球、とちゅうで二つに割れた！」</b><br>22:44 志賀「緑色！」<br>（遥香・真理子・九重の書きこみはない。堂島はグループにいない）</p></div></div><div class="card clue" data-label="ラウンジ ②" data-phase="1"><div class="hd"><span class="loc">ラウンジ ②</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="ttl">トイレの窓</span><p>ラウンジのトイレの小さな窓は<b>北向き</b>。外には観測広場と、東から北の空が見える。</p></div></div><div class="card clue" data-label="ラウンジ ③" data-phase="1"><div class="hd"><span class="loc">ラウンジ ③</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="ttl">ホワイトボード</span><p>ラウンジのホワイトボードに、鳴沢の字で「23:00　重大発表　全員集合のこと」。その下に、誰かのいたずら書きで「新彗星？」「遺言？」。</p></div></div><div class="card clue" data-label="書斎 ①" data-phase="1"><div class="hd"><span class="loc">書斎 ①</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="ttl">金庫</span><p>2階の書斎の小さな金庫。扉は閉まっているが、鍵はかかっていない。中は空。金庫の番号は4けたで、鳴沢の手帳には書かれていない。</p></div></div><div class="card clue" data-label="書斎 ②" data-phase="1"><div class="hd"><span class="loc">書斎 ②</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="ttl">書斎の窓</span><p>書斎の窓は南向き。駐車場と、その向こうの南西の空がよく見える。カーテンが少し開いている。</p></div></div><div class="card clue" data-label="倉庫 ①" data-phase="1"><div class="hd"><span class="loc">倉庫 ①</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="ttl">棚のすきま</span><p>倉庫のいちばん奥の棚。ほこりの上に、細長い四角い跡がくっきり残っている。何かのケースが、最近運び出されたらしい。</p></div></div><div class="card clue" data-label="倉庫 ②" data-phase="1"><div class="hd"><span class="loc">倉庫 ②</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="ttl">台帳</span><p>倉庫の備品台帳。「ドイツ製 対物レンズ（1932年）　木箱入り　時価400万円以上」の行に、鳴沢の字で「売るな」。</p></div></div><div class="card clue" data-label="発電機小屋 ①" data-phase="1"><div class="hd"><span class="loc">発電機小屋 ①</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="ttl">燃料計</span><p>発電機の燃料の残りは、赤い線の近く。管理人の作業日誌の最後は「11/17 19:00 給油」。今夜、それ以降に燃料が足された様子はない。</p></div></div><div class="card clue" data-label="駐車場 ①" data-phase="1"><div class="hd"><span class="loc">駐車場 ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="ttl">軽トラの荷台</span><p>管理人の軽トラ。荷台にブルーシートがかけてある。シートの下に、細長い木箱。ふたに「LENS」と焼き印。</p></div></div><div class="card clue" data-label="駐車場 ②" data-phase="1"><div class="hd"><span class="loc">駐車場 ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="ttl">駐車場の吸い殻</span><p>駐車場の灰皿に、吸い殻が何本も。銘柄は全部同じ。駐車場からは、南西の空が大きくひらけている。</p></div></div><div class="card clue" data-label="尾根の小道 ①" data-phase="1"><div class="hd"><span class="loc">尾根の小道 ①</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="ttl">尾根の三脚の跡</span><p>西の尾根の見晴らし台に、三脚の脚の跡が三つ。そばに、使い捨てカイロの袋。ここからは、天文台の全体と南西の空が見わたせる。</p></div></div><div class="card clue p2" data-label="ドーム ⑤" data-phase="2"><div class="hd"><span class="loc">ドーム ⑤</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="ttl">トランシーバー</span><p>鳴沢のトランシーバーは、机の上で電源が入ったまま。履歴に「22:30 送信」。そのあとの送信はない。</p></div></div><div class="card clue p2" data-label="ドーム ⑥" data-phase="2"><div class="hd"><span class="loc">ドーム ⑥</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="ttl">望遠鏡の金具</span><p>望遠鏡のおもりを通す軸の先の金具に、<b>青いゴムのかけら</b>がほんの少し、引っかかっている。金具は高い位置にあり、遺体を調べるときに手が触れる場所ではない。</p></div></div><div class="card clue p2" data-label="ドーム ⑦" data-phase="2"><div class="hd"><span class="loc">ドーム ⑦</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="ttl">薬の袋</span><p>机の引き出しの奥に、薬の袋がたくさん。「鳴沢修造様　小早川医院」。中身は強い痛み止め。量がとても多い。一緒に、大学病院の検査結果：「すい臓がん　ステージ4」。</p></div></div><div class="card clue p2" data-label="観測広場 ④" data-phase="2"><div class="hd"><span class="loc">観測広場 ④</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="ttl">茂みの紙切れ</span><p>ドームと広場のあいだの茂みに、ノートの切れ端が一枚ひっかかっている。鳴沢の字。「……十二年前の今夜、ふもとの国道で、私は白い軽自動車が男性をはねるのを見た。運転していた若い女性を、私は知っていた。観測会の客の一人だった。私は彼女の将来と引きかえに、黙っていることを選んだ。そして、その秘密を……」（ここで破れている）</p></div></div><div class="card clue p2" data-label="ラウンジ ④" data-phase="2"><div class="hd"><span class="loc">ラウンジ ④</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="ttl">観測会の古いアルバム</span><p>ラウンジの本棚のアルバム。十二年前のしし座流星群の観測会の集合写真。前列に、白いコートの医学部の学生たち。裏に名前：「信州医大 天文部　小早川・村井・高田」。</p></div></div><div class="card clue p2" data-label="ラウンジ ⑤" data-phase="2"><div class="hd"><span class="loc">ラウンジ ⑤</span><span class="ph">調査2</span><span>CLUE 24</span></div><div class="bd"><span class="ttl">新聞の切り抜き</span><p>ラウンジの掲示板の奥。十二年前の十一月十八日。「国道でひき逃げ　農家の田所さん（58）死亡　白っぽい車か　犯人わからず」。</p></div></div><div class="card clue p2" data-label="書斎 ③" data-phase="2"><div class="hd"><span class="loc">書斎 ③</span><span class="ph">調査2</span><span>CLUE 25</span></div><div class="bd"><span class="ttl">遺言書の下書き</span><p>机の引き出しに、鉛筆書きの下書き。「天文台と土地は町に寄付する」「九重さやかに一千万円を遺す。彼女は私の娘である」。</p></div></div><div class="card clue p2" data-label="書斎 ④" data-phase="2"><div class="hd"><span class="loc">書斎 ④</span><span class="ph">調査2</span><span>CLUE 26</span></div><div class="bd"><span class="ttl">金庫の番号</span><p>机の写真立ての裏に、小さな紙。「0612」。写真は、鳴沢と真理子の結婚式。日付は六月十二日。</p></div></div><div class="card clue p2" data-label="倉庫 ③" data-phase="2"><div class="hd"><span class="loc">倉庫 ③</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="ttl">倉庫の床</span><p>ほこりの上に、長靴の跡が棚まで往復している。重い物を運んだらしく、帰りの跡のほうが深い。</p></div></div><div class="card clue p2" data-label="駐車場 ③" data-phase="2"><div class="hd"><span class="loc">駐車場 ③</span><span class="ph">調査2</span><span>CLUE 28</span></div><div class="bd"><span class="ttl">志賀の車</span><p>志賀の車。運転席のドアの下に、霜がとけた跡。22時台に誰かが乗り降りしたらしい。窓から、後部座席に志賀光学の社名入りの書類かばん。</p></div></div><div class="card clue p2" data-label="駐車場 ④" data-phase="2"><div class="hd"><span class="loc">駐車場 ④</span><span class="ph">調査2</span><span>CLUE 29</span></div><div class="bd"><span class="ttl">町役場のメモ</span><p>駐車場の地面に落ちていた、町役場のメモ用紙。「レンズ代 残り15万　12月中」。</p></div></div><div class="card clue p2" data-label="尾根の小道 ②" data-phase="2"><div class="hd"><span class="loc">尾根の小道 ②</span><span class="ph">調査2</span><span>CLUE 30</span></div><div class="bd"><span class="ttl">尾根からの眺め</span><p>尾根から天文台を見下ろすと、ドームのスリットが南西に開いているのが見える。22時台、スリットの中に赤いライトの光が見えたら、尾根からも写真に写るだろう。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>解決編</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>ネタバレ注意。</strong>真相が書かれています。投票が終わってから、司会が開いてください。</p>
+    <button type="button" class="btn" id="gate-gm">投票が終わったので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+  <div class="box">
+    <h3>1. 秘密の挙手（真相を読む前に）</h3>
+    <p>司会が下の文を<b>1つずつ</b>読み上げます。読むたびに、<b>「本当だと思う人」は手を挙げます</b>。</p>
+    <ul>
+      <li>その文の<b>当事者</b>（文に名前が出てくる人）は手を挙げません。「信じられる」が目的の人も、その文の当事者です（解決編のあとで確認します）。</li>
+      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた／信じられた」。手の数をメモしておく。</li>
+      <li>文の中には<b>本当ではないもの（ダミー）が2つ</b>まじっています。</li>
+      <li>議論で根拠が出なかった文には、手を挙げなくてかまいません。</li>
+    </ul>
+    <ol class="stmts"><li>遥香と秋月は、ひそかに付き合っている</li><li>三上は、鳴沢の新彗星の本当の発見者である</li><li>秋月は、事件の前にドームで鳴沢と言い争っていた</li><li>九重は、鳴沢の隠し子である</li><li>志賀は、鳴沢を200万円で口止めしようとしていた</li><li>宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた</li><li>小早川は、12年前のひき逃げの運転手だった</li><li>真理子は、宇佐美とひそかに付き合っている</li><li>堂島は、12年前のひき逃げの瞬間を見ていた</li></ol>
+    <p class="note">「三上は、鳴沢の新彗星の本当の発見者である」は、三上・遥香・秋月の3人が当事者（手を挙げない）。残り6人のうち4人以上で「信じられた」。</p>
+  </div><div class="warn gate2"><p><strong>秘密の挙手が全部終わってから</strong>、下のボタンで真相を開いてください。</p><button type="button" class="btn" id="reveal-truth">挙手が終わったので、真相を表示する</button></div><div class="truth" id="truth" hidden>
+  <div class="box">
+    <h3>2. 投票の答え</h3>
+    <ul>
+      <li><b>問1　鳴沢修造を殺したのは誰か：小早川 玲奈</b>（+4）</li>
+      <li><b>問2　書斎の金庫から遺言書を持ち去ったのは誰か：鳴沢 真理子</b>（+2）</li>
+      <li><b>問3　倉庫から古いレンズを持ち出したのは誰か：堂島 剛</b>（+2）</li>
+    </ul>
+    <p class="note">答えの本人は、その問いの点はなし。</p>
+  </div>
+  <div class="box">
+    <h3>3. 真相</h3>
+    <p>十二年前のしし座流星群の夜、医学生だった小早川玲奈は、観測会の帰りにふもとの国道で農家の田所さんをはね、逃げた。翌朝、へこんだバンパーを見た鳴沢はすべてを察し、「鹿にぶつけた」ことにして黙っていた。そのかわり、その秘密を十二年間握り続けた。小早川は鳴沢の主治医になり、決まりを超える量の痛み止めを出させられてきた。</p>
+    <p>すい臓がんで余命わずかと知った鳴沢は、回顧録ですべてを書くと決めた。今夜21:50、薬を届けた小早川にそれを告げた。</p>
+    <p>22:33、小早川は「トイレ」と言って広場を離れ、寝袋をふくらませて人がいるように見せた。外トイレの前の踏み固められた道を通ってドームへ入り、22:40、望遠鏡をのぞく鳴沢をおもりで殴った。直後の22:41、スリットの向こうに火球が流れた。小早川は、広場にいたように見せかけようとして、グループLINEに火球のようすを書きこんだ。しかしそれは、<b>広場からは見えないはずの「緑で、二つに割れた」火球</b>だった。</p>
+    <p>23:10、医師として遺体を調べた小早川は「亡くなって15〜20分」と言い、死亡時刻を22:50〜22:55にずらした。その時間にアリバイのない人へ疑いを向けるためだった。</p>
+  </div>
+  <div class="box">
+    <h3>4. 推理の筋道</h3>
+    <ol>
+      <li><b>本当の犯行時刻は22:40。</b>撮影用パソコンの記録（ドーム②）で、22:40の画像だけ<b>すべての星が同じ向きの弧</b>＝望遠鏡が揺れた（九重の知識：流れ星なら一本の線だけ）。22:44に遥香が呼んでも返事がない（遥香の録画・証言）。トランシーバーの送信は22:30が最後（ドーム⑤）。「亡くなって15〜20分」という医師の見立ては合わない。</li>
+      <li><b>22:40にアリバイがあやしい人。</b>真理子（書斎）、堂島・宇佐美・志賀（駐車場。互いに見ている）、秋月・三上（広場）、九重（尾根の写真）、小早川（「トイレのあと寝ていた」。ただし三上が22:42に話しかけても返事がない）。</li>
+      <li><b>火球の見え方。</b>広場からは南西の低い空が見えない（観測広場①）。火球の本体（緑・二つに割れた）が見えたのは、ドーム・駐車場・書斎の窓・尾根だけ（九重の写真、宇佐美・堂島・真理子の証言）。広場にいたはずの小早川が、LINE（ラウンジ①）にそれを書いている。同じく「緑色！」と書いた志賀は「トイレにいた」と言うが、トイレの窓は北向き（ラウンジ②）。志賀は駐車場にいて、宇佐美・堂島が見ている。</li>
+      <li><b>手袋。</b>ドームの床の薄い青いゴム手袋の切れ端（ドーム④）と、望遠鏡の高い金具の青いゴム（ドーム⑥）。堂島の手袋は厚手。小早川は診察で薄い青い手袋を使う（堂島の証言）。金具は遺体を調べるときに触れる場所ではない。</li>
+      <li><b>動機。</b>回顧録の最後が破られている（ドーム③）。茂みの切れ端「十二年前の今夜……白い軽自動車……観測会の客の若い女性」（観測広場④）、新聞のひき逃げ記事（ラウンジ⑤）、十二年前のアルバムの医学生「小早川」（ラウンジ④）、堂島の記憶（翌朝へこんだ白い車、大学生くらいの女の子）。</li>
+    </ol>
+    <p class="note">ほかの人の秘密：秋月（22:20〜22:28にドーム・霜の足跡）、志賀（200万円の封筒・「トイレ」のうそ）、真理子（遺言書・金庫の番号0612・書斎の窓）、堂島と宇佐美（レンズ・燃料計・町役場のメモ）、九重（隠し子・遺言書の下書き）、三上（彗星の本当の発見者）。どれも殺人とは別の秘密です。</p>
+  </div>
+  <div class="box">
+    <h3>5. 秘密の挙手の答え</h3>
+    <p><b>ダミー（本当ではない文）</b></p><ul><li>真理子は、宇佐美とひそかに付き合っている</li><li>堂島は、12年前のひき逃げの瞬間を見ていた</li></ul>
+    <p><b>本当の文</b></p><ul><li>遥香と秋月は、ひそかに付き合っている（当事者：鳴沢 遥香・秋月 俊介）</li><li>三上は、鳴沢の新彗星の本当の発見者である（当事者：三上 蒼汰・鳴沢 遥香・秋月 俊介）</li><li>秋月は、事件の前にドームで鳴沢と言い争っていた（当事者：秋月 俊介）</li><li>九重は、鳴沢の隠し子である（当事者：九重 さやか）</li><li>志賀は、鳴沢を200万円で口止めしようとしていた（当事者：志賀 誠）</li><li>宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた（当事者：宇佐美 健・堂島 剛）</li><li>小早川は、12年前のひき逃げの運転手だった（当事者：小早川 玲奈）</li></ul>
+    <p class="note">ダミーに手を挙げても減点はありません。</p>
+  </div>
+  <div class="box">
+    <h3>6. 点数の数え方</h3>
+    <ol>
+      <li>投票：問1の正解 +4、問2・問3の正解 +2ずつ（答えの本人はその問いの点なし）。</li>
+      <li>各自のキャラシートの「目的」を読み上げ、達成していれば点を足す（犯人の「逃げ切る」は+5）。</li>
+      <li>「ばれない／ばれる／信じられる」は、さっきの秘密の挙手の結果で決める。「自分で指摘し」とある目的は、議論中に本人が言っていなければ不成立。</li>
+      <li>いちばん点の高い人がMVP。</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>7. 完全タイムライン</h3>
+    <dl class="tl"><dt>21:50</dt><dd>小早川がドームに薬を届ける。鳴沢が「回顧録に十二年前の夜のことも書く」と告げる。</dd><dt>22:10</dt><dd>九重が西の尾根へ。志賀がドームへ行き、200万円の封筒を突き返される（22:12）。</dd><dt>22:20</dt><dd>秋月がドームへ。三上の彗星のことで鳴沢と言い争い、22:28に出る（広場の東の端から霜の足跡）。</dd><dt>22:30</dt><dd>鳴沢がトランシーバーで「23時に発表する。それまで誰も来るな」。ここではまだ生きている。</dd><dt>22:33</dt><dd>小早川が「トイレ」と言って広場を離れる。寝袋はふくらませたまま。</dd><dt>22:35</dt><dd>真理子が書斎の金庫（番号は結婚記念日0612）から遺言書を持ち出す。堂島が倉庫からレンズを運び出す。</dd><dt>22:36</dt><dd>小早川がドームへ。回顧録をやめるよう頼むが断られる。</dd><dt>22:38</dt><dd>駐車場で、堂島がレンズを軽トラに積み、宇佐美から15万円を受け取る。志賀が「トイレ」と言って駐車場の車へ（封筒を隠す）。</dd><dt>22:40</dt><dd><b>小早川が、望遠鏡のおもりで鳴沢を殴る。</b>望遠鏡が揺れ、撮影画像の星がすべて同じ向きの弧に。手袋の指先が金具に引っかかって破れる。</dd><dt>22:41</dt><dd>南西の低い空に火球。ドームのスリット・駐車場・書斎の窓・西の尾根からは本体が見え、広場からは光だけ。</dd><dt>22:43</dt><dd>小早川が回顧録の最後のページを破り取り、グループLINEに「緑の火球、とちゅうで二つに割れた！」。破いたページの1枚は、帰り道で茂みに落ちる。</dd><dt>22:44</dt><dd>遥香がトランシーバーで鳴沢を呼ぶ。返事はない。小早川がドームを出る。志賀がラウンジへ戻る。</dd><dt>22:47</dt><dd>小早川が広場の寝袋に戻る。</dd><dt>23:07</dt><dd>遥香と志賀がドームで鳴沢を見つける。</dd><dt>23:10</dt><dd>小早川が遺体を調べ、「亡くなって15〜20分」とうそをつき、死亡時刻を22:50〜22:55に見せかける。</dd></dl>
+  </div>
+  <div class="box epi">
+    <h3>8. エピローグ（読みたい人だけ）</h3>
+    <div class="epi-item"><b>小早川 玲奈</b><p>破り取ったページは、往診かばんの内ポケットにあった。「息子が四歳なんです」。それだけ言って、小早川は手袋を外した。十二年前の夜、彼女が逃げなければ、今夜の誰も、こんな場所にはいなかった。</p></div><div class="epi-item"><b>鳴沢 遥香</b><p>父は最後に、自分の罪を書き残そうとしていた。遥香は回顧録の残りを読み、秋月の名前を見つけた。「二つ目の彗星は、秋月が見つけた」。</p></div><div class="epi-item"><b>秋月 俊介</b><p>八年ぶりに、鳴沢の文字で自分の名前を見た。秋月は、三上の彗星の報告を一緒に書き直すと約束した。</p></div><div class="epi-item"><b>鳴沢 真理子</b><p>旅行かばんの底の封筒を、真理子は自分から差し出した。「わたくしは、この家の妻でした。それだけです」</p></div><div class="epi-item"><b>宇佐美 健</b><p>レンズは倉庫に戻された。宇佐美は、「星空の町」の計画書の表紙に、鳴沢の名前を書き加えた。</p></div><div class="epi-item"><b>九重 さやか</b><p>遺言書の下書きには「彼女は私の娘である」と書かれていた。九重は尾根で撮った火球の写真を、父のドームが写った一枚と一緒に、誰にも見せずにしまった。</p></div><div class="epi-item"><b>堂島 剛</b><p>十二年前の田所さんの事件に、やっと答えが出た。堂島は駐車場で、長いあいだ南西の空を見ていた。</p></div><div class="epi-item"><b>三上 蒼汰</b><p>元の画像の日付と時刻が、三上の発見を証明した。新しい彗星には、いつか三上の名前がつくだろう。</p></div><div class="epi-item"><b>志賀 誠</b><p>志賀は200万円の封筒を自分で破り、リコールを出すと決めた。「親父の望遠鏡で、誰かがけがをするのはごめんです」</p></div>
+  </div></div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。全員が書き終わったら、一斉に見せます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('shishi-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('shishi-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('shishi-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  var rv = document.getElementById('reveal-truth');
+  if (rv) rv.addEventListener('click', function () {
+    document.getElementById('truth').hidden = false;
+    rv.parentNode.hidden = true;
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('shishi-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  ['#gate-gm', '#reveal-truth'].forEach(function (id) {
+    var gb = $(id);
+    if (!gb) return;
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  });
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと持ち物カード ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと持ち物カードが開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '持ち物カード'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 証拠カード：カードの一覧から1枚ずつ ----
+  var ih = $('[data-for="items"]');
+  if (ih) ih.closest('section').querySelector('.gated').hidden = false;
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '自分の番に、場所を選んで、その場所のまだ引かれていない一番小さい番号のカードを長押しして読んでください。読んだら閉じます。',
+    '「調査2」のカードは調査2になってから。誰がどのカードを引いたかは、口で伝え合って管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>

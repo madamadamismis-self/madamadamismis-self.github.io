@@ -94,6 +94,9 @@ footer { font-size: .78rem; color: var(--muted); }
 <script>
 // 新しい作品を作ったら、ここに1件足す。players はその版で遊ぶプレイヤーの人数（GMは含めない）
 const KITS = [
+  { title: "獅子は夜半に昇る", gm: false, time: "約150分", level: "中級・犯人がばれにくい",
+    blurb: "しし座流星群の夜、山の上の私設天文台で観測会。ドームの中で台長が倒れていた。",
+    versions: [{ label: "9人用", players: [9], url: "shishi-9/" }] },
   { title: "のれんを下ろす夜", gm: false, time: "約110〜130分", level: "初心者向け",
     blurb: "商店街の銭湯、最後の営業日。お別れ会の最中、主人が釜場で倒れていた。",
     versions: [{ label: "7人用", players: [7], url: "noren-7/" },
@@ -129,7 +132,7 @@ const KITS = [
                { label: "6人用", players: [6], url: "endroll-6/" },
                { label: "8人用", players: [8], url: "endroll-8/" }] },
 ];
-const UPDATED = "2026年10月30日";
+const UPDATED = "2026年10月31日";
 
 const shelf = document.getElementById("shelf");
 const filter = document.getElementById("filter");
