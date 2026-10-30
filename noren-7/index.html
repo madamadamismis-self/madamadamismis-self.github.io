@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>のれんを下ろす夜（7人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 銭湯の藍ののれんと番台の木札を下敷きにした、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #ebeae3;
+  --surface: #fffdf8;
+  --ink: #1c2333;
+  --muted: #5a6172;
+  --line: #d2d0c6;
+  --accent: #a8382c;
+  --accent-soft: #f6e3df;
+  --teal: #2d4d7c;
+  --teal-soft: #e2e9f3;
+  --slate: #1f2c48;
+  --slate-ink: #f3f1ea;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10141c; --surface: #19202c; --ink: #e6e8ee; --muted: #9aa3b3; --line: #2e3646;
+    --accent: #e8806f; --accent-soft: #3a2420; --teal: #8fb0e0; --teal-soft: #1d2a40;
+    --slate: #0b1018; --slate-ink: #e6e8ee; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10141c; --surface: #19202c; --ink: #e6e8ee; --muted: #9aa3b3; --line: #2e3646;
+    --accent: #e8806f; --accent-soft: #3a2420; --teal: #8fb0e0; --teal-soft: #1d2a40;
+    --slate: #0b1018; --slate-ink: #e6e8ee; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #d9a441, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #4a3a2a; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+
+.map .road { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1; }
+.map .door { fill: var(--accent); stroke: none; }
+.intro p { font-family: var(--f-display); font-weight: 700; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 12px 14px; display: grid; gap: 6px; }
+.answer h4 { color: var(--teal); margin-bottom: 0; }
+.tl.ans { grid-template-columns: 6.6em 1fr; }
+.tl.ans dt { color: var(--ink); font-family: var(--f-body); font-weight: 700; font-size: 12.5px; }
+.tips { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.tips h4 { color: var(--teal); margin-bottom: 0; }
+.card .star { font-size: 12px; font-weight: 700; color: var(--accent); border-top: 1px dashed var(--line); padding-top: 6px; }
+.stmts { gap: 8px; }
+.stmts li { font-weight: 700; }
+.epi-item { display: grid; gap: 2px; }
+.epi-item b { font-family: var(--f-display); }
+.truth { display: grid; gap: 18px; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .tips, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl), .sheet .body > .answer { break-inside: auto; }
+  .sheet .tl dt { break-after: avoid; }
+  .sheet .tl dd { break-inside: avoid; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .tips, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet .tl.ans { grid-template-columns: 6em 1fr; }
+  .gate2 { display: none !important; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>のれんを下ろす夜</h1>
+    <p>商店街の銭湯「松の湯」、最後の営業日。のれんを下ろす前に、主人が釜場で殺された。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>7人（GMなし）</span>
+      <span><b>TIME</b>約130分</span>
+      <span><b>LEVEL</b>初心者向け</span>
+      <span><b>SETTING</b>現代・商店街の銭湯</span>
+      <span><b>CARDS</b>キャラシート7・持ち物7・証拠26</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">解決編<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">のれんを下ろす夜（7人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー7人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。<b>GM（進行役）はいりません。</b>プレイヤーの誰か1人が「司会」になり、このページを読み上げながら進めます（司会が犯人でもかまいません）。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには、ほかの人の秘密や真相が書かれています。キャラシートは自分の分だけ、解決編は投票が終わってから開いてください。</p>
+    <p class="note">このシナリオには、殺人と、過去の事故による死が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>はじめての人へ</h3>
+    <ul>
+      <li>マーダーミステリーは、<b>犯人当てと、役になりきる会話を楽しむゲーム</b>です。上手に推理できなくても、自分の目的を目指して話せば十分楽しめます。</li>
+      <li>キャラシートの2枚目に、<b>「聞かれたときの答え方」</b>と<b>「立ち回りのコツ」</b>が全員分あります。困ったら、そこを見ながら話してください。</li>
+      <li>嘘をついてよいのは、主に<b>自分の秘密を守るとき</b>です。犯人以外も、知られたくないことは隠してかまいません。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 7人分（1人2枚）と持ち物カード 7枚。宛名ラベルを貼った封筒に、1人分ずつ入れる</li>
+        <li>証拠カード 26枚（調査1が16枚、調査2が10枚）</li>
+        <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
+        <li>投票用紙 7枚、筆記用具、タイマー</li>
+        <li>解決編（封筒に入れて、投票まで開けない）</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はOK。</li>
+        <li>シートに書かれていないことを聞かれたら、「覚えていない」か、設定と食い違わない範囲で自由に答える。</li>
+        <li>持ち物カード・証拠カードは、見せる・隠す・渡すは自由。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は、2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <ol>
+      <li>証拠カードを場所ごとに分け、<b>裏向きにして番号順（①が上）に重ねて</b>置く。調査2のカードは、調査2まで別にしておく。</li>
+      <li>司会から時計回りに、1人ずつ順番に<b>場所を1つ選び、その場所のいちばん上のカードを1枚</b>引く。</li>
+      <li>引いたカードは自分だけが読む。<b>★即公開</b>と書いてあるカードは、すぐに全員に読み上げる。</li>
+      <li>カードがなくなるまで、順番に引き続ける。カードのなくなった場所は選べない。</li>
+    </ol>
+    <p class="note">引いたカードは自分の手元に置いておく。議論で、見せても、隠しても、内容を話しても（嘘をついても）かまいません。</p>
+    <p class="note">場所ごとの枚数：</p><div class="tbl-wrap"><table><thead><tr><th>場所</th><th class="t">調査1</th><th class="t">調査2</th></tr></thead><tbody><tr><td>釜場</td><td class="t">3枚</td><td class="t">2枚</td></tr><tr><td>裏庭</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>帳場</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>番台</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>脱衣所</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>浴場</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>休憩所</td><td class="t">2枚</td><td class="t">1枚</td></tr><tr><td>下駄箱</td><td class="t">1枚</td><td class="t">—</td></tr><tr><td>駐車場</td><td class="t">0枚</td><td class="t">2枚</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。司会がこのページを読む。</td></tr>
+        <tr><td class="t">15分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>司会が事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">10分</td><td>調査1</td><td>調査1のカードを、なくなるまで順番に引く。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。密談OK。まずは「21:45〜22:12に、どこで何をしていたか」を全員に聞くのがおすすめ。</td></tr>
+        <tr><td class="t">10分</td><td>調査2</td><td>調査2のカードを、なくなるまで順番に引く。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を話し、投票用紙に3問の答えを書いて一斉に見せる。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>司会が解決編を開き、秘密の挙手 → 真相 → 点数の順に進める。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票と点数</h3>
+    <ul>
+      <li><b>問1「亀井誠司を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</li>
+      <li>書けるのはプレイヤーが演じている人物の名前だけ（亀井誠司は書けない）。それぞれの問いで、票がいちばん多かった人を「最多票」と呼ぶ。同じ数で並んだら、その全員が最多票。</li>
+      <li>それとは別に、全員に<b>「目的」が4つ</b>あり、達成すると点が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。</li>
+      <li>最後に点数がいちばん高い人が、その回のMVPです。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>秘密の挙手（投票のあとにやります）</h3>
+    <p>「〜がばれない」「〜がばれる」「〜が信じられる」という目的は、投票のあとの<b>秘密の挙手</b>で決めます。</p>
+    <ol>
+      <li>司会が解決編を開き、最初に並んでいる文を1つずつ読み上げる。</li>
+      <li>読むたびに、その文が「本当だと思う人」が手を挙げる。</li>
+      <li>文に名前が出てくる<b>当事者</b>は、手を挙げない。</li>
+      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた（信じられた）」。</li>
+      <li>文の中には<b>本当ではないダミーが2つ</b>まじっている。ダミーに手を挙げても減点はない。どれがダミーかは、真相と一緒にわかる。</li>
+    </ol>
+    <p class="note">例：「AとBは昔、夫婦だった」→ AとBは手を挙げない。残り5人のうち3人が挙げたら「ばれた」。</p>
+    <p class="note">「自分で指摘し」とある目的は、議論中にその人が自分の口で言っていないと達成になりません。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングで司会が読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">司会 読み上げ</span>
+    <p>十一月三十日。松原商店街の銭湯「松の湯」は、この日、八十年の歴史に幕を下ろした。</p>
+    <p>夜の九時、最後のお客さんを送り出すと、常連や商店街の人たちが休憩所に集まり、ささやかな「お別れ会」が始まった。昼から降っていた冷たい雨は、ちょうどその時刻に止んだ。表ののれんは、まだ下がったままだ。</p>
+    <p>九時四十五分。主人の亀井誠司は「釜の火を落としてくる。十時にのれんを下ろすから、みんな表に集まってくれ」と言い、番台の横の廊下から釜場へ向かった。</p>
+    <p>十時。皆が表に集まった。けれど、亀井は来ない。十時十分すぎ、様子を見に行った者が、釜場の前に倒れている亀井を見つけた。後頭部を殴られ、もう息はなかった。釜の火は、燃えたままだった。</p>
+    <p>警察が来るまで、あと一時間はかかるという。</p>
+    <p>——のれんを下ろす前に、この中の誰かが、松の湯の火を消したのだ。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul>
+        <li>遺体：釜場の釜の前。後頭部を殴られている。そばに鉄の火かき棒。</li>
+        <li>亀井が最後に目撃されたのは21:45（廊下から釜場へ向かうところ）。遺体が見つかったのは22:12。</li>
+        <li>雨は21時に止んだ。外の気温は5度ほど。</li>
+        <li>お別れ会のあいだ、館内も外も自由に出入りできた。</li>
+        <li>銭湯の中は靴を脱いで入る。外へ出る人は、下駄箱の靴をはいて出る（亀井と早瀬は、釜場や裏庭ではサンダルや長靴を使う）。</li>
+        <li>今夜22:30、亀井は土地の売買契約書の原本を、サンライズ開発の小田切に渡すことになっていた。</li>
+        <li>事件のあとの騒ぎの中で、<b>番台の手提げ金庫の売上金</b>と、<b>帳場の契約書の原本</b>がなくなっていることがわかった。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>投票の3つの問い</h3>
+      <ul>
+        <li>問1　亀井誠司を殺したのは誰か（+4）</li>
+        <li>問2　番台の売上金を抜いたのは誰か（+2）</li>
+        <li>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</li>
+      </ul>
+      <p class="note">3つの答えが別の人とはかぎりません。</p>
+    </div>
+  </div>
+  
+    <div class="maps">
+    <div class="box map"><h3>松の湯 見取り図</h3>
+    <svg viewBox="0 0 420 340" role="img" aria-label="松の湯の見取り図">
+      <rect class="road" x="10" y="8" width="400" height="26"/><text x="22" y="26">裏の路地</text><text class="sm" x="180" y="26">（街灯）</text>
+      <rect class="room" x="10" y="34" width="120" height="76"/><text x="42" y="70">駐車場</text><text class="sm" x="24" y="88">早瀬・小田切の車</text>
+      <rect class="room" x="130" y="34" width="160" height="76"/><text x="190" y="66">裏庭</text><text class="sm" x="150" y="84">薪の山・薪割り場</text>
+      <rect class="door" x="190" y="30" width="34" height="8"/><text class="sm" x="230" y="46">裏木戸</text>
+      <rect class="door" x="126" y="62" width="8" height="22"/><text class="sm" x="136" y="104">フェンスの扉</text>
+      <rect class="hot" x="290" y="34" width="120" height="76"/><text class="ac" x="330" y="66">釜場</text><text class="sm" x="306" y="84">ボイラー・釜</text>
+      <rect class="door" x="286" y="64" width="8" height="22"/>
+      <rect class="room" x="10" y="110" width="140" height="90"/><text x="44" y="150">男湯 浴場</text>
+      <rect class="room" x="150" y="110" width="140" height="90"/><text x="184" y="150">女湯 浴場</text>
+      <text class="sm" x="40" y="190">← ペンキ絵の富士山（男湯と女湯の壁にまたがる） →</text>
+      <rect class="stair" x="290" y="110" width="34" height="150"/><text class="sm" x="294" y="186">廊下</text>
+      <rect class="door" x="294" y="106" width="26" height="8"/><text class="sm" x="328" y="124">← かんぬきの戸</text>
+      <rect class="room" x="324" y="130" width="86" height="70"/><text x="350" y="166">帳場</text>
+      <rect class="room" x="10" y="200" width="140" height="60"/><text x="38" y="234">男湯 脱衣所</text>
+      <rect class="room" x="150" y="200" width="140" height="60"/><text x="178" y="234">女湯 脱衣所</text>
+      <rect class="room" x="324" y="200" width="86" height="60"/><text x="350" y="234">番台</text>
+      <rect class="room" x="10" y="260" width="200" height="50"/><text x="64" y="290">玄関・下駄箱</text>
+      <rect class="room" x="210" y="260" width="200" height="50"/><text x="282" y="290">休憩所</text>
+      <rect class="road" x="10" y="310" width="400" height="24"/><text x="22" y="327">表通り</text><text class="sm" x="150" y="327">ハッピーマートまで歩いて5分 →</text>
+    </svg>
+    <p class="note">釜場へは、番台の横の廊下から入る戸と、裏庭から入る戸の2つがある。裏庭は、裏木戸で裏の路地に、フェンスの扉で駐車場につながっている。2階（亀井の住まい）は調査の対象外。</p></div>
+    </div>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。</p><div class="people"><div class="person victim"><span class="role">被害者・松の湯の三代目</span><span class="nm">亀井 誠司</span><span class="kana">かめい せいじ（64）</span><p>松原商店街の銭湯「松の湯」の主人。口が悪く、けちで頑固だが、常連には慕われていた。店を閉めたあとは土地を売り、沖縄へ移り住むつもりだった。</p></div><div class="person"><span class="role">松の湯の一人娘・カフェ経営（34）</span><span class="nm">亀井 美咲</span><span class="kana">かめい みさき</span><p>被害者の娘。高校を出てから東京に住み、三軒茶屋で小さなカフェをやっている。最後の営業日を見届けるために、昨日帰ってきた。</p><p class="look">服装：グレーのニット、ジーンズ、茶色のショートブーツ</p></div><div class="person"><span class="role">松の湯の釜焚き（34）</span><span class="nm">早瀬 隼人</span><span class="kana">はやせ はやと</span><p>松の湯で12年、釜を焚いてきた。薪割りから湯の温度まで、釜場のことは全部まかされている。無口で、手はいつも煤で黒い。</p><p class="look">服装：紺の作業着、首に手ぬぐい、黒い長靴。手に煤</p></div><div class="person"><span class="role">サンライズ開発 用地担当（49）</span><span class="nm">小田切 涼子</span><span class="kana">おだぎり りょうこ</span><p>不動産会社「サンライズ開発」の担当者。松の湯の土地を買い、マンションを建てる計画を進めてきた。今夜は契約書の原本を受け取りに来た。</p><p class="look">服装：黒のパンツスーツ、ベージュのトレンチコート、黒いパンプス</p></div><div class="person"><span class="role">松原商店街 会長・西村豆腐店（56）</span><span class="nm">西村 健吾</span><span class="kana">にしむら けんご</span><p>商店街で三代続く豆腐屋の主人で、商店街の会長。松の湯の売却とマンション計画に、真っ向から反対してきた。声が大きく、涙もろい。</p><p class="look">服装：白い調理服の上にどてら、雪駄。たばこ（ハイライト）を吸う</p></div><div class="person"><span class="role">ペンキ絵師（38）</span><span class="nm">野口 千夏</span><span class="kana">のぐち ちなつ</span><p>銭湯の壁に富士山を描く、日本に数人しかいないペンキ絵師の一人。三週間かけて、松の湯の最後のペンキ絵を描き上げた。</p><p class="look">服装：ペンキの飛んだつなぎ、頭にバンダナ、ペンキの飛んだ白いスニーカー</p></div><div class="person"><span class="role">番台のアルバイト・大学生（21）</span><span class="nm">須藤 大河</span><span class="kana">すどう たいが</span><p>近くの大学に通う三年生。二年前から番台のアルバイトをしている。銭湯が好きで、休みの日は他の町の銭湯にも行く。</p><p class="look">服装：松の湯の青い法被、ジーンズ、赤いスニーカー</p></div><div class="person"><span class="role">松の湯の常連（76）</span><span class="nm">佐久間 文代</span><span class="kana">さくま ふみよ</span><p>松の湯に六十年通う常連。毎日、開店と同時に一番風呂に入るのが自慢。商店街のことなら何でも知っている。</p><p class="look">服装：えんじ色のカーディガン、花柄のもんぺ、つっかけ</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>ネタバレ注意。</strong>1人分ずつ封筒に入れて配ります。自分のシート以外は見ないでください。</p>
+    <button type="button" class="btn" id="gate-chars">表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">亀井 美咲<small>かめい みさき</small></span><span class="rl">松の湯の一人娘・カフェ経営</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">早瀬 隼人<small>はやせ はやと</small></span><span class="rl">松の湯の釜焚き</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">小田切 涼子<small>おだぎり りょうこ</small></span><span class="rl">サンライズ開発 用地担当</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">西村 健吾<small>にしむら けんご</small></span><span class="rl">松原商店街 会長・西村豆腐店</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">野口 千夏<small>のぐち ちなつ</small></span><span class="rl">ペンキ絵師</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">須藤 大河<small>すどう たいが</small></span><span class="rl">番台のアルバイト・大学生</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">佐久間 文代<small>さくま ふみよ</small></span><span class="rl">松の湯の常連</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード1枚<br>「読み込み」の合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="misaki">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">亀井 美咲<small>かめい みさき</small></span><span class="rl">松の湯の一人娘・カフェ経営・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「亀井美咲です。松の湯の娘です。番台に座らされて、ふてくされてた子ども時代でした。今は東京でカフェをやってます。……最後の日くらい、ちゃんと見ておこうと思って帰ってきました」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは松の湯の二階で生まれ育った。朝は釜を焚く薪の匂いで目が覚め、夕方は番台の横で宿題をした。母はあなたが十歳のときに病気で亡くなり、それからは父・誠司と、常連さんたちに育てられたようなものだ。</p><p>父は口が悪く、頑固で、お金に細かい人だった。「銭湯の娘が風呂屋を継がないでどうする」と言われ続け、あなたは高校を出るとすぐ東京へ出た。半分は家出のようなものだった。</p><p>高校のころ、同じ学年の<b>早瀬隼人</b>と付き合っていた。隼人は卒業後、なぜか松の湯で釜焚きとして働きはじめ、あなたが東京へ出たことで、二人の関係は自然に終わった。……少なくとも、あなたはそう思うようにしている。</p><p>四年前、念願だったカフェを開いた。けれどこの二年、客足は戻らず、運転資金のために<b>消費者金融から借りたお金が640万円</b>にふくらんでいる。返済日は今週末だ。</p><p>父が松の湯を閉め、土地をサンライズ開発に売ると聞いたとき、正直ほっとした。売れれば、借金を返す分くらいは回してもらえるはずだ。あなたは電話のたびに「早く決めたほうがいいよ」と父を急かしてきた。でも借金のことは、父にも誰にも言っていない。</p><p>今夜、久しぶりに見た隼人は、昔より無口になっていた。乾杯のとき目が合って、二人とも同時にそらした。休憩所の隅で、彼が手の煤をいつまでもこすっていたのを、あなたは覚えている。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>消費者金融に640万円の借金がある。</b>そのために、父に土地の売却を急がせていた。今夜21:20、帳場で父に「売ったお金を少し回して」と頼み、「おまえにやる金はない」と突っぱねられた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>早瀬隼人</b>：高校の同級生で、元の恋人。今夜「親方が退職金を出さないって言うんだ」とこぼしていた。</li><li><b>小田切涼子</b>：父と土地の話を進めていた人。今夜、何度もスマホを気にしていた。</li><li><b>西村健吾</b>：商店街の会長で、売却に大反対。21:15ごろ、休憩所で父に「この裏切り者が！」と怒鳴っていた。</li><li><b>野口千夏</b>：最後の富士山を描いてくれたペンキ絵師。21:20ごろ「氷が足りないね、買ってくる」と言ってくれた。</li><li><b>須藤大河</b>：番台のアルバイトの大学生。21:55に休憩所へ行くと、佐久間さんとケーキの準備をしていた。</li><li><b>佐久間文代</b>：子どものころから可愛がってくれた常連のおばあちゃん。あなたの電話の声が、聞こえていたかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ふだんは明るくさっぱりした口調。父のことを話すときだけ、少し言葉に詰まる。「お父さん」ではなく「親父」と呼ぶ。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">亀井 美咲<small>かめい みさき</small></span><span class="rl">松の湯の一人娘・カフェ経営・34歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>お別れ会が始まる。休憩所でみんなと乾杯。</dd><dt>21:15</dt><dd>西村さんが父に怒鳴る。父は笑って取り合わなかった。</dd><dt>21:20</dt><dd>帳場で父にお金の話をする。断られて、言い合いになる。</dd><dt>21:40</dt><dd>女湯の脱衣所で、金融会社に電話する（〜21:53）。返済予定表の紙を落としたことに、あとで気づく。</dd><dt>21:42</dt><dd>父にLINEを送る。「さっきはごめん。お金のこと、あとでもう一度だけ話させて」</dd><dt>21:45</dt><dd>脱衣所の中で、父の「釜の火を落としてくる」という声を聞く。</dd><dt>21:53</dt><dd>女湯を出て番台の前を通ると、<b>帳場から西村さんが出てくる</b>のとはち合わせる。髪が濡れていた。「トイレを探しててな」と言われた。</dd><dt>21:55</dt><dd>休憩所へ。</dd><dt>22:00</dt><dd>みんなで表に出て、父を待つ。父は来ない。</dd><dt>22:08</dt><dd>野口さんが表通りのほうからコンビニの袋を下げて戻る。受け取った氷をクーラーボックスに入れる。<b>2袋とも、半分以上とけて水になっていた。</b></dd><dt>22:10</dt><dd>西村さんと釜場へ。廊下側の戸が開かないので裏庭から回り、22:12、倒れている父を見つける。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:20</dt><dd>「帳場で父とちょっと話した。お店をたたんだあとのこと」（お金の話は伏せる）</dd><dt>21:40〜21:53</dt><dd>「女湯の脱衣所で休んでた。友だちから電話があって、長話しちゃった」</dd><dt>21:53</dt><dd>「番台の前で西村さんに会った」（これは本当。言うかどうかは自由）</dd><dt>22:08</dt><dd>「野口さんから氷を受け取った。もう半分とけてたよ」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも借金のことを知られると「お金のために父を殺した娘」と見られてしまう。借金の話が出たら、最初はとぼけよう。</li><li>契約書がなくなっていたら、売却が止まり、お金が入らない。誰が契約書を持ち出したのか、本気で探そう。</li><li>隼人のことは、心のどこかでまだ気にかけている。彼が疑われたら、かばいたくなる。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「美咲は借金を抱えていて、父に売却を急がせていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問3（契約書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>問2（売上金を抜いたのは誰か）で、<b>早瀬隼人</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「小田切は、事件の直前に亀井から『売るのをやめるかもしれない』と言われていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="hayase">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 隼人<small>はやせ はやと</small></span><span class="rl">松の湯の釜焚き・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「早瀬です。ここで十二年、釜を焚いてました。……しゃべるのは苦手なんで。今日の湯は、いい湯でした。それだけです」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたはこの商店街の生まれで、亀井美咲とは高校の同級生だった。三年間、ずっと付き合っていた。卒業したら一緒に東京へ、という話もしていたが、あなたの父が倒れ、あなたは町に残った。美咲は一人で東京へ行った。</p><p>そのあと仕事を転々とし、22歳のとき、親方（亀井誠司）に拾われて松の湯の釜焚きになった。美咲の家で働くことに、下心がなかったと言えば嘘になる。でも続けるうちに、釜の火そのものが好きになった。</p><p>釜場には、25年前に死んだ<b>森下正</b>という釜焚きの話が残っている。ボイラーが爆発し、森下さんは亡くなった。「酒を飲んで釜を焚いていたせいだ」と言われているが、あなたは前から引っかかっていた。古いボイラーの<b>安全弁のまわりに、一度外して付け直したような跡</b>があったからだ。親方に聞いても、「余計なことを考えるな」と言われただけだった。</p><p>閉店が決まり、あなたは12年分の退職金を期待していた。親方は前から「辞めるときはちゃんと払ってやる」と言っていたのだ。ところが今夜、「土地の金は全部老後に使う。退職金なんて約束した覚えはない」と言われた。</p><p>父の入院費は、まだ払い終わっていない。</p><p>釜焚きの仕事は、朝四時に裏庭で薪を割ることから始まる。薪割り場はあなたの持ち場で、長靴の跡はそこらじゅうにある。今日も雨の中で最後の薪を割り、最後の湯を焚いた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>番台の手提げ金庫から、今日の売上金（182,400円）を抜いた。</b>21:32ごろ、番台に誰もいないすきに。「これは自分の退職金だ」と自分に言い聞かせた。お金は駐車場の自分の軽トラの座席の下に隠してある。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：元の恋人。今でも、まともに目を合わせられない。今夜、帳場で親方と言い合いをしていたらしい。</li><li><b>小田切涼子</b>：21:45ごろ、駐車場の自分の車の中で電話をしていた。暗くて表情は見えなかった。</li><li><b>西村健吾</b>：商店街の会長。「隼人、おまえも親方に言ってやれ」と、売却反対の署名を頼まれたことがある。</li><li><b>野口千夏</b>：三週間、浴場で富士山を描いていた。釜場によく来て、古いボイラーを黙ってじっと見ていた。「お父さんが昔、こういう仕事を」と言いかけてやめたことがある。</li><li><b>須藤大河</b>：番台のアルバイト。21:32ごろ番台を離れた。（あなたが金庫を開けたのはそのすき）</li><li><b>佐久間文代</b>：毎日一番風呂に来ていた常連。森下さんのことも知っているはずだ。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>口数は少なく、聞かれたことにだけ短く答える。美咲と話すときだけ、少し声がやわらかくなる。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">早瀬 隼人<small>はやせ はやと</small></span><span class="rl">松の湯の釜焚き・34歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:30</dt><dd>帳場で親方に退職金の話をする。「約束した覚えはない」と言われ、声が大きくなる。</dd><dt>21:32</dt><dd>帳場を出ると、番台に誰もいない。手提げ金庫を開け、売上金を作業着の内ポケットに入れる。煤のついた指で、番台の板にさわってしまった。</dd><dt>21:40</dt><dd>裏庭を通り、フェンスの扉から駐車場へ。自分の軽トラの座席の下に、お金を隠す。そのまま運転席でぼんやりしていた。</dd><dt>21:47</dt><dd>裏の路地で、誰かの足音がした気がした。お金のことで頭がいっぱいで、顔を上げなかった。</dd><dt>21:50</dt><dd>隣に止まっている小田切さんの車の中で、小田切さんがスマホを耳に当てているのが見えた。</dd><dt>21:58</dt><dd>軽トラを出て、表通りを回って松の湯の表へ。</dd><dt>22:00</dt><dd>表でみんなと親方を待つ。親方は来ない。</dd><dt>22:12</dt><dd>美咲の叫び声。駆けつけると、釜場で親方が倒れていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:30</dt><dd>「帳場で親方と話した。退職金の話。断られたよ」（これは言ってもいい。隠すとかえって怪しまれる）</dd><dt>21:32〜21:40</dt><dd>「休憩所に戻って、少し飲んでた」</dd><dt>21:40〜21:58</dt><dd>「外の自販機のところで、一服してた」（軽トラのことは言わない）</dd><dt>22:00</dt><dd>「表でみんなと親方を待ってた」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、煤だらけの手、裏庭の長靴の跡、親方との口論……いちばん疑われやすいのはあなただ。うろたえず、自分がやっていないことは、はっきり言おう。</li><li>売上金のことは、何があっても隠したい。番台の煤の跡を指摘されたら「番台の掃除はいつも俺がやってる」と言える。</li><li>25年前の森下さんの事故のことは、ずっと気になっていた。誰かがその話を出したら、安全弁の跡のことを話してもいい。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問2（売上金を抜いたのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>問1（亀井誠司を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「早瀬と美咲は、高校のころ付き合っていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>「25年前のボイラー事故は、亀井が安全弁を外させたせいだった」が、秘密の挙手で<b>信じられる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="odagiri">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">小田切 涼子<small>おだぎり りょうこ</small></span><span class="rl">サンライズ開発 用地担当・49歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「サンライズ開発の小田切です。商店街の皆さんには、ずいぶん嫌われてしまいましたね。でも、この町に新しい人が住めば、商店街だってまたにぎやかになります。今日は、最後まで見届けさせてください」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは、この商店街で十年ほど暮らしたことがある。若いころ、豆腐屋の<b>西村健吾</b>と結婚していたのだ。朝四時に起きて豆を挽く暮らしは、あなたには合わなかった。三十四歳のとき、あなたは離婚して町を出た。子どもはいない。</p><p>そのあと不動産の仕事に就き、腕一本でここまで来た。松の湯の土地は、駅から近く、マンション用地として申し分ない。会社に企画を出したのはあなたで、成功すればあなたは部長になれる。</p><p>ところが、交渉はすんなりとはいかなかった。商店街の反対、とりわけ会長になった元夫の反対はしつこかった。あなたは番台のアルバイトの須藤大河に月五万円の「謝礼」を渡し、亀井の様子をこっそり知らせてもらっていた。</p><p>亀井は先週、売買契約書にハンコを押した。原本は今夜22:30、のれんを下ろしたあとで受け取る約束だ。上司からは「今夜中に原本を持ち帰れなければ、担当を外す」と言われている。</p><p>今夜、休憩所で久しぶりに元夫と目が合った。西村は相変わらず声が大きく、すぐ泣く。昔はそれがいやでたまらなかったのに、今夜は少しだけ懐かしかった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>21:50、駐車場の車の中から亀井に電話をした。亀井は<b>「やっぱり売るのはやめるかもしれん。……森下のことを思い出してな」</b>と言った。あなたは「今さら何を言うんですか、訴えますよ」と声を荒らげた。亀井は「あとで話そう」と言って電話を切った（2分ほど）。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：亀井の娘。土地の売却に賛成のようで、あなたにとってはありがたい存在。</li><li><b>早瀬隼人</b>：21:45ごろ、駐車場の軽トラの運転席に座っていた。何をしているのかは見えなかった。</li><li><b>西村健吾</b>：元の夫。今は商店街の会長で、売却反対の先頭に立っている。<b>二人が元夫婦だったことは、ほかの人には知られたくない。</b>（西村も同じ気持ちのはず）</li><li><b>野口千夏</b>：ペンキ絵師。今夜、お別れ会で少ししゃべった。「この絵も、建物と一緒に壊されるんですよね」と言われ、返す言葉がなかった。</li><li><b>須藤大河</b>：お金を渡して、亀井の様子を知らせてもらっていた大学生。21:46にLINEが来た。「亀井さん、迷ってるっぽいです」</li><li><b>佐久間文代</b>：西村と結婚していたころから、あなたを知っている常連のおばあちゃん。今夜、目が合うと意味ありげに笑われた。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ていねいな言葉づかいを崩さない。追い詰められると、早口になってスマホの画面を見る。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">小田切 涼子<small>おだぎり りょうこ</small></span><span class="rl">サンライズ開発 用地担当・49歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>お別れ会に顔を出す。歓迎はされない。</dd><dt>21:15</dt><dd>西村が亀井に怒鳴るのを見る。</dd><dt>21:40</dt><dd>電話をするため、駐車場の自分の車へ。駐車場は松の湯の裏手で、車の窓から裏の路地が見える。</dd><dt>21:47</dt><dd><b>街灯の下、路地を誰かが松の湯の裏木戸のほうへ歩いていくのを見る。</b>顔も服も暗くてわからなかったが、手に<b>オレンジ色のビニール袋</b>を下げていたのだけは見えた。</dd><dt>21:50</dt><dd>亀井に電話（2分ほど）。「やめるかもしれん」と言われる。</dd><dt>21:53</dt><dd>上司に電話して報告する（〜22:00）。ひどく叱られた。</dd><dt>22:00</dt><dd>表に回り、みんなと亀井を待つ。</dd><dt>22:12</dt><dd>裏庭のほうから悲鳴。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:40〜22:00</dt><dd>「駐車場の車で、会社に電話をしてました」</dd><dt>21:50の電話</dt><dd>「亀井さんとは、明日の段取りの確認をしただけです」（「やめるかも」と言われたことは伏せる）</dd><dt>21:47</dt><dd>「路地を誰かが歩いていった。オレンジ色の袋を持ってた」（言うかどうかは自由。言えば疑いが外に向く）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも「売るのをやめる」と言われた直後に亀井が死んだ。それがばれたら、あなたは一番の容疑者になる。</li><li>契約書の原本がなくなった。原本がないと、あなたの立場はない。誰が持ち出したのか、必ず突き止めたい。</li><li>西村との関係は、知られたくない。昔を知る佐久間さんに何か言われても、上手にかわそう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「小田切は、事件の直前に亀井から『売るのをやめるかもしれない』と言われていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（亀井誠司を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「小田切と西村は、昔、夫婦だった」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問3（契約書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="nishimura">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">西村 健吾<small>にしむら けんご</small></span><span class="rl">松原商店街 会長・西村豆腐店・56歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「西村豆腐店の西村だ。商店街の会長をやってる。……松の湯がなくなるなんて、俺はまだ認めてねえからな。今夜は飲むぞ。最後の夜だ」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは松の湯と同じ年に生まれた豆腐屋の長男だ。子どものころから毎日、店が終わると松の湯に入った。亀井誠司は五つ年上で、ガキ大将のような存在だった。</p><p>若いころ、あなたは<b>小田切涼子</b>と結婚していた。涼子は朝の早い豆腐屋の暮らしに疲れ、十五年前に出ていった。その涼子が、よりによって松の湯を壊す会社の担当として町に戻ってきた。<b>二人が元夫婦だったことは、商店街の古い人間の何人かしか知らない。</b></p><p>銭湯がなくなれば、商店街の人の流れは止まる。年寄りの中には、家に風呂がない人もいる。あなたは反対の署名を三百人分集め、何度も亀井に頭を下げた。それでも亀井は先週、契約書にハンコを押した。</p><p>あなたは考えた。<b>契約書の原本さえなければ、話は止まるかもしれない。</b>亀井が帳場の机の引き出しに原本をしまうのを、あなたは前に見たことがある。</p><p>21:15、あなたは休憩所で亀井に「この裏切り者が！」と怒鳴った。亀井は「健吾、おまえは昔から声だけはでかいな」と笑った。みんなの前で恥をかかされた気分だった。</p><p>家では高校生の娘が「松の湯がなくなったら、うちのお風呂直してよ」と言っている。商店街の行く末も、家の風呂も、あなたの肩にのしかかっている。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>21:50、帳場の机の引き出しから売買契約書の原本を持ち出した。</b>男湯で最後のひと風呂を浴びたあと、髪も乾かさずに。焦って帳場でたばこを一本吸ってしまった。原本は茶封筒に入れ、休憩所に置いた自分の保冷バッグの中に隠してある。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：亀井の娘。21:53、帳場から出たところで鉢合わせしてしまった。「トイレを探してた」とごまかした。</li><li><b>早瀬隼人</b>：釜焚き。いいやつだ。今夜は親方と何かもめていたらしい。</li><li><b>小田切涼子</b>：元の妻。<b>元夫婦だったことは、ほかの人には知られたくない。</b>（涼子も同じ気持ちのはず）</li><li><b>野口千夏</b>：21:25ごろ、あなたが表でたばこを吸っていると、財布を手に「氷を買ってくるね」と言って、表通りのほうへ出かけていった。</li><li><b>須藤大河</b>：番台のアルバイト。最近、涼子と話しているのを見かけた。どういう関係だ？</li><li><b>佐久間文代</b>：商店街の生き字引。あなたと涼子のことも知っている。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>べらんめえ口調で声が大きい。松の湯の思い出話になると、すぐに目がうるむ。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">西村 健吾<small>にしむら けんご</small></span><span class="rl">松原商店街 会長・西村豆腐店・56歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>お別れ会。ビールを飲みながら、昔話をする。</dd><dt>21:15</dt><dd>休憩所で亀井に「この裏切り者が！」と怒鳴る。亀井は笑っていた。</dd><dt>21:20</dt><dd>頭を冷やしに表へ出て、たばこを吸う（〜21:30）。</dd><dt>21:25</dt><dd>野口さんが「氷を買ってくるね」と言って、表通りのほうへ出かけていく。</dd><dt>21:40</dt><dd>男湯で最後のひと風呂（〜21:48）。湯船には誰もいなかった。</dd><dt>21:50</dt><dd>髪も乾かさず帳場へ。引き出しから契約書の原本を持ち出す。たばこを一本吸う。</dd><dt>21:53</dt><dd>帳場を出たところで美咲と鉢合わせ。</dd><dt>21:55</dt><dd>休憩所で、原本を保冷バッグに隠す。</dd><dt>22:00</dt><dd>表で亀井を待つ。</dd><dt>22:08</dt><dd>野口さんが表通りのほうから戻ってくる。</dd><dt>22:10</dt><dd>美咲と釜場へ。廊下側の戸が開かないので、裏庭へ回る。</dd><dt>22:12</dt><dd>釜場で亀井が倒れているのを見つける。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:20〜21:30</dt><dd>「表でたばこを吸ってた。野口さんが出かけるのを見た」（本当。言うかどうかは自由）</dd><dt>21:40〜22:00</dt><dd>「ずっと男湯にいた。最後の湯だからな、ゆっくり浸かった」（帳場のことは言わない）</dd><dt>21:53</dt><dd>美咲に見られている。聞かれたら「トイレを探してた。酔ってたんだ」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも21:15に「裏切り者」と怒鳴ったのはみんなが見ている。疑われたら、大きな声で否定しよう。</li><li>契約書を持ち出したことは、絶対に知られたくない。帳場で見られたことは、美咲さえ黙っていてくれれば……。</li><li>涼子が亀井と何を話していたのか。涼子の弱みがわかれば、あなたの身を守る材料になる。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問3（契約書を持ち去ったのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「須藤は、小田切にお金をもらって、亀井の様子を知らせていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>「小田切と西村は、昔、夫婦だった」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1（亀井誠司を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="noguchi">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">野口 千夏<small>のぐち ちなつ</small></span><span class="rl">ペンキ絵師・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。亀井誠司を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「ペンキ絵師の野口です。男湯と女湯にまたがる富士山を、三週間かけて描きました。壊される壁に描くのは、いつもちょっとさびしいんですけど……今日、いい顔で湯に浸かってるお客さんを見て、描いてよかったと思いました」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたの本当の名前は<b>森下千夏</b>。25年前、松の湯の釜焚きだった<b>森下正</b>の一人娘だ。十三歳の冬まで、あなたはこの商店街に住んでいた。父の仕事が終わるのを、松の湯の女湯で富士山のペンキ絵を見ながら待つのが好きだった。</p><p>25年前の二月、松の湯のボイラーが爆発し、父は死んだ。「森下が酒を飲んで釜を焚いていたせいだ」と亀井誠司は言い、警察もそう片づけた。父は酒の弱い人だった。母は町を出て、二年後に再婚した。あなたは野口になった。</p><p>あなたは高校を出てペンキ絵師に弟子入りした。父を待ちながら見上げた、あの富士山を描く人になりたかった。松の湯の閉店と「最後のペンキ絵」の話を聞いたとき、あなたは自分から名乗り出た。森下の娘だとは、誰にも言っていない。</p><p>三週間前、脚立を借りに入った釜場の棚で、古いボイラー点検簿を見つけた。25年前の欄に、亀井の字でこう書いてあった。<b>「安全弁 外す（修理代 節約）」</b>。二日後の欄には「爆発。森下死亡」。父は、亀井のけちのせいで死んだのだ。</p><p>今夜21:05、あなたは裏庭で亀井をつかまえ、「森下の娘です」と名乗った。「のれんを下ろすときに、みんなの前で本当のことを話してください」と頼んだ。亀井は少し黙ってから、鼻で笑った。<b>「今さら何を。あの帳面は今夜、釜で燃やす。それで終わりだ」</b>。そのとき、あなたは決めた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>あなたが亀井誠司を殺した。</b>コンビニへ行くふりをして裏の路地から裏庭へ戻り、21:53、釜場で亀井の後頭部を火かき棒で殴った。くわしい動きは2枚目の「本当の行動」のとおり。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：亀井の娘。子どものころ、一緒に女湯で遊んだことがある。向こうは覚えていない。22:08、氷の袋を渡した。</li><li><b>早瀬隼人</b>：今の釜焚き。父と同じ場所で、父と同じように薪を割る。釜場でボイラーを見ていると、「安全弁のところ、昔いじった跡があるんですよ」と教えてくれた。<b>この人が疑われるのは、つらい。</b></li><li><b>小田切涼子</b>：開発会社の人。21:47、路地を通るとき、駐車場の小田切さんの車の中に人影が見えた。路地を歩くあなたを見たかもしれない。</li><li><b>西村健吾</b>：商店街の会長。21:25に表でたばこを吸っていて、あなたが出かけるのを見ている。</li><li><b>須藤大河</b>：番台のアルバイトの大学生。絵を描くあいだ、よく差し入れをくれた。</li><li><b>佐久間文代</b>：昔の常連のおばあちゃん。今夜「あんた、どこかで会ったことあるねえ」と言われて、どきりとした。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>おだやかで、人の話をよく聞く。自分の絵の話になると目が輝く。追い詰められても声を荒らげず、少し悲しそうに笑う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">野口 千夏<small>のぐち ちなつ</small></span><span class="rl">ペンキ絵師・38歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:05</dt><dd>裏庭で亀井と二人きりで話す。「帳面は今夜燃やす」と笑われる。</dd><dt>21:20</dt><dd>休憩所で「氷が足りないね、買ってくる」とみんなに言う。</dd><dt>21:25</dt><dd>表から出る。表でたばこを吸っていた西村さんに見られる。</dd><dt>21:32</dt><dd>ハッピーマートで氷2袋とビール6本を買う（オレンジ色のレジ袋）。</dd><dt>21:47</dt><dd>裏の路地を通り、裏木戸から裏庭へ。薪の山のかげに隠れる。駐車場の車の中に人影が見えた。</dd><dt>21:53</dt><dd>釜場の電話が終わる。釜場に入り、火かき棒で亀井を殴る。</dd><dt>21:56</dt><dd>裏庭のぬかるみですべり、軍手を片方なくす。探す余裕はなかった。</dd><dt>21:58</dt><dd>路地を大回りして表通りへ。</dd><dt>22:08</dt><dd>表から戻り、美咲さんに氷の袋を渡す。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:20</dt><dd>「氷が足りなかったから、買いに行くって言った」（本当）</dd><dt>出かけた時刻</dt><dd>「<b>21:40ごろ</b>に出た」。西村さんに「21:25に見た」と言われたら「一度出たけど財布を忘れて戻った」</dd><dt>21:40〜22:08</dt><dd>「ハッピーマートに行ってた。レジが混んでて、帰りは遠回りして夜風に当たってた」</dd><dt>レシートの21:32</dt><dd>「レジの時計がずれてたんじゃない？」とかわし、話を別の人に向ける。</dd><dt>足跡・泥・軍手</dt><dd>「昼間、煙突のスケッチをしに裏庭に入った」「軍手は早瀬さんに貸した」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li><b>あなたは犯人。</b>疑いを自分から遠ざけるには、ほかの人の怪しいところ（煤だらけの手、売るのをやめると言われた電話、帳場から出てきた濡れ髪の人）を、さりげなく話題にするのが近道。</li><li>ただし、早瀬隼人が犯人にされるのは、父と重なってつらい。どこまで彼に疑いを向けるか、あなたが決めよう。</li><li>25年前の事故の真相は、みんなに知ってほしい。でも、自分が森下の娘だとばれたら、動機があると知られてしまう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1（亀井誠司を殺したのは誰か）で、自分が最多票に<b>ならない</b>（逃げ切る）</span></div><div class="goal"><span class="pt">+2</span><span>「25年前のボイラー事故は、亀井が安全弁を外させたせいだった」が、秘密の挙手で<b>信じられる</b></span></div><div class="goal"><span class="pt">+1</span><span>「野口は、25年前に死んだ釜焚き・森下正の娘である」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1で、<b>早瀬隼人</b>が最多票にならない</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="sudo">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">須藤 大河<small>すどう たいが</small></span><span class="rl">番台のアルバイト・大学生・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「須藤です。二年間、番台に座らせてもらいました。銭湯って、知らない人同士がはだかで『いい湯ですね』って言える、すごい場所なんですよ。……なくなるの、ほんとに寂しいです」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは岩手から出てきて、この町で一人暮らしをしている。アパートの風呂が壊れたのをきっかけに松の湯に通いはじめ、気づけば番台に座っていた。亀井は口は悪いが、まかないの焼きそばをよく作ってくれた。</p><p>大学では建築を学んでいて、卒業論文のテーマは「銭湯の建築」。松の湯の格天井や、ペンキ絵の富士山を、写真とスケッチで記録してきた。野口さんが三週間かけて富士山を描くあいだも、毎日のように写真を撮らせてもらった。</p><p>二か月前、サンライズ開発の<b>小田切涼子</b>に声をかけられた。「亀井さんの気持ちが変わりそうになったら、教えてほしい」。月に五万円。奨学金の返済に追われていたあなたは、引き受けてしまった。亀井を裏切っているようで、ずっと胸が苦しい。</p><p>番台に座っていると、町の人の顔がよく見える。誰がいつ来て、いつ帰ったか。あなたは人の出入りを覚えるのが得意だ。</p><p>親方は最近、ときどき釜場の古い棚の前でぼんやりしていた。「昔の帳面だよ」とだけ言っていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>小田切からお金をもらって、亀井の様子を知らせていた。</b>今夜も21:46に「亀井さん、迷ってるっぽいです」とLINEを送った。21:45に廊下へ向かう亀井が、ぽつりと「森下に悪いことをしたなあ」とつぶやくのを聞いたからだ。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：亀井の娘。21:40から女湯の脱衣所で誰かと電話していた。「週末まで待ってください」という声が聞こえた。</li><li><b>早瀬隼人</b>：21:30、帳場で親方と言い合いをしていた。「約束が違う」と言う大きな声が、番台まで聞こえた。</li><li><b>小田切涼子</b>：お金をくれる人。今夜は目を合わせないようにしている。</li><li><b>西村健吾</b>：商店街の会長。最近、小田切さんとあなたが話しているのを見られた気がする。</li><li><b>野口千夏</b>：ペンキ絵師。絵を描くところを毎日見ていた。右下の隅に、小さく何かを描き足していた。</li><li><b>佐久間文代</b>：毎日一番風呂の常連。21:45から一緒にケーキの準備をした。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ていねいで素直な話し方。緊張すると早口になる。銭湯の話になると止まらない。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">須藤 大河<small>すどう たいが</small></span><span class="rl">番台のアルバイト・大学生・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>番台を閉め、お別れ会の準備。</dd><dt>21:30</dt><dd>番台で、帳場から聞こえる早瀬さんと親方の言い合いを聞く。手提げ金庫には、今日の売上が入っていた。</dd><dt>21:32</dt><dd>トイレへ（〜21:38）。番台は空けたまま。</dd><dt>21:40</dt><dd>女湯の脱衣所から、美咲さんの電話の声が聞こえる。</dd><dt>21:45</dt><dd>親方が番台の横の廊下へ。「森下に悪いことをしたなあ」というつぶやきを聞く。</dd><dt>21:46</dt><dd>小田切さんにLINE「亀井さん、迷ってるっぽいです」。</dd><dt>21:47</dt><dd>休憩所で、佐久間さんとお別れのケーキと寄せ書きの準備（〜22:00）。21:55に美咲さんが来た。</dd><dt>21:52</dt><dd>はさみを取りに番台へ戻ると、<b>帳場の戸が少し開いていて、明かりがついていた。</b>中に誰かいるようだったが、のぞかなかった。</dd><dt>22:00</dt><dd>表でみんなと親方を待つ。</dd><dt>22:15</dt><dd>騒ぎの中で番台に戻ると、<b>手提げ金庫が空っぽ</b>になっていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:32〜21:38</dt><dd>「トイレに行ってた」（本当。番台を空けたことを責められるかもしれない）</dd><dt>21:45</dt><dd>「親方が廊下に行くのを見た」（つぶやきのことは言うかどうか自由）</dd><dt>21:46</dt><dd>LINEのことは言わない。「スマホで写真の整理をしてた」</dd><dt>21:47〜22:00</dt><dd>「佐久間さんと休憩所でケーキの準備をしてた」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも小田切さんとのつながりがばれたら、「お金のために何かしたのでは」と疑われる。</li><li>番台を空けたすきに売上金がなくなった。自分の責任になるのはいやだ。誰が抜いたのか、突き止めたい。</li><li>親方のつぶやき「森下に悪いことをした」は、何を意味していたのだろう。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「須藤は、小田切にお金をもらって、亀井の様子を知らせていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問2（売上金を抜いたのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>問1（亀井誠司を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「美咲は借金を抱えていて、父に売却を急がせていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="sakuma">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">佐久間 文代<small>さくま ふみよ</small></span><span class="rl">松の湯の常連・76歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「佐久間でございます。嫁に来た年から六十年、毎日ここの一番風呂。あたしの体は松の湯のお湯でできてるようなもんですよ。……明日から、どこへ行けばいいんだろうねえ」</p></div>
+      <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは十六で八百屋に嫁ぎ、それから六十年、毎日松の湯に通った。夫は十年前に亡くなり、今は一人暮らし。家の風呂は寒いので、ほとんど使っていない。</p><p>25年前のボイラーの事故のことは、よく覚えている。あの二日前の朝、一番風呂に入ったあと、あなたは釜場の前を通りかかった。<b>誠司さんがボイラーの部品を外していて、釜焚きの森下さんが『それを外すのは危ない』と言い返していた。</b>事故のあと、誠司さんは「森下が酒を飲んでいた」と言った。あなたは、誰にも何も言えなかった。ずっと、それが心残りだ。</p><p>森下さんには、ちなっちゃんという娘がいた。いつも女湯で、壁の富士山をじっと見上げている子だった。目もとに、小さなほくろがあった。</p><p>あなたは商店街の古いことは何でも知っている。豆腐屋の健ちゃん（西村）が、昔あの開発会社の女の人と夫婦だったことも。美咲ちゃんと隼人くんが、高校のころ付き合っていたことも。</p><p>今夜、お別れ会で誠司さんと昔話をした。「文代さん、この風呂屋でいちばん長く湯に浸かったのはあんただ」と言われて、泣いてしまった。誠司さんは、何か言いたそうな顔をしていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>25年前、事故の二日前に、誠司さんが安全弁を外すのを見ていた。</b>そのことを誰にも言わず、森下さんが「酒のせい」にされるのを黙って見ていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>亀井美咲</b>：小さいころから知っている。21:40ごろ、女湯の脱衣所で電話していた。「640万円なんて、すぐには……」と聞こえた。</li><li><b>早瀬隼人</b>：美咲ちゃんの昔の恋人。いい子だけど、今夜は顔色が悪い。</li><li><b>小田切涼子</b>：健ちゃんの昔のお嫁さん。十五年たっても、顔を見ればわかる。</li><li><b>西村健吾</b>：豆腐屋の健ちゃん。21:15に誠司さんに怒鳴っていた。</li><li><b>野口千夏</b>：ペンキ絵の人。目もとに、小さなほくろがある。<b>どこかで会った気がしてならない。</b></li><li><b>須藤大河</b>：番台の学生さん。21:45から一緒にケーキの準備をした。21:52ごろ、はさみを取りに一度だけ出ていった。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ゆっくりした下町言葉。人を「ちゃん」「くん」付けで呼ぶ。都合の悪い話には「年寄りは耳が遠くてねえ」ととぼける。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">佐久間 文代<small>さくま ふみよ</small></span><span class="rl">松の湯の常連・76歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>お別れ会。誠司さんと昔話をする。</dd><dt>21:05</dt><dd>野口さんに「あんた、どこかで会ったことあるねえ」と声をかける。野口さんは笑ってごまかした。</dd><dt>21:15</dt><dd>健ちゃんが誠司さんに怒鳴る。</dd><dt>21:40</dt><dd>トイレの帰り、女湯の脱衣所から美咲ちゃんの電話の声が聞こえる。</dd><dt>21:45</dt><dd>休憩所で、須藤くんとお別れのケーキの準備（〜22:00）。</dd><dt>21:52</dt><dd>須藤くんが、はさみを取りに出ていき、すぐ戻る。</dd><dt>21:55</dt><dd>美咲ちゃんが休憩所に来る。</dd><dt>22:00</dt><dd>表で誠司さんを待つ。</dd><dt>22:12</dt><dd>悲鳴が聞こえる。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:40</dt><dd>「トイレに行ってた。美咲ちゃんの電話が聞こえちゃってね」（何が聞こえたかは、言うかどうか自由）</dd><dt>21:45〜22:00</dt><dd>「須藤くんと、休憩所でケーキの準備をしてたよ」</dd><dt>25年前の話</dt><dd>あなたが見たことを話すかどうかは自由。話せば、なぜ黙っていたのかと責められるかもしれない。</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
+      <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。この中ではいちばん、怪しまれにくい。だからこそ、知っていることをどう使うかがあなたの腕の見せどころ。</li><li>25年前の事故のことを、今こそみんなに信じてほしい。ただ、「なぜ今まで黙っていたの」と言われるのはつらい。</li><li>野口さんの目もとのほくろ。あの子は、もしかして……。</li></ul></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「25年前のボイラー事故は、亀井が安全弁を外させたせいだった」が、秘密の挙手で<b>信じられる</b></span></div><div class="goal"><span class="pt">+2</span><span>「野口は、25年前に死んだ釜焚き・森下正の娘である」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>問1（亀井誠司を殺したのは誰か）で、<b>早瀬隼人</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「早瀬と美咲は、高校のころ付き合っていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>ネタバレ注意。</strong>持ち主のキャラシートと一緒に、封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><div class="cards"><div class="card item" data-owner="亀井 美咲" data-label="亀井 美咲の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 01</span></div><div class="bd"><span class="owner">持ち主：亀井 美咲</span><span class="ttl">スマホの画面</span><div class="txt">消費者金融「ハートフルローン」からのSMSが5件。「亀井美咲様 本日中にご連絡ください」「ご返済の期日は11月30日です」。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="早瀬 隼人" data-label="早瀬 隼人の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 02</span></div><div class="bd"><span class="owner">持ち主：早瀬 隼人</span><span class="ttl">親方の年賀状</span><div class="txt">四年前の、亀井からの年賀状。「隼人、いつもありがとう。辞めるときは、ちゃんと退職金を払ってやるからな　誠司」。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="小田切 涼子" data-label="小田切 涼子の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 03</span></div><div class="bd"><span class="owner">持ち主：小田切 涼子</span><span class="ttl">手帳</span><div class="txt">11月30日のページ：「22:30 亀井様 原本受け取り」。その下に赤い字で「今夜中に原本なければ担当を外す — 部長」と書いてある。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="西村 健吾" data-label="西村 健吾の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 04</span></div><div class="bd"><span class="owner">持ち主：西村 健吾</span><span class="ttl">保冷バッグの茶封筒</span><div class="txt">豆腐を運ぶ保冷バッグの底に入れた茶封筒。中身は「土地売買契約書（原本）」。売主 亀井誠司、買主 サンライズ開発株式会社。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="野口 千夏" data-label="野口 千夏の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 05</span></div><div class="bd"><span class="owner">持ち主：野口 千夏</span><span class="ttl">片方だけの軍手</span><div class="txt">白い軍手が片方だけ。指先に、乾いた青いペンキがついている。ポケットの中で、少し湿っている。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="須藤 大河" data-label="須藤 大河の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 06</span></div><div class="bd"><span class="owner">持ち主：須藤 大河</span><span class="ttl">スマホのLINE</span><div class="txt">小田切涼子とのトーク。「21:46 亀井さん、迷ってるっぽいです」「21:47 ありがとう。今月分は月末に」。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div><div class="card item" data-owner="佐久間 文代" data-label="佐久間 文代の持ち物"><div class="hd"><span class="loc">持ち物</span><span>ITEM 07</span></div><div class="bd"><span class="owner">持ち主：佐久間 文代</span><span class="ttl">古い日記の切れ端</span><div class="txt">25年前の日付。「二月三日。一番風呂のあと、誠司さんが釜場でボイラーの何かを外していた。森下さんが『それを外したら危ない』と言っていた」。</div><p class="foot">見せる・隠す・渡すは自由。口で説明するときは嘘もOK。見せれば本当だと証明できる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>ネタバレ注意。</strong>場所ごとに番号順に、裏向きに重ねて置きます。調査2のカードは調査2まで別にしておきます。</p>
+    <button type="button" class="btn" id="gate-clues">表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">場所の右の丸数字が、重ねる順番です（①がいちばん上）。</p><div class="cards"><div class="card clue" data-label="釜場 ①" data-phase="1"><div class="hd"><span class="loc">釜場 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="ttl">遺体のようす</span><p>亀井は釜の前にうつ伏せに倒れている。後頭部を一度、強く殴られている。そばに鉄の火かき棒が落ちている。釜の火は燃えたままで、新しい薪がくべられたばかりだった（火を落とす前に襲われた）。</p><p class="star">★ 即公開：このカードは、引いたらすぐ全員に読み上げる</p></div></div><div class="card clue" data-label="釜場 ②" data-phase="1"><div class="hd"><span class="loc">釜場 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="ttl">亀井のスマホ</span><p>作業着のポケットの中。最後の通話は「21:50 小田切涼子（2分12秒）」。その前に未読のLINEが1件「21:42 美咲：さっきはごめん。お金のこと、あとでもう一度だけ話させて」。</p></div></div><div class="card clue" data-label="釜場 ③" data-phase="1"><div class="hd"><span class="loc">釜場 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="ttl">釜場の二つの戸</span><p>廊下側の戸は、内側から<b>かんぬき</b>がかかっていた（亀井は釜場に入るといつもかけていた）。裏庭側の戸には鍵がなく、少し開いていた。</p><p class="star">★ 即公開：このカードは、引いたらすぐ全員に読み上げる</p></div></div><div class="card clue" data-label="裏庭 ①" data-phase="1"><div class="hd"><span class="loc">裏庭 ①</span><span class="ph">調査1</span><span>CLUE 04</span></div><div class="bd"><span class="ttl">ぬかるみの足跡</span><p>雨は21時に止んだ。足跡はそのあとについたものでくっきりしている。<br>・黒い長靴の跡：裏庭のあちこちに、何度も。<br>・<b>細かい波模様の靴底</b>の跡：裏木戸 → 釜場の戸 → 裏木戸を往復しているだけ。</p></div></div><div class="card clue" data-label="裏庭 ②" data-phase="1"><div class="hd"><span class="loc">裏庭 ②</span><span class="ph">調査1</span><span>CLUE 05</span></div><div class="bd"><span class="ttl">薪の山のかげ</span><p>積んだ薪のかげに、白い<b>軍手が片方</b>落ちている。指先に、乾いた<b>青いペンキ</b>がついている。泥で汚れている。</p></div></div><div class="card clue" data-label="帳場 ①" data-phase="1"><div class="hd"><span class="loc">帳場 ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="ttl">机の引き出し</span><p>開けっぱなしになっている。中には「売買契約書在中」とマジックで書かれた、<b>空のクリアファイル</b>。</p></div></div><div class="card clue" data-label="帳場 ②" data-phase="1"><div class="hd"><span class="loc">帳場 ②</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="ttl">壁のカレンダー</span><p>11月30日の欄に「最終営業」「22:00 のれん」「22:30 小田切さん 原本」。12月1日の欄に「沖縄へ」。</p></div></div><div class="card clue" data-label="番台 ①" data-phase="1"><div class="hd"><span class="loc">番台 ①</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="ttl">手提げ金庫</span><p>鍵は開いていて、<b>中は空っぽ</b>。横の売上帳には、亀井の字で「11/30 本日売上 182,400円（21:30）」。</p></div></div><div class="card clue" data-label="番台 ②" data-phase="1"><div class="hd"><span class="loc">番台 ②</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="ttl">番台の板</span><p>お金を受け渡す番台の板に、<b>黒い煤の指の跡</b>がいくつかついている。まだ新しい。</p></div></div><div class="card clue" data-label="脱衣所 ①" data-phase="1"><div class="hd"><span class="loc">脱衣所 ①</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="ttl">女湯の脱衣所の床</span><p>脱衣かごの下に、折りたたんだ紙が落ちている。「ハートフルローン ご返済予定表　亀井美咲様　残高 6,400,000円」。</p></div></div><div class="card clue" data-label="脱衣所 ②" data-phase="1"><div class="hd"><span class="loc">脱衣所 ②</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="ttl">男湯の脱衣所の寄せ書き</span><p>「松の湯、ありがとう」の寄せ書き。早瀬の字で「親方、十二年お世話になりました。退職金の件、まだあきらめてません」。野口の字で「最後の富士山を描かせてもらいました。この湯のことは、ずっと忘れません」。</p></div></div><div class="card clue" data-label="浴場 ①" data-phase="1"><div class="hd"><span class="loc">浴場 ①</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="ttl">富士山のペンキ絵</span><p>男湯と女湯の壁にまたがる、大きな富士山。右下の隅に、小さく<b>煙突と、手をつないだ男の人と女の子</b>が描かれている。署名は「千夏」。</p></div></div><div class="card clue" data-label="浴場 ②" data-phase="1"><div class="hd"><span class="loc">浴場 ②</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="ttl">男湯の洗い場</span><p>湯船の湯はまだ温かい。洗い場に、ぬれた桶がひとつ。少し前に、誰かが一人で湯を使ったようだ。</p></div></div><div class="card clue" data-label="休憩所 ①" data-phase="1"><div class="hd"><span class="loc">休憩所 ①</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="ttl">クーラーボックス</span><p>ロックアイスが2袋。<b>どちらも半分以上とけて水になっている。</b>缶ビールが6本。外の気温は5度ほどしかない。</p></div></div><div class="card clue" data-label="休憩所 ②" data-phase="1"><div class="hd"><span class="loc">休憩所 ②</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="ttl">ゴミ箱のレシート</span><p>オレンジ色のレジ袋と、レシート。「ハッピーマート 松原三丁目店　<b>11/30 21:32</b>　ロックアイス×2　缶ビール×6」。ハッピーマートは、松の湯から歩いて5分。</p></div></div><div class="card clue" data-label="下駄箱 ①" data-phase="1"><div class="hd"><span class="loc">下駄箱 ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="ttl">下駄箱の靴</span><p><b>ペンキの飛んだ白いスニーカー</b>：靴底の細かい波模様の溝に、<b>木くずと黒い泥</b>がつまっている。<br>赤いスニーカー：靴底はジグザグ模様で、乾いてきれい。<br>（長靴・ブーツ・パンプス・雪駄は、ここにはない）</p></div></div><div class="card clue p2" data-label="釜場 ④" data-phase="2"><div class="hd"><span class="loc">釜場 ④</span><span class="ph">調査2</span><span>CLUE 17</span></div><div class="bd"><span class="ttl">棚の奥の点検簿</span><p>古いボイラー点検簿。25年前の二月の欄に、亀井の字で「2/3 安全弁 外す（修理代 節約）」「2/5 爆発。森下死亡」。点検簿には付箋が一枚。亀井の字で「<b>明日、渡す</b>」。燃やされた様子はない。</p></div></div><div class="card clue p2" data-label="釜場 ⑤" data-phase="2"><div class="hd"><span class="loc">釜場 ⑤</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="ttl">釜場の床</span><p>床の煤の上に、長靴の跡がたくさん。その上に、<b>細かい波模様</b>の靴跡が、裏庭側の戸から亀井の倒れている場所まで、少しだけ残っている。</p></div></div><div class="card clue p2" data-label="裏庭 ③" data-phase="2"><div class="hd"><span class="loc">裏庭 ③</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="ttl">裏木戸</span><p>裏の路地に出る木戸。釘に、<b>オレンジ色のビニールの切れ端</b>が引っかかっている。</p></div></div><div class="card clue p2" data-label="帳場 ③" data-phase="2"><div class="hd"><span class="loc">帳場 ③</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="ttl">机の上の灰皿</span><p>吸い殻が一本、まだ新しい。銘柄は<b>ハイライト</b>。亀井はたばこを吸わない。</p></div></div><div class="card clue p2" data-label="番台 ③" data-phase="2"><div class="hd"><span class="loc">番台 ③</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="ttl">番台の引き出し</span><p>引き出しの奥に、白い封筒。表に「須藤様　謝礼」。差出人の名前はないが、封筒の隅に「サンライズ開発」のロゴ。</p></div></div><div class="card clue p2" data-label="駐車場 ①" data-phase="2"><div class="hd"><span class="loc">駐車場 ①</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="ttl">軽トラの運転席</span><p>早瀬の軽トラ。運転席の下に、<b>銀行の帯封</b>が一本落ちている。松の湯の売上をまとめるときに使う帯だ。</p></div></div><div class="card clue p2" data-label="駐車場 ②" data-phase="2"><div class="hd"><span class="loc">駐車場 ②</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="ttl">駐車場からの眺め</span><p>駐車場は松の湯の裏手。低いフェンスの扉から裏庭に出入りできる。車の中からは、街灯に照らされた裏の路地と、松の湯の裏木戸が見える。</p></div></div><div class="card clue p2" data-label="浴場 ③" data-phase="2"><div class="hd"><span class="loc">浴場 ③</span><span class="ph">調査2</span><span>CLUE 24</span></div><div class="bd"><span class="ttl">ペンキの道具箱</span><p>浴場のすみの道具箱。内ぶたに、色あせた写真が貼ってある。釜場の前で笑う男の人と、十歳くらいの女の子。裏に「正と千夏　平成十二年」。</p></div></div><div class="card clue p2" data-label="休憩所 ③" data-phase="2"><div class="hd"><span class="loc">休憩所 ③</span><span class="ph">調査2</span><span>CLUE 25</span></div><div class="bd"><span class="ttl">掲示板の新聞記事</span><p>「松の湯の歴史」コーナーに、25年前の新聞の切り抜き。「銭湯のボイラー爆発　従業員死亡　松原の松の湯で、釜焚きの森下正さん（35）が死亡。飲酒の疑い。森下さんは妻と長女（13）の三人暮らし」。</p></div></div><div class="card clue p2" data-label="脱衣所 ③" data-phase="2"><div class="hd"><span class="loc">脱衣所 ③</span><span class="ph">調査2</span><span>CLUE 26</span></div><div class="bd"><span class="ttl">女湯の脱衣かごのメモ</span><p>美咲の字のメモ。書きかけで、渡しそびれたらしい。「隼人へ。高校のとき、一緒に東京へ行こうって言ってくれたよね。もし今からでも――」</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>解決編</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>ネタバレ注意。</strong>真相が書かれています。投票が終わってから、司会が開いてください。</p>
+    <button type="button" class="btn" id="gate-gm">投票が終わったので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+  <div class="box">
+    <h3>1. 秘密の挙手（真相を読む前に）</h3>
+    <p>司会が下の文を<b>1つずつ</b>読み上げます。読むたびに、<b>「本当だと思う人」は手を挙げます</b>（目は閉じなくてよい）。</p>
+    <ul>
+      <li>その文の<b>当事者</b>（文に名前が出てくる人）は手を挙げません。</li>
+      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた／信じられた」。数は、あとで点数を数えるときに使うので、メモしておく。</li>
+      <li>文の中には<b>本当ではないもの（ダミー）が2つ</b>まじっています。どれがダミーかは、次のボタンで真相と一緒にわかります。</li>
+      <li>議論で根拠が出なかった文には、手を挙げなくてかまいません。</li>
+    </ul>
+    <ol class="stmts"><li>美咲は借金を抱えていて、父に売却を急がせていた</li><li>小田切は、事件の直前に亀井から「売るのをやめるかもしれない」と言われていた</li><li>須藤は、小田切にお金をもらって、亀井の様子を知らせていた</li><li>小田切と西村は、昔、夫婦だった</li><li>25年前のボイラー事故は、亀井が安全弁を外させたせいだった</li><li>早瀬と美咲は、高校のころ付き合っていた</li><li>野口は、25年前に死んだ釜焚き・森下正の娘である</li><li>西村は、亀井に300万円を借りていた</li><li>早瀬は、来月から隣町の銭湯で働くことが決まっている</li></ol>
+    <p class="note">当事者以外の人数：7人から当事者の数を引いた人数。その半分より多ければ「過半数」。</p>
+  </div><div class="warn gate2"><p><strong>秘密の挙手が全部終わってから</strong>、下のボタンで真相を開いてください。</p><button type="button" class="btn" id="reveal-truth">挙手が終わったので、真相を表示する</button></div><div class="truth" id="truth" hidden>
+  <div class="box">
+    <h3>2. 投票の答え</h3>
+    <ul>
+      <li><b>問1　亀井誠司を殺したのは誰か：野口 千夏</b>（+4）</li>
+      <li><b>問2　番台の売上金を抜いたのは誰か：早瀬 隼人</b>（+2）</li>
+      <li><b>問3　帳場から契約書の原本を持ち去ったのは誰か：西村 健吾</b>（+2）</li>
+    </ul>
+    <p class="note">答えの本人は、その問いの点はなし。</p>
+  </div>
+  <div class="box">
+    <h3>3. 真相</h3>
+    <p>野口千夏の本当の名前は森下千夏。25年前、松の湯のボイラーの爆発で死んだ釜焚き・森下正の一人娘だった。事故は「森下の飲酒のせい」とされたが、本当は、亀井誠司が修理代をけちって安全弁を外させたことが原因だった。三週間前、野口は釜場の棚で古い点検簿を見つけ、そのことを知った。</p>
+    <p>今夜21:05、野口は裏庭で亀井に名乗り、のれんを下ろすときに真実を話してほしいと頼んだ。亀井は「あの帳面は今夜、釜で燃やす。それで終わりだ」と笑った。野口はそのとき、殺すことを決めた。</p>
+    <p>21:20、野口は「氷を買ってくる」と言い、21:25に表から出た。21:32にハッピーマートで氷を買うと、すぐに引き返し、裏の路地から裏庭へ入った。釜場の廊下側の戸には、亀井がいつもかんぬきをかける。入れるのは裏庭側の戸だけだった。21:53、電話を終えた亀井を、そばにあった火かき棒で殴った。逃げるときに裏庭のぬかるみですべり、軍手を片方落とした。路地を大回りして表通りへ出て、22:08に「コンビニから戻った」ふりをした。</p>
+    <p>けれど、亀井は点検簿を燃やしていなかった。棚の奥の点検簿には、亀井の字で「明日、渡す」と付箋が貼ってあった。21:45に廊下へ向かうとき「森下に悪いことをしたなあ」とつぶやき、21:50の電話では小田切に「売るのはやめるかもしれん。森下のことを思い出してな」と言っていた。亀井は最後の夜に、ようやく罪と向き合おうとしていたのだ。</p>
+  </div>
+  <div class="box">
+    <h3>4. 推理の筋道</h3>
+    <ol>
+      <li><b>犯人は裏庭から入った。</b>釜場の廊下側の戸には内側からかんぬき（釜場①・③の★）。入れるのは裏庭側の戸だけ。裏庭の足跡は雨（21時に止んだ）のあとについたもので、長靴の跡（釜焚きの早瀬はふだんから歩く）のほかに、<b>裏木戸と釜場を往復するだけの細かい波模様の靴跡</b>がある（裏庭①、釜場の床）。</li>
+      <li><b>波模様の靴は誰のものか。</b>下駄箱の<b>ペンキの飛んだ白いスニーカー</b>の溝に木くずと泥（下駄箱①）。人物一覧の服装から、野口のもの。薪の山のかげの軍手には<b>青いペンキ</b>（裏庭②）。</li>
+      <li><b>「コンビニに行っていた」アリバイが崩れる。</b>野口は「21:40ごろ出た」と言うが、西村が21:25に出かけるのを見ている。レシートは<b>21:32</b>（休憩所②）。コンビニは歩いて5分なので、21:40には戻れた。それなのに表から戻ったのは22:08で、氷は半分以上とけていた（休憩所①、美咲の証言）。21:47に小田切が路地でオレンジ色の袋を持った人を見ており、裏木戸にはオレンジ色のビニールの切れ端（裏庭③）。</li>
+      <li><b>犯行の時刻。</b>亀井は21:50から2分あまり小田切と電話していた（釜場②）。釜の火は落とされていない（釜場①）。犯行は21:52〜22:12のあいだ。</li>
+      <li><b>動機。</b>点検簿の「安全弁 外す」（釜場④）、新聞記事の「森下正さん（35）……長女（13）」（休憩所③）、道具箱の写真「正と千夏」（浴場③）、ペンキ絵の隅の男と女の子（浴場①）。野口千夏＝森下の娘。</li>
+    </ol>
+    <p class="note">ほかの人の怪しいところ：早瀬（煤の指の跡・帯封＝売上金）、西村（ハイライトの吸い殻・美咲の目撃＝契約書）、小田切（「やめるかも」の電話・駐車場にいた）、美咲（借金・父との口論）、須藤（謝礼の封筒＝小田切への内通）。どれも殺人とは別の秘密です。</p>
+  </div>
+  <div class="box">
+    <h3>5. 秘密の挙手の答え</h3>
+    <p><b>ダミー（本当ではない文）</b></p><ul><li>西村は、亀井に300万円を借りていた</li><li>早瀬は、来月から隣町の銭湯で働くことが決まっている</li></ul>
+    <p><b>本当の文</b></p><ul><li>美咲は借金を抱えていて、父に売却を急がせていた（当事者：亀井 美咲）</li><li>小田切は、事件の直前に亀井から「売るのをやめるかもしれない」と言われていた（当事者：小田切 涼子）</li><li>須藤は、小田切にお金をもらって、亀井の様子を知らせていた（当事者：須藤 大河）</li><li>小田切と西村は、昔、夫婦だった（当事者：小田切 涼子・西村 健吾）</li><li>25年前のボイラー事故は、亀井が安全弁を外させたせいだった（当事者：野口 千夏・早瀬 隼人・佐久間 文代）</li><li>早瀬と美咲は、高校のころ付き合っていた（当事者：早瀬 隼人・亀井 美咲）</li><li>野口は、25年前に死んだ釜焚き・森下正の娘である（当事者：野口 千夏）</li></ul>
+    <p class="note">ダミーに手を挙げても減点はありません。</p>
+  </div>
+  <div class="box">
+    <h3>6. 点数の数え方</h3>
+    <ol>
+      <li>投票：問1の正解 +4、問2・問3の正解 +2ずつ（答えの本人はその問いの点なし）。</li>
+      <li>各自のキャラシートの「目的」を読み上げ、達成していれば点を足す（犯人の「逃げ切る」は+5）。</li>
+      <li>「ばれない／ばれる／信じられる」は、さっきの秘密の挙手の結果で決める。「自分で指摘し」とある目的は、議論中に本人が言っていなければ不成立。</li>
+      <li>いちばん点の高い人がMVP。</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h3>7. 完全タイムライン</h3>
+    <dl class="tl"><dt>21:05</dt><dd>裏庭で、野口千夏が亀井に「森下の娘です」と名乗り、のれんを下ろすときに25年前の真実を話してほしいと頼む。亀井は「あの帳面は今夜燃やす」と笑う。</dd><dt>21:15</dt><dd>西村が休憩所で亀井に「この裏切り者が！」と怒鳴る。</dd><dt>21:20</dt><dd>美咲が帳場で、亀井に「売ったお金を少し回して」と頼んで断られる。野口が「氷を買ってくる」と言う。</dd><dt>21:25</dt><dd>野口が表から出かける。表でたばこを吸っていた西村が見る。</dd><dt>21:30</dt><dd>早瀬が帳場で退職金を断られる。亀井が売上帳に「182,400円」と書く。</dd><dt>21:32</dt><dd>早瀬が番台の手提げ金庫から売上金を抜く（番台の煤の指の跡）。須藤はトイレ（〜21:38）。同じころ、野口がハッピーマートで氷とビールを買う（レシート 21:32）。</dd><dt>21:40</dt><dd>早瀬が裏庭を通って駐車場の軽トラへ。お金を座席の下に隠す（帯封）。小田切が駐車場の車へ。美咲が女湯の脱衣所で金融会社に電話。西村が男湯へ。</dd><dt>21:45</dt><dd>亀井が「釜の火を落としてくる」と言って廊下から釜場へ。かんぬきをかける。須藤が「森下に悪いことをしたなあ」というつぶやきを聞く。</dd><dt>21:47</dt><dd>野口が裏の路地を通って裏木戸から裏庭へ（小田切がオレンジ色の袋を見る。木戸にビニールの切れ端）。</dd><dt>21:50</dt><dd>小田切が亀井に電話。亀井「やっぱり売るのはやめるかもしれん。森下のことを思い出してな」。同じころ西村が帳場で契約書の原本を持ち出す（ハイライトの吸い殻）。</dd><dt>21:53</dt><dd>電話が終わってすぐ、野口が釜場に入り、火かき棒で亀井を殴る。美咲が帳場から出てきた西村とはち合わせる。</dd><dt>21:56</dt><dd>野口が裏庭のぬかるみですべり、軍手を片方なくす。</dd><dt>21:58</dt><dd>野口が路地を大回りして表通りへ。早瀬が軽トラを出て表へ回る。</dd><dt>22:00</dt><dd>全員（野口以外）が表に集まり、亀井を待つ。</dd><dt>22:08</dt><dd>野口が表から戻り、美咲に氷を渡す。氷は36分たって半分以上とけていた。</dd><dt>22:12</dt><dd>美咲と西村が、裏庭から回って釜場で亀井を見つける。</dd></dl>
+  </div>
+  <div class="box epi">
+    <h3>8. エピローグ（読みたい人だけ）</h3>
+    <div class="epi-item"><b>野口 千夏</b><p>（犯人として名指しされたら）「……あの人、本当に燃やすつもりだったんですか」点検簿の付箋を見せられ、野口は長いあいだ黙っていた。「明日、渡す」。誰に渡すつもりだったのかは、もう誰にもわからない。野口は自分から警察に話すと言い、最後に女湯の富士山の前に立った。右下の隅の、手をつないだ二人を、指でなぞった。</p></div><div class="epi-item"><b>亀井 美咲</b><p>父は最後に、自分の罪と向き合おうとしていた。借金のことは、このあと自分で弁護士に相談すると決めた。帰りぎわ、隼人に渡しそびれたメモを、もう一度だけポケットの中で握りしめた。</p></div><div class="epi-item"><b>早瀬 隼人</b><p>売上金はいずれ明るみに出る。それでも早瀬は、翌朝いちばんに冷えきった釜場を掃除した。安全弁の跡のことを、今度こそ警察に話すつもりだ。</p></div><div class="epi-item"><b>小田切 涼子</b><p>契約は白紙に戻るかもしれない。帰りの車の中で、小田切は手帳の赤い字を破り捨てた。</p></div><div class="epi-item"><b>西村 健吾</b><p>茶封筒は、結局燃やせなかった。西村は原本を手に、警察の到着を待った。「松の湯がなくなるのは止められなくても、せめて……」</p></div><div class="epi-item"><b>須藤 大河</b><p>須藤は小田切に謝礼を返した。卒業論文の最後のページには、ペンキ絵の右下の小さな二人のスケッチを描くことにした。</p></div><div class="epi-item"><b>佐久間 文代</b><p>「ちなっちゃん、だったんだねえ」。佐久間は25年分の後悔を、ようやく口にした。明日からの風呂は、まだ決まっていない。</p></div>
+  </div></div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。全員が書き終わったら、一斉に見せます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　亀井誠司を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span>問2　番台の売上金を抜いたのは誰か（+2）</span><span class="ln"></span>
+      <span>問3　帳場から契約書の原本を持ち去ったのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：亀井美咲・早瀬隼人・小田切涼子・西村健吾・野口千夏・須藤大河・佐久間文代</span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('noren-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('noren-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('noren-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  var rv = document.getElementById('reveal-truth');
+  if (rv) rv.addEventListener('click', function () {
+    document.getElementById('truth').hidden = false;
+    rv.parentNode.hidden = true;
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('noren-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  ['#gate-gm', '#reveal-truth'].forEach(function (id) {
+    var gb = $(id);
+    if (!gb) return;
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  });
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと持ち物カード ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと持ち物カードが開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '持ち物カード'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 証拠カード：カードの一覧から1枚ずつ ----
+  var ih = $('[data-for="items"]');
+  if (ih) ih.closest('section').querySelector('.gated').hidden = false;
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '自分の番に、場所を選んで、その場所のまだ引かれていない一番小さい番号のカードを長押しして読んでください。読んだら閉じます。',
+    '「調査2」のカードは調査2になってから。誰がどのカードを引いたかは、口で伝え合って管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
