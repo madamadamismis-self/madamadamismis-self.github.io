@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>初釜に椿は落ちる（8人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 雪の茶室。雪の白と椿の赤の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #f1efed;
+  --surface: #fdfcfb;
+  --ink: #232022;
+  --muted: #66606a;
+  --line: #dcd7d8;
+  --accent: #b1273a;
+  --accent-soft: #f7e0e3;
+  --teal: #3d5948;
+  --teal-soft: #e1ebe4;
+  --slate: #24201f;
+  --slate-ink: #f6f3f1;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141213; --surface: #1d1a1c; --ink: #ebe7e8; --muted: #a39ca2; --line: #332e31;
+    --accent: #ec7f8d; --accent-soft: #3d1f25; --teal: #92bba0; --teal-soft: #1d2b22;
+    --slate: #0b0a0a; --slate-ink: #ebe7e8; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141213; --surface: #1d1a1c; --ink: #ebe7e8; --muted: #a39ca2; --line: #332e31;
+  --accent: #ec7f8d; --accent-soft: #3d1f25; --teal: #92bba0; --teal-soft: #1d2b22;
+  --slate: #0b0a0a; --slate-ink: #ebe7e8; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #d9465a, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>初釜に椿は落ちる</h1>
+    <p>雪の夜、離れの茶室で家元が死んでいた。雪の露地に残っていたのは、家元の足跡だけだった。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>8人 ＋ GM1人</span>
+      <span><b>TIME</b>約150分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・京都の茶道家元の屋敷</span>
+      <span><b>CARDS</b>キャラシート8・持ち物32・秘密16・証拠24</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">初釜に椿は落ちる（8人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー8人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、家庭内の暴力の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 8人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 32枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 16枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 24枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 8枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「水屋の②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>蔵・家元の書斎は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>蔵：蔵の鍵／蔵の合鍵</li><li>家元の書斎：書斎の鍵</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「腰掛待合」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「名物」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">15分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人3回。新しいカードと「腰掛待合」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：問いの答えに、プレイヤーが演じている人物の名前を書く（椿宗円は書けない。自分の名前を書いてもよい）。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「椿宗円を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>一月十日。京都、東山のふもと。茶道「椿流」の家元屋敷で、新しい年の最初の茶会「初釜」が開かれた。朝から降り続いた雪が、庭の椿を白く包んでいる。</p><p>夕方の茶事が終わり、母屋で祝いの膳を囲んだあと、家元の椿宗円は言った。「雪がやんだら、離れで一服する」。二十時ごろ雪がやむと、家元は杖をついて、雪の積もった露地を一人で離れの茶室へ歩いていった。</p><p>二十一時半。片付けの相談に内弟子の紗希が茶室へ向かい、悲鳴を上げた。家元は炉のそばに倒れていた。後頭部を殴られ、もう息はなかった。そばに、床の間に飾ってあった唐銅の花入が転がっていた。活けてあった椿の花が、畳に落ちていた。</p><p>母屋から茶室へは、雪の露地を歩くか、屋根のある渡り廊下を通るしかない。だが渡り廊下の戸は、茶室の内側から掛け金がかかっていた。そして雪の露地に残っていたのは、茶室へ向かう家元の足跡と、紗希の足跡だけだった。</p><p>雪で山道は通れず、警察が来るのは明朝になるという。</p><p>——足跡のない誰かが、雪の上を歩いた。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：離れの茶室の炉のそば。後頭部を殴られている。そばに唐銅の花入（重い青銅の花入）。21:30に内弟子の紗希が見つけた。</li><li>雪：朝から降り、20:00ごろにやんだ。それより前の足跡は雪で消えている。</li><li>露地（茶室までの庭の道）：20:00以降の足跡は、家元の下駄の跡と杖の穴（茶室へ向かう一筋）と、紗希の往復の跡だけ。</li><li>渡り廊下：母屋の水屋と茶室をつなぐ屋根つきの廊下。茶室側の戸は、内側から掛け金がかかっていた（紗希は露地から入った）。家元は夜咄のとき、いつも渡り廊下の戸を閉めてしまう。</li><li>20:00〜21:30、全員が母屋や庭のあちこちを行き来していた。</li><li>鍵のかかる場所：蔵・家元の書斎。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今日の流れ</h3>
+      <ul><li>15:00ごろ 雪が降りだす</li><li>17:00 初釜の茶事（〜18:30）</li><li>19:00 母屋で祝いの膳</li><li>20:00ごろ 雪がやむ。家元が露地を歩いて茶室へ</li><li>21:30 紗希が茶室で家元を見つける</li></ul>
+      <p class="note">母屋：玄関、座敷、水屋（台所をかねた支度部屋）、家元の書斎、内弟子部屋。庭：露地、腰掛待合（客が待つ小屋）、蔵。離れ：茶室（客は小さな躙口から入る）。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　椿宗円を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>椿流家元屋敷</h3>
+    <svg viewBox="0 0 400 240" role="img" aria-label="家元屋敷の見取り図">
+      <rect class="room" x="10" y="10" width="200" height="110"/><text x="20" y="28">母屋</text>
+      <rect class="room" x="20" y="36" width="60" height="38"/><text class="sm" x="28" y="58">玄関</text>
+      <rect class="room" x="80" y="36" width="60" height="38"/><text class="sm" x="88" y="58">座敷</text>
+      <rect class="room" x="140" y="36" width="64" height="38"/><text class="sm" x="148" y="58">水屋</text>
+      <rect class="room" x="20" y="74" width="90" height="40"/><text class="sm" x="26" y="98">家元の書斎</text>
+      <rect class="room" x="110" y="74" width="94" height="40"/><text class="sm" x="116" y="98">内弟子部屋</text>
+      <rect class="stair" x="210" y="44" width="110" height="20"/><text class="sm" x="218" y="58">渡り廊下（屋根つき）</text>
+      <rect class="hot" x="320" y="20" width="70" height="90"/><text class="ac" x="330" y="60">茶室</text><text class="sm" x="326" y="78">（離れ）</text>
+      <rect class="room" x="40" y="140" width="290" height="60"/><text class="sm" x="120" y="172">露地（雪の庭・飛び石）</text>
+      <rect class="room" x="10" y="200" width="80" height="34"/><text class="sm" x="22" y="222">蔵</text>
+      <rect class="room" x="250" y="200" width="100" height="34"/><text class="sm" x="256" y="222">腰掛待合</text>
+    </svg></div></div><p class="note">露地は母屋の縁側から茶室の躙口まで、飛び石づたいに約30m。蔵へは玄関の横から、屋根のある小道で行ける（雪は積もらない）。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・茶道「椿流」家元</span><span class="nm">椿 宗円</span><span class="kana">つばき そうえん（72）</span><p>京都の茶道「椿流」の十一代家元。厳格で知られる。膝が悪く、杖をついて歩く。雪の夜に離れの茶室で一人で茶を点てる「夜咄」を何より好む。</p></div><div class="person"><span class="role">家元の長男・若宗匠（44）</span><span class="nm">椿 宗哉</span><span class="kana">つばき そうや</span><p>家元の長男で、次の家元になる若宗匠。人当たりがよく、弟子たちにも慕われている。</p><p class="look">服装：紺の紋付き、袴</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">家元の妹（68）</span><span class="nm">椿 千代</span><span class="kana">つばき ちよ</span><p>家元の妹。嫁ぎ先から戻り、近くに住んでいる。茶の腕は兄に劣らないと言われる。</p><p class="look">服装：紫の訪問着、白髪</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">内弟子・家元夫人の娘（23）</span><span class="nm">椿 紗希</span><span class="kana">つばき さき</span><p>汐里の娘。八歳のときに母と椿家に来た。家元の内弟子として、住みこみで修行している。遺体を見つけた。</p><p class="look">服装：薄紅の小紋、たすき</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">美術商（58）</span><span class="nm">黒部 昭</span><span class="kana">くろべ あきら</span><p>先代のころから椿家に出入りしている美術商。今日の初釜の正客（いちばん上座の客）をつとめた。</p><p class="look">服装：焦げ茶の背広、銀ぶちの眼鏡</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">家元夫人（52）</span><span class="nm">椿 汐里</span><span class="kana">つばき しおり</span><p>家元の後妻。十五年前に、娘の紗希を連れて嫁いだ。茶会の裏方を取りしきり、いつも穏やかに微笑んでいる。</p><p class="look">服装：黒の色無地の着物、白い足袋</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">茶道雑誌の記者（33）</span><span class="nm">結城 透</span><span class="kana">ゆうき とおる</span><p>茶道の専門誌の記者。初釜の取材に来ていた。</p><p class="look">服装：グレーのセーター、首からカメラ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">古参の内弟子（62）</span><span class="nm">水原 千景</span><span class="kana">みずはら ちかげ</span><p>四十年、椿家に仕える古参の内弟子。水屋のことは何でも知っている。</p><p class="look">服装：鼠色の着物、白髪をきっちり結っている</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">庭師（31）</span><span class="nm">佐伯 陽介</span><span class="kana">さえき ようすけ</span><p>椿家の庭と露地の手入れを任されている庭師。雪の日は朝から雪かきをしていた。</p><p class="look">服装：作業着の上に法被、地下足袋</p><p class="pstat">基本パワー 3</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">椿 宗哉<small>つばき そうや</small></span><span class="rl">家元の長男・若宗匠</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">椿 千代<small>つばき ちよ</small></span><span class="rl">家元の妹</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">椿 紗希<small>つばき さき</small></span><span class="rl">内弟子・家元夫人の娘</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">黒部 昭<small>くろべ あきら</small></span><span class="rl">美術商</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">椿 汐里<small>つばき しおり</small></span><span class="rl">家元夫人</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">結城 透<small>ゆうき とおる</small></span><span class="rl">茶道雑誌の記者</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">水原 千景<small>みずはら ちかげ</small></span><span class="rl">古参の内弟子</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">佐伯 陽介<small>さえき ようすけ</small></span><span class="rl">庭師</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="SO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">椿 宗哉<small>つばき そうや</small></span><span class="rl">家元の長男・若宗匠・44歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「若宗匠の宗哉です。父には、茶の湯の全部を叩きこまれました。……まさか、こんな形で」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>物心ついたころから、父の茶室が遊び場だった。父は茶碗を割った五歳のあなたを、一晩、蔵に閉じこめた。</p><p>母は、あなたが十八のときに死んだ。父が後妻に汐里さんを迎えたのは、その十二年後だった。</p><p>三年前、株で大きな損をした。穴を埋めるため、蔵の名物「椿の香合」を、美術商の黒部に1,500万円で売った。蔵には、腕のいい職人に作らせた写しを置いてある。</p><p>父は香合を、年に一度、初釜の床にしか出さない。来年の初釜までに、なんとか買い戻すつもりだった。</p><p>今夜、父は「来年の初釜には、香合を出す」と言った。息が止まりそうになった。</p><p>本当は、陶芸家になりたかった。十代のころ、こっそり作った茶碗を父に見せたら、黙って庭石に叩きつけられた。それから、土にはさわっていない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>蔵の名物「椿の香合」を黒部に売り、写しにすり替えた。父は来年の初釜で香合を出すと言った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒部昭</b>：香合を買った美術商。今夜も来ている。</li><li><b>椿千代</b>：叔母。父とは仲が悪く、自分の息子を跡取りにしたがっていた（その息子は十年前に亡くなった）。</li><li><b>椿汐里</b>：父の後妻。父の前では、いつも小さくなっている。</li><li><b>椿紗希</b>：汐里さんの娘。いい内弟子だ。</li><li><b>結城透</b>：記者。香合のことを嗅ぎまわっているらしい。</li><li><b>水原千景</b>：古参の内弟子。父の若いころを知っている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 5）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">椿 宗哉<small>つばき そうや</small></span><span class="rl">家元の長男・若宗匠・44歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の茶事で、父の点前の後見をつとめた。</dd><dt>19:00</dt><dd>祝いの膳。父が「来年は香合を出す」と言った。</dd><dt>20:00</dt><dd>蔵の合鍵で蔵に入り、香合の写しの箱を確かめた（〜20:12）。見た目では、誰にもわからない。</dd><dt>20:12</dt><dd>屋根のある小道から玄関へ戻る。座敷で黒部さんと話す。「あれを返してくれないか」。断られた。</dd><dt>20:40</dt><dd>座敷で一人、酒を飲んでいた。</dd><dt>21:30</dt><dd>紗希の悲鳴で外へ。露地に足跡が一筋だけなのを見て、ぞっとした。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:00ごろ少し蔵へ。そのあとは座敷で黒部さんと話していた」。香合のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「香合の写し」が人目に出れば、あなたは若宗匠ではいられない。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>足跡が一筋だけなら、犯人はどうやって茶室へ行ったのか。</li><li>「香合の写し」が見つからないよう、蔵に人を入れたくない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>にこやかな若宗匠として、場をまとめようとしてください。ただ、香合や蔵の話になると、扇子を開いたり閉じたりする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「本物の香合」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「脅迫状の束」を全員に見せながら、叔母の千代が脅迫状を書いていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="CY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">椿 千代<small>つばき ちよ</small></span><span class="rl">家元の妹・68歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「家元の妹の千代です。兄とは、子どものころから喧嘩ばかりでした。……それでも、兄は兄です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>兄より先に茶の才を見せたのは、あなただった。でも、家元を継ぐのは長男と決まっていた。</p><p>あなたの一人息子・修は、兄の内弟子になった。十年前の一月、寒稽古で、兄は修を一晩じゅう凍った井戸の水を浴びせて稽古させた。修は肺炎で死んだ。兄は「修行が足りなかった」と言った。</p><p>それから十年、あなたは兄に、差出人のない手紙を送り続けてきた。「修を返せ」「おまえに茶を点てる資格はない」。兄は書斎の引き出しに、それを束ねてしまっていた。</p><p>今夜、兄の引き出しから、その束を取り返そうと思った。もう、やめにしたかった。</p><p>20:00ごろ、書斎に入った。</p><p>夫を早くに亡くし、修を一人で育てた。修は兄にあこがれて内弟子になった。止めればよかったと、十年、毎晩思っている。</p><p>兄の点てる茶は、悔しいけれど、今でも京都でいちばんうまい。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十年前に息子を死なせた兄に、匿名の脅迫状を送り続けていた。今夜20:00〜20:25、兄の書斎に入っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿宗哉</b>：兄の長男。修とは仲のいい従兄弟だった。</li><li><b>椿汐里</b>：兄の後妻。兄の書斎の机に「離縁状」があった。</li><li><b>椿紗希</b>：汐里さんの連れ子。</li><li><b>水原千景</b>：古参の内弟子。兄の若いころの女。</li><li><b>黒部昭</b>：美術商。兄に泥棒呼ばわりされていた。</li><li><b>結城透</b>：記者。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 4）：「小切手帳」か「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">椿 千代<small>つばき ちよ</small></span><span class="rl">家元の妹・68歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の茶事。兄の点前を、修のことを思いながら見ていた。</dd><dt>19:00</dt><dd>祝いの膳。兄は一度も、あなたのほうを見なかった。</dd><dt>20:00</dt><dd>書斎へ（そのときは鍵がかかっていなかった。あとで千景さんが閉めたらしい）。引き出しを探したが、手紙の束は見つからなかった。机の上に、割れた湯呑みと、書きかけの「離縁状」があった（〜20:25）。</dd><dt>20:25</dt><dd>書斎を出る。廊下で誰とも会わなかった。</dd><dt>20:25</dt><dd>書斎を出て、仏間で修に手を合わせた。</dd><dt>21:30</dt><dd>悲鳴が聞こえた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:00ごろから、座敷の奥の仏間で兄の亡くなった息子に手を合わせていた」。書斎に入ったことと、脅迫状のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>書斎の机の割れた湯呑み。兄は今夜、誰と言い争ったのか。</li><li>あなたのスキルにはお金のカードがいる。</li><li>書斎に入ったことが知られれば、あなたが疑われる。</li><li>書斎の机の上の離縁状。兄は誰を離縁するつもりだったのか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>気位の高い、毒舌の老婦人として振る舞ってください。兄の悪口は遠慮なく言う。息子の話になると、急に声が小さくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「脅迫状の束」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「離縁状の下書き」を全員に見せながら、家元が汐里を離縁しようとしていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">椿 紗希<small>つばき さき</small></span><span class="rl">内弟子・家元夫人の娘・23歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「内弟子の紗希です。先生……家元には、八つのときからお茶を教わりました。わたしが、見つけたんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>父の顔は覚えていない。母と二人で暮らしていたとき、茶道教室の窓からのぞいた茶室が、世界でいちばんきれいな場所に見えた。</p><p>椿家に来てから、家元は厳しかったが、茶を点てるときだけは優しかった。あなたは家元に認められたくて、毎朝四時に起きて露地を掃いた。</p><p>庭師の佐伯陽介と、一年前から付き合っている。内弟子の恋は禁止だ。誰にも言っていない。</p><p>去年の夏、母の着付けを手伝ったとき、背中に青い痣を見た。母は「転んだの」と笑った。あなたは、そっとスマホで写真を撮った。いつか、誰かに相談するつもりだった。</p><p>21:30、片付けのことを聞きに露地を歩いて茶室へ行った。躙口から中をのぞくと、家元が倒れていた。</p><p>母と二人きりだったころ、狭いアパートの台所で、母はいつも鼻歌を歌っていた。椿家に来てから、その鼻歌を聞いたことがない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>庭師の佐伯と付き合っている。母の背中の痣の写真を持っていて、家元が母に手を上げているのではと疑っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿汐里</b>：母。去年の夏、背中に痣があった。</li><li><b>佐伯陽介</b>：恋人。20:10〜20:30、内弟子部屋で一緒だった。</li><li><b>水原千景</b>：内弟子の先輩。母のことを、いつも気にかけてくれる。</li><li><b>椿宗哉</b>：若宗匠。兄のように優しい。</li><li><b>椿千代</b>：家元の妹。あなたを「よそ者の子」と呼ぶ。</li><li><b>結城透</b>：記者。20:20ごろ、縁側でカメラを露地に向けていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代役」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">椿 紗希<small>つばき さき</small></span><span class="rl">内弟子・家元夫人の娘・23歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の茶事の水屋を手伝う。</dd><dt>19:00</dt><dd>祝いの膳の給仕。</dd><dt>19:40</dt><dd>廊下で、書斎から出てきた母とすれ違った。母は襟元を押さえて、笑ってみせた。</dd><dt>20:10</dt><dd>内弟子部屋で佐伯さんと会う（〜20:30）。障子の外を誰かが通る足音がした（20:25ごろ）。</dd><dt>20:30</dt><dd>水屋へ。母が器を抱えて戻ってきた。母の足袋が新しいものになっていた。</dd><dt>21:30</dt><dd>露地を歩いて茶室へ。家元が倒れていた。悲鳴をあげて、来た足跡の横を走って戻った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:10から20:30までは内弟子部屋で休んでいた。21:30に茶室へ行った」。佐伯さんといたことと、痣の写真のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>家元の足跡は、茶室へ向かう一筋だけ。家元の足跡をよく見たのは、あなただけかもしれない。</li><li>母が疑われたら、守りたい。でも、もし母が——。</li><li>家元は、茶室で誰と会っていたのだろう。</li><li>あなたのスキルは、誰かのスキルをまねる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し泣き虫の内弟子として振る舞ってください。遺体を見つけたショックが残っている。母のことになると、言葉がつまる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>母・汐里が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「佐伯からの手紙」を自分か佐伯が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「代役」で、まねたスキルを成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">黒部 昭<small>くろべ あきら</small></span><span class="rl">美術商・58歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「美術商の黒部です。先代のころから、椿さんには贔屓にしていただいております。……今日のお茶は、見事でした」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>父の代から、京都の茶道具を商ってきた。目の前の茶碗の値打ちを一瞬で見抜くのが、自慢だ。</p><p>三年前、若宗匠の宗哉から、椿家の名物「椿の香合」を1,500万円で買った。宗哉は「父には内緒で」と言った。あなたは写しの職人まで紹介した。</p><p>香合は、今もあなたの懐にある。今日の初釜に持ってきたのは、宗哉の顔を見るためでも、家元に見せるためでもない。手放せないのだ。</p><p>家元とは、先代の遺品の値付けで長年もめていた。家元は「黒部は泥棒だ」と言いふらしていた。</p><p>20:15ごろ、勝手口でたばこを吸っていた。</p><p>跡取りの息子は、店を継がずに東京で会社員をしている。自分の代で店をたたむことになるかもしれない。だから、手に入れた名物は手放せない。</p><p>先代の家元とは、よく夜通し道具の話をした。今の家元は、道具を値段でしか見ない人だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>若宗匠から椿家の名物「椿の香合」をひそかに買い、蔵の物を写しにすり替える手伝いをした。本物の香合を今も持ち歩いている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿宗哉</b>：香合を売った相手。20:12〜20:15と、20:25からは座敷で一緒。</li><li><b>結城透</b>：記者。香合の噂を嗅ぎまわっている。</li><li><b>椿千代</b>：家元の妹。家元を恨んでいる。</li><li><b>水原千景</b>：古参の内弟子。</li><li><b>椿汐里</b>：家元夫人。</li><li><b>佐伯陽介</b>：庭師。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（処理の順番 3）：1人を選び、その人の持ち物をすべて見る。その中の「名物」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">黒部 昭<small>くろべ あきら</small></span><span class="rl">美術商・58歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の茶事の正客。家元の点前は、相変わらず完璧だった。</dd><dt>19:00</dt><dd>祝いの膳。家元に「黒部、来年も正客を頼む」と言われた。皮肉に聞こえた。</dd><dt>20:12</dt><dd>座敷で宗哉さんに「香合を返してくれ」と頼まれる。断った。</dd><dt>20:15</dt><dd>勝手口でたばこ（〜20:25）。玄関のほうで、下駄箱の戸が開け閉めされる音がした。</dd><dt>20:25</dt><dd>座敷へ戻る。宗哉さんはまだいた。</dd><dt>21:30</dt><dd>悲鳴が聞こえた。</dd><dt>21:35</dt><dd>露地へ出ると、家元の足跡が一筋だけ。茶室の外に、雪のほかは何もなかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「座敷で若宗匠と話して、20:15ごろから勝手口でたばこを吸っていた」。香合のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>20:15ごろ、玄関で下駄箱の戸の音がした。誰が下駄を出したのか。</li><li>あなたのスキルは「名物」の印のついた物を取れる。</li><li>「本物の香合」を取られないように。</li><li>下駄箱の音のことを話すかどうか、決めておこう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>物腰やわらかで、腹の読めない美術商として振る舞ってください。道具の話には目を輝かせる。香合の話になると、ふところを押さえる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「本物の香合」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」で、「名物」の印の持ち物を1つ手に入れる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「香合の写し」を全員に見せながら、若宗匠が名物をすり替えたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">椿 汐里<small>つばき しおり</small></span><span class="rl">家元夫人・52歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。椿宗円を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「家元の妻の汐里です。今日の初釜の裏方をしておりました。……主人は、雪の夜の茶室が、何より好きな人でした」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>前の夫を病気で亡くし、八つの紗希を抱えて途方にくれていたとき、茶の稽古で知り合った宗円が「うちに来なさい」と言ってくれた。救われた、と思った。</p><p>嫁いで一年目の冬、初めて殴られた。茶碗の置き方が悪い、と。それから十五年。殴るのは、いつも着物で隠れるところだった。人前では、宗円は理想の家元で、あなたは幸せな家元夫人だった。</p><p>紗希には、絶対に知られないようにしてきた。紗希は内弟子として、宗円を心から尊敬している。</p><p>今夜19:30、書斎に呼ばれた。「明日、離縁状を出す。財産は一円もやらん。紗希も破門だ。おまえの連れ子に、椿の名はやれん」。そして、湯呑みを投げつけられた。首すじに、新しい痣ができた。</p><p>紗希の夢まで奪わせない。二十時、雪がやんで、宗円が杖をついて露地を歩いていくのを、水屋の窓から見ていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜20:20、茶室で椿宗円を殺した。</b>十五年間、夫に暴力をふるわれてきた。家元の予備の下駄をはき、家元の足跡をなぞって露地を往復した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿紗希</b>：娘。内弟子。宗円を尊敬している。あなたの痣のことは知らないはず。</li><li><b>水原千景</b>：古参の内弟子。20:15まで水屋で一緒だった。</li><li><b>椿宗哉</b>：家元の長男・若宗匠。最近、蔵によく出入りしている。</li><li><b>椿千代</b>：家元の妹。宗円とは昔から仲が悪い。今夜、書斎のほうへ行くのを見た。</li><li><b>佐伯陽介</b>：庭師。紗希と目くばせしている。</li><li><b>結城透</b>：茶道雑誌の記者。カメラを持ってうろうろしていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 7）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">椿 汐里<small>つばき しおり</small></span><span class="rl">家元夫人・52歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:30</dt><dd>書斎で離縁と紗希の破門を言いわたされ、湯呑みを投げつけられた。</dd><dt>20:05</dt><dd>水屋の窓から、宗円が露地を茶室へ歩いていくのを見る。</dd><dt>20:15</dt><dd>千景さんに「蔵へ器を取りに」と言って水屋を出る。玄関で宗円の予備の下駄をはき、宗円の足跡を一歩ずつ踏んで茶室へ。</dd><dt>20:18</dt><dd>躙口から入り「お詫びに」と頭を下げた。宗円は鼻で笑い、客用の茶碗に薄茶を点てた。「最後の一服だ。飲んだら出ていけ」。</dd><dt>20:20</dt><dd>宗円が釜のほうを向いたとき、床の間の唐銅の花入で後頭部を殴った。椿が畳に落ちた。</dd><dt>20:23</dt><dd>足跡をなぞって後ろ向きに戻り、下駄を玄関へ。屋根のある小道で蔵へ行き、足袋をはきかえて器を持った。</dd><dt>20:30</dt><dd>水屋へ戻る。濡れた足袋はたもとの中。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:15から20:30まで、蔵へ正月の器を取りに行っていた。蔵へは屋根のある小道なので、雪の上は歩いていない」。夫の暴力のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>雪の上の足跡は、宗円と紗希のものだけ。誰も茶室へ行けなかったように見える。</li><li>「濡れた白足袋」は、手放したい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>穏やかで上品な家元夫人として振る舞ってください。夫の死には静かに涙を見せる。首すじを、ときどき着物の襟で隠すしぐさをする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「濡れた白足袋」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「離縁状の下書き」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>椿紗希が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="YU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">結城 透<small>ゆうき とおる</small></span><span class="rl">茶道雑誌の記者・33歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「茶道誌の結城です。初釜の取材に伺いました。……記事は、追悼号になってしまいますね」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>大学で日本美術を学び、茶道誌の記者になった。きれいな記事ばかり書くのに、少し飽きていた。</p><p>半年前、ある骨董市で、椿流の名物「椿の香合」の写しを作ったという職人に会った。「若宗匠に頼まれた」と職人は酔って言った。</p><p>これが本当なら、大スクープだ。今夜は、蔵の香合を確かめるつもりで来た。</p><p>カメラは、取材のふりをして、ずっと回している。</p><p>20:20ごろ、縁側から雪の露地を撮った。暗くてよく写らなかったが、茶室のほうへ動く黒っぽい人影が、一枚だけ写っていた。家元が戻ってくるところだと思った。</p><p>京都に来て五年。茶室の静けさにはまだ慣れない。ただ、雪の日の露地だけは、何枚撮っても飽きない。</p><p>父は小さな新聞社の記者だった。「書くべきことは、書かずにいられないことだけだ」が口ぐせだった。</p><p>茶道誌の記事では、いつも「美しい」と書いてきた。本当に美しいと思ったことは、何度あっただろう。</p></div>
+      <div class="secret"><h4>秘密</h4><p>若宗匠が名物の香合をすり替えたという噂を追って来た。カメラで露地に動く人影を撮っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿宗哉</b>：若宗匠。香合のすり替えの噂の人。</li><li><b>黒部昭</b>：美術商。香合を買ったのはこの人だと、職人は言っていた。</li><li><b>椿紗希</b>：内弟子。内弟子部屋で男と話していたのは、この子かもしれない。</li><li><b>佐伯陽介</b>：庭師。</li><li><b>椿汐里</b>：家元夫人。</li><li><b>水原千景</b>：古参の内弟子。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 6）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">結城 透<small>ゆうき とおる</small></span><span class="rl">茶道雑誌の記者・33歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の取材。家元の点前を撮影。</dd><dt>19:00</dt><dd>祝いの膳を撮影。家元夫人が、ときどき首すじを押さえていた。</dd><dt>20:00</dt><dd>縁側から、杖をついて露地を歩く家元を撮った。</dd><dt>20:20</dt><dd>縁側から露地を撮る。暗い。茶室のほうへ動く黒っぽい人影が一枚。</dd><dt>20:25</dt><dd>縁側から部屋へ戻る途中、内弟子部屋の障子の前を通った。中から男女の小声が聞こえた。</dd><dt>20:30</dt><dd>縁側から座敷へ。水屋のほうから器の箱を運ぶ音がした。</dd><dt>21:35</dt><dd>悲鳴を聞いて露地へ。足跡を撮った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと縁側や座敷で撮影していた」。香合のことは言わない。写真のことは、話すかどうかあなた次第。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>20:20の黒っぽい人影は、本当に家元だったのか。</li><li>「香合の写し」は、記事の証拠になる。</li><li>写真の人影は、杖を持っていなかった。</li><li>「香合の写し」は、蔵にあるはず。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>好奇心が強く、少しなれなれしい記者として振る舞ってください。何でも写真に撮りたがる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「香合の写し」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「露地の写真」を全員に見せながら、20:20に誰かが露地を茶室へ歩いていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="CH">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">水原 千景<small>みずはら ちかげ</small></span><span class="rl">古参の内弟子・62歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「水原です。四十年、ここの水屋を預かってまいりました。……家元のお茶を、もう一度いただきたかった」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>二十二で内弟子に入った。若い家元に、恋をした。家元もあなたを、何度か茶室に呼んだ。結婚はしなかった。家元は、茶道具商の娘を正妻に迎えた。</p><p>それでも、離れなかった。茶の湯しか知らない女の、意地だった。</p><p>十五年前、汐里さんが来た。ある晩、水屋で汐里さんの腕の痣を見た。あなたにはわかった。若いころ、あなたも一度、殴られたことがあるから。</p><p>あなたは何も言わなかった。言えば、自分も昔の家元とのことを話さなければならない。それからずっと、汐里さんの着物の襟元を、そっと直してきた。</p><p>今夜、19:40ごろ、書斎から出てきた汐里さんの首すじに、新しい赤い痕があった。</p><p>休みの日は一人で嵐山の寺をめぐる。苔の庭に座っていると、四十年前の自分に会える気がする。</p></div>
+      <div class="secret"><h4>秘密</h4><p>若いころ家元と恋仲だった。汐里が家元に殴られていることを、十五年前から知っていて黙っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿汐里</b>：家元夫人。十五年、殴られてきた人。20:15〜20:30、蔵へ行っていた。</li><li><b>椿紗希</b>：汐里さんの娘。あの子だけは守ってあげたい。</li><li><b>椿千代</b>：家元の妹。20:00ごろ、書斎へ入っていくのを見た。</li><li><b>椿宗哉</b>：若宗匠。蔵の合鍵を持っている。</li><li><b>黒部昭</b>：美術商。先代のころから出入りしている。</li><li><b>佐伯陽介</b>：庭師。紗希を見る目がやさしい。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">水原 千景<small>みずはら ちかげ</small></span><span class="rl">古参の内弟子・62歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>初釜の茶事の水屋をあずかる。</dd><dt>19:40</dt><dd>書斎から出てきた汐里さんの首すじに、新しい痕。</dd><dt>20:00</dt><dd>水屋で汐里さんと器の支度（〜20:15）。</dd><dt>20:15</dt><dd>汐里さんが「蔵へ器を」と出ていく。水屋の記録帳に書いた。</dd><dt>20:30</dt><dd>汐里さんが器を抱えて戻る。足袋が真っ白な新しいものになっていた。たもとが重そうだった。</dd><dt>21:00</dt><dd>家元の書斎の戸が開いたままだったので、鍵を閉めた。</dd><dt>21:35</dt><dd>紗希の悲鳴で茶室へ。渡り廊下の戸は内側から掛け金がかかっていたので、露地を回った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと水屋で支度をしていた」。水屋にいたのは本当のことなので、そのまま話していい。汐里さんのことは、話すかどうかあなた次第。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>汐里さんの新しい足袋。たもとの重さ。</li><li>あなたのスキルで、誰か一人を守れる。</li><li>離縁状が人目に出れば、汐里さんが疑われる。</li><li>家元の古い手紙は、誰にも見られたくない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で、背筋ののびた古参の内弟子として振る舞ってください。家元の話をするとき、ほんの少しだけ遠い目をする。汐里さんには、さりげなく気をつかう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「離縁状の下書き」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「家元の古い手紙」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SE">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">佐伯 陽介<small>さえき ようすけ</small></span><span class="rl">庭師・31歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「庭師の佐伯です。露地の手入れをしとります。……雪の上の足跡なら、誰より見慣れとるつもりです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校を出て、親方について庭の仕事を覚えた。石と苔と木の声を聞くのが好きだ。</p><p>三年前から椿家の庭を任されている。家元は「露地は茶の湯の入口だ」と言って、雪の日の飛び石の並びまで細かく指図した。</p><p>内弟子の紗希と、一年前から付き合っている。早朝、露地を掃く紗希の後ろ姿に惚れた。</p><p>雪の上の足跡は、見ればたいていのことがわかる。重さ、歩幅、急いでいるか。</p><p>今夜20:10〜20:30、内弟子部屋で紗希と会っていた。</p><p>親方は去年、腰を悪くして引退した。「椿の露地は日本一むずかしい。おまえならやれる」と言われて、ここへ来た。</p><p>紗希のために、春になったら小さな庭を作ってやりたい。椿は植えない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>内弟子の紗希と付き合っている。20:10〜20:30、内弟子部屋で紗希と会っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>椿紗希</b>：恋人。</li><li><b>椿汐里</b>：家元夫人。たまに庭で一人、泣いているのを見たことがある。</li><li><b>結城透</b>：記者。20:20ごろ、縁側で露地を撮っていた。</li><li><b>黒部昭</b>：美術商。20:15ごろ、勝手口でたばこを吸っていた。</li><li><b>椿宗哉</b>：若宗匠。20:12ごろ、蔵の小道から戻ってきた。</li><li><b>椿千代</b>：家元の妹。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「足止め」</b>（処理の順番 2）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">佐伯 陽介<small>さえき ようすけ</small></span><span class="rl">庭師・31歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>15:00</dt><dd>雪が降りだす。露地の飛び石の雪かきを二度した。</dd><dt>17:00</dt><dd>初釜の客が露地を歩く前に、飛び石の雪を払った。</dd><dt>19:30</dt><dd>最後の雪かき。20:00ごろ、雪がやんだ。</dd><dt>20:10</dt><dd>内弟子部屋で紗希と会う（〜20:30）。</dd><dt>20:25</dt><dd>障子の外を誰かが通る足音がした。</dd><dt>21:35</dt><dd>紗希の悲鳴で露地へ。家元の足跡を見た。下駄の歯の跡が、ところどころ二重にぶれていた。歩き方のわりに、かかとのほうが深く沈んでいるところもある。妙だと思った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:10ごろから、内弟子部屋の前の庭の道具小屋で、道具の手入れをしていた」。紗希といたことは言わない。足跡のことは、話していい。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>家元の足跡のぶれと深さ。ふつうに歩いただけなら、ああはならない。</li><li>あなたのスキルは、パワーが相手と同じか高くないと成功しない。</li><li>雪の上の足跡は、うそをつかない。</li><li>紗希が疑われたら、守りたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で、腕のいい職人として振る舞ってください。雪と足跡の話になると、急にくわしくなる。紗希が疑われると、思わずかばう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「足止め」を、犯人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「紗希からの手紙」を自分か紗希が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「予備の下駄」を全員に見せながら、誰かが家元の足跡をなぞって歩いたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">椿 宗哉の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="椿 宗哉" data-label="椿 宗哉の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：椿 宗哉</span><span class="ttl">札束</span><div class="txt">香合の代金の残り。一万円札が200枚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="椿 宗哉" data-label="椿 宗哉の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：椿 宗哉</span><span class="ttl">蔵の合鍵</span><div class="txt">こっそり作った蔵の合鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「蔵」を調べられる。</p></div></div><div class="card item" data-owner="椿 宗哉" data-label="椿 宗哉の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：椿 宗哉</span><span class="ttl">父の手紙</span><div class="txt">「宗哉へ。来年の初釜は、おまえが点てよ。床には香合を」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 宗哉" data-label="椿 宗哉の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：椿 宗哉</span><span class="ttl">扇子</span><div class="txt">椿の絵の扇子。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">椿 千代の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="椿 千代" data-label="椿 千代の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：椿 千代</span><span class="ttl">小切手帳</span><div class="txt">千代の小切手帳。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="椿 千代" data-label="椿 千代の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：椿 千代</span><span class="ttl">息子の写真</span><div class="txt">内弟子の装束の若い男性。裏に「修　二十歳」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 千代" data-label="椿 千代の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：椿 千代</span><span class="ttl">便箋</span><div class="txt">薄い藤色の便箋の束。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 千代" data-label="椿 千代の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：椿 千代</span><span class="ttl">数珠</span><div class="txt">水晶の数珠。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">椿 紗希の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="椿 紗希" data-label="椿 紗希の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：椿 紗希</span><span class="ttl">佐伯からの手紙</span><div class="txt">「紗希へ。春になったら、二人で親方のところへあいさつに行こう。　陽介」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 紗希" data-label="椿 紗希の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：椿 紗希</span><span class="ttl">痣の写真</span><div class="txt">スマホの写真。着物を脱いだ母の背中に、大きな青い痣。去年の八月の日付。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 紗希" data-label="椿 紗希の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：椿 紗希</span><span class="ttl">懐中電灯</span><div class="txt">露地を歩くための小さな懐中電灯。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 紗希" data-label="椿 紗希の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：椿 紗希</span><span class="ttl">稽古帳</span><div class="txt">内弟子の稽古帳。家元の朱で「よし」とひとこと。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒部 昭の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒部 昭" data-label="黒部 昭の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒部 昭</span><span class="ttl">本物の香合</span><div class="txt">小さな桐箱に入った、椿の蒔絵の香合。底に古い朱の花押。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">名物</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒部 昭" data-label="黒部 昭の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒部 昭</span><span class="ttl">売買の契約書</span><div class="txt">「名物　椿香合　一点　金一千五百万円　売主　椿宗哉　買主　黒部昭」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒部 昭" data-label="黒部 昭の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒部 昭</span><span class="ttl">ルーペ</span><div class="txt">道具を見るためのルーペ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒部 昭" data-label="黒部 昭の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒部 昭</span><span class="ttl">たばこ入れ</span><div class="txt">銀のたばこ入れ。中身が三本減っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">椿 汐里の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="椿 汐里" data-label="椿 汐里の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：椿 汐里</span><span class="ttl">濡れた白足袋</span><div class="txt">たもとに丸めて入れていた白足袋。裏がぐっしょり濡れて、雪どけの泥がついている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 汐里" data-label="椿 汐里の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：椿 汐里</span><span class="ttl">蔵の鍵</span><div class="txt">「蔵」の札がついた鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「蔵」を調べられる。</p></div></div><div class="card item" data-owner="椿 汐里" data-label="椿 汐里の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：椿 汐里</span><span class="ttl">首すじの白粉</span><div class="txt">首すじの痣を隠すための、厚い白粉の小箱。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="椿 汐里" data-label="椿 汐里の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：椿 汐里</span><span class="ttl">嫁入りの茶杓</span><div class="txt">嫁いだ日に家元からもらった茶杓。銘は「春の雪」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">名物</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">結城 透の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="結城 透" data-label="結城 透の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：結城 透</span><span class="ttl">露地の写真</span><div class="txt">「20:20」の写真。暗い露地。茶室の躙口のほうへ動く、黒っぽい着物の人影。杖は持っていないように見える。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="結城 透" data-label="結城 透の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：結城 透</span><span class="ttl">取材ノート</span><div class="txt">「香合の写し　職人の話　『若宗匠に頼まれた』」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="結城 透" data-label="結城 透の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：結城 透</span><span class="ttl">三脚</span><div class="txt">金属の三脚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="結城 透" data-label="結城 透の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：結城 透</span><span class="ttl">記者証</span><div class="txt">茶道誌の記者証。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">水原 千景の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="水原 千景" data-label="水原 千景の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：水原 千景</span><span class="ttl">家元の古い手紙</span><div class="txt">四十年前の手紙。「千景へ。茶室で待つ。　宗」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="水原 千景" data-label="水原 千景の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：水原 千景</span><span class="ttl">水屋の記録帳</span><div class="txt">「20:15　奥様　蔵へ器取り」「20:30　奥様　戻り」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="水原 千景" data-label="水原 千景の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：水原 千景</span><span class="ttl">書斎の鍵</span><div class="txt">「家元書斎」の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「家元の書斎」を調べられる。</p></div></div><div class="card item" data-owner="水原 千景" data-label="水原 千景の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：水原 千景</span><span class="ttl">古い帛紗</span><div class="txt">若いころ家元にもらった紫の帛紗。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">佐伯 陽介の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="佐伯 陽介" data-label="佐伯 陽介の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：佐伯 陽介</span><span class="ttl">紗希からの手紙</span><div class="txt">「陽介さんへ。春が待ち遠しいです。　紗希」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="佐伯 陽介" data-label="佐伯 陽介の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：佐伯 陽介</span><span class="ttl">雪かきのスコップ</span><div class="txt">鉄のスコップ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="佐伯 陽介" data-label="佐伯 陽介の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：佐伯 陽介</span><span class="ttl">庭の手入れ帳</span><div class="txt">「1/10　雪　15:00〜20:00ごろ　飛び石の雪かき　15:30・17:00・19:30」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="佐伯 陽介" data-label="佐伯 陽介の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：佐伯 陽介</span><span class="ttl">親方の写真</span><div class="txt">若い佐伯と、腰の曲がった親方の写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="椿 宗哉の秘密①"><div class="hd"><span class="loc">椿 宗哉の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>宗哉は20:00〜20:12、蔵に入っていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 宗哉の秘密②"><div class="hd"><span class="loc">椿 宗哉の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>宗哉は最近、大きなお金を動かしている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 千代の秘密①"><div class="hd"><span class="loc">椿 千代の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>千代は、20:00ごろ、家元の書斎のほうへ歩いていった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 千代の秘密②"><div class="hd"><span class="loc">椿 千代の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>千代の息子は、十年前、家元の内弟子だった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 紗希の秘密①"><div class="hd"><span class="loc">椿 紗希の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>紗希は20:10〜20:30、内弟子部屋にいた。誰かと話す声がした。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 紗希の秘密②"><div class="hd"><span class="loc">椿 紗希の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>紗希は毎朝、露地の掃除をしている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒部 昭の秘密①"><div class="hd"><span class="loc">黒部 昭の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>黒部は、20:15〜20:25、勝手口にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒部 昭の秘密②"><div class="hd"><span class="loc">黒部 昭の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>黒部は、ふところに小さな桐箱を入れている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 汐里の秘密①"><div class="hd"><span class="loc">椿 汐里の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>汐里は、20:15〜20:30、水屋にいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="椿 汐里の秘密②"><div class="hd"><span class="loc">椿 汐里の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>汐里は、いつも首すじを着物の襟で隠している。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="結城 透の秘密①"><div class="hd"><span class="loc">結城 透の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>結城は、カメラをずっと回している。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="結城 透の秘密②"><div class="hd"><span class="loc">結城 透の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>結城は、20:20ごろ、縁側にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="水原 千景の秘密①"><div class="hd"><span class="loc">水原 千景の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>千景は、水屋の出入りを記録帳につけている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="水原 千景の秘密②"><div class="hd"><span class="loc">水原 千景の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>千景は、若いころ家元の茶室に何度も呼ばれていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="佐伯 陽介の秘密①"><div class="hd"><span class="loc">佐伯 陽介の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>佐伯は、雪の上の足跡を読むのが得意だ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="佐伯 陽介の秘密②"><div class="hd"><span class="loc">佐伯 陽介の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>佐伯は、20:10〜20:30、内弟子部屋のほうにいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="茶室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">茶室 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>家元は炉のそばにうつ伏せ。後頭部を一度、強く殴られている。そばに唐銅の花入。椿の花が畳に落ちている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="茶室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">茶室 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">渡り廊下の戸</span><p>渡り廊下へ出る戸は、内側から掛け金がかかっている。外からは開けられない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="茶室 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">茶室 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">釜と茶碗</span><p>釜には湯。家元の前に茶碗が一つ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="茶室 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">茶室 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">客畳</span><p>客の座る畳に、もう一つ茶碗。<b>点てた薄茶が、手つかずのまま冷めている。</b>家元は誰かに茶を点てていた。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="茶室 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">茶室 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">躙口の内側</span><p>躙口の内側の畳に、溶けた雪のしみ。小さめの足袋の形がうっすら残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="露地 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">露地 ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">雪の足跡</span><p>母屋の縁側から茶室の躙口まで、家元の下駄の跡が一筋（茶室へ向かう向き）。横に杖の穴。それとは別に、紗希の足跡が往復。ほかに足跡はない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="露地 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">露地 ②</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">飛び石</span><p>飛び石は19:30に雪かきされたが、そのあとも雪が降り、石の上にも薄く積もっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="露地 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">露地 ③</span><span class="ph">調査2</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">足跡をよく見ると</span><p>家元の下駄の跡は、ところどころ<b>ふちが二重にぶれている</b>。また、いくつかは<b>つま先よりかかとのほうが深い</b>。杖の穴は一列だけ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="玄関 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">玄関 ①</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">下駄箱</span><p>家元の下駄の棚には、予備の下駄が一足。家元は今夜、いつもの下駄で露地へ出た。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="玄関 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">玄関 ②</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">玄関の小道</span><p>玄関の横から蔵へ、屋根のある小道。雪は積もっていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="玄関 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">玄関 ③</span><span class="ph">調査2</span><span>CLUE 11</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">予備の下駄</span><div class="txt">家元の予備の下駄。<b>歯の間に雪が詰まり、まだ濡れている。</b>今夜、誰かがはいたらしい。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="水屋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">水屋 ①</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">水屋の窓</span><p>水屋の窓から、露地と茶室がよく見える（夜は暗い）。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="水屋 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">水屋 ②</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">器の棚</span><p>正月の器の箱。20:30に蔵から出したものが並んでいる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="水屋 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">水屋 ③</span><span class="ph">調査2</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">渡り廊下の入口</span><p>水屋から渡り廊下への戸。こちら側には鍵がない。20:00から21:30まで、水屋には誰かしらがいて、渡り廊下を通った人は見ていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="内弟子部屋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">内弟子部屋 ①</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">座布団</span><p>座布団が二枚、向かい合わせに並んでいる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="内弟子部屋 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">内弟子部屋 ②</span><span class="ph">調査2</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">障子</span><p>障子の外は縁側。縁側を通る人の足音がよく聞こえる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="蔵 ①" data-phase="1" data-lock="蔵の鍵／蔵の合鍵"><div class="hd"><span class="loc">蔵 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">香合の写し</span><div class="txt">「名物　椿香合」の箱。中の香合は、よく見ると蒔絵の線が新しい。底の花押も、朱の色があざやかすぎる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="蔵 ②" data-phase="1" data-lock="蔵の鍵／蔵の合鍵"><div class="hd"><span class="loc">蔵 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">器の棚</span><p>正月の器の箱がいくつか、最近取り出された跡。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="蔵 ③" data-phase="2" data-lock="蔵の鍵／蔵の合鍵"><div class="hd"><span class="loc">蔵 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">蔵の床</span><p>蔵の入口の板の床に、濡れた足跡が二つ。小さめの足袋の形。そこで立ち止まっていたらしい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="家元の書斎 ①" data-phase="1" data-lock="書斎の鍵"><div class="hd"><span class="loc">家元の書斎 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">割れた湯呑み</span><p>机のそばに、割れた湯呑み。畳に、乾いた血の小さなしみ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="家元の書斎 ②" data-phase="1" data-lock="書斎の鍵"><div class="hd"><span class="loc">家元の書斎 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 21</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">離縁状の下書き</span><div class="txt">家元の字。「汐里を離縁する。財産は一切与えず。連れ子の紗希は破門とする」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="家元の書斎 ③" data-phase="2" data-lock="書斎の鍵"><div class="hd"><span class="loc">家元の書斎 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">脅迫状の束</span><div class="txt">差出人のない手紙の束。藤色の便箋。「修を返せ」「おまえに茶を点てる資格はない」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="腰掛待合 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">腰掛待合 ①</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">腰掛のベンチ</span><p>客が待つ小屋のベンチ。今夜は誰も座っていない。ここから露地はよく見えるが、夜は真っ暗だ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="腰掛待合 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">腰掛待合 ②</span><span class="ph">調査2</span><span>CLUE 24</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">小屋の外</span><p>小屋の外の雪の上に、足跡はない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>水原 千景</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>足止め</b></td><td>佐伯 陽介</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">3</td><td><b>目利き</b></td><td>黒部 昭</td><td>1人を選び、その人の持ち物をすべて見る。その中の「名物」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">4</td><td><b>買収</b></td><td>椿 千代</td><td>「小切手帳」か「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">5</td><td><b>力ずく</b></td><td>椿 宗哉</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">6</td><td><b>すり取り</b></td><td>結城 透</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>すり替え</b></td><td>椿 汐里</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代役</b></td><td>椿 紗希</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は椿汐里（家元夫人）。</b>十五年間、家元に着物で隠れるところを殴られてきた。今夜19:30、書斎で「明日離縁する、財産はやらん、紗希も破門だ」と言われ、湯呑みを投げつけられた。</p><p>20:05、家元は杖をついて雪の露地を茶室へ（家元の下駄と杖の跡）。20:15、汐里は「蔵へ器を」と水屋を出て（千景の記録帳）、玄関で家元の予備の下駄をはき（黒部が下駄箱の音を聞く）、<b>家元の足跡を一歩ずつ踏んで</b>茶室へ行った（結城の20:20の写真の人影、杖なし）。</p><p>家元は「最後の一服だ」と客用の茶碗に薄茶を点てた。20:20、釜のほうを向いた家元を、床の間の唐銅の花入で殴った。20:23、足跡をなぞって<b>後ろ向きに</b>戻った（足跡のふちが二重・かかとが深い）。下駄を玄関に戻し、屋根のある小道で蔵へ。蔵の入口で濡れた足袋をはきかえ（蔵の床の足跡）、器を持って20:30に水屋へ。濡れた足袋はたもとの中。</p><p>渡り廊下の戸は、夜咄のときの家元の習慣で、家元自身が内側から掛け金をかけていた。足跡が家元と紗希のものしかないので、「誰も茶室へ行けなかった」ように見える。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>家元は一人ではなかった。</b>客畳の手つかずの薄茶（茶室④）、躙口の内側の小さな足袋の跡（茶室⑤）。</li><li><b>誰かが家元の足跡をなぞった。</b>下駄の跡のふちが二重にぶれ、かかとの深いものがある＝同じ跡をもう一度、後ろ向きにも踏んだ（露地③・佐伯）。杖の穴は一列だけ。予備の下駄が濡れている（玄関③）。20:15ごろ下駄箱の音（黒部）。20:20、杖を持たない黒っぽい着物の人影（結城の露地の写真）。</li><li><b>20:15〜20:30にいなかった人。</b>汐里（「蔵へ」と言うが、蔵へは屋根のある小道なのに足袋が濡れていた）：20:30に新しい足袋（千景・紗希）、たもとが重い（千景）、蔵の床の濡れた足袋の跡（蔵③）、濡れた白足袋（汐里の持ち物）。</li><li><b>動機。</b>離縁状の下書き（書斎②）、割れた湯呑みと血（書斎①）、19:40の首すじの痕（千景）、背中の痣の写真（紗希）、首すじの白粉（汐里の持ち物）。</li></ol>
+    <p class="note">議論2の半ばになっても「足跡がないから外から来た人はいない」で止まっているときは、GMから「足跡は、本当に一人分でしょうか」と問いかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>紗希</b>：遺体を見つけた。露地を往復した唯一の人。→ 21:30に行ったときはもう死んでいた。20:10〜20:30は内弟子部屋で佐伯と一緒（結城が男女の声を聞く）。</li><li><b>宗哉</b>：20:00〜20:12に蔵。香合をすり替えていた。→ 20:12からは座敷で黒部と（20:15〜20:25は黒部がいないが、宗哉は座敷にいて、家元の足跡のことも知らない）。</li><li><b>千代</b>：20:00〜20:25に書斎。兄を十年恨み、脅迫状を送っていた。→ 書斎で手紙の束を探していた。露地には出ていない。</li><li><b>黒部</b>：家元と仲が悪く、20:15〜20:25に勝手口。→ 下駄箱の音を聞いた証人。</li><li><b>千景</b>：家元の元恋人。→ ずっと水屋。</li><li><b>佐伯・結城</b>：→ 佐伯は紗希と内弟子部屋、結城は縁側で撮影。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「腰掛待合」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。千景の「守りが役に立つ」は、守った人に誰かがスキルを向けたら達成。</li><li>足止めが成功した相手は、そのあとの順番でスキルを使えない。</li><li>目利きで取れるのは「名物」の印がある持ち物だけ（本物の香合・嫁入りの茶杓）。</li><li>買収に使えるお金のカードは、小切手帳（千代）と札束（宗哉）。</li><li>代役は、まねたスキルのすぐあとに処理する。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（蔵・家元の書斎）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>椿 宗哉</td><td>□　□</td><td></td></tr><tr><td>椿 千代</td><td>□　□</td><td></td></tr><tr><td>椿 紗希</td><td>□　□</td><td></td></tr><tr><td>黒部 昭</td><td>□　□</td><td></td></tr><tr><td>椿 汐里</td><td>□　□</td><td></td></tr><tr><td>結城 透</td><td>□　□</td><td></td></tr><tr><td>水原 千景</td><td>□　□</td><td></td></tr><tr><td>佐伯 陽介</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>玄関③（予備の下駄）</td><td></td></tr><tr><td>蔵①（香合の写し）</td><td></td></tr><tr><td>家元の書斎②（離縁状の下書き）</td><td></td></tr><tr><td>家元の書斎③（脅迫状の束）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「本物の香合」は黒部と宗哉、「香合の写し」は結城（持ちたい）と黒部（見せて明かしたい）、「離縁状の下書き」は汐里・千景（持ちたい）と千代（見せて明かしたい）の取り合い。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>椿 宗哉①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>椿 宗哉②</td><td>蔵の合鍵</td><td class='t'>—</td><td>鍵：持っている間、「蔵」を調べられる。</td><td> </td></tr><tr><td>椿 宗哉③</td><td>父の手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 宗哉④</td><td>扇子</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 千代①</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>椿 千代②</td><td>息子の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 千代③</td><td>便箋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 千代④</td><td>数珠</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 紗希①</td><td>佐伯からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 紗希②</td><td>痣の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 紗希③</td><td>懐中電灯</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 紗希④</td><td>稽古帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒部 昭①</td><td>本物の香合</td><td class='t'>—</td><td>—</td><td>名物 </td></tr><tr><td>黒部 昭②</td><td>売買の契約書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒部 昭③</td><td>ルーペ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒部 昭④</td><td>たばこ入れ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 汐里①</td><td>濡れた白足袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 汐里②</td><td>蔵の鍵</td><td class='t'>—</td><td>鍵：持っている間、「蔵」を調べられる。</td><td> </td></tr><tr><td>椿 汐里③</td><td>首すじの白粉</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>椿 汐里④</td><td>嫁入りの茶杓</td><td class='t'>—</td><td>—</td><td>名物 </td></tr><tr><td>結城 透①</td><td>露地の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>結城 透②</td><td>取材ノート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>結城 透③</td><td>三脚</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>結城 透④</td><td>記者証</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水原 千景①</td><td>家元の古い手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水原 千景②</td><td>水屋の記録帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水原 千景③</td><td>書斎の鍵</td><td class='t'>—</td><td>鍵：持っている間、「家元の書斎」を調べられる。</td><td> </td></tr><tr><td>水原 千景④</td><td>古い帛紗</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>佐伯 陽介①</td><td>紗希からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>佐伯 陽介②</td><td>雪かきのスコップ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>佐伯 陽介③</td><td>庭の手入れ帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>佐伯 陽介④</td><td>親方の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）玄関③・調査2</td><td>予備の下駄</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）蔵①・調査1</td><td>香合の写し</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）家元の書斎②・調査1</td><td>離縁状の下書き</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）家元の書斎③・調査2</td><td>脅迫状の束</td><td class='t'>—</td><td>—</td><td> </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>椿 宗哉</td><td>議論中に「脅迫状の束」を全員に見せながら、叔母の千代が脅迫状を書いていたと明かす。</td><td></td></tr><tr><td>椿 千代</td><td>議論中に「離縁状の下書き」を全員に見せながら、家元が汐里を離縁しようとしていたと明かす。</td><td></td></tr><tr><td>黒部 昭</td><td>議論中に「香合の写し」を全員に見せながら、若宗匠が名物をすり替えたと明かす。</td><td></td></tr><tr><td>結城 透</td><td>議論中に「露地の写真」を全員に見せながら、20:20に誰かが露地を茶室へ歩いていたと明かす。</td><td></td></tr><tr><td>佐伯 陽介</td><td>議論中に「予備の下駄」を全員に見せながら、誰かが家元の足跡をなぞって歩いたと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>椿 宗哉</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「本物の香合」を自分が持っている。<br>+1　スキル「力ずく」を成功させる。<br>+1　議論中に「脅迫状の束」を全員に見せながら、叔母の千代が脅迫状を書いていたと明かす。</td></tr><tr><td><b>椿 千代</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「脅迫状の束」を自分が持っている。<br>+1　スキル「買収」を成功させる。<br>+1　議論中に「離縁状の下書き」を全員に見せながら、家元が汐里を離縁しようとしていたと明かす。</td></tr><tr><td><b>椿 紗希</b></td><td>+3　母・汐里が最多票に<b>ならない</b>。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「佐伯からの手紙」を自分か佐伯が持っている。<br>+1　スキル「代役」で、まねたスキルを成功させる。</td></tr><tr><td><b>黒部 昭</b></td><td>+3　最後に「本物の香合」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「目利き」で、「名物」の印の持ち物を1つ手に入れる。<br>+1　議論中に「香合の写し」を全員に見せながら、若宗匠が名物をすり替えたと明かす。</td></tr><tr><td><b>椿 汐里</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「濡れた白足袋」を自分が持って<b>いない</b>。<br>+1　最後に「離縁状の下書き」を自分が持っている。<br>+1　椿紗希が最多票に<b>ならない</b>。</td></tr><tr><td><b>結城 透</b></td><td>+3　最後に「香合の写し」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「すり取り」を成功させる。<br>+1　議論中に「露地の写真」を全員に見せながら、20:20に誰かが露地を茶室へ歩いていたと明かす。</td></tr><tr><td><b>水原 千景</b></td><td>+3　最後に「離縁状の下書き」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「家元の古い手紙」を自分が持っている。<br>+1　スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</td></tr><tr><td><b>佐伯 陽介</b></td><td>+3　スキル「足止め」を、犯人に成功させる。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「紗希からの手紙」を自分か紗希が持っている。<br>+1　議論中に「予備の下駄」を全員に見せながら、誰かが家元の足跡をなぞって歩いたと明かす。</td></tr></tbody></table></div>
+    <p class="note">投票の答え：椿汐里（+4）。汐里本人はこの点なし。佐伯の「足止め」は、相手が汐里で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>15:00</td><td>雪が降りだす。</td></tr><tr><td class='t'>17:00</td><td>初釜の茶事（〜18:30）。</td></tr><tr><td class='t'>19:00</td><td>祝いの膳。家元「来年は香合を出す」。</td></tr><tr><td class='t'>19:30</td><td>書斎で家元が汐里に離縁を言いわたし、湯呑みを投げる。</td></tr><tr><td class='t'>19:40</td><td>千景、汐里の首すじの新しい痕を見る。</td></tr><tr><td class='t'>20:00</td><td>雪がやむ。宗哉が蔵へ（〜20:12）。千代が書斎へ（〜20:25）。</td></tr><tr><td class='t'>20:05</td><td>家元、杖をついて露地を茶室へ（結城が撮る）。渡り廊下の戸に掛け金。</td></tr><tr><td class='t'>20:10</td><td>紗希と佐伯が内弟子部屋で会う（〜20:30）。</td></tr><tr><td class='t'>20:12</td><td>宗哉、座敷で黒部に香合の返却を頼み、断られる。</td></tr><tr><td class='t'>20:15</td><td><b>汐里、水屋を出て玄関で予備の下駄をはき、家元の足跡をなぞって茶室へ。</b>黒部は勝手口でたばこ（下駄箱の音）。</td></tr><tr><td class='t'>20:18</td><td>家元、汐里に客用の薄茶を点てる。</td></tr><tr><td class='t'>20:20</td><td><b>汐里、唐銅の花入で家元を殴る。</b>結城が露地の人影を撮る。</td></tr><tr><td class='t'>20:23</td><td>汐里、足跡をなぞって後ろ向きに戻る。下駄を戻し、蔵へ。足袋をはきかえる。</td></tr><tr><td class='t'>20:25</td><td>結城、内弟子部屋の前で男女の声を聞く。</td></tr><tr><td class='t'>20:30</td><td>汐里、器を持って水屋へ（新しい足袋）。</td></tr><tr><td class='t'>21:30</td><td>紗希が茶室で遺体を見つける。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>椿宗円を殺したのは、家元夫人の椿汐里だった。</p><p>雪の露地に、足跡は一筋しかなかった。汐里は、夫が残した足跡を、一歩ずつ踏んで歩いたのだ。十五年間、夫の後ろを、夫の歩幅で歩いてきたように。</p><p>「最後の一服だ、と主人は言いました。……わたし、あのお茶を、一口も飲めませんでした」。汐里は着物の襟をゆるめた。首すじに、新しい赤い痕があった。</p><p>紗希が、母の手を握った。夜が明けると、露地の雪は、椿の赤を残して、静かに溶けはじめた。</p>
+    </div>
+    <ul class="epi"><li><b>椿 宗哉</b>：宗哉は香合のことを自分から弟子たちに話し、若宗匠を退いた。一から茶を学び直すと決めた。</li><li><b>椿 千代</b>：千代は脅迫状の束を、息子の墓の前で燃やした。兄の葬儀では、誰よりも長く手を合わせていた。</li><li><b>椿 紗希</b>：紗希は内弟子をやめず、母の帰りを待つと決めた。佐伯が、毎朝一緒に露地を掃いている。</li><li><b>黒部 昭</b>：黒部は香合を椿家に返した。代金は受け取らなかった。「わしの目も、曇っておった」。</li><li><b>椿 汐里</b>：汐里は、十五年分のことを警察で話した。差し入れの風呂敷には、紗希の字で「お母さん、春になったら一緒にお茶を点てよう」。</li><li><b>結城 透</b>：結城は香合の記事を書かなかった。かわりに、雪の初釜の写真を一枚だけ、追悼の記事に載せた。</li><li><b>水原 千景</b>：千景は、四十年前の手紙を家元の棺に入れた。汐里さんの痣のことを黙っていたことを、紗希に頭を下げてわびた。</li><li><b>佐伯 陽介</b>：佐伯は春、親方のところへ紗希を連れていった。親方は二人を見て、「雪の上でも、ちゃんと並んで歩けよ」と笑った。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　椿宗円を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：椿宗哉・椿千代・椿紗希・黒部昭・椿汐里・結城透・水原千景・佐伯陽介</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('hatsugama-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('hatsugama-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('hatsugama-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('hatsugama-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
