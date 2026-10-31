@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>真夜中のナイトプール（8人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 夜のナイトプール。水の青とネオンの桃色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eef1f5;
+  --surface: #fbfcfe;
+  --ink: #1a1f2b;
+  --muted: #5d6578;
+  --line: #d4d9e3;
+  --accent: #c2186b;
+  --accent-soft: #fbe1ee;
+  --teal: #0e7490;
+  --teal-soft: #dcf1f6;
+  --slate: #0f1a2e;
+  --slate-ink: #eef4ff;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1020; --surface: #131a2e; --ink: #e6ebf5; --muted: #98a2b8; --line: #263049;
+    --accent: #f472b6; --accent-soft: #3b1a2d; --teal: #67e8f9; --teal-soft: #0e2a33;
+    --slate: #060a16; --slate-ink: #e6ebf5; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1020; --surface: #131a2e; --ink: #e6ebf5; --muted: #98a2b8; --line: #263049;
+  --accent: #f472b6; --accent-soft: #3b1a2d; --teal: #67e8f9; --teal-soft: #0e2a33;
+  --slate: #060a16; --slate-ink: #e6ebf5; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #22d3ee, #f472b6, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>真夜中のナイトプール</h1>
+    <p>台風の夜の貸切ヴィラ。午前一時、ライトアップされたプールに、パーティーの主催者が浮かんでいた。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>8人 ＋ GM1人</span>
+      <span><b>TIME</b>約150分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・沖縄の離島の貸切ヴィラ</span>
+      <span><b>CARDS</b>キャラシート8・持ち物32・秘密16・証拠27</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">真夜中のナイトプール（8人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー8人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、薬物・盗撮の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 8人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 32枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 16枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 27枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 8枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「ラウンジの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>神崎の書斎・スイートの金庫は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>神崎の書斎：書斎の合鍵／マスターキー</li><li>スイートの金庫：暗証番号（麗奈が知っている。麗奈に教えてもらった人も可）</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「スイートの外階段」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「映像」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">15分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人3回。新しいカードと「スイートの外階段」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：問いの答えに、プレイヤーが演じている人物の名前を書く（神崎怜央は書けない。自分の名前を書いてもよい）。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「神崎怜央を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>九月の初め、沖縄の離島。崖の上に建つ貸切ヴィラ「ヴィラ・ルナ」で、若手起業家・神崎怜央の恒例の「夏の終わりのパーティー」が開かれた。招かれたのは、神崎の大学の後輩たちと、仕事の知り合い。</p><p>二十一時、ライトアップされたナイトプールで乾杯。音楽、シャンパン、水着。二十二時半、台風の雨が強くなり、パーティーはラウンジへ移った。それからは、みんな好きなように部屋とラウンジを行き来していた。</p><p>午前一時。片付けに出たバーテンダーの七海が、悲鳴を上げた。青く光るプールの真ん中に、神崎がうつ伏せで浮かんでいた。引き上げたとき、体はまだ温かかった。後頭部に、大きな傷があった。</p><p>台風で船は出ない。島の駐在所の警官が来られるのは、風がおさまる明日の昼すぎだという。</p><p>——夏の終わりの夜、プールに沈められた秘密は、ひとつではない。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：1:00、ナイトプールに浮かんでいた。後頭部に大きな傷。引き上げたとき、体はまだ温かかった。医学部の森下の見立てでは「亡くなってから30分以内」。</li><li>ナイトプールは温水で、一年じゅう32℃に保たれている。</li><li>22:30から台風の雨が強くなり、ほとんどの人はラウンジと各部屋を行き来していた。0:30〜1:00は、ほぼ全員がラウンジにいた。</li><li>神崎の部屋は2階のスイート。スイートのバルコニーには、プールサイドへ下りる外階段がある。</li><li>鍵のかかる場所：神崎の書斎・スイートの金庫。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れ</h3>
+      <ul><li>21:00 ナイトプールで乾杯</li><li>22:30 雨が強くなり、ラウンジへ移る</li><li>0:30〜1:00 ほぼ全員がラウンジ</li><li>1:00 プールで神崎が見つかる</li></ul>
+      <p class="note">1階：ラウンジ、バー、サウナ、神崎の書斎、客室1〜3。2階：神崎のスイート。外：ナイトプール（屋根なし）。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　神崎怜央を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>ヴィラ・ルナ</h3>
+    <svg viewBox="0 0 400 230" role="img" aria-label="ヴィラ・ルナの見取り図">
+      <rect class="room" x="10" y="10" width="250" height="40"/><text x="18" y="34">2階</text>
+      <rect class="room" x="140" y="14" width="116" height="32"/><text class="sm" x="148" y="34">神崎のスイート</text>
+      <rect class="stair" x="256" y="14" width="40" height="80"/><text class="sm" x="262" y="62">外階段</text>
+      <rect class="room" x="10" y="60" width="250" height="100"/><text x="18" y="78">1階</text>
+      <rect class="room" x="18" y="84" width="80" height="34"/><text class="sm" x="26" y="104">ラウンジ</text>
+      <rect class="room" x="98" y="84" width="50" height="34"/><text class="sm" x="104" y="104">バー</text>
+      <rect class="room" x="148" y="84" width="56" height="34"/><text class="sm" x="154" y="104">サウナ</text>
+      <rect class="room" x="204" y="84" width="52" height="34"/><text class="sm" x="208" y="104">書斎</text>
+      <rect class="room" x="18" y="118" width="238" height="36"/><text class="sm" x="26" y="140">客室1・客室2・客室3</text>
+      <rect class="hot" x="270" y="100" width="120" height="120"/><text class="ac" x="282" y="150">ナイトプール</text><text class="sm" x="290" y="168">（温水32℃）</text>
+      <rect class="room" x="10" y="170" width="250" height="50"/><text class="sm" x="70" y="200">プールサイドのデッキ</text>
+    </svg></div></div><p class="note">スイートのバルコニーから外階段でプールサイドへ下りられる。ラウンジからプールへは、ガラス戸を出てデッキを歩く（雨の中）。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・パーティーの主催者／若手起業家</span><span class="nm">神崎 怜央</span><span class="kana">かんざき れお（28）</span><p>大学のOBで、動画配信の会社を起こして成功した若手起業家。毎年夏の終わりに、後輩や知り合いを離島の貸切ヴィラに集めて派手なパーティーを開く。</p></div><div class="person"><span class="role">神崎の恋人・モデル（24）</span><span class="nm">白石 麗奈</span><span class="kana">しらいし れいな</span><p>雑誌モデル。神崎の恋人として、今夜のパーティーの華だった。</p><p class="look">服装：黒のワンピースの水着に白いシャツを羽織っている</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学3年・ラグビー部（21）</span><span class="nm">鈴木 大地</span><span class="kana">すずき だいち</span><p>ラグビー部のフォワード。神崎の高校の後輩で、毎年パーティーの力仕事を手伝っている。</p><p class="look">服装：タンクトップ、日焼けした腕</p><p class="pstat">基本パワー 3</p></div><div class="person"><span class="role">大学2年・医学部（20）</span><span class="nm">森下 健太</span><span class="kana">もりした けんた</span><p>医学部の2年生。浅野の高校の後輩で、今年はじめてパーティーに来た。遺体を診て、死亡時刻を見立てた。</p><p class="look">服装：紺のポロシャツ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学4年・神崎の右腕（22）</span><span class="nm">浅野 隼</span><span class="kana">あさの しゅん</span><p>神崎の直属の後輩で、パーティーの幹事。神崎の会社でインターンもしている。</p><p class="look">服装：アロハシャツ、サングラスを頭に</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">ヴィラのバーテンダー（27）</span><span class="nm">七海</span><span class="kana">ななみ</span><p>ヴィラ・ルナのバーテンダー。毎年、神崎のパーティーで酒を作っている。遺体を見つけた。</p><p class="look">服装：黒いベスト、髪をひとつに結んでいる</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学3年・神崎の後輩（21）</span><span class="nm">桐谷 蒼</span><span class="kana">きりたに あおい</span><p>神崎と同じ大学の3年生。映像研究会。今年はじめて神崎のパーティーに呼ばれた。</p><p class="look">服装：白いシャツ、黒いハーフパンツ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">神崎の会社の役員（38）</span><span class="nm">早乙女 京子</span><span class="kana">さおとめ きょうこ</span><p>神崎の動画配信会社の役員で、最初の出資者。会社のお金のことは全部この人が見ている。</p><p class="look">服装：ゴールドのリゾートワンピース</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学院生・カメラマン（25）</span><span class="nm">宮田 涼</span><span class="kana">みやた りょう</span><p>大学院で写真を研究している。神崎に頼まれて、毎年パーティーの写真を撮っている。</p><p class="look">服装：黒いTシャツ、首から一眼レフ</p><p class="pstat">基本パワー 1</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">白石 麗奈<small>しらいし れいな</small></span><span class="rl">神崎の恋人・モデル</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">鈴木 大地<small>すずき だいち</small></span><span class="rl">大学3年・ラグビー部</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">森下 健太<small>もりした けんた</small></span><span class="rl">大学2年・医学部</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">浅野 隼<small>あさの しゅん</small></span><span class="rl">大学4年・神崎の右腕</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">七海<small>ななみ</small></span><span class="rl">ヴィラのバーテンダー</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">桐谷 蒼<small>きりたに あおい</small></span><span class="rl">大学3年・神崎の後輩</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">早乙女 京子<small>さおとめ きょうこ</small></span><span class="rl">神崎の会社の役員</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">宮田 涼<small>みやた りょう</small></span><span class="rl">大学院生・カメラマン</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="RE">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">白石 麗奈<small>しらいし れいな</small></span><span class="rl">神崎の恋人・モデル・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「麗奈です。モデルやってます。怜央とは、一年くらい付き合ってました。……信じられない」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校のときにスカウトされて、東京に出てきた。きれいでいることが仕事だった。</p><p>一年前、神崎と付き合いはじめた。お金も、華やかな場所も、全部くれた。そのかわり、神崎はあなたを「持ち物」のように扱った。</p><p>半年前、神崎の書斎で、あなた自身が映った動画を見つけた。ベッドの上の、あなたと神崎。撮られているなんて知らなかった。神崎は「保険だよ」と笑った。</p><p>それから、浅野隼と寝るようになった。神崎のいちばん近くにいて、いちばん神崎を嫌っている男。今夜も23:20から、客室3で浅野と一緒だった。</p><p>スイートの金庫の暗証番号は、あなたの誕生日だ。神崎がそう言っていた。</p><p>地元の母には、モデルの仕事しか話していない。神崎のことも、映像のことも、言えるはずがない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>神崎に、自分との夜を隠し撮りされていた。神崎の後輩の浅野と浮気していて、今夜23:20〜23:50、客室3で浅野とベッドにいた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>浅野隼</b>：浮気相手。23:20〜23:50、客室3で一緒だった。</li><li><b>七海</b>：バーテンダー。神崎の元カノだという噂がある。</li><li><b>早乙女京子</b>：神崎の会社の役員。神崎と、お金のことでもめていた。</li><li><b>桐谷蒼</b>：はじめて見る後輩。ずっと神崎を見ていた。</li><li><b>森下健太</b>：医学部の2年。早乙女さんと妙に親しげ。</li><li><b>宮田涼</b>：カメラマン。今夜も、あなたにカメラを向けてきた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代役」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">白石 麗奈<small>しらいし れいな</small></span><span class="rl">神崎の恋人・モデル・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>ラウンジへ。神崎がいないので、「また誰か女の子と一緒なんでしょ」と笑ってみせた。</dd><dt>0:30</dt><dd>ラウンジ。桐谷くんがびしょびしょの髪で戻ってきた。</dd><dt>1:00</dt><dd>七海の悲鳴。プールに神崎が浮かんでいた。</dd><dt>21:00</dt><dd>ナイトプールで乾杯。神崎の腕にからみついて、写真を撮られた。</dd><dt>22:30</dt><dd>雨。ラウンジへ。神崎は七海に何か耳打ちしていた。</dd><dt>23:15</dt><dd>神崎に「スイートで待ってろ」と言われたが、行かなかった。</dd><dt>23:20</dt><dd>客室3で浅野と会う（〜23:50）。窓の外は雨で、何も見えなかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:20から23:50までは客室1で休んでいた。一人で」。浅野といたことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>スイートの金庫には、あなたの動画が入っているかもしれない。暗証番号を知っているのはあなただけ。</li><li>あなたのスキルは、誰かのスキルをまねる。</li><li>客室1にいたとうそをつくなら、客室1に何があるか確かめておこう。</li><li>あなたの映像は、スイートの金庫にあるかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>華やかで、少し気の強いモデルとして振る舞ってください。神崎の死に泣いてみせるが、どこか冷めている。浅野とは目を合わせない。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「麗奈の映像」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>浅野隼が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「代役」で、まねたスキルを成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="DA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">鈴木 大地<small>すずき だいち</small></span><span class="rl">大学3年・ラグビー部・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鈴木です。ラグビーやってます。神崎さんには高校のときから世話になってて。……誰がこんなことしたのか、絶対見つけます」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>体が大きくて、小さいころから「男らしい」と言われて育った。ラグビー部では副キャプテン。部の連中とは、毎晩のように女の子の話で盛り上がる。</p><p>でも、あなたが好きになるのは、いつも男だった。誰にも言ったことはない。言えば、部にいられなくなる気がした。</p><p>去年のパーティーで、院生のカメラマン・宮田涼と出会った。夜のプールサイドで、宮田さんはあなたを「きれいだ」と言って写真を撮った。それから、ときどき二人で会っている。</p><p>今夜23:20から23:50まで、サウナで宮田さんと二人きりだった。</p><p>神崎は、あなたと宮田さんのことに気づいていた。今夜、すれちがいざまに「サウナはやめとけよ。カメラがある」と笑った。</p><p>高校のころ、神崎は部の先輩で、あなたの初めての「かっこいい大人」だった。今は、もうそう思えない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>男性が好きで、院生の宮田と付き合っている。今夜23:20〜23:50、サウナで宮田と二人きりだった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>宮田涼</b>：恋人。23:20〜23:50、サウナで一緒だった。</li><li><b>浅野隼</b>：神崎さんの右腕。</li><li><b>桐谷蒼</b>：0:30ごろ、着がえたばかりのような乾いたシャツでラウンジに戻ってきた。外はどしゃぶりなのに。</li><li><b>白石麗奈</b>：神崎さんの彼女。</li><li><b>七海</b>：バーテンダー。</li><li><b>森下健太</b>：医学部の後輩。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「足止め」</b>（処理の順番 2）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">鈴木 大地<small>すずき だいち</small></span><span class="rl">大学3年・ラグビー部・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>ラウンジへ。</dd><dt>0:30</dt><dd>桐谷が戻ってきた。髪は濡れているのに、シャツは乾いていた。</dd><dt>1:00</dt><dd>七海の悲鳴。誰より先にプールに飛びこみ、神崎さんを引き上げた。</dd><dt>21:00</dt><dd>ナイトプールで乾杯。宮田さんのカメラが、ずっとあなたを追っていた。</dd><dt>22:30</dt><dd>雨。ラウンジで神崎さんの話を聞く。</dd><dt>23:10</dt><dd>神崎さんに「サウナはやめとけよ。カメラがある」と言われる。</dd><dt>23:20</dt><dd>サウナで宮田さんと（〜23:50）。宮田さんは天井の隅を見て「やっぱりあった」と言った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:20から23:50まで、サウナで一人で汗を流していた」。宮田さんといたことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>サウナにカメラがあったなら、あなたと宮田さんの映像もあるかもしれない。</li><li>あなたのスキルは、パワーが相手と同じか高くないと成功しない。</li><li>桐谷の乾いたシャツ。外はどしゃぶりだったのに。</li><li>宮田さんが疑われたら、守りたい。でも、守れば二人のことが知られる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>体育会系の、まっすぐな男として振る舞ってください。声が大きく、正義感が強い。宮田さんのことになると、急に口ごもる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「足止め」を、犯人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「サウナの映像」を自分か宮田が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>宮田涼が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KE">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">森下 健太<small>もりした けんた</small></span><span class="rl">大学2年・医学部・20歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「森下です。医学部の2年です。……まだ勉強中ですけど、神崎さんの体を診ました。亡くなって30分も経ってないと思います」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母子家庭で、奨学金とアルバイトで医学部に通っている。教科書だけで年に何十万円もかかる。</p><p>一年前から、誰にも言えないアルバイトをしている。年上の女性の「相手」をする仕事だ。食事をして、ホテルに行く。一晩で、塾講師の一か月分になる。</p><p>今夜のパーティーに来たのも、そのお客さんに頼まれたからだ。早乙女京子。神崎の会社の役員で、あなたの一番のお得意さん。</p><p>今夜0:00から0:40まで、早乙女さんの部屋（客室2）にいた。</p><p>1:00すぎ、プールから引き上げられた神崎を診た。体はまだ温かかった。「30分以内」と言った。……でも、あとで考えると、32℃のお湯の中にいたら、体は冷めにくい。</p><p>母は看護師で、夜勤明けにいつもあなたの弁当を作ってくれた。いつか、母が勤める病院で働きたい。</p></div>
+      <div class="secret"><h4>秘密</h4><p>年上の女性の相手をするアルバイトをしている。今夜0:00〜0:40、客室2で早乙女京子と一緒だった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>早乙女京子</b>：お得意さん。0:00〜0:40、客室2で一緒だった。</li><li><b>浅野隼</b>：高校の先輩。神崎さんの手下みたいなことをしている。</li><li><b>桐谷蒼</b>：同じく今年はじめての人。23:20〜23:45、ラウンジにいなかった。</li><li><b>七海</b>：バーテンダー。あなたのグラスにだけ、ノンアルコールを作ってくれた。</li><li><b>鈴木大地</b>：ラグビー部の先輩。</li><li><b>宮田涼</b>：カメラマン。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 6）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">森下 健太<small>もりした けんた</small></span><span class="rl">大学2年・医学部・20歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>客室2で早乙女さんと（〜0:40）。</dd><dt>0:45</dt><dd>ラウンジ。桐谷くんが、ずっと手をこすっていた。</dd><dt>1:05</dt><dd>プールから引き上げた神崎さんを診る。後頭部の深い傷。体は温かい。「30分以内」と言った。口のまわりに、溺れた人に出る白い泡が<b>なかった</b>のが、少し気になった。</dd><dt>21:00</dt><dd>ナイトプールで乾杯。水着の人たちに目のやり場がなかった。</dd><dt>22:30</dt><dd>雨。ラウンジでジュースを飲んでいた。</dd><dt>23:00</dt><dd>ラウンジ。桐谷くんが23:20ごろ出ていき、23:45ごろ戻ってきた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「0:00から0:40は、客室2で早乙女さんに勉強の相談をしていた」。アルバイトのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>32℃の温水プールの中では、遺体は冷めにくい。「30分以内」は、ほんとうだろうか。</li><li>溺れた人の口には泡が出る。神崎さんにはなかった。</li><li>「30分以内」と言ったのはあなた。間違っていたら、みんなを惑わせたことになる。</li><li>あなたのスキルは、相手の持ち物を裏向きで引く。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し気の弱い医学生として振る舞ってください。医学の話になると、自信なさげに、でも正確に答える。早乙女さんの前では、なぜか敬語が固くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「早乙女の手帳」を自分か早乙女が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「森下のメモ」を全員に見せながら、神崎は溺れたのではなく、殴られてから水に入れられたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">浅野 隼<small>あさの しゅん</small></span><span class="rl">大学4年・神崎の右腕・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「幹事の浅野です。神崎さんには、大学に入ったときから世話になってます。……今夜のことは、まだ頭が追いつかない」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>一年のとき、神崎に声をかけられた。それから神崎の後ろをついて回った。金も、女も、全部神崎のおかげで手に入った。</p><p>二年前、神崎に言われて、ヴィラの客室とサウナに小さなカメラを仕掛けた。「防犯用だ」。すぐに、それが何に使われているかわかった。もう抜けられなかった。録画機のある書斎の合鍵とパソコンのパスワードは、あなたも知っている。</p><p>去年のパーティーで、七海が誰かの酒に何かを入れているのを見た。翌朝、一年生の女の子がふらふらで帰っていった。何もしなかった。</p><p>神崎の恋人の麗奈と、半年前から寝ている。神崎への、ささやかな仕返しのつもりだった。今は、本気かもしれない。</p><p>神崎は最近、あなたに「次の幹事はおまえじゃない」と言った。全部知られているのかもしれない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>神崎に言われて、ヴィラに隠しカメラを仕掛けた。神崎の恋人・麗奈と浮気していて、今夜23:20〜23:50、客室3で麗奈とベッドにいた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>白石麗奈</b>：神崎の恋人。浮気相手。</li><li><b>七海</b>：バーテンダー。去年、誰かの酒に何かを入れていた。</li><li><b>宮田涼</b>：カメラマン。最近、サウナの天井を見上げていた。カメラに気づいたのかもしれない。</li><li><b>鈴木大地</b>：ラグビー部。23:20ごろ、宮田さんとサウナのほうへ行った。</li><li><b>桐谷蒼</b>：今年はじめて呼ばれた後輩。神崎さんは「あいつの妹は去年来てた」と笑っていた。</li><li><b>早乙女京子</b>：神崎さんの会社の役員。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 5）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">浅野 隼<small>あさの しゅん</small></span><span class="rl">大学4年・神崎の右腕・22歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:20</dt><dd>雨の音にまじって、プールのほうで何か重い水音がした気がした。</dd><dt>0:30</dt><dd>ラウンジ。桐谷が濡れた髪で戻ってきた。</dd><dt>1:00</dt><dd>七海の悲鳴。</dd><dt>21:00</dt><dd>乾杯の音頭をとる。</dd><dt>22:30</dt><dd>雨。ラウンジでDJの音量を上げた。</dd><dt>23:20</dt><dd>客室3で麗奈と（〜23:50）。</dd><dt>23:55</dt><dd>ラウンジへ戻る。桐谷が真っ青な顔で座っていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:20から23:50まで、書斎で明日の段取りの書類を作っていた。一人で」。麗奈といたことと、カメラのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>書斎の録画機を見れば、今夜の各部屋の映像がわかる。あなたと麗奈の映像もあるかもしれない。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>録画機の映像は、あなたと麗奈のものもある。</li><li>0:20の重い水音は、何の音だったのか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ノリのいい幹事として、場を明るくしようとしてください。ただ、カメラの話になると口数が減る。麗奈には、人前ではよそよそしく。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「浅野と麗奈の映像」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>白石麗奈が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="NA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">七海<small>ななみ</small></span><span class="rl">ヴィラのバーテンダー・27歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「バーテンダーの七海です。今夜もずっとバーにいました。……プールを片付けに出たら、神崎さんが」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>島で生まれ、島で育った。那覇のバーで働いていたとき、神崎に誘われて付き合った。二年前に捨てられた。</p><p>別れたあとも、神崎はあなたをパーティーのバーテンダーに呼んだ。そして、ある頼みごとをした。「この子のグラスに、これを」。白い粉の小さな袋。断れば、昔あなたと撮った映像をばらまくと言われた。</p><p>去年の夏、一年生の女の子のグラスに、それを入れた。女の子は、翌朝、ふらふらで帰っていった。名前は、美羽といった。</p><p>その子がどうなったのか、ずっと怖くて調べられなかった。</p><p>今夜は、まだ誰のグラスにも何も入れていない。神崎に「今年はあの子だ」と言われた相手のグラスにも。</p><p>島の高校を出てすぐ、那覇のバーで働きはじめた。シェイカーを振るのが好きだった。酒は、人を楽しくするものだと思っていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>神崎の元恋人。神崎に脅されて、去年、美羽という一年生のグラスに薬を入れた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>桐谷蒼</b>：今年はじめての後輩。どこかで見た顔だと思った。去年の美羽という子に、目もとが似ている。</li><li><b>浅野隼</b>：神崎の右腕。去年のことを見ていたはず。</li><li><b>白石麗奈</b>：神崎の今の彼女。</li><li><b>宮田涼</b>：カメラマン。いつもファインダーをのぞいている。</li><li><b>早乙女京子</b>：会社の役員。</li><li><b>森下健太</b>：医学部の子。お酒が飲めないと言っていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">七海<small>ななみ</small></span><span class="rl">ヴィラのバーテンダー・27歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:15</dt><dd>桐谷くんが「たばこ」と出ていった。0:30に戻ってきた。</dd><dt>0:45</dt><dd>ラウンジでみんなに酒を作る。神崎さんがまだ戻らない。</dd><dt>1:00</dt><dd>プールの片付けに出て、浮かんでいる神崎さんを見つけた。</dd><dt>21:00</dt><dd>ナイトプールのバーで酒を作る。</dd><dt>22:30</dt><dd>雨。バーをラウンジ側へ移す。</dd><dt>23:00</dt><dd>神崎に「今年はあの子だ」と、新人の女の子を指さされた。</dd><dt>23:20</dt><dd>バーにいた。桐谷くんが「トイレ」と出ていった。2階のほうへ階段を上がっていく足音がした。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっとバーにいた」。本当のことなので、そのまま話していい。薬のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「白い粉の袋」は、あなたが去年何をしたかの証拠になる。</li><li>あなたのスキルで、誰か一人を守れる。</li><li>桐谷くんは、去年の美羽という子に似ている。</li><li>23:20、2階へ上がる足音がした。誰だったのか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で、てきぱきと酒を作るバーテンダーとして振る舞ってください。客の話は聞くが、自分の話はしない。桐谷を見るとき、ほんの少しだけ表情がこわばる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「白い粉の袋」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「七海の映像」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">桐谷 蒼<small>きりたに あおい</small></span><span class="rl">大学3年・神崎の後輩・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。神崎怜央を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「桐谷です。3年です。神崎さんのパーティーは今年が初めてで……正直、こういう華やかな場所は慣れてないです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の小さな町で、母と二つ下の妹・美羽と三人で育った。美羽は明るくて、誰とでもすぐ仲良くなる子だった。</p><p>去年の夏、美羽は東京の大学に入ってすぐ、先輩に誘われて神崎のパーティーに行った。帰ってきた美羽は、何も覚えていないと言った。そして半年後、ネットで、自分が知らない男たちと寝ている動画を見つけた。酒に何かを入れられていたのだ。</p><p>美羽は大学をやめ、部屋から出られなくなった。今年の春、薬を飲んで病院に運ばれた。命はとりとめたが、まだ入院している。</p><p>あなたは神崎のことを調べ上げた。神崎はヴィラの部屋に隠しカメラを仕掛け、客の夜を撮り、その映像で人をゆすり、売っている。映研の伝手を使って、今年のパーティーにもぐりこんだ。</p><p>目的は、美羽の映像の元データを取り戻して、消すこと。それだけのつもりだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜23:30、スイートで神崎怜央を殺した。</b>0:20、遺体を外階段からプールへ運んで沈めた。妹の動画のデータを取り戻した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>浅野隼</b>：神崎の右腕の後輩。神崎のカメラのことを知っているはず。</li><li><b>七海</b>：バーテンダー。去年のパーティーでも酒を作っていた。美羽の酒を作ったのはこの人かもしれない。</li><li><b>森下健太</b>：医学部の2年。遺体を見て「30分以内」と言った。</li><li><b>宮田涼</b>：院生のカメラマン。神崎のカメラのことを嗅ぎまわっているらしい。</li><li><b>白石麗奈</b>：神崎の彼女のモデル。</li><li><b>鈴木大地</b>：ラグビー部の3年。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 7）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">桐谷 蒼<small>きりたに あおい</small></span><span class="rl">大学3年・神崎の後輩・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:15</dt><dd>「たばこ」と出て、雨にまぎれて遺体を外階段からプールへ運び、ダンベルと沈めた（0:25）。シャツがずぶぬれになった。</dd><dt>0:28</dt><dd>客室1でシャツを着がえ、0:30にラウンジへ。それからはずっとラウンジ。</dd><dt>23:20</dt><dd>「トイレ」と出て2階のスイートへ。神崎は美羽の動画を再生して笑った。「いい妹だな。続きもあるぞ」。</dd><dt>23:30</dt><dd>床のダンベルで、神崎の後頭部を殴った。</dd><dt>23:35</dt><dd>パソコンからスイートの隠しカメラの23:15〜23:45の映像を消し、美羽のSDカードを抜き、じゅうたんの血を拭いた。23:45、ラウンジへ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:20ごろトイレ、0:15ごろたばこを吸いに外へ（雨で軒下）。0:30からはずっとラウンジ」。スイートへ行ったことは言わない。妹のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>プールは32℃の温水。遺体が「まだ温かい」から、みんなは0:30より後に殺されたと思っている。0:30からラウンジにいたあなたは安全だ。</li><li>「美羽のSDカード」と「濡れたシャツ」は、手放したい。</li><li>隠しカメラの映像は消したが、消したこと自体は記録に残っているかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで少し人見知りな後輩として振る舞ってください。神崎の死にはショックを受けている顔をする。妹の話になったら、少しだけ黙る。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「濡れたシャツ」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「美羽のSDカード」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「顧客リスト」を全員に見せながら、神崎が盗撮した映像を売っていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">早乙女 京子<small>さおとめ きょうこ</small></span><span class="rl">神崎の会社の役員・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「早乙女です。怜央の会社で、お金まわりを見ています。……あの子は才能がありました。それだけは確かよ」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>外資の証券会社で十年働き、独立して若い起業家に出資するようになった。神崎は、あなたが見つけた中でいちばんの当たりだった。</p><p>最近、会社の帳簿に、正体のわからない入金があるのに気づいた。調べると、神崎は会社とは別に、盗撮した映像を売っていた。顧客は政治家や社長たち。会社ごと沈む。</p><p>あなた自身も、会社のお金を3,000万円ほど、自分の別の投資に回している。神崎はそれに気づいて、あなたをゆすった。</p><p>夫とは、もう何年も会話がない。一年前から、若い医学生の森下くんを「買って」いる。彼の前でだけ、あなたは役員でも妻でもない。</p><p>今夜0:00から0:40、客室2で森下くんと一緒だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>会社の金3,000万円を流用していて、神崎にゆすられていた。医学生の森下にお金を払って、今夜0:00〜0:40、客室2で一緒だった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>森下健太</b>：お金を払っている相手。0:00〜0:40、一緒だった。</li><li><b>浅野隼</b>：神崎の右腕。会社の裏の仕事も手伝っているはず。</li><li><b>白石麗奈</b>：神崎の恋人。浅野くんと目くばせしていた。</li><li><b>七海</b>：バーテンダー。神崎から毎回、多めのお金を受け取っている。</li><li><b>宮田涼</b>：カメラマン。</li><li><b>桐谷蒼</b>：今年はじめての後輩。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 4）：「札束」か「カード」（お金のカード）を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">早乙女 京子<small>さおとめ きょうこ</small></span><span class="rl">神崎の会社の役員・38歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>客室2で森下くんと（〜0:40）。</dd><dt>0:40</dt><dd>客室2を出てラウンジへ。</dd><dt>1:00</dt><dd>七海の悲鳴。</dd><dt>21:00</dt><dd>ナイトプールで乾杯。</dd><dt>22:30</dt><dd>雨。ラウンジで神崎の隣に座らされた。</dd><dt>23:00</dt><dd>神崎に呼ばれ、ラウンジの隅で「3,000万の件、来週までに」と言われた。</dd><dt>23:20</dt><dd>ラウンジで飲んでいた。桐谷くんと麗奈さんと浅野くんがいなかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「0:00から0:40まで、客室2で森下くんの進路の相談に乗っていた」。森下くんとの本当の関係と、3,000万円のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「顧客リスト」が出回れば、会社は終わる。あなたも。</li><li>あなたのスキルにはお金のカードがいる。</li><li>0:00〜0:40にいなかったことは、知られている。</li><li>「顧客リスト」は、スイートの金庫にあるはず。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>余裕のある大人の女性として振る舞ってください。若い子たちを「〜くん」と呼ぶ。お金の話には、さらりと答える。森下くんのことを聞かれると、ほんの少し声が甘くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「顧客リスト」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>森下健太が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="RY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">宮田 涼<small>みやた りょう</small></span><span class="rl">大学院生・カメラマン・25歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「宮田です。院で写真をやってます。神崎さんのパーティーの写真係です。……今夜の写真が、まさか最後になるなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>子どものころから、人を撮るのが好きだった。人がいちばん無防備になる瞬間に、いちばん美しい顔がある。</p><p>三年前から、神崎のパーティーの写真係をしている。去年、ヴィラの写真を見返していて、客室の天井の隅に、小さく光るものが写っているのに気づいた。隠しカメラだ。</p><p>それから、ひそかに証拠を集めている。神崎が、撮った映像を売っていることも、ほぼつかんだ。あとは、録画機のある書斎に入れれば。</p><p>去年、ラグビー部の鈴木大地と出会った。照れくさそうに笑う顔を、何百枚も撮った。今夜も23:20から23:50まで、サウナで二人きりだった。天井の隅に、やはりカメラがあった。</p><p>今夜、カメラは一度も止めていない。</p><p>大地を撮った写真は、まだ誰にも見せていない。いつか個展で、一枚だけ飾りたいと思っている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>神崎の隠しカメラの証拠を集めて、告発しようとしている。ラグビー部の鈴木と付き合っていて、今夜23:20〜23:50、サウナで二人きりだった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鈴木大地</b>：恋人。23:20〜23:50、サウナで一緒。</li><li><b>浅野隼</b>：神崎の右腕。カメラを仕掛けたのは、たぶんこの男。</li><li><b>七海</b>：バーテンダー。去年、誰かのグラスに白い粉を入れているのを、ファインダーごしに見た。</li><li><b>桐谷蒼</b>：0:15ごろ、「たばこ」とラウンジを出ていった。</li><li><b>白石麗奈</b>：神崎の恋人。</li><li><b>早乙女京子</b>：神崎の会社の役員。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「中身を確認」</b>（処理の順番 3）：1人を選び、その人の持ち物をすべて見る。その中の「映像」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">宮田 涼<small>みやた りょう</small></span><span class="rl">大学院生・カメラマン・25歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>ラウンジへ。雨のプールを窓から撮った。</dd><dt>0:22</dt><dd>ラウンジの窓から、雨のプールを撮った一枚に、外階段を下りる人影のようなものが写っていた。暗くて、誰かはわからない。</dd><dt>0:40</dt><dd>ラウンジで撮った写真を見返していて、0:22の一枚に気づいた。</dd><dt>1:00</dt><dd>七海の悲鳴。</dd><dt>21:00</dt><dd>乾杯の写真を撮る。</dd><dt>22:30</dt><dd>雨。ラウンジの写真を撮る。</dd><dt>23:20</dt><dd>サウナで大地と（〜23:50）。天井の隅にカメラを見つけた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:20から23:50まで、外の軒下で雨の写真を撮っていた」。大地といたことは言わない。0:22の写真のことは、話すかどうかあなた次第。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>書斎の録画機に入れれば、神崎の悪事の証拠が手に入る。</li><li>あなたのスキルは「映像」の印のついた物を取れる。</li><li>0:22の写真の人影は、何を抱えていたのか。</li><li>「顧客リスト」は、告発の決め手になる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>物静かで、観察するのが好きな写真家として振る舞ってください。人の話を聞きながら、ときどきカメラを構える。大地のことになると、少しだけ目がやさしくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「顧客リスト」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「中身を確認」で、「映像」の印の持ち物を1つ手に入れる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「雨のプールの写真」を全員に見せながら、0:22に外階段を誰かが下りていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">白石 麗奈の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="白石 麗奈" data-label="白石 麗奈の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：白石 麗奈</span><span class="ttl">神崎の指輪</span><div class="txt">神崎にもらった指輪。内側に「Leo's」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白石 麗奈" data-label="白石 麗奈の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：白石 麗奈</span><span class="ttl">浅野からのメッセージ</span><div class="txt">「23:20、客室3で」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白石 麗奈" data-label="白石 麗奈の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：白石 麗奈</span><span class="ttl">ブランドのカード</span><div class="txt">神崎名義の家族カード。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="白石 麗奈" data-label="白石 麗奈の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：白石 麗奈</span><span class="ttl">サングラス</span><div class="txt">大きなサングラス。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">鈴木 大地の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="鈴木 大地" data-label="鈴木 大地の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：鈴木 大地</span><span class="ttl">宮田からのメッセージ</span><div class="txt">「今夜23:20、サウナで。カメラのこと、確かめたい」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鈴木 大地" data-label="鈴木 大地の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：鈴木 大地</span><span class="ttl">ラグビーボール</span><div class="txt">サインの入ったボール。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鈴木 大地" data-label="鈴木 大地の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：鈴木 大地</span><span class="ttl">プロテインの袋</span><div class="txt">チョコ味のプロテイン。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鈴木 大地" data-label="鈴木 大地の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：鈴木 大地</span><span class="ttl">部のジャージ</span><div class="txt">ラグビー部のジャージ。背番号3。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">森下 健太の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="森下 健太" data-label="森下 健太の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：森下 健太</span><span class="ttl">森下のメモ</span><div class="txt">医学部の森下が、遺体を診たときに書いたメモ。「後頭部に深い傷、出血は止まっている。口のまわりに泡なし。溺死ではない？　温水で体温が下がりにくい」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="森下 健太" data-label="森下 健太の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：森下 健太</span><span class="ttl">封筒</span><div class="txt">早乙女からの白い封筒。一万円札が五枚。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="森下 健太" data-label="森下 健太の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：森下 健太</span><span class="ttl">解剖学の教科書</span><div class="txt">ぶ厚い解剖学の教科書。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="森下 健太" data-label="森下 健太の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：森下 健太</span><span class="ttl">客室2のキー</span><div class="txt">客室2のカードキー。早乙女の部屋。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">浅野 隼の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="浅野 隼" data-label="浅野 隼の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：浅野 隼</span><span class="ttl">書斎の合鍵</span><div class="txt">神崎の書斎の合鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「神崎の書斎」を調べられる。</p></div></div><div class="card item" data-owner="浅野 隼" data-label="浅野 隼の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：浅野 隼</span><span class="ttl">カメラの設置図</span><div class="txt">浅野の字。ヴィラの見取り図に、カメラの位置の印。「客室1〜3・サウナ・スイート」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅野 隼" data-label="浅野 隼の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：浅野 隼</span><span class="ttl">麗奈の髪留め</span><div class="txt">客室3のベッドに落ちていた、麗奈の髪留め。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅野 隼" data-label="浅野 隼の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：浅野 隼</span><span class="ttl">ダイビングナイフ</span><div class="txt">昼にダイビングで使ったナイフ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">七海の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="七海" data-label="七海の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：七海</span><span class="ttl">白い粉の袋</span><div class="txt">バーの引き出しの奥にしまっていた、白い粉の小さな袋。神崎から渡されたもの。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="七海" data-label="七海の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：七海</span><span class="ttl">マスターキー</span><div class="txt">ヴィラのマスターキー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「神崎の書斎」を調べられる。</p></div></div><div class="card item" data-owner="七海" data-label="七海の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：七海</span><span class="ttl">アイスピック</span><div class="txt">バーのアイスピック。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="七海" data-label="七海の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：七海</span><span class="ttl">去年の伝票</span><div class="txt">去年のパーティーの伝票。「一年生　美羽ちゃん　カシスオレンジ」。神崎の字で「★」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">桐谷 蒼の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="桐谷 蒼" data-label="桐谷 蒼の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：桐谷 蒼</span><span class="ttl">美羽のSDカード</span><div class="txt">小さなSDカード。ラベルに「去年夏　M」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">映像</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐谷 蒼" data-label="桐谷 蒼の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：桐谷 蒼</span><span class="ttl">濡れたシャツ</span><div class="txt">客室のごみ箱の奥に押しこんでいた、ずぶぬれの白いシャツ。袖口に、うすい赤いしみ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐谷 蒼" data-label="桐谷 蒼の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：桐谷 蒼</span><span class="ttl">妹からのメッセージ</span><div class="txt">「お兄ちゃん、もういいよ。忘れたい」。病院から。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐谷 蒼" data-label="桐谷 蒼の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：桐谷 蒼</span><span class="ttl">映研のカメラ</span><div class="txt">小型のビデオカメラ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">早乙女 京子の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="早乙女 京子" data-label="早乙女 京子の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 京子</span><span class="ttl">札束</span><div class="txt">一万円札が300枚。神崎への支払いのために用意した。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="早乙女 京子" data-label="早乙女 京子の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 京子</span><span class="ttl">早乙女の手帳</span><div class="txt">「森下くん　毎月20日　10万」「3,000万　来週まで（怜央）」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早乙女 京子" data-label="早乙女 京子の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 京子</span><span class="ttl">帳簿のコピー</span><div class="txt">会社の帳簿のコピー。正体のわからない入金に赤い丸。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早乙女 京子" data-label="早乙女 京子の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 京子</span><span class="ttl">香水</span><div class="txt">小さな香水瓶。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">宮田 涼の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="宮田 涼" data-label="宮田 涼の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：宮田 涼</span><span class="ttl">雨のプールの写真</span><div class="txt">「0:22」の写真。雨のナイトプール。スイートの外階段を、何か大きなものを抱えて下りる人影。暗くて顔はわからない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮田 涼" data-label="宮田 涼の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：宮田 涼</span><span class="ttl">天井の写真</span><div class="txt">客室とサウナの天井の隅を拡大した写真。小さなレンズが光っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮田 涼" data-label="宮田 涼の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：宮田 涼</span><span class="ttl">大地の写真</span><div class="txt">夜のプールサイドで、照れくさそうに笑う大地の写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮田 涼" data-label="宮田 涼の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：宮田 涼</span><span class="ttl">三脚</span><div class="txt">金属の三脚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="白石 麗奈の秘密①"><div class="hd"><span class="loc">白石 麗奈の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>麗奈は、23:20〜23:50、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="白石 麗奈の秘密②"><div class="hd"><span class="loc">白石 麗奈の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>麗奈は、スイートの金庫の暗証番号を知っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鈴木 大地の秘密①"><div class="hd"><span class="loc">鈴木 大地の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>鈴木は、23:20〜23:50、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鈴木 大地の秘密②"><div class="hd"><span class="loc">鈴木 大地の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>鈴木は、宮田のカメラに写っている写真がやけに多い。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="森下 健太の秘密①"><div class="hd"><span class="loc">森下 健太の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>森下は、0:00〜0:40、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="森下 健太の秘密②"><div class="hd"><span class="loc">森下 健太の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>森下は、ときどき年上の女性とホテルに入るところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="浅野 隼の秘密①"><div class="hd"><span class="loc">浅野 隼の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>浅野は、23:20〜23:50、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="浅野 隼の秘密②"><div class="hd"><span class="loc">浅野 隼の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>浅野は、神崎の書斎の合鍵を持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="七海の秘密①"><div class="hd"><span class="loc">七海の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>七海は、21時から1時まで、ずっとバーにいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="七海の秘密②"><div class="hd"><span class="loc">七海の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>七海は、神崎の元恋人だ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐谷 蒼の秘密①"><div class="hd"><span class="loc">桐谷 蒼の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>桐谷は、23:20〜23:45と、0:15〜0:30、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐谷 蒼の秘密②"><div class="hd"><span class="loc">桐谷 蒼の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>桐谷には、去年神崎のパーティーに来た妹がいる。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早乙女 京子の秘密①"><div class="hd"><span class="loc">早乙女 京子の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>早乙女は、0:00〜0:40、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早乙女 京子の秘密②"><div class="hd"><span class="loc">早乙女 京子の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>早乙女は、23:00ごろ、ラウンジの隅で神崎と小声で言い争っていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮田 涼の秘密①"><div class="hd"><span class="loc">宮田 涼の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>宮田は、23:20〜23:50、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮田 涼の秘密②"><div class="hd"><span class="loc">宮田 涼の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>宮田は、去年からヴィラの天井ばかり撮っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="ナイトプール ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ナイトプール ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>神崎は水着の上にシャツ。後頭部に深い傷。プールの水がうすく赤い。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ナイトプール ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">ナイトプール ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">プールの説明板</span><p>「温水プール　水温32℃」。人の体温に近く、夜でも冷めない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ナイトプール ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">ナイトプール ③</span><span class="ph">調査2</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">プールの底</span><p>プールの底に、黒いダンベルが一つ沈んでいる。5kg。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ナイトプール ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">ナイトプール ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">デッキ</span><p>外階段の下からプールのふちまで、デッキの上に何かを引きずったような、うすい跡。雨でほとんど流れている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="神崎のスイート ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">神崎のスイート ①</span><span class="ph">調査1</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ベッドとテーブル</span><p>ベッドは乱れていない。テーブルにシャンパンのグラスが一つ。ノートパソコンは閉じている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="神崎のスイート ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">神崎のスイート ②</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">トレーニングの道具</span><p>窓ぎわにダンベルの台。<b>二つ一組のはずが、一つしかない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="神崎のスイート ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">神崎のスイート ③</span><span class="ph">調査2</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">じゅうたん</span><p>ソファの前のじゅうたんが、一か所だけ湿っている。よく見ると、うすい赤いしみ。誰かが拭いたらしい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="神崎のスイート ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">神崎のスイート ④</span><span class="ph">調査2</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">バルコニー</span><p>バルコニーの戸は開いていて、雨が吹きこんでいる。外階段へ出られる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ラウンジ ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ラウンジ ①</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ソファ</span><p>ラウンジのソファ。0:30〜1:00には、ほぼ全員がここにいた。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ラウンジ ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">ラウンジ ②</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ガラス戸</span><p>ラウンジからプールへのガラス戸。雨で外はほとんど見えない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ラウンジ ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">ラウンジ ③</span><span class="ph">調査2</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">床</span><p>ラウンジの入口近くの床に、0:30ごろについたらしい水のしみ。誰かが濡れた足で入ってきた。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="バー ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">バー ①</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">バーのカウンター</span><p>カウンターからは、ラウンジと、2階へ上がる階段がよく見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="バー ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">バー ②</span><span class="ph">調査2</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">バーの引き出し</span><p>引き出しの奥に、空になった小さなビニール袋がいくつか。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="サウナ ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">サウナ ①</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">サウナのベンチ</span><p>ベンチにタオルが二枚。二人で使っていたらしい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="サウナ ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">サウナ ②</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">天井の隅</span><p>天井の隅に、小さな穴。中に、レンズのようなもの。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">客室 ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">客室3</span><p>客室3のベッドが乱れている。枕が二つ、くぼんでいる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">客室 ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">客室2</span><p>客室2のテーブルに、シャンパンとグラスが二つ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="客室 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">客室 ③</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">客室1のごみ箱</span><p>客室1のごみ箱に、くしゃくしゃのタオル。うすい赤と、雨水のしみ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="神崎の書斎 ①" data-phase="1" data-lock="書斎の合鍵／マスターキー"><div class="hd"><span class="loc">神崎の書斎 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">録画機</span><p>書斎の机の録画機。ヴィラの客室・サウナ・スイートの隠しカメラの映像が保存されている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="神崎の書斎 ②" data-phase="2" data-lock="書斎の合鍵／マスターキー"><div class="hd"><span class="loc">神崎の書斎 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">浅野と麗奈の映像</span><div class="txt">「客室3　23:20〜23:50」の映像を書き出したSDカード。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">映像</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="神崎の書斎 ③" data-phase="1" data-lock="書斎の合鍵／マスターキー"><div class="hd"><span class="loc">神崎の書斎 <span class="lockmark">鍵</span> ③</span><span class="ph">調査1</span><span>CLUE 21</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">サウナの映像</span><div class="txt">「サウナ　23:20〜23:50」の映像を書き出したSDカード。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">映像</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="神崎の書斎 ④" data-phase="2" data-lock="書斎の合鍵／マスターキー"><div class="hd"><span class="loc">神崎の書斎 <span class="lockmark">鍵</span> ④</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">録画機の記録</span><p>操作の記録。「<b>23:36　スイート　23:15〜23:45の映像を削除（神崎のパソコンから）</b>」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="スイートの金庫 ①" data-phase="1" data-lock="暗証番号（麗奈が知っている。麗奈に教えてもらった人も可）"><div class="hd"><span class="loc">スイートの金庫 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 23</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">顧客リスト</span><div class="txt">神崎の手書きのリスト。盗撮した映像の買い手の名前と金額。政治家、社長……。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="スイートの金庫 ②" data-phase="1" data-lock="暗証番号（麗奈が知っている。麗奈に教えてもらった人も可）"><div class="hd"><span class="loc">スイートの金庫 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 24</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">麗奈の映像</span><div class="txt">「R」とラベルの貼られたSDカード。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">映像</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="スイートの金庫 ③" data-phase="2" data-lock="暗証番号（麗奈が知っている。麗奈に教えてもらった人も可）"><div class="hd"><span class="loc">スイートの金庫 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 25</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">七海の映像</span><div class="txt">「N　二年前」とラベルの貼られたSDカード。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">映像</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="スイートの外階段 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">スイートの外階段 ①</span><span class="ph">調査2</span><span>CLUE 26</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">外階段の手すり</span><p>外階段の手すりに、白い布の糸が引っかかっている。シャツの糸のようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="スイートの外階段 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">スイートの外階段 ②</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">外階段の下</span><p>外階段の下に、濡れたビーチサンダルの片方。客室用の貸し出し品。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>七海</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>足止め</b></td><td>鈴木 大地</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">3</td><td><b>中身を確認</b></td><td>宮田 涼</td><td>1人を選び、その人の持ち物をすべて見る。その中の「映像」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">4</td><td><b>買収</b></td><td>早乙女 京子</td><td>「札束」か「カード」（お金のカード）を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">5</td><td><b>力ずく</b></td><td>浅野 隼</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">6</td><td><b>すり取り</b></td><td>森下 健太</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>すり替え</b></td><td>桐谷 蒼</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代役</b></td><td>白石 麗奈</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は桐谷蒼（大学3年）。</b>妹の美羽は、去年の神崎のパーティーで酒に薬を入れられ、知らない男たちとの動画を撮られて売られた。大学をやめ、今年の春に自殺をはかって入院している。蒼は映像の元データを取り戻すために、今年のパーティーにもぐりこんだ。</p><p>23:20、「トイレ」とラウンジを出て2階のスイートへ（七海が階段を上がる足音を聞く）。神崎は美羽の動画を再生して笑った。23:30、床のダンベルで後頭部を殴る。23:35〜36、パソコンからスイートの隠しカメラの23:15〜23:45の映像を消し（録画機の記録）、美羽のSDカードを抜き、じゅうたんの血をタオルで拭く。23:45、ラウンジへ。</p><p>0:15、「たばこ」と出て、雨にまぎれて遺体を外階段からプールへ運び、ダンベルと一緒に沈める（0:20ごろ、浅野が水音を聞く。0:22、宮田の写真に外階段の人影）。客室1でシャツを着がえ、濡れたシャツとタオルをごみ箱へ押しこみ、0:30にラウンジへ。</p><p>32℃の温水で遺体が冷めず、1:05に森下が「30分以内」と見立てたため、犯行は0:30〜1:00に見え、0:30からラウンジにいた蒼はアリバイができた。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>死んだのはプールの中ではない。</b>温水32℃では体が冷めにくく、「30分以内」はあてにならない（プール②・森下）。口に泡がない＝溺れていない（森下のメモ）。ダンベルが一つ足りない（スイート②）、プールの底のダンベル（プール③）、じゅうたんの拭かれた血（スイート③）、デッキの引きずった跡（プール④）。→ スイートで殴られ、あとからプールへ。</li><li><b>いつ殺されたか。</b>23:36にスイートの23:15〜23:45の映像が消された（書斎③）。0:20の水音（浅野）、0:22の外階段の人影（宮田の写真）。</li><li><b>23:15〜23:45と0:15〜0:25にいなかった人。</b>両方にいないのは桐谷だけ（桐谷の秘密①・森下・宮田）。浅野と麗奈・宮田と大地は23:20〜23:50にいないが、0:15〜0:30はラウンジ。早乙女と森下は0:00〜0:40にいないが、23:30はラウンジ。23:20、2階へ上がる足音（七海）。</li><li><b>着がえと動機。</b>0:30、外はどしゃぶりなのに乾いたシャツ（大地）、ラウンジの入口の水のしみ（ラウンジ③）、客室1のごみ箱のタオル（客室③）、外階段の手すりのシャツの糸（外階段①）、濡れたシャツ・美羽のSDカード・妹のメッセージ（桐谷の持ち物）、去年の伝票「美羽ちゃん★」（七海）、七海の「美羽に目もとが似ている」。</li></ol>
+    <p class="note">議論2の半ばになっても「0:30〜1:00に殺された」前提が崩れないときは、GMから「温かいお湯の中の遺体は、冷めるでしょうか」と問いかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>早乙女・森下</b>：0:00〜0:40にいない（見立ての0:30〜1:00にかかる）。早乙女は神崎にゆすられていた。→ 客室2で二人きり（客室②）。神崎は23:30にはもう死んでいた。</li><li><b>麗奈・浅野</b>：23:20〜23:50にいない。神崎に隠し撮りされ、浮気していた。「客室1にいた」という麗奈のうそが、客室1のタオルと重なる。→ 客室3で一緒（客室①・髪留め）。0:15〜0:30はラウンジ。</li><li><b>大地・宮田</b>：23:20〜23:50にいない。→ サウナで一緒（サウナ①）。0:15〜0:30はラウンジ。</li><li><b>七海</b>：神崎の元恋人で、薬を入れさせられていた。最初に遺体を見つけた。→ ずっとバー（みんなが見ている）。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「スイートの外階段」を開ける。スイートの金庫は、麗奈から暗証番号を聞いた人も調べてよい（麗奈が教えると言ったときだけ）。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。七海の「守りが役に立つ」は、守った人に誰かがスキルを向けたら達成。</li><li>足止めが成功した相手は、そのあとの順番でスキルを使えない。</li><li>中身を確認で取れるのは「映像」の印がある持ち物だけ（各SDカード）。</li><li>買収に使えるお金のカードは、札束（早乙女）とブランドのカード（麗奈）。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（神崎の書斎・スイートの金庫）に誰も入らないまま議論2になったら、「鍵や暗証番号を知っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>白石 麗奈</td><td>□　□</td><td></td></tr><tr><td>鈴木 大地</td><td>□　□</td><td></td></tr><tr><td>森下 健太</td><td>□　□</td><td></td></tr><tr><td>浅野 隼</td><td>□　□</td><td></td></tr><tr><td>七海</td><td>□　□</td><td></td></tr><tr><td>桐谷 蒼</td><td>□　□</td><td></td></tr><tr><td>早乙女 京子</td><td>□　□</td><td></td></tr><tr><td>宮田 涼</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>神崎の書斎②（浅野と麗奈の映像）</td><td></td></tr><tr><td>神崎の書斎③（サウナの映像）</td><td></td></tr><tr><td>スイートの金庫①（顧客リスト）</td><td></td></tr><tr><td>スイートの金庫②（麗奈の映像）</td><td></td></tr><tr><td>スイートの金庫③（七海の映像）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">SDカード（映像）は、それぞれ映っている本人が取り返したがる。「顧客リスト」は早乙女（隠したい）と宮田（告発したい）、桐谷（明かしたい）の取り合い。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>白石 麗奈①</td><td>神崎の指輪</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>白石 麗奈②</td><td>浅野からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>白石 麗奈③</td><td>ブランドのカード</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>白石 麗奈④</td><td>サングラス</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鈴木 大地①</td><td>宮田からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鈴木 大地②</td><td>ラグビーボール</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>鈴木 大地③</td><td>プロテインの袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鈴木 大地④</td><td>部のジャージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>森下 健太①</td><td>森下のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>森下 健太②</td><td>封筒</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>森下 健太③</td><td>解剖学の教科書</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>森下 健太④</td><td>客室2のキー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅野 隼①</td><td>書斎の合鍵</td><td class='t'>—</td><td>鍵：持っている間、「神崎の書斎」を調べられる。</td><td> </td></tr><tr><td>浅野 隼②</td><td>カメラの設置図</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅野 隼③</td><td>麗奈の髪留め</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅野 隼④</td><td>ダイビングナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>七海①</td><td>白い粉の袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>七海②</td><td>マスターキー</td><td class='t'>—</td><td>鍵：持っている間、「神崎の書斎」を調べられる。</td><td> </td></tr><tr><td>七海③</td><td>アイスピック</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>七海④</td><td>去年の伝票</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐谷 蒼①</td><td>美羽のSDカード</td><td class='t'>—</td><td>—</td><td>映像 </td></tr><tr><td>桐谷 蒼②</td><td>濡れたシャツ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐谷 蒼③</td><td>妹からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐谷 蒼④</td><td>映研のカメラ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>早乙女 京子①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>早乙女 京子②</td><td>早乙女の手帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早乙女 京子③</td><td>帳簿のコピー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早乙女 京子④</td><td>香水</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮田 涼①</td><td>雨のプールの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮田 涼②</td><td>天井の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮田 涼③</td><td>大地の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮田 涼④</td><td>三脚</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>（場所）神崎の書斎②・調査2</td><td>浅野と麗奈の映像</td><td class='t'>—</td><td>—</td><td>映像 </td></tr><tr><td>（場所）神崎の書斎③・調査1</td><td>サウナの映像</td><td class='t'>—</td><td>—</td><td>映像 </td></tr><tr><td>（場所）スイートの金庫①・調査1</td><td>顧客リスト</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）スイートの金庫②・調査1</td><td>麗奈の映像</td><td class='t'>—</td><td>—</td><td>映像 </td></tr><tr><td>（場所）スイートの金庫③・調査2</td><td>七海の映像</td><td class='t'>—</td><td>—</td><td>映像 </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>森下 健太</td><td>議論中に「森下のメモ」を全員に見せながら、神崎は溺れたのではなく、殴られてから水に入れられたと明かす。</td><td></td></tr><tr><td>桐谷 蒼</td><td>議論中に「顧客リスト」を全員に見せながら、神崎が盗撮した映像を売っていたと明かす。</td><td></td></tr><tr><td>宮田 涼</td><td>議論中に「雨のプールの写真」を全員に見せながら、0:22に外階段を誰かが下りていたと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>白石 麗奈</b></td><td>+3　最後に「麗奈の映像」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　浅野隼が最多票に<b>ならない</b>。<br>+1　スキル「代役」で、まねたスキルを成功させる。</td></tr><tr><td><b>鈴木 大地</b></td><td>+3　スキル「足止め」を、犯人に成功させる。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「サウナの映像」を自分か宮田が持っている。<br>+1　宮田涼が最多票に<b>ならない</b>。</td></tr><tr><td><b>森下 健太</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「早乙女の手帳」を自分か早乙女が持っている。<br>+1　スキル「すり取り」を成功させる。<br>+1　議論中に「森下のメモ」を全員に見せながら、神崎は溺れたのではなく、殴られてから水に入れられたと明かす。</td></tr><tr><td><b>浅野 隼</b></td><td>+3　最後に「浅野と麗奈の映像」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　白石麗奈が最多票に<b>ならない</b>。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>七海</b></td><td>+3　最後に「白い粉の袋」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「七海の映像」を自分が持っている。<br>+1　スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</td></tr><tr><td><b>桐谷 蒼</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「濡れたシャツ」を自分が持って<b>いない</b>。<br>+1　最後に「美羽のSDカード」を自分が持っている。<br>+1　議論中に「顧客リスト」を全員に見せながら、神崎が盗撮した映像を売っていたと明かす。</td></tr><tr><td><b>早乙女 京子</b></td><td>+3　最後に「顧客リスト」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　森下健太が最多票に<b>ならない</b>。<br>+1　スキル「買収」を成功させる。</td></tr><tr><td><b>宮田 涼</b></td><td>+3　最後に「顧客リスト」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「中身を確認」で、「映像」の印の持ち物を1つ手に入れる。<br>+1　議論中に「雨のプールの写真」を全員に見せながら、0:22に外階段を誰かが下りていたと明かす。</td></tr></tbody></table></div>
+    <p class="note">投票の答え：桐谷蒼（+4）。桐谷本人はこの点なし。大地の「足止め」は、相手が桐谷で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>21:00</td><td>ナイトプールで乾杯。</td></tr><tr><td class='t'>22:30</td><td>雨が強くなり、ラウンジへ。</td></tr><tr><td class='t'>23:00</td><td>神崎、早乙女に「3,000万、来週までに」。七海に「今年はあの子だ」。</td></tr><tr><td class='t'>23:10</td><td>神崎、大地に「サウナはやめとけ。カメラがある」。</td></tr><tr><td class='t'>23:20</td><td>桐谷がスイートへ（七海が足音を聞く）。麗奈と浅野は客室3、大地と宮田はサウナ（〜23:50）。</td></tr><tr><td class='t'>23:30</td><td><b>桐谷、ダンベルで神崎を殴る。</b></td></tr><tr><td class='t'>23:36</td><td>桐谷、スイートの隠しカメラの映像を削除。SDカードを抜き、血を拭く。</td></tr><tr><td class='t'>23:45</td><td>桐谷、ラウンジへ。</td></tr><tr><td class='t'>0:00</td><td>早乙女と森下、客室2へ（〜0:40）。</td></tr><tr><td class='t'>0:15</td><td>桐谷、「たばこ」と出る。遺体を外階段からプールへ運び、ダンベルと沈める（0:20水音・0:22写真）。</td></tr><tr><td class='t'>0:28</td><td>桐谷、客室1でシャツを着がえる。0:30、ラウンジへ。</td></tr><tr><td class='t'>1:00</td><td>七海がプールで遺体を見つける。1:05、森下が「30分以内」と見立てる。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>神崎怜央を殺したのは、桐谷蒼だった。</p><p>プールの水は、一年じゅう32℃。神崎の体は、死んでから一時間半がたっても、まだ温かかった。それが、蒼を守った。</p><p>「妹は、まだ病院のベッドの上で、自分の動画が誰かのスマホで再生される夢を見るんです」。蒼はポケットから小さなSDカードを出して、テーブルの上に置いた。「これだけは、取り返したかった」。</p><p>七海が、カウンターの奥で崩れるように座りこんだ。台風は朝までやまなかった。</p>
+    </div>
+    <ul class="epi"><li><b>白石 麗奈</b>：麗奈は神崎の指輪を海に投げた。半年後、雑誌の表紙に、すっぴんで笑う麗奈が載った。</li><li><b>鈴木 大地</b>：大地は、部の連中の前で、宮田さんのことを話した。誰も笑わなかった。キャプテンが、肩を一度だけたたいた。</li><li><b>森下 健太</b>：森下はアルバイトをやめた。奨学金の相談に、大学の窓口へ行った。</li><li><b>浅野 隼</b>：浅野はカメラのことを自分から警察に話した。麗奈とは、会っていない。でも、一度だけ電話をした。</li><li><b>七海</b>：七海は、去年のことを警察に話した。そして、病院の美羽に、手紙を書いた。返事はまだない。</li><li><b>桐谷 蒼</b>：蒼は警察で、すべてを話した。美羽の動画は、取り調べのあとで警察の手で消去された。面会に来た美羽は、初めて「お兄ちゃん、ありがとう」と言って泣いた。</li><li><b>早乙女 京子</b>：早乙女は役員を辞め、3,000万円を会社に返した。夫と、何年ぶりかに二人で食事に行った。</li><li><b>宮田 涼</b>：宮田の写真と証言で、神崎の顧客たちの捜査が始まった。宮田のアルバムの最後の一枚は、雨上がりの朝、プールサイドで眠る大地の横顔だった。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　神崎怜央を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：白石麗奈・鈴木大地・森下健太・浅野隼・七海・桐谷蒼・早乙女京子・宮田涼</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('nightpool-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('nightpool-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('nightpool-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('nightpool-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
