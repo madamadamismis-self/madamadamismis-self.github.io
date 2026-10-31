@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>霧笛館の最終章（10人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 霧の岬のホテル。霧の灰青と灯台の灯の色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eceef0;
+  --surface: #fbfcfc;
+  --ink: #1d2328;
+  --muted: #5f6870;
+  --line: #d3d8dc;
+  --accent: #9c3b22;
+  --accent-soft: #f4e4dd;
+  --teal: #3d5a6c;
+  --teal-soft: #e1e8ec;
+  --slate: #1c262d;
+  --slate-ink: #f1f3f4;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161a; --surface: #182026; --ink: #e5e9ec; --muted: #9aa4ac; --line: #2b353d;
+    --accent: #e48a6c; --accent-soft: #3a2620; --teal: #94b6c9; --teal-soft: #1f2c35;
+    --slate: #0a0f12; --slate-ink: #e5e9ec; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161a; --surface: #182026; --ink: #e5e9ec; --muted: #9aa4ac; --line: #2b353d;
+  --accent: #e48a6c; --accent-soft: #3a2620; --teal: #94b6c9; --teal-soft: #1f2c35;
+  --slate: #0a0f12; --slate-ink: #e5e9ec; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #e0a040, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>霧笛館の最終章</h1>
+    <p>十五年前の連続殺人を暴くはずだった夜。最終章を読む前に、作家は死んだ。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>10人 ＋ GM1人</span>
+      <span><b>TIME</b>約170分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・霧の岬の小さなホテル</span>
+      <span><b>CARDS</b>キャラシート10・持ち物40・秘密20・証拠33</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">霧笛館の最終章（10人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー10人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人、過去の連続殺人、留置場での自殺、復讐の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 10人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 40枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 20枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 33枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 10枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「ラウンジの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>支配人室・灯台・隼人の車は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>支配人室：マスターキー／支配人室の合鍵</li><li>灯台：灯台の鍵／マスターキー</li><li>隼人の車：車の鍵</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「浜」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「遺品」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">12分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">18分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人3回。新しいカードと「浜」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票（3問）。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：3つの問いに、プレイヤーが演じている人物の名前を書く（鬼塚礼司は書けない。自分の名前を書いてもよい）。</li>
+      <li>問1の票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>問1「鬼塚礼司を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十一月の終わり。北海道の東の果て、霧ヶ岬。古い灯台のそばに建つ小さなホテル「霧笛館」に、十人の客と、ひとりの作家が集まった。</p><p>十五年前、この町で、霧の夜に若い女性が三人、赤いスカーフで絞め殺された。人々は犯人を「霧の絞殺魔」と呼んだ。漁師の男が逮捕され、留置場で首をつった。事件は、それきり起きていない。その事件を書いた本『霧の絞殺魔』は、百万部のベストセラーになった。作者は、ノンフィクション作家・鬼塚礼司。</p><p>今夜の夕食のあと、鬼塚はグラスを鳴らして言った。「十五年前、私は間違えた。絞殺魔は、まだ生きている。二十一時四十五分、このラウンジで新作の最終章を読む。そこに、本当の名前が書いてある」。そして、二階の部屋へ上がっていった。</p><p>二十一時二十分ごろ、海から濃い霧が上がってきた。灯台の霧笛が、三十秒ごとに低く鳴り始めた。</p><p>二十一時四十五分。ラウンジに全員がそろっても、鬼塚は下りてこない。二十一時五十五分、妻の冬美と編集者の渚が二階の部屋を開けると、鬼塚は机に突っ伏していた。首には、赤いスカーフが巻かれていた。</p><p>崖崩れで、町へ下りる道はふさがった。警察が来られるのは明日の朝だという。</p><p>——絞殺魔は、また霧の夜に現れたのか。それとも。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：2階の鬼塚の部屋。机の椅子に座ったまま、前に突っ伏していた。首に赤いスカーフ。21:55に妻の冬美と編集者の早見渚が見つけた。</li><li>十五年前の「霧の絞殺魔」：霧の夜に、19〜24歳の女性が三人、赤いスカーフで首を絞められて殺された。漁師の真柴剛（当時45）が逮捕され、裁判の前に留置場で自殺した。その後、事件は起きていない。</li><li>今夜20:45、鬼塚は「21:45にラウンジで最終章を読む。絞殺魔の本当の名前が書いてある」と言って2階へ上がった。</li><li>霧：21:20ごろから濃い霧。灯台の霧笛が30秒ごとに鳴り始め、館のどこにいても聞こえた。</li><li>鬼塚の部屋のドアには鍵がない。</li><li>鍵のかかる場所：支配人室・灯台・隼人の車。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れと館のつくり</h3>
+      <ul><li>19:00 夕食（ラウンジ）</li><li>20:45 鬼塚の宣言。鬼塚は2階の自分の部屋へ</li><li>21:20ごろ 霧。霧笛が鳴り始める</li><li>21:45 ラウンジで最終章の朗読（の予定だった）</li><li>21:55 鬼塚が見つかる</li></ul>
+      <p class="note">1階：フロント、ラウンジ（暖炉）、厨房とパントリー、事務室（コピー機）、支配人室。2階：客室と鬼塚の部屋（海側のいちばん奥）。外：霧の庭、灯台への小道、浜、駐車場。</p>
+      <h3 class="sub">投票の3つの問い</h3>
+      <ul><li>問1　鬼塚礼司を殺したのは誰か（+4）</li><li>問2　十五年前の「霧の絞殺魔」は誰か（+2）</li><li>問3　今夜、問1の犯人に協力したのは誰か（+2）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>霧笛館とまわり</h3>
+    <svg viewBox="0 0 400 260" role="img" aria-label="霧笛館とまわりの見取り図">
+      <rect class="room" x="10" y="10" width="250" height="120"/><text x="18" y="26">霧笛館 1階</text>
+      <rect class="room" x="18" y="34" width="70" height="44"/><text class="sm" x="26" y="60">フロント</text>
+      <rect class="room" x="88" y="34" width="100" height="90"/><text class="sm" x="96" y="60">ラウンジ（暖炉）</text>
+      <rect class="room" x="188" y="34" width="66" height="44"/><text class="sm" x="194" y="60">厨房</text>
+      <rect class="room" x="188" y="78" width="66" height="46"/><text class="sm" x="192" y="104">パントリー</text>
+      <rect class="room" x="18" y="78" width="70" height="46"/><text class="sm" x="24" y="98">事務室</text><text class="sm" x="24" y="112">支配人室</text>
+      <rect class="room" x="10" y="140" width="250" height="56"/><text x="18" y="156">2階</text>
+      <rect class="room" x="18" y="162" width="160" height="28"/><text class="sm" x="26" y="180">廊下・客室</text>
+      <rect class="hot" x="178" y="162" width="76" height="28"/><text class="ac" x="182" y="180">鬼塚の部屋</text>
+      <rect class="room" x="270" y="10" width="120" height="70"/><text class="sm" x="280" y="40">霧の庭</text><text class="sm" x="280" y="56">（灯台への小道）</text>
+      <rect class="stair" x="330" y="90" width="60" height="70"/><text class="sm" x="342" y="128">灯台</text>
+      <rect class="room" x="270" y="170" width="120" height="80"/><text class="sm" x="300" y="214">浜（調査2）</text>
+      <rect class="room" x="10" y="206" width="250" height="44"/><text class="sm" x="20" y="232">駐車場（隼人の車）</text>
+    </svg></div></div><p class="note">鬼塚の部屋は2階の海側のいちばん奥。窓は庭と灯台のほうを向いている。庭から灯台へは小道で5分、灯台の下から浜へ下りられる。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・ノンフィクション作家</span><span class="nm">鬼塚 礼司</span><span class="kana">おにづか れいじ（61）</span><p>十五年前の連続殺人を書いたベストセラー『霧の絞殺魔』の作者。今夜、続編の最終章で「絞殺魔の本当の名前」を明かすと宣言していた。</p></div><div class="person"><span class="role">文芸誌の編集者（30）</span><span class="nm">早見 渚</span><span class="kana">はやみ なぎさ</span><p>東京の文芸誌の編集者。鬼塚の新作の担当。最終章の朗読を聞きに同行した。</p><p class="look">服装：黒いタートルネック、細い銀のブレスレット</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">元刑事（67）</span><span class="nm">須藤 剛三</span><span class="kana">すどう ごうぞう</span><p>道警の元刑事。十五年前の「霧の絞殺魔」事件の捜査主任。鬼塚に招かれて来た。</p><p class="look">服装：茶色のジャンパー、白髪の短髪</p><p class="pstat">基本パワー 3</p></div><div class="person"><span class="role">作家の妻（55）</span><span class="nm">鬼塚 冬美</span><span class="kana">おにづか ふゆみ</span><p>鬼塚の妻。若いころは出版社で鬼塚の担当編集をしていた。</p><p class="look">服装：藤色のセーター、真珠のネックレス</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">作家の息子（28）</span><span class="nm">鬼塚 隼人</span><span class="kana">おにづか はやと</span><p>鬼塚の一人息子。小説家志望。父とは折り合いが悪い。</p><p class="look">服装：ダウンジャケット、ニット帽</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">鬼塚の秘書（32）</span><span class="nm">朝倉 透子</span><span class="kana">あさくら とうこ</span><p>二年前から鬼塚の秘書。取材の段取りから原稿の清書まで、何でもこなす。</p><p class="look">服装：紺のカーディガン、髪をひとつに結んでいる</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">霧ヶ岬の町長（63）</span><span class="nm">大河内 正</span><span class="kana">おおこうち ただし</span><p>霧ヶ岬の町長を四期つとめる。灰原とは幼なじみ。鬼塚の本で町が有名になったことを喜んでいた。</p><p class="look">服装：紺のブレザー、町のバッジ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">事件系の動画配信者（24）</span><span class="nm">七瀬 光</span><span class="kana">ななせ ひかる</span><p>未解決事件を追う動画チャンネル「深夜の未解決ファイル」の配信者。最終章の朗読を撮るために来た。</p><p class="look">服装：黄色いパーカー、首からカメラ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">霧笛館の支配人（56）</span><span class="nm">灰原 宗介</span><span class="kana">はいばら そうすけ</span><p>霧笛館の支配人。元は遠洋漁船の航海士。穏やかで、町の誰からも好かれている。</p><p class="look">服装：グレーのベスト、手首に古い腕時計</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">霧笛館の料理人（34）</span><span class="nm">久住 航</span><span class="kana">くずみ わたる</span><p>霧笛館の料理人。三年前に函館の洋食屋から来た。今夜の夕食も彼の料理。</p><p class="look">服装：白いコックコート</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">支配人の娘・フロント係（22）</span><span class="nm">灰原 美雪</span><span class="kana">はいばら みゆき</span><p>灰原の一人娘。霧笛館のフロントと何でも係。生まれも育ちもこの町。</p><p class="look">服装：白いブラウスに霧笛館のエプロン</p><p class="pstat">基本パワー 1</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">早見 渚<small>はやみ なぎさ</small></span><span class="rl">文芸誌の編集者</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">須藤 剛三<small>すどう ごうぞう</small></span><span class="rl">元刑事</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">鬼塚 冬美<small>おにづか ふゆみ</small></span><span class="rl">作家の妻</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">鬼塚 隼人<small>おにづか はやと</small></span><span class="rl">作家の息子</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">朝倉 透子<small>あさくら とうこ</small></span><span class="rl">鬼塚の秘書</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">大河内 正<small>おおこうち ただし</small></span><span class="rl">霧ヶ岬の町長</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">七瀬 光<small>ななせ ひかる</small></span><span class="rl">事件系の動画配信者</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">灰原 宗介<small>はいばら そうすけ</small></span><span class="rl">霧笛館の支配人</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">久住 航<small>くずみ わたる</small></span><span class="rl">霧笛館の料理人</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 10</span><span class="nm">灰原 美雪<small>はいばら みゆき</small></span><span class="rl">支配人の娘・フロント係</span><span class="in">中身：キャラクターシート（ROLL 10・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="NA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">早見 渚<small>はやみ なぎさ</small></span><span class="rl">文芸誌の編集者・30歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鬼塚先生の担当編集の早見です。新作は、先生の最高傑作になるはずでした。……最終章を、誰よりも早く読みたかったのに」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十五年前、あなたは十五歳だった。四つ上の姉・茜は、霧ヶ岬の水産加工場で働いていた。霧の夜、姉は帰ってこなかった。翌朝、浜で見つかった。赤いスカーフを巻かれて。絞殺魔の、三人目の被害者だった。</p><p>姉はいつも、星の形の小さなヘアピンをしていた。あなたが誕生日にあげたものだ。遺体には、それがなかった。</p><p>真柴という男が捕まり、死んだ。みんなは終わったと言った。あなたは信じなかった。真柴の家の近所の人は「あの人はやさしい人だった」と言っていた。</p><p>編集者になり、去年、鬼塚に続編を持ちかけた。半年前、鬼塚から連絡が来た。「真犯人の証拠をつかんだ。霧笛館で、最終章として発表する」。</p><p>あなたは、今夜のためにナイフを買った。名前がわかったら、その男を自分の手で——。法律が裁かないなら、あなたが裁く。</p></div>
+      <div class="secret"><h4>秘密</h4><p>姉の茜は、十五年前の絞殺魔の三人目の被害者。<b>絞殺魔に復讐するために、今夜ナイフを持ってきた。</b></p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鬼塚冬美</b>：先生の妻。21:55、一緒に遺体を見つけた。</li><li><b>朝倉透子</b>：先生の秘書。21時ごろから10分ほどラウンジにいなかった。</li><li><b>須藤剛三</b>：十五年前の捜査主任。姉の事件のとき、家に来た刑事。</li><li><b>灰原宗介</b>：支配人。先生の宣言のあと、手がふるえてグラスを落としそうになっていた。</li><li><b>七瀬光</b>：事件系の動画配信者。姉の事件を面白おかしく動画にしていた。許せない。</li><li><b>大河内正</b>：町長。十五年前、「一日も早い解決を」とテレビで言っていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「報復」</b>（処理の順番 4）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。相手の持ち物をすべて見て1つ奪い、さらに相手は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">早見 渚<small>はやみ なぎさ</small></span><span class="rl">文芸誌の編集者・30歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食。先生は上機嫌で、何度もあなたに目くばせした。</dd><dt>20:40</dt><dd>ラウンジで、先生が支配人を呼びつけて何か耳打ちしていた。支配人の手がふるえていた。</dd><dt>20:45</dt><dd>先生の宣言。手のひらに爪が食いこんだ。</dd><dt>21:00</dt><dd>ラウンジで朗読会の椅子を並べる（〜21:45）。朝倉さんは21時ごろからしばらくいなかった。</dd><dt>21:20</dt><dd>霧笛が鳴り始めた。姉がいなくなった夜と同じ音。</dd><dt>21:55</dt><dd>冬美さんと2階へ。先生は死んでいた。首に赤いスカーフ。あいつが、また。</dd><dt>22:05</dt><dd>姉の遺体の写真を思い出した。今夜のスカーフの結び目は、なぜか姉のときと違う気がした。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21時からはずっとラウンジで朗読会の準備。21:55に冬美さんと2階へ上がった」。姉のことは言わない（話すかどうかはあなた次第）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>姉のヘアピンが、どこかにあるかもしれない。犯人は、被害者の物を持ち去っていた。</li><li>あなたのスキル「報復」は、絞殺魔に使ってこそ意味がある。誰が絞殺魔か、最後まで見きわめよう。</li><li>ナイフを持っていることは、知られないほうがいい。</li><li>結び目のことを、須藤さんなら知っているかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>冷静で有能な編集者として振る舞ってください。ただ、十五年前の話になると、目の色が変わる。誰かが絞殺魔をかばうようなことを言えば、強く問いつめていい。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「報復」を、問2の正解の人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>問2で、正解の人が最多票になる。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「茜のヘアピン」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">須藤 剛三<small>すどう ごうぞう</small></span><span class="rl">元刑事・67歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「須藤です。十五年前、あの事件の捜査をしていました。……鬼塚さんに『答え合わせをしよう』と呼ばれたんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>三十五年、刑事をやった。霧の絞殺魔は、最後の大きな事件だった。三人目が出たあと、町長や上の者から「一日も早く」とせっつかれた。</p><p>目撃情報があった漁師の真柴剛を、取調室で十二時間責めた。真柴は最後まで「やっていない」と言った。三日目の夜、留置場で首をつった。遺書には「おれはやっていない。娘をたのむ」とあった。それきり事件は止まった。だから、真柴が犯人だったのだと、自分に言い聞かせてきた。</p><p>警察が新聞に出さなかったことが二つある。スカーフの結び目は、ほどけにくい<b>もやい結び</b>だった。被害者の右手には、<b>白い貝殻</b>が一つ握らされていた。これを知っているのは、捜査にいた者と、犯人だけだ。</p><p>今夜、鬼塚の遺体を見た。スカーフは首の前で、ただ固く結ばれていた。手には何もなかった。<b>絞殺魔のやり方ではない。</b></p><p>真柴の娘は、当時十七歳だった。名前は、もう思い出せない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十五年前、真柴剛に自白を迫り、真柴は留置場で自殺した。新聞に出なかった絞殺魔の手口（もやい結び・白い貝殻）を知っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>大河内正</b>：町長。十五年前、捜査を急げと言った一人。</li><li><b>灰原宗介</b>：支配人。十五年前、三人目の事件の夜のアリバイは町長の証言だった。</li><li><b>早見渚</b>：編集者。三人目の被害者・早見茜の妹。家に行ったとき、泣かずにこちらをにらんでいた少女だ。</li><li><b>朝倉透子</b>：作家の秘書。夕食のとき、あなたの顔を見て一瞬だけ手を止めた。</li><li><b>七瀬光</b>：配信者。しつこく十五年前のことを聞いてくる。</li><li><b>久住航</b>：料理人。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「取り押さえ」</b>（処理の順番 3）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。取り押さえられた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">須藤 剛三<small>すどう ごうぞう</small></span><span class="rl">元刑事・67歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食。鬼塚が「答え合わせだ」と笑った。</dd><dt>20:40</dt><dd>ラウンジの隅で、支配人の灰原が鬼塚に何か言われているのを見た。</dd><dt>20:45</dt><dd>鬼塚の宣言。腹の底が冷えた。</dd><dt>21:00</dt><dd>ラウンジの隅で、古い手帳を読み返していた（〜21:45）。</dd><dt>21:20</dt><dd>霧笛が鳴り始めた。十五年前と同じだ。</dd><dt>21:44</dt><dd>灰原が暖炉の前にかがみこんで、何かを火にくべていた。</dd><dt>21:58</dt><dd>叫び声で2階へ。遺体を確かめた。スカーフはただの固結び、手に貝殻なし。</dd><dt>22:10</dt><dd>「まねた者がいる」と思ったが、まだ誰にも言っていない。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21時から21:45まではラウンジにいた」。手口のことを言うかどうかはあなた次第（言えば、十五年前の捜査のことを聞かれる）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>今夜の事件が絞殺魔でないなら、本物の絞殺魔はまだどこかにいる。この館の中に。</li><li>結び目と貝殻の話は、本物の絞殺魔を見つける切り札にもなる。</li><li>あなたのスキルは、パワーが相手と同じか高くないと成功しない。杖を手放さないように。</li><li>真柴の娘は、どこで何をしているのだろう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で頑固な元刑事として振る舞ってください。人の話をじっと聞き、ときどき鋭く質問する。十五年前の取り調べの話になると、口が重くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「取り押さえ」を、問1の正解の人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「当時の捜査メモ」を全員に見せながら、今夜の事件は絞殺魔のまねだと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「白い貝殻」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="FU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">鬼塚 冬美<small>おにづか ふゆみ</small></span><span class="rl">作家の妻・55歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鬼塚の妻の冬美です。……夫は、敵の多い人でした。でも、こんな死に方をするなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>二十五の年、担当編集として鬼塚に出会った。荒っぽいが、言葉に火のある人だった。結婚して三十年。火は、いつのまにか金と名声の匂いに変わった。</p><p>二十年前から、町長の大河内正と恋人どうし。夫の取材でこの町に通ううちに、静かな大河内に惹かれた。夫は気づいていたのか、いないのか。</p><p>十五年前、大河内は町長として警察をせかし、真柴の逮捕を後押しした。夫の最終章には、そのことも書いてあると、夫は夕食の前に笑って言った。「おまえの大事な町長も、終わりだな」。</p><p>二人の関係も、書かれているかもしれない。最終章を読ませるわけにはいかない。</p><p>20:50、夫に「寝る前に」とウイスキーを運んだ。グラスには、いつも自分が飲んでいる睡眠薬を三錠溶かしておいた。朗読の時間に、夫が眠りこんでいればいい。</p><p>子どもは隼人ひとり。夫は息子の書いたものを一度も読まなかった。あなたはこっそり全部読んで、ノートに感想を書きためている。渡したことはない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>20:50、夫のウイスキーに睡眠薬を入れた。町長の大河内とは二十年来の恋人。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>大河内正</b>：恋人。21:20〜21:40、灯台のほうへ出ていた。</li><li><b>鬼塚隼人</b>：息子。父親に金をせびっては断られている。</li><li><b>朝倉透子</b>：秘書。夫は最近、彼女にだけ書斎の鍵を預けていた。</li><li><b>早見渚</b>：担当編集。夫の最終章の中身を、少しだけ聞いていたらしい。</li><li><b>須藤剛三</b>：元刑事。夫の昔の取材相手。</li><li><b>七瀬光</b>：配信者。隼人とこっそり会っているのを見た。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「睡眠薬」</b>（処理の順番 2）：1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">鬼塚 冬美<small>おにづか ふゆみ</small></span><span class="rl">作家の妻・55歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食。夫に「町長も終わりだな」と耳打ちされた。</dd><dt>20:40</dt><dd>夫が支配人を呼びつけていた。また誰かをいじめているのだと思った。</dd><dt>20:50</dt><dd>厨房で氷をもらい、夫の部屋へウイスキーを届けた。夫は一口飲んで「まずい」と言った。20:53に出た。</dd><dt>21:00</dt><dd>ラウンジで渚さんと朗読会の準備（〜21:45）。</dd><dt>21:20</dt><dd>大河内さんが「電話の電波を探しに」と灯台のほうへ出ていった。</dd><dt>21:44</dt><dd>支配人が暖炉に何かくべていた。</dd><dt>21:55</dt><dd>渚さんと2階へ。夫は死んでいた。グラスのウイスキーが、ほとんど減っていなかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:50に主人にウイスキーを届けた。そのあとはずっとラウンジ」。睡眠薬のことと、大河内とのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>睡眠薬が見つかれば、あなたが疑われる。でも、夫を殺したのはあなたではない。</li><li>夫は睡眠薬で、21時すぎには眠っていたはず。21:30に「原稿を書いていた」という話は、本当だろうか。</li><li>あなたのスキルは、相手のパワーを0にする。誰かのスキルを助けることにも、じゃますることにも使える。</li><li>大河内を疑う人がいたら、さりげなくかばいたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>上品で落ち着いた作家の妻として振る舞ってください。夫を悲しむ顔をしながら、どこかほっとしているようにも見える。大河内のことは「町長さん」と呼ぶ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「大河内からの手紙」を自分か大河内が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「睡眠薬の瓶」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「睡眠薬」で、パワーを0にした相手が、そのあと誰かのスキルを受けて持ち物を取られる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">鬼塚 隼人<small>おにづか はやと</small></span><span class="rl">作家の息子・28歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「息子の隼人です。親父の本は、正直、一冊もちゃんと読んだことないです。……でも、死ねばいいなんて思ったことはないですよ」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>小説家の息子に生まれた。父の本が百万部売れたとき、あなたは中学生で、クラスで「人殺しの本の息子」と呼ばれた。</p><p>大学を出て、自分も小説を書いた。十本書いて、十本落ちた。父は一度も読まなかった。「おまえには書くものがない」。</p><p>去年から、事件系の配信者・七瀬光と付き合っている。光は、父の事件のことをあれこれ聞きたがる。利用されているのかもしれない。それでもいい、と思っている。</p><p>生活費の借金が300万円ある。今夜、父が新作の前払いの原稿料を現金で持ってきたと知り、夕方、父のかばんから封筒を抜いた。</p><p>21:15、借金のことを打ち明けようと、父の部屋をノックした。返事はなかった。</p><p>子どものころ、父の書斎の床で、父がタイプを打つ音を聞きながら眠るのが好きだった。いつからか、その音が嫌いになった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>夕方、父のかばんから原稿料の300万円を抜いた。配信者の七瀬光と付き合っている。21:15に父の部屋の前まで行った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>七瀬光</b>：恋人。今夜、庭にこっそりカメラを置いたらしい。</li><li><b>鬼塚冬美</b>：母。父とは冷えきっている。町長とよく電話している。</li><li><b>朝倉透子</b>：父の秘書。父はこの人の言うことだけは聞いた。</li><li><b>久住航</b>：料理人。21:30にコーヒーを運んだと言っている。</li><li><b>大河内正</b>：町長。父の本のおかげで町が有名になったと、いつも父に頭を下げていた。</li><li><b>灰原美雪</b>：支配人の娘。同い年くらい。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 6）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">鬼塚 隼人<small>おにづか はやと</small></span><span class="rl">作家の息子・28歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:30</dt><dd>父の部屋のかばんから封筒を抜く。</dd><dt>20:45</dt><dd>父の宣言。父が「絞殺魔」と言うとき、楽しそうだったのが気持ち悪かった。</dd><dt>21:00</dt><dd>駐車場の自分の車へ。封筒をトランクに隠した（〜21:12）。</dd><dt>21:15</dt><dd>父の部屋の前へ。ノックしても返事がない。ドアのすきまから見ると、部屋は真っ暗だった。寝たのかと思って戻った。</dd><dt>21:20</dt><dd>ラウンジへ戻る。霧笛が鳴り始めた。</dd><dt>21:44</dt><dd>暖炉の前で支配人が何か燃やしていた。</dd><dt>21:55</dt><dd>父が見つかった。</dd><dt>21:58</dt><dd>母の悲鳴で2階へ。父は机に突っ伏していた。冷たかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21時から21:20ごろまでは、車に忘れ物を取りに行っていた」。父の部屋の前まで行ったことは、言うかどうかあなた次第（言えば、なぜ行ったのかを聞かれる）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>21:15、父の部屋は真っ暗で、返事もなかった。21:30に父が原稿を書いていたなら、話が合わない。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>「札束」を誰かに取られたら、スキルで取り返せるかもしれない。</li><li>父の最後の原稿は、どこへ消えたのか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ふてくされた息子として振る舞ってください。父の悪口は言うが、ときどき寂しそうな顔をする。光が疑われると、ついかばう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「札束」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「最終章の原稿」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">朝倉 透子<small>あさくら とうこ</small></span><span class="rl">鬼塚の秘書・32歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。鬼塚礼司を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「秘書の朝倉です。先生の原稿は、全部わたしが清書してきました。……最終章だけは、まだ見せてもらえていなかったんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>あなたの本当の名前は、真柴透子。十五年前、この霧ヶ岬で「霧の絞殺魔」として逮捕された漁師・真柴剛の娘だ。父は無口で、船の上でだけよく笑う人だった。逮捕された日、父は「すぐ帰る」と言った。三日後、留置場で首をつった。</p><p>鬼塚の本『霧の絞殺魔』は、父を「霧の夜に獲物を探す怪物」と書いた。本は百万部売れた。母は町を追われ、病気になり、五年前に死んだ。あなたは母の旧姓を名乗り、名前を消して生きてきた。</p><p>二年前、鬼塚の秘書の募集を見つけた。父のことを書いた男が、何を知っているのか。知りたくて応募した。鬼塚はあなたの手際を気に入った。</p><p>三週間前、書斎の古いファイルから、鬼塚の手書きのメモを見つけた。十年前の日付。「真柴は白。真犯人は別にいる。だが今さら書けば、前の本が売れなくなる」。鬼塚は十年も前から、父の無実を知っていた。</p><p>それを、婚約者の久住航に話した。航は「おれがついてる」と言った。今夜のことも、航だけが知っている。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜21:06、鬼塚を赤いスカーフで絞め殺した。</b>絞殺魔のしわざに見せかけた。婚約者の久住に、21:30に「先生は生きていた」と言ってもらう約束をしている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>久住航</b>：婚約者。21:30にコーヒーを運び、「先生は原稿を書いていた」と言ってくれる約束。</li><li><b>須藤剛三</b>：十五年前、父を逮捕した刑事。あなたの顔は覚えていないはず。</li><li><b>鬼塚冬美</b>：先生の妻。夕食のあと、先生にウイスキーを持っていった。</li><li><b>鬼塚隼人</b>：先生の息子。夕方、先生のかばんをあさっていた。</li><li><b>早見渚</b>：編集者。最終章のことで、先生と何度も電話していた。</li><li><b>灰原宗介</b>：支配人。夕食のあと、先生に呼ばれて青い顔をしていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 8）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">朝倉 透子<small>あさくら とうこ</small></span><span class="rl">鬼塚の秘書・32歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>20:40</dt><dd>事務室で朗読会用の原稿のコピーを10部とる。</dd><dt>20:58</dt><dd>「コピーをとってきます」とラウンジを出て、先生の部屋へ。先生は少し眠そうだった。</dd><dt>21:03</dt><dd>「真柴さんの名誉は？」と聞くと、先生は笑った。「死人に印税はいらんだろう」。</dd><dt>21:06</dt><dd>先生の後ろから、赤いスカーフで首を絞め、首の前で固く結んだ。万年筆のインクが原稿に飛んだ。</dd><dt>21:08</dt><dd>明かりを全部消して部屋を出る。21:10、コピーの束を持ってラウンジへ。</dd><dt>21:24</dt><dd>ラウンジの内線で厨房に「先生にコーヒーを一杯」と頼んだ（航への合図）。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:58から21:10までは事務室でコピーをとっていた」。それからはずっとラウンジ。十五年前のことは「わたしは東京の生まれなので、よく知らない」。久住とのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>絞殺魔のしわざだとみんなが思えば、疑いは十五年前の犯人に向く。</li><li>先生が21:30まで生きていたと思われていれば、21:10からラウンジにいたあなたは安全だ。</li><li>「先生のメモ」は、父の無実を示すただひとつの証拠。でも、あなたの動機の証拠にもなる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>てきぱきとした、控えめな秘書として振る舞ってください。先生の死にはショックを受けているように見せる。十五年前の話になったら、他人事のように聞く。父の話になると、ほんの一瞬だけ黙る。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1で自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「先生のメモ」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「先生のメモ」か「当時の捜査メモ」を全員に見せながら、真柴剛は無実だったと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「スカーフのレシート」を自分が持って<b>いない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="OK">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">大河内 正<small>おおこうち ただし</small></span><span class="rl">霧ヶ岬の町長・63歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「町長の大河内です。鬼塚さんには、町の名前を全国に広めていただきました。……それが、こんなことに」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>漁師の家に生まれ、町役場に入り、四十五で町長になった。霧ヶ岬は、霧と灯台しかない町だ。なんとか人を呼びたかった。</p><p>十五年前、絞殺魔の事件で観光客が消えた。あなたは道警に何度も電話して「一日も早く」とせっついた。真柴が捕まったとき、正直、ほっとした。</p><p>三人目の事件の夜、幼なじみの灰原が、夜中にずぶぬれで、震えながら館の裏に立っていた。何があったのか聞かなかった。警察には「灰原はおれと飲んでいた」と言った。そのことは、十五年、誰にも話していない。</p><p>二十年前から、鬼塚の妻・冬美と恋人どうし。</p><p>今夜、鬼塚は最終章に、十五年前のあなたのことも書いたという。町長の首が飛ぶだけではすまないかもしれない。</p><p>町の灯台は、あなたが子どものころから町の誇りだった。保存会の会長として、灯台の鍵はいつもあなたが預かっている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十五年前、三人目の事件の夜に、灰原の偽のアリバイを証言した。警察に捜査を急がせた。鬼塚の妻・冬美と恋人どうし。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>灰原宗介</b>：幼なじみ。十五年前、三人目の事件の夜、ずぶぬれで震えていた。</li><li><b>鬼塚冬美</b>：恋人。今夜、夫のことで何かしようとしていた気がする。</li><li><b>須藤剛三</b>：元刑事。十五年前、あなたが急がせた捜査の主任。</li><li><b>灰原美雪</b>：灰原の娘。小さいころから知っている。</li><li><b>七瀬光</b>：配信者。町の悪口を動画にしている。</li><li><b>鬼塚隼人</b>：作家の息子。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「口止め料」</b>（処理の順番 5）：「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">大河内 正<small>おおこうち ただし</small></span><span class="rl">霧ヶ岬の町長・63歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食。鬼塚に「町長も最終章に出てくるよ」と言われた。</dd><dt>20:40</dt><dd>ラウンジで、鬼塚が灰原を呼びつけていた。灰原の顔から血の気が引いていた。</dd><dt>20:45</dt><dd>鬼塚の宣言。灰原の顔が真っ白になったのを見た。</dd><dt>21:20</dt><dd>「電話の電波を探しに」と、懐中電灯を持って灯台へ。本当は一人で考えたかった。灯台の上の部屋で、十五年前のことを思い出していた。</dd><dt>21:35</dt><dd>灯台の下から浜を通って戻る。21:40、ラウンジへ。</dd><dt>21:44</dt><dd>ラウンジに戻ると、灰原が暖炉に何かをくべていた。目が合うと、灰原は笑った。</dd><dt>21:55</dt><dd>鬼塚が見つかった。灰原の手が震えていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:20から21:40まで、灯台のほうで電話の電波を探していた」。灰原のアリバイのことと、冬美とのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「最終章の原稿」には、あなたのことも書いてある。人目に出る前に手に入れたい。</li><li>灰原が絞殺魔だとしたら、あなたはその共犯のようなものだ。</li><li>あなたのスキルにはお金のカードがいる。「小切手帳」を取られないように。</li><li>灰原をかばうのか、見捨てるのか。決めておこう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>人当たりのいい、少し調子のいい町長として振る舞ってください。町の評判を何より気にする。灰原の話になると、急に話をそらす。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「最終章の原稿」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問2で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「口止め料」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="NN">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">七瀬 光<small>ななせ ひかる</small></span><span class="rl">事件系の動画配信者・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「七瀬です！『深夜の未解決ファイル』って動画やってます。今夜は歴史的な瞬間になるはずだったのに……ほんと最悪です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の小さな町で育った。ずっと「何者か」になりたかった。三年前、未解決事件を紹介する動画が一本だけ少し当たり、それから配信者になった。</p><p>最近は再生数が落ちている。今夜の最終章の朗読を撮れれば、また浮かび上がれる。そう思って、隼人に頼みこんでここに来た。</p><p>隼人のことは好きだ。でも、最初に近づいたのは、作家の息子だからだった。それは、隼人には言っていない。</p><p>今夜、許可をとらずに、庭に小さなカメラを置いた。霧が出る様子を、館ごとタイムラプスで撮るためだ。20:55から2分おきに一枚。</p><p>事件のあと、こっそりカメラを回収して画像を見た。<b>21:08、2階の作家の部屋の明かりが消えている。21:31に、机のあたりだけ明るくなっている。21:41には、部屋の中で懐中電灯のような光が動いている。</b></p><p>実家の母は、あなたの動画を一本も見ていない。「人の不幸で食べていくのはやめなさい」と言われた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>今夜、無断で庭にタイムラプスのカメラを置いていた。隼人と付き合っているが、最初は作家の息子だから近づいた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鬼塚隼人</b>：恋人。21:00〜21:20、ラウンジにいなかった。</li><li><b>早見渚</b>：編集者。あなたの動画を嫌っているらしい。</li><li><b>須藤剛三</b>：元刑事。十五年前の話を聞くと、黙ってしまう。</li><li><b>灰原宗介</b>：支配人。浜でよく貝殻を拾っている、と町の人が言っていた。</li><li><b>大河内正</b>：町長。21:20ごろ、懐中電灯を持って庭を灯台のほうへ歩いていった。</li><li><b>灰原美雪</b>：支配人の娘。何か言いたそうに、ずっと父親を見ている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「盗み撮り」</b>（処理の順番 7）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">七瀬 光<small>ななせ ひかる</small></span><span class="rl">事件系の動画配信者・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>20:45</dt><dd>作家の宣言をスマホで撮った（音声だけ）。</dd><dt>20:55</dt><dd>庭の植えこみにカメラを置く（2分おきに撮影）。</dd><dt>21:00</dt><dd>庭でカメラの角度を直す（〜21:08）。霧はまだ出ていなかった。</dd><dt>21:10</dt><dd>ラウンジへ。朝倉さんがコピーの束を持って戻ってきたところだった。</dd><dt>21:40</dt><dd>霧がひどいので、ラウンジの窓から庭を撮っていた。</dd><dt>21:44</dt><dd>暖炉の前で支配人がしゃがんでいた。</dd><dt>22:15</dt><dd>こっそり庭のカメラを回収し、画像を見た。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21時ごろ、庭で霧の様子を見ていた。21:10からはラウンジ」。カメラのことは言うかどうかあなた次第（無断で撮っていたのが知られる）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>タイムラプスの記録は、事件の時間を決める証拠になるかもしれない。</li><li>「最終章の原稿」がどこかにあるなら、動画のネタとして喉から手が出るほどほしい。</li><li>「タイムラプスの記録」は狙われるかもしれない。</li><li>隼人が疑われたら、21時すぎのことを聞いてみよう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るく、少しずうずうしい若い配信者として振る舞ってください。みんなに質問をして回る。不謹慎だと怒られたら、しゅんとする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「タイムラプスの記録」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「タイムラプスの記録」を全員に見せながら、21:08に作家の部屋の明かりが消えたと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「最終章の原稿」を自分か隼人が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">灰原 宗介<small>はいばら そうすけ</small></span><span class="rl">霧笛館の支配人・56歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「支配人の灰原です。娘の美雪と二人で、この館をやっております。……とんだ夜になってしまいました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>あなたは犯人ではない。今夜、鬼塚を殺したのはあなたではない。だが、<b>十五年前の「霧の絞殺魔」は、あなただ。</b></p><p>霧の夜、霧笛が鳴ると、あなたの中の何かが目をさます。若いころ、海の上で長い夜を過ごしたせいか、母が霧の夜に家を出ていったせいか、自分でもわからない。十五年前、あなたは三人の女性の首を、赤いスカーフで絞めた。スカーフは<b>もやい結び</b>で結び、手に<b>白い貝殻</b>を一つ握らせた。それは、警察が新聞に出さなかったことだ。</p><p>三人の形見（星の形のヘアピンなど）は、支配人室の引き出しの奥の箱にしまってある。捨てられなかった。</p><p>真柴という漁師が捕まり、留置場で死んだ。それで終わった。あなたは衝動を押しこめ、妻を亡くしたあと、娘の美雪を一人で育ててきた。美雪だけは、何があっても守る。</p><p>今夜20:40、鬼塚に呼ばれた。「あんたの名前を、最終章に書いた。浜の貝殻と、昔の写真でな。二十一時四十五分を楽しみにしておけ」。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十五年前の「霧の絞殺魔」はあなた。今夜21:40、マスターキーで鬼塚の部屋に入った。鬼塚はもう死んでいた。机の上の最終章の原稿を持ち去った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>灰原美雪</b>：娘。十二歳のころ、引き出しの奥の箱を見られたことがある。「海で拾った」とごまかした。</li><li><b>須藤剛三</b>：十五年前の捜査主任。結び目と貝殻のことを知っている数少ない人間。</li><li><b>大河内正</b>：幼なじみの町長。十五年前、三人目の事件の夜、「灰原はおれと飲んでいた」と警察に言ってくれた。</li><li><b>早見渚</b>：編集者。どこかで見た顔だ。目もとが、十五年前の三人目の娘に似ている。</li><li><b>鬼塚冬美</b>：作家の妻。夫の最終章の中身は知らないらしい。</li><li><b>久住航</b>：うちの料理人。腕はいい。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「証拠隠し」</b>（処理の順番 9）：1人（自分でもよい）を選ぶ。自分なら持ち物を1つ選び、ほかの人なら裏向きのまま1つ引く。そのカードはゲームから取り除かれる（誰のものでもなくなる）。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">灰原 宗介<small>はいばら そうすけ</small></span><span class="rl">霧笛館の支配人・56歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>20:40</dt><dd>鬼塚に呼ばれ、最終章にあなたの名前を書いたと言われる。</dd><dt>21:00</dt><dd>支配人室で朗読会のマイクの準備（〜21:38）。暖炉の火を見ながら、どうするか考えていた。</dd><dt>21:40</dt><dd>2階へ。鬼塚の部屋に入ると、鬼塚は机に突っ伏して死んでいた。首に赤いスカーフ。結び目はただの固い蝶結び。手に貝殻もない。<b>あなたのやり方ではない。</b></dd><dt>21:42</dt><dd>机の上の最終章の原稿をつかみ、部屋を出た。懐中電灯の光が窓に映ったかもしれない。</dd><dt>21:44</dt><dd>ラウンジの暖炉で、原稿に挟まっていた古い写真を燃やした。原稿は上着の内側に。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:00から21:40ごろまでは支配人室で朗読会の準備をしていた。そのあとラウンジへ」。2階に上がったことは言わない。今夜の事件を「絞殺魔のしわざ」と言われたら、否定しすぎないこと。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>今夜の事件が絞殺魔のしわざだと思われれば、みんなは「絞殺魔は誰か」を探す。それはあなたにとって危ない。</li><li>でも「まねをした者がいる」と言いすぎれば、なぜそれがわかるのかと聞かれる。</li><li>「最終章の原稿」と「白い貝殻」は、あなたの正体の証拠。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>穏やかで、気配りのできる支配人として振る舞ってください。客にお茶を出し、みんなを落ち着かせる。十五年前の話にも、町の人として静かに答える。娘のことになると、少しだけ声が強くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問2で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「最終章の原稿」が誰の持ち物にもなっていない（スキルでゲームから取り除かれている）。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「茜のヘアピン」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">久住 航<small>くずみ わたる</small></span><span class="rl">霧笛館の料理人・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「料理人の久住です。今夜のお料理、お口に合いましたか。……21時半に、先生にコーヒーをお持ちしたのが、僕です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>函館の小さな洋食屋の息子。父の店は不景気でつぶれ、父は酒におぼれた。あなたは十六で厨房に立ち、それから料理だけで生きてきた。</p><p>三年前、霧笛館の料理人の口があった。霧の深い町は嫌いではなかった。灯台の霧笛を聞くと、なぜか落ち着いた。</p><p>一年前、鬼塚の取材について館に来た秘書の透子と出会った。何度か函館で会ううちに、恋人になった。半年前、指輪を渡した。透子は泣きながら、父親のことを話してくれた。</p><p>三週間前、透子が言った。「先生は、お父さんの無実を十年も前から知ってた」。そして、今夜のことを。あなたは止めた。止められないとわかって、決めた。透子をひとりにはしない。</p><p>あなたの役目は一つ。21:24に内線が鳴ったら、先生の部屋にコーヒーを運び、「先生は原稿を書いていた」と言うこと。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>朝倉透子の婚約者で、今夜の犯行を手伝った。</b>21:30に先生の部屋へ行ったとき、先生はもう死んでいた。コーヒーを置き、スタンドをつけて出てきた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>朝倉透子</b>：婚約者。真柴剛の娘。</li><li><b>灰原美雪</b>：支配人の娘。21:00〜21:24、厨房で一緒だった。あなたに気があるらしい。</li><li><b>灰原宗介</b>：支配人。21:40ごろ、2階の廊下のほうへ上がっていくのが厨房の窓から見えた。</li><li><b>鬼塚冬美</b>：作家の妻。20:50に厨房でウイスキーの氷をもらいに来た。</li><li><b>須藤剛三</b>：元刑事。夕食のとき、あなたの手もとをじっと見ていた。</li><li><b>大河内正</b>：町長。21:20ごろ、懐中電灯を持って灯台のほうへ出ていった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">久住 航<small>くずみ わたる</small></span><span class="rl">霧笛館の料理人・34歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食の給仕。先生は、デザートを下げるとき「料理人くん、明日は記念日になるぞ」と笑った。</dd><dt>20:40</dt><dd>パントリーで透子と少しだけ話した。透子の手は冷たかった。</dd><dt>21:00</dt><dd>厨房で明日の仕込み。美雪ちゃんが手伝ってくれていた（〜21:24）。</dd><dt>21:24</dt><dd>内線。透子の声で「先生にコーヒーを一杯」。注文票に書いた。</dd><dt>21:30</dt><dd>先生の部屋へ。暗い部屋で、先生は机に突っ伏していた。首に赤いスカーフ。手がふるえた。コーヒーを机に置き、スタンドをつけ、部屋を出た。</dd><dt>21:33</dt><dd>厨房に戻り、美雪ちゃんに「先生、原稿に夢中だったよ」と言った。</dd><dt>21:55</dt><dd>先生が見つかった。透子と目を合わせなかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:30にコーヒーを持っていった。先生は机に向かって原稿を書いていて、『ありがとう、置いといて』と言った」。誰に頼まれたかは「内線で、ラウンジから」とだけ言う。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>21:30に先生が生きていたと思われれば、透子は安全だ。</li><li>「透子からの手紙」は、持っていると危ない。どこかで手放したい。</li><li>あなたのスキルで、誰か一人を守れる。透子を守るか、自分を守るか。</li><li>美雪ちゃんは、何か見ているかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>穏やかで、口数の少ない料理人として振る舞ってください。料理の話には笑顔で答える。21:30のことを話すときは、落ち着いて、短く。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>朝倉透子が問1で最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>問3で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「透子からの手紙」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 10 ／ 本人以外閲覧禁止</span><span class="nm">灰原 美雪<small>はいばら みゆき</small></span><span class="rl">支配人の娘・フロント係・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「灰原美雪です。フロントをやってます。……父と二人で、この館を守ってきました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母は、あなたが四つのときに病気で死んだ。父は一人で、あなたを育ててくれた。霧の夜は、いつも父が絵本を読んでくれた。</p><p>十二歳のとき、支配人室の引き出しの奥で、古いお菓子の箱を見つけた。中に、女の人のヘアピンや髪どめが三つ。星の形のヘアピンもあった。父に聞くと「海で拾ったんだ」と笑った。</p><p>中学生になって、十五年前の事件の記事を読んだ。三人目の被害者の写真の女の人は、星の形のヘアピンをしていた。それから、霧の夜が怖くなった。</p><p>誰にも言えない。父が何者でも、あなたの父だ。</p><p>料理人の久住さんが好きだ。でも、20:40、パントリーで久住さんと秘書の朝倉さんが抱き合っているのを見てしまった。</p><p>高校を出て、東京の専門学校に行かないかと先生に言われた。父をひとりにできなくて、断った。後悔はしていない、と自分に言い聞かせている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>父の引き出しの箱を知っていて、父が絞殺魔かもしれないと思っている。久住に片想いしている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>灰原宗介</b>：父。引き出しの奥の箱のことは、ずっと聞けずにいる。</li><li><b>久住航</b>：好きな人。21:00〜21:24は厨房で一緒だった。21:30にコーヒーを運び、21:33に青い顔で戻ってきた。</li><li><b>朝倉透子</b>：作家の秘書。20:40、パントリーで久住さんと抱き合っていた。</li><li><b>大河内正</b>：町長。父の幼なじみで、小さいころからかわいがってくれた。</li><li><b>早見渚</b>：編集者。父をじっと見ている。</li><li><b>須藤剛三</b>：元刑事。チェックインのとき、父の手もとのロープの結び目を見ていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代役」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 10 ／ 2枚目</span><span class="nm">灰原 美雪<small>はいばら みゆき</small></span><span class="rl">支配人の娘・フロント係・22歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>夕食の給仕。先生が父に「あとで話がある」と言うのが聞こえた。</dd><dt>20:40</dt><dd>パントリーで、久住さんと朝倉さんが抱き合っているのを見た。そっと戻った。</dd><dt>21:00</dt><dd>厨房で久住さんの仕込みを手伝う（〜21:24）。</dd><dt>21:24</dt><dd>内線が鳴り、久住さんが「先生にコーヒー」と注文票に書いた。</dd><dt>21:33</dt><dd>久住さんが戻ってきて「先生、原稿に夢中だったよ」と言った。顔が真っ青だった。</dd><dt>21:40</dt><dd>フロントへ。父が2階へ上がっていくのが見えた。</dd><dt>21:44</dt><dd>ラウンジをのぞくと、父が暖炉に何かをくべていた。</dd><dt>21:55</dt><dd>作家の先生が見つかった。赤いスカーフ。足がすくんだ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21時から21:30すぎまでは厨房で久住さんの手伝い、そのあとはフロント」。父が2階へ上がったことと、パントリーで見たことは、言うかどうかあなた次第。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「茜のヘアピン」が人目に出れば、父は終わる。</li><li>久住さんは、21:30に何を見たのだろう。</li><li>あなたのスキルは、誰かのスキルをまねる。父を守れるスキルがあるかもしれない。</li><li>朝倉さんが、なぜ久住さんと。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るくけなげな看板娘として振る舞ってください。客に気をつかう。父が疑われると、必死にかばう。久住さんのことになると、少し頬が赤くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>父・灰原宗介が問2で最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「茜のヘアピン」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「代役」で、まねたスキルを成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">早見 渚の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="早見 渚" data-label="早見 渚の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：早見 渚</span><span class="ttl">姉の写真</span><div class="txt">十九歳の早見茜が笑っている写真。前髪に、<b>星の形の小さなヘアピン</b>。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">遺品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早見 渚" data-label="早見 渚の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：早見 渚</span><span class="ttl">折りたたみナイフ</span><div class="txt">新品の折りたたみナイフ。値札がついたまま。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早見 渚" data-label="早見 渚の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：早見 渚</span><span class="ttl">先生からのメール</span><div class="txt">印刷したメール。「真犯人の証拠をつかんだ。十一月二十九日、霧笛館で、最終章として発表する。君は最前列で聞きたまえ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早見 渚" data-label="早見 渚の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：早見 渚</span><span class="ttl">新作のゲラ</span><div class="txt">新作の第一章から第九章のゲラ。最終章だけない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">須藤 剛三の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="須藤 剛三" data-label="須藤 剛三の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：須藤 剛三</span><span class="ttl">当時の捜査メモ</span><div class="txt">十五年前の手帳。「非公表：スカーフはもやい結び。被害者の右手に白い貝殻一つ」「真柴の遺書：おれはやっていない。娘をたのむ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="須藤 剛三" data-label="須藤 剛三の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：須藤 剛三</span><span class="ttl">古い手錠</span><div class="txt">退職のとき、記念にもらった手錠。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="須藤 剛三" data-label="須藤 剛三の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：須藤 剛三</span><span class="ttl">樫の杖</span><div class="txt">太い樫の杖。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="須藤 剛三" data-label="須藤 剛三の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：須藤 剛三</span><span class="ttl">十五年前の写真</span><div class="txt">捜査本部の集合写真。前列に若いころの須藤。うしろの窓の外に、霧笛館と灯台。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">鬼塚 冬美の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="鬼塚 冬美" data-label="鬼塚 冬美の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 冬美</span><span class="ttl">睡眠薬の瓶</span><div class="txt">冬美の名前の睡眠薬の瓶。中身が三錠減っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鬼塚 冬美" data-label="鬼塚 冬美の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 冬美</span><span class="ttl">大河内からの手紙</span><div class="txt">「冬美へ。すべて終わったら、二人で暮らそう。　正」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鬼塚 冬美" data-label="鬼塚 冬美の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 冬美</span><span class="ttl">生命保険の証書</span><div class="txt">鬼塚礼司の生命保険。受取人は冬美。一億円。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鬼塚 冬美" data-label="鬼塚 冬美の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 冬美</span><span class="ttl">真珠のネックレス</span><div class="txt">結婚三十年の記念に、自分で買った真珠。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">遺品</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">鬼塚 隼人の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="鬼塚 隼人" data-label="鬼塚 隼人の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 隼人</span><span class="ttl">札束</span><div class="txt">出版社の名前入りの封筒に、帯封つきの一万円札が300枚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="鬼塚 隼人" data-label="鬼塚 隼人の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 隼人</span><span class="ttl">車の鍵</span><div class="txt">隼人の車の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「隼人の車」を調べられる。</p></div></div><div class="card item" data-owner="鬼塚 隼人" data-label="鬼塚 隼人の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 隼人</span><span class="ttl">落選した原稿</span><div class="txt">新人賞に落ちた原稿。表紙に父の字で一言「借り物の言葉だ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鬼塚 隼人" data-label="鬼塚 隼人の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：鬼塚 隼人</span><span class="ttl">光とのツーショット</span><div class="txt">スマホの待ち受け。隼人と七瀬が頬を寄せて笑っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">朝倉 透子の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="朝倉 透子" data-label="朝倉 透子の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：朝倉 透子</span><span class="ttl">先生のメモ</span><div class="txt">鬼塚の手書きのメモ。十年前の日付。「真柴は白。真犯人は別にいる。だが今さら書けば、前の本が売れなくなる」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="朝倉 透子" data-label="朝倉 透子の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：朝倉 透子</span><span class="ttl">スカーフのレシート</span><div class="txt">函館の洋品店のレシート。「10/24　赤スカーフ（ウール）1点　3,800円」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="朝倉 透子" data-label="朝倉 透子の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：朝倉 透子</span><span class="ttl">父の写真</span><div class="txt">漁船の前で、日焼けした男と十代の少女が笑っている写真。裏に「剛と透子」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">遺品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="朝倉 透子" data-label="朝倉 透子の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：朝倉 透子</span><span class="ttl">ペーパーナイフ</span><div class="txt">真鍮のペーパーナイフ。先生の誕生日に贈ったもの。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">大河内 正の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="大河内 正" data-label="大河内 正の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：大河内 正</span><span class="ttl">小切手帳</span><div class="txt">大河内個人の小切手帳。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="大河内 正" data-label="大河内 正の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：大河内 正</span><span class="ttl">灯台の鍵</span><div class="txt">「灯台」の札がついた古い鍵。町が管理している。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「灯台」を調べられる。</p></div></div><div class="card item" data-owner="大河内 正" data-label="大河内 正の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：大河内 正</span><span class="ttl">十五年前の新聞</span><div class="txt">「町長『一日も早い解決を』」の見出し。写真の大河内のうしろに、若い灰原が写っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大河内 正" data-label="大河内 正の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：大河内 正</span><span class="ttl">冬美の写真</span><div class="txt">灯台の前で笑う冬美の写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">七瀬 光の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="七瀬 光" data-label="七瀬 光の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：七瀬 光</span><span class="ttl">タイムラプスの記録</span><div class="txt">庭のカメラの画像（2分おき）。「21:06　作家の部屋に明かり」「<b>21:08〜21:30　真っ暗</b>」「21:32　机のあたりだけ明るい」「21:42　部屋の中で懐中電灯のような光」「21:20〜　霧で灯台が見えなくなる」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="七瀬 光" data-label="七瀬 光の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：七瀬 光</span><span class="ttl">撮影用のライト</span><div class="txt">手のひらサイズのLEDライト。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="七瀬 光" data-label="七瀬 光の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：七瀬 光</span><span class="ttl">取材ノート</span><div class="txt">「霧の絞殺魔　被害者3人　全員が霧笛の鳴った夜」「真柴の娘　当時17歳　行方不明？」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="七瀬 光" data-label="七瀬 光の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：七瀬 光</span><span class="ttl">自撮り棒</span><div class="txt">伸び縮みする金属の自撮り棒。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">灰原 宗介の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="灰原 宗介" data-label="灰原 宗介の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 宗介</span><span class="ttl">最終章の原稿</span><div class="txt">原稿用紙の束。「最終章　霧笛が鳴る夜に」。「霧の絞殺魔の正体は、霧笛館の支配人・灰原宗介である。根拠は三つ。浜の白い貝殻、十五年前の写真、そして——」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="灰原 宗介" data-label="灰原 宗介の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 宗介</span><span class="ttl">マスターキー</span><div class="txt">霧笛館のマスターキー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「支配人室」と「灯台」を調べられる。</p></div></div><div class="card item" data-owner="灰原 宗介" data-label="灰原 宗介の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 宗介</span><span class="ttl">航海士のナイフ</span><div class="txt">古い船乗りのナイフ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="灰原 宗介" data-label="灰原 宗介の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 宗介</span><span class="ttl">白い貝殻</span><div class="txt">小さな白い二枚貝の貝殻。ベストのポケットに入っていた。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">久住 航の持ち物（ROLL 09 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="久住 航" data-label="久住 航の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－①</span></div><div class="bd"><span class="owner">最初の持ち主：久住 航</span><span class="ttl">婚約指輪</span><div class="txt">細い金の指輪。内側に「W&T」と彫ってある。コックコートの胸ポケットに入れている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="久住 航" data-label="久住 航の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－②</span></div><div class="bd"><span class="owner">最初の持ち主：久住 航</span><span class="ttl">厨房の注文票</span><div class="txt">「21:24　内線（ラウンジ）　2階鬼塚様へホットコーヒー1　—朝倉様より」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="久住 航" data-label="久住 航の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－③</span></div><div class="bd"><span class="owner">最初の持ち主：久住 航</span><span class="ttl">透子からの手紙</span><div class="txt">小さく折った紙。「航、ごめんね。21時半のこと、お願い。　T」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="久住 航" data-label="久住 航の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－④</span></div><div class="bd"><span class="owner">最初の持ち主：久住 航</span><span class="ttl">牛刀</span><div class="txt">よく研いだ牛刀。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">灰原 美雪の持ち物（ROLL 10 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="灰原 美雪" data-label="灰原 美雪の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－①</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 美雪</span><span class="ttl">支配人室の合鍵</span><div class="txt">「支配人室」の札がついた合鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「支配人室」を調べられる。</p></div></div><div class="card item" data-owner="灰原 美雪" data-label="灰原 美雪の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－②</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 美雪</span><span class="ttl">父の結んだロープ</span><div class="txt">父が教えてくれた結び方の見本。輪がほどけない結び方。「もやい結び」と父の字。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="灰原 美雪" data-label="灰原 美雪の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－③</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 美雪</span><span class="ttl">母の形見のオルゴール</span><div class="txt">ふたを開けると『霧のかなたに』が流れる。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">遺品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="灰原 美雪" data-label="灰原 美雪の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－④</span></div><div class="bd"><span class="owner">最初の持ち主：灰原 美雪</span><span class="ttl">フロントの鍵の帳面</span><div class="txt">「マスターキー：支配人／支配人室の合鍵：美雪／灯台の鍵：町長」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="早見 渚の秘密①"><div class="hd"><span class="loc">早見 渚の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>早見の姉は、十五年前、霧ヶ岬で亡くなっている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早見 渚の秘密②"><div class="hd"><span class="loc">早見 渚の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>早見のかばんには、新品の折りたたみナイフが入っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="須藤 剛三の秘密①"><div class="hd"><span class="loc">須藤 剛三の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>須藤は、十五年前の事件の捜査主任だった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="須藤 剛三の秘密②"><div class="hd"><span class="loc">須藤 剛三の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>須藤は、真柴剛の取り調べを担当していた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鬼塚 冬美の秘密①"><div class="hd"><span class="loc">鬼塚 冬美の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>冬美は、毎晩睡眠薬を飲んでいる。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鬼塚 冬美の秘密②"><div class="hd"><span class="loc">鬼塚 冬美の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>冬美は、ときどき町長の大河内と二人で会っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鬼塚 隼人の秘密①"><div class="hd"><span class="loc">鬼塚 隼人の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>隼人は、21:00〜21:20、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鬼塚 隼人の秘密②"><div class="hd"><span class="loc">鬼塚 隼人の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>隼人は、配信者の七瀬光と付き合っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="朝倉 透子の秘密①"><div class="hd"><span class="loc">朝倉 透子の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>朝倉の履歴書の名字は、母方のものだ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="朝倉 透子の秘密②"><div class="hd"><span class="loc">朝倉 透子の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>朝倉は、20:58〜21:10、ラウンジにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="大河内 正の秘密①"><div class="hd"><span class="loc">大河内 正の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>大河内は、21:20〜21:40、灯台のほうへ出ていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="大河内 正の秘密②"><div class="hd"><span class="loc">大河内 正の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>大河内は、十五年前の事件のとき、ある人のアリバイを警察に証言している。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="七瀬 光の秘密①"><div class="hd"><span class="loc">七瀬 光の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>七瀬は、21:00ごろ、庭でしゃがんで何かをしていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="七瀬 光の秘密②"><div class="hd"><span class="loc">七瀬 光の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>七瀬は、隼人とこっそり手をつないでいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="灰原 宗介の秘密①"><div class="hd"><span class="loc">灰原 宗介の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>灰原は元航海士で、ロープの結び方にくわしい。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="灰原 宗介の秘密②"><div class="hd"><span class="loc">灰原 宗介の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>灰原は21:40ごろ、2階の廊下を歩いていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="久住 航の秘密①"><div class="hd"><span class="loc">久住 航の秘密 ①</span><span>SECRET 17</span></div><div class="bd"><p>久住は21:30に、作家の部屋へコーヒーを運んだ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="久住 航の秘密②"><div class="hd"><span class="loc">久住 航の秘密 ②</span><span>SECRET 18</span></div><div class="bd"><p>久住と朝倉は、休みの日によく一緒に函館へ出かけている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="灰原 美雪の秘密①"><div class="hd"><span class="loc">灰原 美雪の秘密 ①</span><span>SECRET 19</span></div><div class="bd"><p>美雪は21:00〜21:24、厨房で久住と一緒にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="灰原 美雪の秘密②"><div class="hd"><span class="loc">灰原 美雪の秘密 ②</span><span>SECRET 20</span></div><div class="bd"><p>美雪は、父の支配人室の合鍵を持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="鬼塚の部屋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>鬼塚は机の椅子に座ったまま、前に突っ伏している。首に赤いウールのスカーフ。<b>首の前で、固い蝶結び</b>にされている。抵抗した跡は少ない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="鬼塚の部屋 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ②</span><span class="ph">調査2</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机の上</span><p>書きかけの原稿の上に、コーヒーカップと受け皿。コーヒーは冷めて、まったく減っていない。<b>受け皿の下の原稿に、万年筆のインクが飛び散ったしみ</b>。しみは受け皿の下まで続いている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="鬼塚の部屋 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ウイスキーのグラス</span><p>グラスにウイスキーが少し残っている。底に、白い粉が溶け残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="鬼塚の部屋 ④" data-phase="1" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ④</span><span class="ph">調査1</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">明かり</span><p>発見のとき、天井の明かりは消えていて、机のスタンドだけがついていた。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="鬼塚の部屋 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">ボイスレコーダー</span><div class="txt">鬼塚の口述用のボイスレコーダー。最後の録音は<b>21:06</b>。「……さて、霧の絞殺魔の正体は、この館の——」。がたん、という音で切れる。<b>後ろで霧笛は鳴っていない。</b></div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="鬼塚の部屋 ⑥" data-phase="2" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ⑥</span><span class="ph">調査2</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">原稿の束</span><p>新作の原稿の束。目次に「最終章　霧笛が鳴る夜に」とあるが、<b>そのページだけが一枚もない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="鬼塚の部屋 ⑦" data-phase="2" data-lock=""><div class="hd"><span class="loc">鬼塚の部屋 ⑦</span><span class="ph">調査2</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体の手</span><p>遺体の両手は、何も握っていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ラウンジ ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ラウンジ ①</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">朗読会の準備</span><p>マイクと、半円に並んだ椅子。台の上に原稿のコピーが10部。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ラウンジ ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">ラウンジ ②</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">内線電話</span><p>ラウンジの壁の内線電話。「厨房・フロント・各部屋」につながる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ラウンジ ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">ラウンジ ③</span><span class="ph">調査2</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">暖炉</span><p>暖炉の灰の中に、写真が燃えた跡。燃え残りの角に、浜で貝殻を拾う若い男の後ろ姿が少しだけ写っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="厨房・パントリー ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">厨房・パントリー ①</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">コーヒーメーカー</span><p>コーヒーメーカーの記録。「21:26　一杯」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="厨房・パントリー ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">厨房・パントリー ②</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">氷の器</span><p>アイスペール。20:50ごろ、冬美が氷をもらいに来たと、ホワイトボードにメモ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="厨房・パントリー ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">厨房・パントリー ③</span><span class="ph">調査2</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">パントリーの床</span><p>パントリーの床に、赤い毛糸の糸くずが一本。ウールのようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="事務室 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">事務室 ①</span><span class="ph">調査2</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">コピー機</span><p>事務室のコピー機の記録。今夜は「<b>20:40　10部</b>」の一回だけ。そのあとは使われていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="事務室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">事務室 ②</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">資料棚</span><p>鬼塚の取材資料。十五年前の新聞「真柴剛容疑者（45）逮捕」の記事に、赤ペンで「白？」と書きこみ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="事務室 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">事務室 ③</span><span class="ph">調査2</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">履歴書のファイル</span><p>秘書の採用ファイル。朝倉透子の履歴書。「本籍　北海道霧ヶ岬町」。家族の欄は空白。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="2階の廊下 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">2階の廊下 ①</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鬼塚の部屋のドア</span><p>古い木のドア。鍵はついていない。廊下の床板は、歩くとぎしぎし鳴る。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="2階の廊下 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">2階の廊下 ②</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">廊下の窓</span><p>廊下の窓から、庭と灯台が見える（霧が出るまでは）。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="2階の廊下 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">2階の廊下 ③</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">床の砂</span><p>鬼塚の部屋の前の床に、乾いた砂が少し。浜の砂のようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="フロント ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">フロント ①</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鍵の棚</span><p>鍵の棚。マスターキーのフックは空（支配人が持っている）。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="フロント ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">フロント ②</span><span class="ph">調査1</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">内線の記録</span><p>内線の記録。「20:40　鬼塚様の部屋→支配人室」「<b>21:24　ラウンジ→厨房</b>」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="フロント ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">フロント ③</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">宿泊者名簿</span><p>十五年前の宿泊者名簿の束。三つの事件の夜、館に泊まっていた客はいない。支配人の欄には毎晩「灰原（当直）」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="霧の庭 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">霧の庭 ①</span><span class="ph">調査1</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">植えこみ</span><p>植えこみの中に、小さな三脚の跡。何かを置いていたようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="霧の庭 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">霧の庭 ②</span><span class="ph">調査1</span><span>CLUE 24</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">灯台への小道</span><p>灯台への小道に、新しい革靴の足跡。行きと帰り。帰りは浜のほうから上がってきている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="支配人室 ①" data-phase="1" data-lock="マスターキー／支配人室の合鍵"><div class="hd"><span class="loc">支配人室 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 25</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">壁の額</span><p>ロープの結び方の額。いちばん上に「もやい結び——船乗りの結びの王」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="支配人室 ②" data-phase="1" data-lock="マスターキー／支配人室の合鍵"><div class="hd"><span class="loc">支配人室 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 26</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">茜のヘアピン</span><div class="txt">古いお菓子の箱に入っていた、<b>星の形の小さなヘアピン</b>。裏に「AKANE」と彫ってある。箱には、ほかにも女物の髪どめが二つ。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">遺品</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="支配人室 ③" data-phase="2" data-lock="マスターキー／支配人室の合鍵"><div class="hd"><span class="loc">支配人室 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">箱の底</span><p>お菓子の箱の底に、<b>白い貝殻</b>が三つ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="灯台 ①" data-phase="1" data-lock="灯台の鍵／マスターキー"><div class="hd"><span class="loc">灯台 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 28</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">霧笛の機械</span><p>霧笛は霧を感知すると自動で鳴る。記録「<b>21:19　作動開始</b>」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="灯台 ②" data-phase="2" data-lock="灯台の鍵／マスターキー"><div class="hd"><span class="loc">灯台 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 29</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">灯台の日誌</span><p>灯台の古い日誌。十五年前の三つの事件の夜は、どれも「霧笛作動」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="隼人の車 ①" data-phase="1" data-lock="車の鍵"><div class="hd"><span class="loc">隼人の車 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 30</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">トランク</span><p>トランクに、出版社の名前入りの空の紙袋。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="隼人の車 ②" data-phase="2" data-lock="車の鍵"><div class="hd"><span class="loc">隼人の車 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 31</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">助手席</span><p>助手席に黄色い髪どめと、七瀬のカメラのレンズキャップ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="浜 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">浜 ①</span><span class="ph">調査2</span><span>CLUE 32</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">浜の貝殻</span><p>浜には小さな白い二枚貝の貝殻がたくさん落ちている。町の人によれば、支配人がよく拾いに来るという。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="浜 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">浜 ②</span><span class="ph">調査2</span><span>CLUE 33</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">浜の足跡</span><p>灯台の下から館のほうへ、革靴の足跡が一筋。21:40ごろまでの潮の高さで残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>久住 航</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>睡眠薬</b></td><td>鬼塚 冬美</td><td>1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</td></tr><tr><td class="t">3</td><td><b>取り押さえ</b></td><td>須藤 剛三</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。取り押さえられた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">4</td><td><b>報復</b></td><td>早見 渚</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。相手の持ち物をすべて見て1つ奪い、さらに相手は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">5</td><td><b>口止め料</b></td><td>大河内 正</td><td>「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">6</td><td><b>力ずく</b></td><td>鬼塚 隼人</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">7</td><td><b>盗み撮り</b></td><td>七瀬 光</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">8</td><td><b>すり替え</b></td><td>朝倉 透子</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">9</td><td><b>証拠隠し</b></td><td>灰原 宗介</td><td>1人（自分でもよい）を選ぶ。自分なら持ち物を1つ選び、ほかの人なら裏向きのまま1つ引く。そのカードはゲームから取り除かれる（誰のものでもなくなる）。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代役</b></td><td>灰原 美雪</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は朝倉透子（秘書）。</b>本名は真柴透子。十五年前に「霧の絞殺魔」として逮捕され、留置場で自殺した漁師・真柴剛の娘。三週間前、鬼塚が十年前から父の無実を知りながら「前の本が売れなくなる」と黙っていたメモを見つけた。</p><p><b>協力者は久住航（料理人）。</b>透子の婚約者。計画を知っていて、時間をずらす役を引き受けた。</p><p>20:40、透子はコピーを先にとっておき（コピー機の記録は20:40だけ）、パントリーで久住と会う（美雪が見ている。赤い毛糸の糸くず）。20:58、「コピーをとってくる」とラウンジを出て鬼塚の部屋へ。鬼塚は冬美の睡眠薬入りのウイスキーで眠そうだった。「真柴さんの名誉は？」「死人に印税はいらんだろう」。21:06、赤いスカーフで絞殺（ボイスレコーダーが21:06で切れ、霧笛は鳴っていない）。新聞に出た「赤いスカーフ」だけをまね、絞殺魔のしわざに見せかけた。21:08に明かりを消して出て、21:10にコピーの束を持ってラウンジへ戻る。</p><p>21:24、透子がラウンジの内線で厨房に「先生にコーヒー」と合図。21:30、久住は部屋で遺体を見つつコーヒーを原稿（インクのしみの上）に置き、スタンドをつけて出た。「先生は原稿を書いていた」と言うことで、犯行が21:30より後に見えるようにした。</p><p><b>問2の答え：灰原宗介（支配人）。</b>十五年前の絞殺魔。手口はもやい結びと白い貝殻（非公表）。被害者の形見を支配人室の箱に隠していた。今夜21:40、マスターキーで鬼塚の部屋に入り、すでに死んでいた鬼塚の机から最終章の原稿を持ち去った（タイムラプスの21:42の光）。原稿に挟まっていた写真は暖炉で燃やした。結び目と貝殻を見て、まねをした者がいると気づいている。</p><p><b>もう一つの裏の話。</b>早見渚は三人目の被害者・茜の妹で、絞殺魔に復讐するためにナイフを持ってきた。大河内は十五年前に灰原の偽のアリバイを証言していた。冬美は最終章を読ませないために夫に睡眠薬を盛った（殺してはいない）。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>鬼塚は21:30には死んでいた。</b>ボイスレコーダーが21:06で切れ、霧笛（21:19から）が鳴っていない（鬼塚の部屋⑤・灯台①）。タイムラプスで21:08〜21:30は真っ暗（七瀬の持ち物）。21:15に隼人がノックしても返事がなく真っ暗（隼人）。コーヒーの受け皿がインクのしみの上に置かれている（鬼塚の部屋②）＝争ったあとに置かれた。→ 久住の「21:30に生きていた」はうそ。</li><li><b>今夜の事件は絞殺魔ではない。</b>絞殺魔の手口は非公表の「もやい結び・白い貝殻」（須藤の捜査メモ）。今夜は蝶結びで、手に何もない（鬼塚の部屋①⑦）。→ 新聞に出た「赤いスカーフ」だけを知っている者のまね。</li><li><b>21:00〜21:08にいなかった人。</b>朝倉（20:58〜21:10、「コピー」と言うがコピー機は20:40の一回だけ＝事務室①）、隼人（車）、七瀬（庭）。スカーフのレシート（朝倉の持ち物）、パントリーの赤い毛糸（厨房③）。</li><li><b>動機と協力者。</b>朝倉の本籍は霧ヶ岬（事務室③）、鬼塚の「白？」（事務室②）、先生のメモ・父の写真（朝倉の持ち物）、真柴の遺書「娘をたのむ」と娘は当時17歳（須藤）。21:24の内線はラウンジから（フロント②）で、注文票に「朝倉様より」（久住の持ち物）。婚約指輪「W&T」・透子からの手紙（久住の持ち物）、20:40にパントリーで抱き合っていた（美雪）。</li><li><b>問2：絞殺魔。</b>もやい結び（支配人室①・美雪のロープ・灰原は元航海士）、白い貝殻（灰原の持ち物・支配人室③・浜①）、茜のヘアピン（支配人室②と渚の姉の写真）、最終章の原稿（灰原の持ち物）、暖炉の燃えた写真（ラウンジ③）、大河内の偽のアリバイ、21:40に2階へ上がった（美雪・久住）。</li></ol>
+    <p class="note">絞殺魔（問2）の筋は犯人の筋と別にあり、どちらかに議論がかたよりすぎたら、GMから「もう一つの問いも忘れずに」と声をかけてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>灰原</b>：本物の絞殺魔で、鬼塚に正体を暴かれる寸前だった。21:40に部屋に入った。→ 入ったときにはもう死んでいた。手口がちがう。21:00〜21:38は支配人室。</li><li><b>冬美</b>：夫に睡眠薬を盛った。保険金の受取人。→ 20:53に部屋を出て、21時からはラウンジ。</li><li><b>隼人</b>：父の金を盗んだ。21:00〜21:20にいない。→ 車に金を隠していた。21:15は返事のない部屋の前に立っただけ。</li><li><b>七瀬</b>：21:00〜21:08に庭。→ カメラを直していた。</li><li><b>大河内</b>：21:20〜21:40に灯台。最終章に自分のことが書かれる。→ 21:06にはラウンジ。灯台と浜を歩いただけ（足跡）。</li><li><b>渚</b>：ナイフを持ち、絞殺魔を殺すつもりだった。→ 21時からずっとラウンジ。</li><li><b>須藤</b>：真柴を死なせた負い目。→ ずっとラウンジ。</li><li><b>美雪</b>：父をかばっている。→ 21:00〜21:24は厨房で久住といっしょ（久住の協力も、21:24の内線までは見ていない）。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「浜」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：3問を回収し、問1の最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。</li><li>睡眠薬を受けた人のパワーは、そのあとの判定（取り押さえ・報復・力ずく）では0として扱う。冬美の「0にした相手が持ち物を取られる」は、そのあと誰かのスキルでその人の持ち物が動いたら達成。</li><li>取り押さえ・報復が成功した相手は、そのあとの順番でスキルを使えない。</li><li>証拠隠しで取り除いたカードは、GMが預かる（誰の持ち物でもない）。灰原の「最終章の原稿が誰の持ち物にもなっていない」はこれで達成する。</li><li>代役は、まねたスキルのすぐあとに処理する。まねたスキルが「口止め料」なら、美雪がお金のカードを持っていないと使えない。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（支配人室・灯台・隼人の車）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>早見 渚</td><td>□　□</td><td></td></tr><tr><td>須藤 剛三</td><td>□　□</td><td></td></tr><tr><td>鬼塚 冬美</td><td>□　□</td><td></td></tr><tr><td>鬼塚 隼人</td><td>□　□</td><td></td></tr><tr><td>朝倉 透子</td><td>□　□</td><td></td></tr><tr><td>大河内 正</td><td>□　□</td><td></td></tr><tr><td>七瀬 光</td><td>□　□</td><td></td></tr><tr><td>灰原 宗介</td><td>□　□</td><td></td></tr><tr><td>久住 航</td><td>□　□</td><td></td></tr><tr><td>灰原 美雪</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>鬼塚の部屋⑤（ボイスレコーダー）</td><td></td></tr><tr><td>支配人室②（茜のヘアピン）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「最終章の原稿」は灰原（取り除きたい）・大河内（+3）・隼人・七瀬の取り合い。「茜のヘアピン」は灰原・渚・美雪の取り合い。「遺品」の印は、父の写真・姉の写真・真珠のネックレス・オルゴール・茜のヘアピン（スキルの効果には関係しないが、話のつながりの目印）。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>早見 渚①</td><td>姉の写真</td><td class='t'>—</td><td>—</td><td>遺品 </td></tr><tr><td>早見 渚②</td><td>折りたたみナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>早見 渚③</td><td>先生からのメール</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早見 渚④</td><td>新作のゲラ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>須藤 剛三①</td><td>当時の捜査メモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>須藤 剛三②</td><td>古い手錠</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>須藤 剛三③</td><td>樫の杖</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>須藤 剛三④</td><td>十五年前の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鬼塚 冬美①</td><td>睡眠薬の瓶</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鬼塚 冬美②</td><td>大河内からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鬼塚 冬美③</td><td>生命保険の証書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鬼塚 冬美④</td><td>真珠のネックレス</td><td class='t'>—</td><td>—</td><td>遺品 </td></tr><tr><td>鬼塚 隼人①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>鬼塚 隼人②</td><td>車の鍵</td><td class='t'>—</td><td>鍵：持っている間、「隼人の車」を調べられる。</td><td> </td></tr><tr><td>鬼塚 隼人③</td><td>落選した原稿</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鬼塚 隼人④</td><td>光とのツーショット</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>朝倉 透子①</td><td>先生のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>朝倉 透子②</td><td>スカーフのレシート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>朝倉 透子③</td><td>父の写真</td><td class='t'>—</td><td>—</td><td>遺品 </td></tr><tr><td>朝倉 透子④</td><td>ペーパーナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>大河内 正①</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>大河内 正②</td><td>灯台の鍵</td><td class='t'>—</td><td>鍵：持っている間、「灯台」を調べられる。</td><td> </td></tr><tr><td>大河内 正③</td><td>十五年前の新聞</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大河内 正④</td><td>冬美の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>七瀬 光①</td><td>タイムラプスの記録</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>七瀬 光②</td><td>撮影用のライト</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>七瀬 光③</td><td>取材ノート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>七瀬 光④</td><td>自撮り棒</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>灰原 宗介①</td><td>最終章の原稿</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>灰原 宗介②</td><td>マスターキー</td><td class='t'>—</td><td>鍵：持っている間、「支配人室」と「灯台」を調べられる。</td><td> </td></tr><tr><td>灰原 宗介③</td><td>航海士のナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>灰原 宗介④</td><td>白い貝殻</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久住 航①</td><td>婚約指輪</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久住 航②</td><td>厨房の注文票</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久住 航③</td><td>透子からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久住 航④</td><td>牛刀</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>灰原 美雪①</td><td>支配人室の合鍵</td><td class='t'>—</td><td>鍵：持っている間、「支配人室」を調べられる。</td><td> </td></tr><tr><td>灰原 美雪②</td><td>父の結んだロープ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>灰原 美雪③</td><td>母の形見のオルゴール</td><td class='t'>—</td><td>—</td><td>遺品 </td></tr><tr><td>灰原 美雪④</td><td>フロントの鍵の帳面</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）鬼塚の部屋⑤・調査2</td><td>ボイスレコーダー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）支配人室②・調査1</td><td>茜のヘアピン</td><td class='t'>—</td><td>—</td><td>遺品 </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>須藤 剛三</td><td>議論中に「当時の捜査メモ」を全員に見せながら、今夜の事件は絞殺魔のまねだと明かす。</td><td></td></tr><tr><td>朝倉 透子</td><td>議論中に「先生のメモ」か「当時の捜査メモ」を全員に見せながら、真柴剛は無実だったと明かす。</td><td></td></tr><tr><td>七瀬 光</td><td>議論中に「タイムラプスの記録」を全員に見せながら、21:08に作家の部屋の明かりが消えたと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>早見 渚</b></td><td>+3　スキル「報復」を、問2の正解の人に成功させる。<br>+2　問2で、正解の人が最多票になる。<br>+1　最後に「茜のヘアピン」を自分が持っている。<br>+1　問1で自分が最多票に<b>ならない</b>。</td></tr><tr><td><b>須藤 剛三</b></td><td>+3　スキル「取り押さえ」を、問1の正解の人に成功させる。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「当時の捜査メモ」を全員に見せながら、今夜の事件は絞殺魔のまねだと明かす。<br>+1　最後に「白い貝殻」を自分が持っている。</td></tr><tr><td><b>鬼塚 冬美</b></td><td>+3　問1で自分が最多票に<b>ならない</b>。<br>+2　最後に「大河内からの手紙」を自分か大河内が持っている。<br>+1　最後に「睡眠薬の瓶」を自分が持って<b>いない</b>。<br>+1　スキル「睡眠薬」で、パワーを0にした相手が、そのあと誰かのスキルを受けて持ち物を取られる。</td></tr><tr><td><b>鬼塚 隼人</b></td><td>+3　最後に「札束」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「最終章の原稿」を自分が持っている。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>朝倉 透子</b></td><td>+5　問1で自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「先生のメモ」を自分が持っている。<br>+1　議論中に「先生のメモ」か「当時の捜査メモ」を全員に見せながら、真柴剛は無実だったと明かす。<br>+1　最後に「スカーフのレシート」を自分が持って<b>いない</b>。</td></tr><tr><td><b>大河内 正</b></td><td>+3　最後に「最終章の原稿」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　問2で自分が最多票に<b>ならない</b>。<br>+1　スキル「口止め料」を成功させる。</td></tr><tr><td><b>七瀬 光</b></td><td>+3　最後に「タイムラプスの記録」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「タイムラプスの記録」を全員に見せながら、21:08に作家の部屋の明かりが消えたと明かす。<br>+1　最後に「最終章の原稿」を自分か隼人が持っている。</td></tr><tr><td><b>灰原 宗介</b></td><td>+3　問2で自分が最多票に<b>ならない</b>。<br>+2　最後に「最終章の原稿」が誰の持ち物にもなっていない（スキルでゲームから取り除かれている）。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「茜のヘアピン」を自分が持っている。</td></tr><tr><td><b>久住 航</b></td><td>+3　朝倉透子が問1で最多票に<b>ならない</b>。<br>+2　問3で自分が最多票に<b>ならない</b>。<br>+1　最後に「透子からの手紙」を自分が持って<b>いない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。</td></tr><tr><td><b>灰原 美雪</b></td><td>+3　父・灰原宗介が問2で最多票に<b>ならない</b>。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「茜のヘアピン」を自分が持っている。<br>+1　スキル「代役」で、まねたスキルを成功させる。</td></tr></tbody></table></div>
+    <p class="note">投票：問1 朝倉透子（+4）／問2 灰原宗介（+2）／問3 久住航（+2）。答えの本人はその問いの点なし。須藤の「取り押さえ」は相手が朝倉で成功したとき、渚の「報復」は相手が灰原で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>17:30</td><td>隼人、父のかばんから原稿料300万円を抜く。</td></tr><tr><td class='t'>19:00</td><td>夕食。</td></tr><tr><td class='t'>20:40</td><td>朝倉、事務室でコピー10部。パントリーで久住と会う（美雪が見る）。鬼塚が灰原を呼び「最終章におまえの名前を書いた」。</td></tr><tr><td class='t'>20:45</td><td>鬼塚の宣言。鬼塚は2階の部屋へ。</td></tr><tr><td class='t'>20:50</td><td>冬美、睡眠薬入りのウイスキーを届ける（20:53に出る）。</td></tr><tr><td class='t'>20:55</td><td>七瀬、庭にカメラを置く（〜21:08）。</td></tr><tr><td class='t'>20:58</td><td>朝倉、ラウンジを出て鬼塚の部屋へ。</td></tr><tr><td class='t'>21:00</td><td>隼人、車へ（〜21:12）。灰原、支配人室（〜21:38）。久住と美雪、厨房（〜21:24）。</td></tr><tr><td class='t'>21:06</td><td><b>朝倉、鬼塚を赤いスカーフで絞殺。</b>ボイスレコーダーが切れる。</td></tr><tr><td class='t'>21:08</td><td>朝倉、明かりを消して部屋を出る。21:10、ラウンジへ。</td></tr><tr><td class='t'>21:15</td><td>隼人、部屋をノック。返事がなく真っ暗。</td></tr><tr><td class='t'>21:19</td><td>霧笛が鳴り始める。21:20、大河内が灯台へ（〜21:40、帰りは浜から）。</td></tr><tr><td class='t'>21:24</td><td>朝倉、ラウンジの内線で厨房にコーヒーを頼む。</td></tr><tr><td class='t'>21:30</td><td>久住、遺体のそばにコーヒーを置き、スタンドをつける。21:33、厨房で「先生は原稿に夢中」。</td></tr><tr><td class='t'>21:40</td><td>灰原、マスターキーで部屋に入る。手口のちがいに気づき、最終章の原稿を持ち去る（21:42）。21:44、暖炉で写真を燃やす。</td></tr><tr><td class='t'>21:45</td><td>朗読会の時刻。鬼塚が来ない。</td></tr><tr><td class='t'>21:55</td><td>冬美と渚が遺体を見つける。21:58、須藤が手口を確かめる。</td></tr><tr><td class='t'>22:15</td><td>七瀬、庭のカメラを回収。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>鬼塚礼司を殺したのは、秘書の朝倉透子だった。本当の名前は、真柴透子。十五年前、絞殺魔として捕まり、留置場で死んだ漁師の娘だ。</p><p>「先生は、十年前から父が無実だと知っていました。それでも、本が売れなくなるから黙っていた。父の名前は、印税と引きかえだったんです」。透子は、赤いスカーフの結び目を見つめて言った。「本物の結び方は、知りませんでした」。</p><p>そして、最終章に書かれていた本当の名前。霧笛館の支配人、灰原宗介。十五年前の三つの霧の夜、白い貝殻を握らせた男は、ずっとこの岬で客を迎えていた。</p><p>朝、霧が晴れた。灯台の霧笛が止み、警察の車が岬の坂を上ってきた。</p>
+    </div>
+    <ul class="epi"><li><b>早見 渚</b>：渚はナイフを海に投げた。姉の星のヘアピンは、警察から渚の手に戻った。「姉ちゃん、やっと帰ってきたね」。</li><li><b>須藤 剛三</b>：須藤は十五年前の取り調べのことを、道警に報告した。真柴の墓に、白い菊を一輪供えた。</li><li><b>鬼塚 冬美</b>：冬美は睡眠薬のことを正直に話した。夫の最後の本の印税は、真柴家のために使うと決めた。</li><li><b>鬼塚 隼人</b>：隼人は300万円を出版社に返した。父の最終章を読んで、初めて「この人は書ける人だった」と思った。</li><li><b>朝倉 透子</b>：取り調べで、透子は鬼塚の十年前のメモを差し出した。半年後、真柴剛の名誉回復を求める記事が新聞に載った。差出人の名前は、真柴透子だった。</li><li><b>大河内 正</b>：大河内は町長を辞めた。十五年前の偽のアリバイのことは、記者会見で自分の口から話した。</li><li><b>七瀬 光</b>：七瀬はタイムラプスの画像を警察に渡し、動画は出さなかった。チャンネルの最後の投稿は、霧の晴れた灯台の写真一枚だった。</li><li><b>灰原 宗介</b>：灰原は、支配人室の箱のことを、自分から話した。娘の前でだけは、最後まで目を伏せていた。</li><li><b>久住 航</b>：久住は自分から警察に話した。「21時半、先生はもう亡くなっていました」。面会室のガラス越しに、透子は指輪をそっと見せた。</li><li><b>灰原 美雪</b>：美雪は霧笛館をたたまなかった。春になったら、また客を迎える。霧の夜には、父が読んでくれた絵本を、フロントで一人で読んでいる。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鬼塚礼司を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　十五年前の「霧の絞殺魔」は誰か（+2）</span><span class="ln"></span><span>問3　今夜、問1の犯人に協力したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：早見渚・須藤剛三・鬼塚冬美・鬼塚隼人・朝倉透子・大河内正・七瀬光・灰原宗介・久住航・灰原美雪</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('muteki-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('muteki-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('muteki-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('muteki-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
