@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>潮が引く夜に（9人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 瀬戸内の島。潮の青緑と夕日の橙の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #ecf1f2;
+  --surface: #fbfdfd;
+  --ink: #18252b;
+  --muted: #586a72;
+  --line: #d0dcdf;
+  --accent: #b5532a;
+  --accent-soft: #f6e4da;
+  --teal: #1f6a7a;
+  --teal-soft: #dbedf0;
+  --slate: #12313a;
+  --slate-ink: #eef6f7;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1417; --surface: #141f23; --ink: #e3ecee; --muted: #95a8ae; --line: #25363b;
+    --accent: #f0956b; --accent-soft: #3a2419; --teal: #7cc8d6; --teal-soft: #15303a;
+    --slate: #061013; --slate-ink: #e3ecee; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1417; --surface: #141f23; --ink: #e3ecee; --muted: #95a8ae; --line: #25363b;
+  --accent: #f0956b; --accent-soft: #3a2419; --teal: #7cc8d6; --teal-soft: #15303a;
+  --slate: #061013; --slate-ink: #e3ecee; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #f0956b, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>潮が引く夜に</h1>
+    <p>霧で船が止まった夜。海に浮かぶ美術館で、館長が殺された。島へ渡る手段は、もうなかったはずだった。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>9人 ＋ GM1人</span>
+      <span><b>TIME</b>約160分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・瀬戸内の小さな島の美術館</span>
+      <span><b>CARDS</b>キャラシート9・持ち物36・秘密18・証拠23</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">潮が引く夜に（9人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー9人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、海の事故による死の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 9人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 36枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 18枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 23枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 9枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「宿泊棟の②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>館長室・収蔵庫・潮田の船小屋は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>館長室：館長室の鍵</li><li>収蔵庫：収蔵庫の鍵</li><li>潮田の船小屋：船小屋の鍵</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「砂州」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「作品」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">16分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人3回。新しいカードと「砂州」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：問いの答えに、プレイヤーが演じている人物の名前を書く（鷹野玄一郎は書けない。自分の名前を書いてもよい）。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「鷹野玄一郎を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十月の終わり。瀬戸内海に浮かぶ小さな島・月見島。向かいの港町から渡し船で十分のこの島に、画家の鷹野玄一郎が建てた「海の美術館」がある。明日は開館十周年の記念式典だ。</p><p>前夜祭の夕食は、島の美術館のテラスで開かれた。二十一時、港町の旅館「潮見荘」に泊まる客たちは、最後の渡し船で港町へ戻った。島に残ったのは、美術館の宿泊棟に泊まる五人と、館長だけ。</p><p>二十一時半、海から濃い霧が上がってきた。渡し船は朝まで出られない。島の桟橋の防犯カメラには、そのあと朝まで、一艘の船も映っていない。</p><p>二十三時五十分。展示室の明かりがついたままなのに気づいた娘の澄香が、館長を見つけた。代表作『海の記憶』の前で、館長は後頭部を殴られて倒れていた。</p><p>島には船が着かない。港町からも誰も渡れない。島にいたのは、宿泊棟の五人だけだった——はずだった。</p><p>——潮は、夜にも引く。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：美術館の展示室、代表作『海の記憶』の前。後頭部を殴られている。そばにブロンズの小さな彫刻（展示品）。23:50に澄香が見つけた。</li><li>21:00の最後の渡し船（船頭は潮田）で、旅館に泊まる久我・桐生は港町へ戻った。女将の小夜子は港町の旅館にいた。島の宿泊棟に泊まったのは、澄香・葉山・小春・真砂・東條の五人。</li><li>21:30から濃い霧。渡し船は朝まで出ていない。島の桟橋の防犯カメラには、21:05から朝まで、船は一艘も映っていない。</li><li>月見島と港町のあいだには、潮が引くと現れる砂の道「砂州」がある。昼間の干潮のときだけ、観光客が歩いて渡る。夜に渡るのは禁止されている。</li><li>島からの連絡で、港町の四人は0:00すぎに事件を知った。</li><li>鍵のかかる場所：館長室・収蔵庫・潮田の船小屋。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れ</h3>
+      <ul><li>18:00 島の美術館のテラスで前夜祭の夕食</li><li>21:00 最後の渡し船。旅館の四人は港町へ</li><li>21:30 霧。船は朝まで止まる</li><li>23:50 澄香が展示室で館長を見つける</li></ul>
+      <p class="note">島：美術館（展示室・館長室・収蔵庫）、宿泊棟、桟橋。港町：旅館「潮見荘」、潮田の家と船小屋（旅館のとなり）。島と港町のあいだは海で約800m。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　鷹野玄一郎を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>月見島と港町</h3>
+    <svg viewBox="0 0 400 240" role="img" aria-label="月見島と港町の地図">
+      <rect class="room" x="10" y="10" width="150" height="220"/><text x="20" y="30">港町</text>
+      <rect class="room" x="20" y="44" width="130" height="50"/><text class="sm" x="28" y="72">旅館「潮見荘」</text>
+      <rect class="room" x="20" y="100" width="130" height="40"/><text class="sm" x="28" y="124">潮田の家・船小屋</text>
+      <rect class="room" x="20" y="150" width="130" height="30"/><text class="sm" x="28" y="170">港（渡し船）</text>
+      <rect class="stair" x="160" y="105" width="90" height="26"/><text class="sm" x="164" y="122">砂州（干潮で現れる）</text>
+      <rect class="room" x="250" y="10" width="140" height="220"/><text x="260" y="30">月見島</text>
+      <rect class="hot" x="260" y="44" width="120" height="60"/><text class="ac" x="268" y="70">海の美術館</text><text class="sm" x="268" y="88">展示室・館長室・収蔵庫</text>
+      <rect class="room" x="260" y="112" width="120" height="40"/><text class="sm" x="268" y="136">宿泊棟</text>
+      <rect class="room" x="260" y="160" width="120" height="30"/><text class="sm" x="268" y="180">桟橋（防犯カメラ）</text>
+      <rect class="room" x="260" y="196" width="120" height="28"/><text class="sm" x="268" y="214">浜（砂州の島側）</text>
+    </svg></div></div><p class="note">砂州は、港町の潮田の家の裏の浜から、島の浜まで続く。島の浜から美術館までは歩いて5分。桟橋は島の反対側にある。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・「海の美術館」館長／画家</span><span class="nm">鷹野 玄一郎</span><span class="kana">たかの げんいちろう（63）</span><p>瀬戸内の小島・月見島に「海の美術館」を建てた画家。代表作の連作『海の記憶』で世界的に知られる。明日は開館十周年の記念式典。</p></div><div class="person"><span class="role">館長の娘・学芸員（28）</span><span class="nm">鷹野 澄香</span><span class="kana">たかの すみか</span><p>館長の一人娘。美術館の学芸員として、展示と収蔵品の管理をしている。遺体を見つけた。</p><p class="look">服装：白いブラウスに紺のカーディガン</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">画家・館長の弟子（35）</span><span class="nm">葉山 諒</span><span class="kana">はやま りょう</span><p>館長の一番弟子の画家。美術館のアトリエで制作している。</p><p class="look">服装：絵の具のついたシャツ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">美術評論家（50）</span><span class="nm">真砂 圭</span><span class="kana">まさご けい</span><p>美術雑誌で知られる評論家。鷹野の作品を「瀬戸内の奇跡」と呼んで世に広めた。明日の式典でスピーチをする。</p><p class="look">服装：黒いジャケット、銀ぶちの眼鏡</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">リゾート開発会社の社長（55）</span><span class="nm">東條 剛</span><span class="kana">とうじょう つよし</span><p>リゾート開発会社「東條リゾート」の社長。月見島を美術館ごと買い取り、高級リゾートにする計画を進めている。</p><p class="look">服装：ゴルフウェアの上にジャケット</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">若い画家（24）</span><span class="nm">小春</span><span class="kana">こはる</span><p>美術館の若手アーティスト支援で島に滞在している画家。</p><p class="look">服装：生成りのワンピース、ベレー帽</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">渡し船の船頭（30）</span><span class="nm">潮田 海斗</span><span class="kana">しおた かいと</span><p>港町と月見島を結ぶ渡し船の船頭。漁師の家に生まれ、この海で育った。今夜の最後の船も、彼が出した。</p><p class="look">服装：紺のヤッケ、ゴム長靴、日焼けした顔</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">港町の旅館「潮見荘」の女将（58）</span><span class="nm">小夜子</span><span class="kana">さよこ</span><p>港町の旅館「潮見荘」の女将。島の美術館の客の多くは、ここに泊まる。</p><p class="look">服装：藍色の着物に割烹着</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">週刊誌の記者（33）</span><span class="nm">桐生 葵</span><span class="kana">きりゅう あおい</span><p>週刊誌の記者。十周年の取材という名目で来ているが、本当はリゾート開発の裏側を追っている。</p><p class="look">服装：カーキのジャケット、首からカメラ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">漁協の組合長（66）</span><span class="nm">久我 源治</span><span class="kana">くが げんじ</span><p>港町の漁協の組合長。月見島のリゾート開発に、表立って反対している。</p><p class="look">服装：漁協のジャンパー、ねじりはちまき</p><p class="pstat">基本パワー 3</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">鷹野 澄香<small>たかの すみか</small></span><span class="rl">館長の娘・学芸員</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">葉山 諒<small>はやま りょう</small></span><span class="rl">画家・館長の弟子</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">真砂 圭<small>まさご けい</small></span><span class="rl">美術評論家</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">東條 剛<small>とうじょう つよし</small></span><span class="rl">リゾート開発会社の社長</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">小春<small>こはる</small></span><span class="rl">若い画家</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">潮田 海斗<small>しおた かいと</small></span><span class="rl">渡し船の船頭</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">小夜子<small>さよこ</small></span><span class="rl">港町の旅館「潮見荘」の女将</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">桐生 葵<small>きりゅう あおい</small></span><span class="rl">週刊誌の記者</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">久我 源治<small>くが げんじ</small></span><span class="rl">漁協の組合長</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="SU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">鷹野 澄香<small>たかの すみか</small></span><span class="rl">館長の娘・学芸員・28歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鷹野澄香です。父の美術館で学芸員をしています。……父を見つけたのは、わたしです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母は、あなたが十歳のときに家を出た。父は「絵の邪魔だ」と言って、追いかけなかった。</p><p>父のことは、尊敬していた。父の絵を守るために、学芸員になった。</p><p>去年、収蔵庫の古い箱から、見たことのない女性の名前のサインがある、『海の記憶』そっくりの下絵を見つけた。「汐里」。父に聞くと、「燃やせ」と言われた。燃やせなかった。</p><p>父は、島ごとリゾート会社に売る話を進めている。美術館も、なくなるかもしれない。</p><p>画家の葉山とは、子どものころからのきょうだいのような仲。最近、葉山が父の絵を描いているのではないかと思うことがある。</p><p>子どものころ、父のアトリエの床で、父が絵を描く音を聞きながら眠るのが好きだった。父の絵の匂いは、あなたの家の匂いだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>父の代表作『海の記憶』が、父の絵ではないかもしれないと気づいている。収蔵庫に「汐里」のサインのある下絵を隠している。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>葉山諒</b>：父の弟子。きょうだいのような人。</li><li><b>潮田海斗</b>：船頭。21:00、桟橋で父と言い合っていた。</li><li><b>東條</b>：リゾート会社の社長。父と島の売買の話をしている。</li><li><b>真砂</b>：評論家。父の絵をいつもほめる。</li><li><b>小春</b>：若い画家。父にしつこく食事に誘われていた。</li><li><b>小夜子</b>：港町の旅館の女将。父の若いころを知っている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">鷹野 澄香<small>たかの すみか</small></span><span class="rl">館長の娘・学芸員・28歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>前夜祭の夕食。父は上機嫌で、明日のスピーチの話ばかりしていた。</dd><dt>21:00</dt><dd>最後の渡し船を見送る。桟橋で、父と船頭の潮田さんが何か言い合っていた。</dd><dt>22:00</dt><dd>館長室で明日の式典の準備（〜22:40）。父は展示室で、照明の角度を直していた。</dd><dt>23:00</dt><dd>宿泊棟の自分の部屋で、式典のあいさつ文を読みなおす。</dd><dt>23:50</dt><dd>窓から、展示室の明かりがついたままなのが見えた。行ってみると、父が倒れていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:40から宿泊棟の部屋にいた。23:50に展示室へ行った」。下絵のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>収蔵庫の下絵の「汐里」とは、誰なのか。</li><li>あなたのスキルで、誰か一人を守れる。</li><li>父と船頭の潮田さんは、桟橋で何を言い合っていたのか。</li><li>葉山が疑われたら、守りたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し張りつめた学芸員として振る舞ってください。父の死にショックを受けながら、気丈にふるまう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「汐里の下絵」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>葉山諒が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">葉山 諒<small>はやま りょう</small></span><span class="rl">画家・館長の弟子・35歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「葉山です。鷹野先生の弟子です。……先生の絵を、もう二十年近く、そばで見てきました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>美大を出て、鷹野に弟子入りした。最初の十年は、絵の具を練り、キャンバスを張るだけだった。</p><p>五年前、鷹野は筆が描けなくなった。手がふるえるのだ。それから、鷹野の「新作」は、全部あなたが描いている。サインだけが鷹野のもの。</p><p>明日の式典で発表される新作『潮騒』も、あなたが描いた。「おまえの名前は、私が死んだら出してやる」。それが鷹野の口ぐせだった。</p><p>若い画家の小春と付き合っている。鷹野は小春にちょっかいを出していた。</p><p>今夜23:00から23:30まで、宿泊棟の小春の部屋にいた。</p><p>実家は四国の小さな文房具店。父は「絵描きなんぞ」と言いながら、毎年あなたの展覧会のはがきを店に貼ってくれる。</p><p>いつか、自分の名前で、海の絵を描きたい。先生の海ではなく、自分の海を。</p></div>
+      <div class="secret"><h4>秘密</h4><p>五年前から館長の「新作」を全部かわりに描いている。若い画家の小春と付き合っていて、今夜23:00〜23:30、小春の部屋にいた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>小春</b>：恋人。23:00〜23:30、一緒だった。</li><li><b>鷹野澄香</b>：先生の娘。きょうだいのような人。</li><li><b>東條</b>：リゾート会社の社長。23:10ごろ、宿泊棟の廊下で誰かと電話していた。</li><li><b>真砂</b>：評論家。先生に絵の評論を書かされて、金をもらっている。</li><li><b>潮田海斗</b>：船頭。先生の船はいつも彼。</li><li><b>久我源治</b>：漁協の組合長。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 5）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">葉山 諒<small>はやま りょう</small></span><span class="rl">画家・館長の弟子・35歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>前夜祭の夕食。先生の手が、グラスを持つたびにふるえていた。</dd><dt>21:00</dt><dd>テラスの片づけ。</dd><dt>22:30</dt><dd>展示室で、先生と『潮騒』の位置を決める。先生は「明日、おまえの話もするかもしれん」と言った（〜22:45）。</dd><dt>23:00</dt><dd>小春の部屋へ（〜23:30）。</dd><dt>23:30</dt><dd>宿泊棟の自分の部屋へ。</dd><dt>23:30</dt><dd>小春の部屋から戻るとき、窓の外の霧の浜に、小さな明かりが見えた気がした。</dd><dt>23:55</dt><dd>澄香の叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:45から宿泊棟の自分の部屋で寝ていた」。小春といたことと、代筆のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>新作『潮騒』を描いたのが自分だと知られたら、先生の名前に傷がつく。それでも、いつかは言いたい。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>「汐里」という名前を、どこかで聞いたことがある。</li><li>小春が疑われたら、守りたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>穏やかで、口数の少ない画家として振る舞ってください。絵の話になると目が生き生きする。小春とは人前ではよそよそしく。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「新作『潮騒』の下絵」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>小春が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">真砂 圭<small>まさご けい</small></span><span class="rl">美術評論家・50歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「評論家の真砂です。鷹野さんの『海の記憶』を最初に評価したのは私です。……明日のスピーチ原稿が、追悼文になるとは」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>若いころは画家を目指した。才能がないと悟って、絵を語るほうに回った。</p><p>十年前、『海の記憶』を見て、本当に心がふるえた。それは本物だった。</p><p>ただ、そのあとの鷹野の作品の評論には、毎回、鷹野からの「お礼」が入った封筒がついてきた。断れなかった。</p><p>最近の鷹野の新作は、筆のくせが十年前とちがう。あなたにはわかる。描いているのは、たぶん弟子の葉山だ。それでも「傑作」と書いてきた。</p><p>今夜23:00〜23:40、宿泊棟のラウンジで一人、スピーチ原稿を直していた。</p><p>十年前、『海の記憶』の前で泣いた。あの涙は本物だった。だからこそ、最近の自分の文章が嫌いだ。</p></div>
+      <div class="secret"><h4>秘密</h4><p>館長から金をもらって評論を書いていた。館長の最近の作品を描いているのが弟子の葉山だと気づいている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>葉山諒</b>：館長の弟子。最近の新作を描いているのは、たぶん彼。</li><li><b>東條</b>：リゾート会社の社長。23:10ごろ、廊下で「今夜中に片をつける」と電話していた。</li><li><b>鷹野澄香</b>：館長の娘。</li><li><b>小春</b>：若い画家。</li><li><b>桐生</b>：記者。私の評論の「お礼」のことを嗅ぎまわっている。</li><li><b>小夜子</b>：旅館の女将。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（処理の順番 3）：1人を選び、その人の持ち物をすべて見る。その中の「作品」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">真砂 圭<small>まさご けい</small></span><span class="rl">美術評論家・50歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>前夜祭の夕食。船頭の潮田さんが、ずっと『海の記憶』のポスターを見ていた。</dd><dt>21:00</dt><dd>最後の船を見送る。</dd><dt>22:00</dt><dd>館長に「明日のスピーチでは、新作をとくにほめてくれ」と封筒を渡された。</dd><dt>23:00</dt><dd>宿泊棟のラウンジで原稿を直す（〜23:40）。廊下で東條さんが小声で電話していた（23:10ごろ）。</dd><dt>23:40</dt><dd>部屋へ戻る。</dd><dt>23:45</dt><dd>部屋の窓から、霧の浜のほうで波の音がした。</dd><dt>23:55</dt><dd>叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:00から23:40まで、宿泊棟のラウンジで原稿を直していた。一人で」。封筒のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>『海の記憶』と最近の作品の筆のくせは、まるでちがう。では、『海の記憶』を描いたのは誰なのか。</li><li>あなたのスキルは「作品」の印のついた物を取れる。</li><li>「お礼の封筒」は、記者に見られたくない。</li><li>東條の電話の「片をつける」は、何のことだったのか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>理屈っぽく、少し気取った評論家として振る舞ってください。絵の話になると長くなる。お金の話になると、眼鏡を直す。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「お礼の封筒」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」で、「作品」の印の持ち物を1つ手に入れる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「新作『潮騒』の下絵」を全員に見せながら、館長の新作を描いていたのは葉山だと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">東條 剛<small>とうじょう つよし</small></span><span class="rl">リゾート開発会社の社長・55歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「東條です。月見島の新しい未来について、鷹野さんとお話ししていました。……島の皆さんにも、いい話のはずなんですがね」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>三十年、日本じゅうの海辺にリゾートを建ててきた。月見島は、その仕上げになる。</p><p>島の土地のほとんどは鷹野のものだ。売買の話は、九割まで進んでいた。</p><p>ところが今夜、鷹野が言った。「やはり売らない。娘が反対している」。手付けの五億円は、もう払ってある。</p><p>漁協の組合長の久我が、反対運動の先頭に立っている。久我には、ひそかに金を渡して黙らせようとしてきた。</p><p>23:10ごろ、宿泊棟の廊下で、本社の部下に電話した。「今夜中に、鷹野さんと片をつける」。</p><p>父は漁師だった。網元に頭を下げる父を見て、頭を下げさせる側になると決めた。</p><p>リゾートには、島の人を優先して雇うつもりだ。誰も信じてくれないが。</p></div>
+      <div class="secret"><h4>秘密</h4><p>月見島の買収のため、漁協の組合長の久我にひそかに金を渡していた。今夜、館長に売買をやめると言われていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>久我源治</b>：漁協の組合長。表では反対しているが、裏で金を受け取っている。</li><li><b>鷹野澄香</b>：館長の娘。島を売るのに反対している。</li><li><b>真砂</b>：評論家。</li><li><b>葉山諒</b>：館長の弟子。</li><li><b>桐生</b>：記者。私の会社のことを調べている。</li><li><b>潮田海斗</b>：船頭。リゾートになったら、渡し船はいらなくなる。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 4）：「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">東條 剛<small>とうじょう つよし</small></span><span class="rl">リゾート開発会社の社長・55歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>前夜祭の夕食。組合長の久我さんと目で合図した。</dd><dt>21:00</dt><dd>最後の船を見送る。久我が港町へ戻るとき、目くばせした。</dd><dt>22:15</dt><dd>館長室で館長に「売らない」と言われる。</dd><dt>23:10</dt><dd>宿泊棟の廊下で本社に電話。「今夜中に片をつける」。</dd><dt>23:30</dt><dd>展示室へ行こうとしたが、霧がひどく、宿泊棟の入口で引き返した。</dd><dt>23:45</dt><dd>部屋で本社にメール。</dd><dt>23:55</dt><dd>叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:30からずっと宿泊棟の部屋で、本社と電話やメールをしていた」。23:30に展示室へ行きかけたことと、久我への金のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「今夜中に片をつける」と電話しているのを、誰かに聞かれたかもしれない。</li><li>あなたのスキルにはお金のカードがいる。</li><li>「売買の契約書」に署名させる前に、館長は死んだ。</li><li>久我が疑われたら、あなたの金のこともばれる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>押しの強い実業家として振る舞ってください。何でも金で片づくと思っている。島の人を「皆さん」と呼んで、愛想よくする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「売買の契約書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>久我源治が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">小春<small>こはる</small></span><span class="rl">若い画家・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「小春です。美術館の滞在制作で、半年前から島にいます。海の絵を描いています」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の美大を出て、絵だけでは食べていけず、アルバイトをしながら描いてきた。月見島の滞在制作に選ばれたのは、夢のようだった。</p><p>館長は、最初から優しかった。優しすぎた。二人きりのアトリエで、肩に手を置かれた。食事に誘われ、断ると、「滞在の延長はなしだね」と言われた。</p><p>葉山と付き合っている。葉山にだけは、館長のことを話していない。</p><p>今夜、前夜祭のあと、館長に「23時半に展示室へ来なさい。作品の話をしよう」と言われた。行かなかった。</p><p>23:00から23:30まで、葉山と自分の部屋にいた。</p><p>月見島に来て、初めて夜の海を見た。真っ暗な海に漁火が浮かんで、星がもう一つあるみたいだった。</p><p>滞在が終わったら、葉山さんと二人で、小さな絵画教室を開きたい。</p></div>
+      <div class="secret"><h4>秘密</h4><p>館長にしつこく言い寄られていた。今夜23:30に展示室へ呼ばれていたが、行かなかった。葉山と付き合っていて、23:00〜23:30、自分の部屋で一緒だった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>葉山諒</b>：恋人。23:00〜23:30、一緒だった。</li><li><b>鷹野澄香</b>：学芸員。いつも親切。</li><li><b>真砂</b>：評論家。あなたの絵を「館長の物まね」と書いた。</li><li><b>東條</b>：リゾート会社の社長。</li><li><b>潮田海斗</b>：船頭。無口だけど、海の話をするときだけ優しい。</li><li><b>小夜子</b>：旅館の女将。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 6）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">小春<small>こはる</small></span><span class="rl">若い画家・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>前夜祭の夕食。館長が何度もグラスを持って隣に来た。</dd><dt>21:00</dt><dd>最後の船を見送る。</dd><dt>22:00</dt><dd>館長に「23時半に展示室へ」と言われる。</dd><dt>23:00</dt><dd>部屋で葉山と（〜23:30）。</dd><dt>23:20</dt><dd>窓の外、霧の浜のほうで、小さな明かりがゆれた。漁火かと思った。</dd><dt>23:30</dt><dd>葉山が部屋へ戻る。窓の外の霧が、さっきより濃くなっていた。</dd><dt>23:55</dt><dd>澄香さんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:00から部屋で絵を描いていた。一人で」。葉山といたことと、館長に呼ばれていたことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>館長に23:30に呼ばれていたことが知られたら、あなたが疑われる。</li><li>23:20の浜の明かりは、何だったのか。</li><li>あなたのスキルは、相手の持ち物を裏向きで引く。</li><li>館長のメモを持っていると、あなたが疑われるかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るいけれど、どこかおびえた若い画家として振る舞ってください。館長の話になると、急に声が小さくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>葉山諒が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「館長のメモ」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">潮田 海斗<small>しおた かいと</small></span><span class="rl">渡し船の船頭・30歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。鷹野玄一郎を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「船頭の潮田です。月見島への渡し船を出してます。……霧の夜は、どんな船乗りでも海には出ません」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母の汐里は、漁師の妻で、絵を描く人だった。網をつくろう手で、夜な夜な海の絵を描いた。売れたことは一度もない。</p><p>十二年前、島に美術館を建てる前の鷹野が、港町にやってきた。母の絵を見て、「全部買う。そのかわり、誰の絵かは伏せておく」と言った。母は、それでも嬉しそうだった。</p><p>二年後、美術館が開いた。鷹野の代表作として飾られた連作『海の記憶』は、母の絵だった。サインだけが、鷹野の名前に描きかえられていた。</p><p>母は鷹野のもとへ抗議に通った。十年前の冬、嵐の近づく夜、母は「絵を返してもらう」と言って小舟で島へ向かい、戻らなかった。鷹野は「そんな女は知らない」と言った。</p><p>この十年、あなたは鷹野の渡し船を出し続けてきた。今夜、最後の船のあと、桟橋で鷹野に母の名前を言った。鷹野は笑った。「漁師の女房の落書きに、意味を与えてやったのは私だ」。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜23:20、島の展示室で鷹野を殺した。</b>23時の大潮の干潮で現れた砂州を歩いて島へ渡り、また歩いて戻った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>小夜子</b>：旅館の女将。母とは幼なじみだった。</li><li><b>久我源治</b>：漁協の組合長。大潮の夜に砂州が出ることを、誰よりも知っている。</li><li><b>桐生</b>：記者。リゾート開発のことを調べている。</li><li><b>葉山諒</b>：館長の弟子の画家。島にいた。</li><li><b>鷹野澄香</b>：館長の娘。学芸員。</li><li><b>東條</b>：リゾート会社の社長。島にいた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 7）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">潮田 海斗<small>しおた かいと</small></span><span class="rl">渡し船の船頭・30歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>21:00</dt><dd>最後の船のあと、桟橋で鷹野に母の名前を言い、笑われた。</dd><dt>22:50</dt><dd>旅館で飲んだあと「眠いから帰る」と家へ。今夜は大潮、干潮は23:15。裏口から浜へ。</dd><dt>23:00</dt><dd>霧の中、足もとだけ照らして砂州を歩いて島へ（〜23:10）。</dd><dt>23:20</dt><dd>展示室で「母の絵を返せ」と言った。鷹野が鼻で笑ったとき、ブロンズの彫刻で後頭部を殴った。</dd><dt>23:25</dt><dd>満ちはじめた砂州を、膝までつかって戻った（〜23:40）。</dd><dt>23:45</dt><dd>家で着がえ、長靴を船小屋へ。0:05、事件を聞いて旅館へ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:50から家で寝ていた。0:05に騒ぎで起きて旅館へ来た」。砂州のことは言わない。母のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>島には船が着いていない。誰もが、犯人は島にいた五人の中にいると思っている。</li><li>砂州のことを思い出す人がいたら、危ない。</li><li>「泥のついた長靴」は、手放したい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で、海のことしか話さない船頭として振る舞ってください。霧の話になると「霧の夜は、海に出ない」とくり返す。母の話になると、黙る。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「泥のついた長靴」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「母のスケッチ帳」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「母のスケッチ帳」を全員に見せながら、『海の記憶』は鷹野の絵ではないと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="OK">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">小夜子<small>さよこ</small></span><span class="rl">港町の旅館「潮見荘」の女将・58歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「潮見荘の女将の小夜子です。この港町で生まれて、この港町で年をとりました。鷹野さんとは、若いころからの知り合いです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>汐里とは、幼なじみだった。網元の娘のあなたと、漁師の娘の汐里。二人で浜を走り回った。</p><p>三十年前、若い鷹野が港町に絵を描きに来た。あなたは、鷹野と恋に落ちた。鷹野はひと夏で東京へ帰った。手紙は一通も来なかった。</p><p>十二年前、鷹野は戻ってきた。汐里の絵を、まとめて買っていった。あなたは何も言わなかった。言えば、昔のことも話さなければならない。</p><p>十年前の嵐の夜、汐里は島へ向かって、戻らなかった。あなたは、汐里が「絵を返してもらう」と言っていたことを、警察に言わなかった。</p><p>今夜、汐里の息子の海斗が、22:50に「帰る」と旅館を出た。0:05に戻ってきたとき、髪が濡れていた。霧の夜とはいえ、あんなに濡れるものだろうか。</p><p>汐里の葬式には、遺体がなかった。小さな舟の板きれだけが、浜に打ち上げられた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>若いころ館長と恋仲だった。十年前、汐里が館長の島へ向かったことを、警察に言わなかった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>潮田海斗</b>：汐里の息子。22:50に出ていき、0:05に髪を濡らして戻ってきた。</li><li><b>久我源治</b>：組合長。22:50からラウンジでうたた寝していた。</li><li><b>桐生</b>：記者。23:00〜23:30、二階の部屋で電話していた。</li><li><b>鷹野澄香</b>：館長の娘。目もとが、若いころの館長に似ている。</li><li><b>東條</b>：リゾート会社の社長。</li><li><b>真砂</b>：評論家。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「返却」</b>（処理の順番 8）：1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">小夜子<small>さよこ</small></span><span class="rl">港町の旅館「潮見荘」の女将・58歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:05</dt><dd>事件の知らせ。海斗が旅館に来た。髪が濡れて、ズボンのすそに砂がついていた。</dd><dt>18:00</dt><dd>旅館で夕食の仕込み。</dd><dt>21:15</dt><dd>最後の船で戻ってきた客を迎える。</dd><dt>21:30</dt><dd>ラウンジで久我さん・桐生さん・海斗に酒を出す。</dd><dt>22:50</dt><dd>海斗が「眠いから帰る」と出ていく。</dd><dt>23:30</dt><dd>旅館の二階の窓から、霧の浜のほうに小さな明かりが一つ、ゆっくり動いているのが見えた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと旅館にいた」。本当のことなので、そのまま話していい。昔のことと、汐里のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>23:30の浜の明かりは、誰だったのか。</li><li>あなたのスキルで、取られた持ち物を元の持ち主に返させることができる。</li><li>海斗が疑われたら、守りたい。でも、もし海斗が——。</li><li>「昔の手紙」は、誰にも見られたくない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>おっとりした、面倒見のいい女将として振る舞ってください。客の話はよく聞く。汐里と海斗のことになると、急に口が重くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>潮田海斗が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「昔の手紙」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「返却」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">桐生 葵<small>きりゅう あおい</small></span><span class="rl">週刊誌の記者・33歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「週刊誌の桐生です。十周年の取材で来ました。……まさか、事件の取材になるとは」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>社会部の記者になって十年。政治家の汚職、企業の不正。書けば誰かが困る記事ばかり書いてきた。</p><p>東條リゾートが、各地の漁協や役場に金をばらまいて土地を買っているという情報をつかんだ。月見島もその一つだ。</p><p>十年前、この港町で、一人の女性が嵐の夜に海で亡くなった記事を、古い新聞で見つけた。「漁師の妻・潮田汐里さん（45）、小舟で島へ向かい行方不明」。島の美術館が開いた年だ。何か、つながっている気がした。</p><p>評論家の真砂が、館長から金をもらっているという話も聞いた。</p><p>23:00〜23:30、旅館の二階の部屋で、デスクと電話していた。</p><p>父は小さな地方紙の記者だった。「書かれなかった人の名前を書け」が口ぐせだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>リゾート開発の裏金を追っている。十年前に海で亡くなった潮田汐里のことを調べている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>潮田海斗</b>：船頭。十年前に亡くなった潮田汐里の息子らしい。</li><li><b>東條</b>：リゾート会社の社長。裏金の相手を探している。</li><li><b>久我源治</b>：組合長。東條から金をもらっているという噂。</li><li><b>真砂</b>：評論家。館長から金をもらって評論を書いているらしい。</li><li><b>小夜子</b>：女将。</li><li><b>鷹野澄香</b>：館長の娘。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代役」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">桐生 葵<small>きりゅう あおい</small></span><span class="rl">週刊誌の記者・33歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:05</dt><dd>事件の知らせ。</dd><dt>18:00</dt><dd>島で前夜祭の夕食。館長と船頭の潮田さんが、一度も目を合わせなかった。</dd><dt>21:15</dt><dd>最後の船で港町へ戻る。</dd><dt>21:30</dt><dd>ラウンジで久我さんと海斗さんと飲む。海斗さんは、窓の外の海ばかり見ていた。</dd><dt>23:00</dt><dd>二階の部屋でデスクと電話（〜23:30）。窓の外は霧で、何も見えなかった。</dd><dt>23:35</dt><dd>ラウンジへ降りる。久我さんがソファで寝ていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:00から23:30まで二階の部屋で電話、そのあとはラウンジ」。取材の本当の目的は言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>十年前の潮田汐里の死と、美術館。何がつながっているのか。</li><li>あなたのスキルは、誰かのスキルをまねる。</li><li>「十年前の新聞」の潮田汐里と、船頭の潮田海斗。</li><li>東條の金を受け取ったのは誰か。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>好奇心が強く、遠慮のない記者として振る舞ってください。誰にでも質問する。メモをとるのが癖。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「東條からの封筒」か「お礼の封筒」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「代役」で、まねたスキルを成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「十年前の新聞」を全員に見せながら、潮田汐里が島へ向かって亡くなったことを明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">久我 源治<small>くが げんじ</small></span><span class="rl">漁協の組合長・66歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「組合長の久我だ。この海で五十年、網を引いてきた。島をリゾートにするなんざ、わしの目が黒いうちは許さん」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十五で船に乗った。潮の満ち引きなら、体が覚えている。</p><p>島のリゾート開発に反対してきた。でも、漁協の借金は限界だった。東條から、ひそかに金を受け取った。「反対の声を、少しずつ小さくしてくれ」。</p><p>今夜は大潮だ。昼のあいだに、潮見表を見て思った。干潮は23:15。夜中に、砂州が出る。昔は、若い者が度胸だめしに夜の砂州を渡ったものだ。いまは禁止されている。</p><p>汐里のことを覚えている。嵐の夜に小舟で島へ向かって、戻らなかった。あの夜も、引き潮だった。</p><p>今夜22:50から23:40ごろまで、旅館のラウンジのソファでうたた寝していた。</p><p>孫が三人いる。誰も漁師にはならない。漁協の借金は、この代で終わらせたい。</p></div>
+      <div class="secret"><h4>秘密</h4><p>リゾート反対の組合長なのに、東條から金を受け取っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>潮田海斗</b>：船頭。今夜の干潮が23:15だと知っている（ラウンジでそう言っていた）。</li><li><b>東條</b>：リゾート会社の社長。金をもらっている相手。</li><li><b>小夜子</b>：女将。</li><li><b>桐生</b>：記者。わしと東條のことを嗅ぎつけたかもしれん。</li><li><b>鷹野澄香</b>：館長の娘。</li><li><b>葉山諒</b>：館長の弟子。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「足止め」</b>（処理の順番 2）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">久我 源治<small>くが げんじ</small></span><span class="rl">漁協の組合長・66歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:05</dt><dd>事件の知らせ。海斗が来た。長靴ではなく、サンダルをはいていた。船乗りが、霧の夜に。</dd><dt>18:00</dt><dd>島で前夜祭の夕食。東條と目が合ったが、そらした。</dd><dt>21:15</dt><dd>最後の船で港町へ戻る。</dd><dt>21:30</dt><dd>旅館のラウンジで海斗や桐生と飲む。海斗が「今夜は大潮だな」と、ぽつりと言った。</dd><dt>22:50</dt><dd>海斗が帰る。そのままラウンジでうたた寝（〜23:40）。</dd><dt>23:40</dt><dd>目をさます。窓の外は霧。潮の匂いがした。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:50から23:40まで、旅館のラウンジでうたた寝していた」。東條の金のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>今夜は大潮。干潮は23:15。島は本当に「渡れなかった」のか。</li><li>あなたのスキルは、パワーが相手と同じか高くないと成功しない。</li><li>海斗は、なぜ霧の夜にサンダルだったのか。</li><li>「東條からの封筒」は、記者に見られたくない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>頑固で口の悪い漁師の親方として振る舞ってください。潮と海の話なら誰にも負けない。東條の名前が出ると、そっぽを向く。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「足止め」を、犯人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「東條からの封筒」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「潮見表」を全員に見せながら、今夜23時ごろ砂州を歩いて島へ渡れたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">鷹野 澄香の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="鷹野 澄香" data-label="鷹野 澄香の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：鷹野 澄香</span><span class="ttl">収蔵庫の鍵</span><div class="txt">「収蔵庫」の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「収蔵庫」を調べられる。</p></div></div><div class="card item" data-owner="鷹野 澄香" data-label="鷹野 澄香の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：鷹野 澄香</span><span class="ttl">館長室の鍵</span><div class="txt">「館長室」の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「館長室」を調べられる。</p></div></div><div class="card item" data-owner="鷹野 澄香" data-label="鷹野 澄香の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：鷹野 澄香</span><span class="ttl">式典のあいさつ文</span><div class="txt">「父の絵は、この海とともにあります」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鷹野 澄香" data-label="鷹野 澄香の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：鷹野 澄香</span><span class="ttl">母の写真</span><div class="txt">家を出ていった母の写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">葉山 諒の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="葉山 諒" data-label="葉山 諒の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：葉山 諒</span><span class="ttl">新作『潮騒』の下絵</span><div class="txt">明日発表される新作の下絵。すみに小さく、葉山のサイン。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">作品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葉山 諒" data-label="葉山 諒の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：葉山 諒</span><span class="ttl">パレットナイフ</span><div class="txt">使いこんだパレットナイフ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葉山 諒" data-label="葉山 諒の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：葉山 諒</span><span class="ttl">小春のヘアゴム</span><div class="txt">小春の部屋のベッドに落ちていた、小春のヘアゴム。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葉山 諒" data-label="葉山 諒の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：葉山 諒</span><span class="ttl">先生のメモ</span><div class="txt">鷹野の字。「葉山、明日のスピーチで、おまえのことも話す。覚悟しておけ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">真砂 圭の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="真砂 圭" data-label="真砂 圭の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：真砂 圭</span><span class="ttl">お礼の封筒</span><div class="txt">館長からの封筒。一万円札が三十枚。表に「明日のスピーチの件」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="真砂 圭" data-label="真砂 圭の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：真砂 圭</span><span class="ttl">評論の切り抜き</span><div class="txt">十年前の真砂の評論。「『海の記憶』は、海に生きた者にしか描けない絵だ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="真砂 圭" data-label="真砂 圭の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：真砂 圭</span><span class="ttl">ルーペ</span><div class="txt">絵の筆あとを見るためのルーペ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="真砂 圭" data-label="真砂 圭の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：真砂 圭</span><span class="ttl">スピーチ原稿</span><div class="txt">明日のスピーチ原稿。何度も書きなおしてある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">東條 剛の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="東條 剛" data-label="東條 剛の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：東條 剛</span><span class="ttl">小切手帳</span><div class="txt">東條リゾートの小切手帳。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="東條 剛" data-label="東條 剛の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：東條 剛</span><span class="ttl">売買の契約書</span><div class="txt">「月見島の土地と建物を東條リゾートに売り渡す」。館長の署名欄は空白。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="東條 剛" data-label="東條 剛の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：東條 剛</span><span class="ttl">ゴルフのパター</span><div class="txt">ゴルフバッグから出したパター。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="東條 剛" data-label="東條 剛の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：東條 剛</span><span class="ttl">島の完成予想図</span><div class="txt">月見島のリゾートの完成予想図。美術館のあった場所に、プールつきのヴィラ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">小春の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="小春" data-label="小春の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：小春</span><span class="ttl">館長のメモ</span><div class="txt">鷹野の字。「小春くん　23時半　展示室で待つ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小春" data-label="小春の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：小春</span><span class="ttl">スケッチブック</span><div class="txt">海の絵のスケッチ。23:20ごろの浜の明かりをスケッチしたページ。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">作品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小春" data-label="小春の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：小春</span><span class="ttl">滞在の契約書</span><div class="txt">「延長の判断は館長に一任する」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小春" data-label="小春の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：小春</span><span class="ttl">絵の具箱</span><div class="txt">重い木の絵の具箱。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">潮田 海斗の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="潮田 海斗" data-label="潮田 海斗の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：潮田 海斗</span><span class="ttl">泥のついた長靴</span><div class="txt">船小屋に放りこんだ長靴。ふくらはぎまで濡れて、浜の砂と、小さな海藻がからみついている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="潮田 海斗" data-label="潮田 海斗の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：潮田 海斗</span><span class="ttl">母のスケッチ帳</span><div class="txt">母・汐里のスケッチ帳。『海の記憶』と同じ構図の下絵が何枚も。すみに「汐里」のサイン。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">作品</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="潮田 海斗" data-label="潮田 海斗の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：潮田 海斗</span><span class="ttl">船小屋の鍵</span><div class="txt">「船小屋」の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「潮田の船小屋」を調べられる。</p></div></div><div class="card item" data-owner="潮田 海斗" data-label="潮田 海斗の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：潮田 海斗</span><span class="ttl">船の櫂</span><div class="txt">木の櫂。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">小夜子の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="小夜子" data-label="小夜子の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：小夜子</span><span class="ttl">昔の手紙</span><div class="txt">三十年前、若い鷹野が小夜子に残した書き置き。「また夏に来る」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小夜子" data-label="小夜子の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：小夜子</span><span class="ttl">汐里との写真</span><div class="txt">浜で笑う、十代の小夜子と汐里。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小夜子" data-label="小夜子の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：小夜子</span><span class="ttl">旅館の帳面</span><div class="txt">今夜の宿泊者。「久我・桐生・東條（予約のみ）・潮田（飲食のみ）」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小夜子" data-label="小夜子の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：小夜子</span><span class="ttl">出刃包丁</span><div class="txt">旅館の台所の出刃包丁。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">桐生 葵の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="桐生 葵" data-label="桐生 葵の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 葵</span><span class="ttl">十年前の新聞</span><div class="txt">地元紙。「漁師の妻・潮田汐里さん（45）、小舟で月見島へ向かい行方不明　嵐の夜」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 葵" data-label="桐生 葵の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 葵</span><span class="ttl">取材ノート</span><div class="txt">「東條リゾート→漁協K　百万？」「真砂→館長から　毎回三十万」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 葵" data-label="桐生 葵の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 葵</span><span class="ttl">カメラ</span><div class="txt">一眼レフ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 葵" data-label="桐生 葵の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 葵</span><span class="ttl">記者証</span><div class="txt">週刊誌の記者証。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">久我 源治の持ち物（ROLL 09 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="久我 源治" data-label="久我 源治の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－①</span></div><div class="bd"><span class="owner">最初の持ち主：久我 源治</span><span class="ttl">潮見表</span><div class="txt">今月の潮見表。今夜は大潮。「干潮　23:15（潮位−5cm）」に、久我の赤丸。砂州は干潮の前後30分ほど、膝より浅くなる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="久我 源治" data-label="久我 源治の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－②</span></div><div class="bd"><span class="owner">最初の持ち主：久我 源治</span><span class="ttl">東條からの封筒</span><div class="txt">東條リゾートの封筒。一万円札が百枚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="久我 源治" data-label="久我 源治の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－③</span></div><div class="bd"><span class="owner">最初の持ち主：久我 源治</span><span class="ttl">漁協の反対署名</span><div class="txt">リゾート反対の署名。三百人分。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="久我 源治" data-label="久我 源治の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－④</span></div><div class="bd"><span class="owner">最初の持ち主：久我 源治</span><span class="ttl">古い漁師の写真</span><div class="txt">五十年前の漁師たち。若い久我と、汐里の父。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="鷹野 澄香の秘密①"><div class="hd"><span class="loc">鷹野 澄香の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>澄香は、収蔵庫の鍵を持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鷹野 澄香の秘密②"><div class="hd"><span class="loc">鷹野 澄香の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>澄香は、23:00〜23:50、宿泊棟の自分の部屋に一人でいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="葉山 諒の秘密①"><div class="hd"><span class="loc">葉山 諒の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>葉山は、手のふるえる館長のかわりに絵を描いているという噂がある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="葉山 諒の秘密②"><div class="hd"><span class="loc">葉山 諒の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>葉山は、23:00〜23:30、自分の部屋にいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="真砂 圭の秘密①"><div class="hd"><span class="loc">真砂 圭の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>真砂は、23:00〜23:40、宿泊棟のラウンジに一人でいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="真砂 圭の秘密②"><div class="hd"><span class="loc">真砂 圭の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>真砂は、館長から定期的にお金を受け取っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="東條 剛の秘密①"><div class="hd"><span class="loc">東條 剛の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>東條は、23:10ごろ、宿泊棟の廊下で「今夜中に片をつける」と電話していた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="東條 剛の秘密②"><div class="hd"><span class="loc">東條 剛の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>東條は、漁協の誰かに金を渡しているという噂がある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小春の秘密①"><div class="hd"><span class="loc">小春の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>小春は、館長に「23時半に展示室へ」と呼ばれていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小春の秘密②"><div class="hd"><span class="loc">小春の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>小春の部屋の窓からは、島の浜が見える。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="潮田 海斗の秘密①"><div class="hd"><span class="loc">潮田 海斗の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>潮田は、22:50に「帰る」と言って旅館を出て、0:05に戻ってきた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="潮田 海斗の秘密②"><div class="hd"><span class="loc">潮田 海斗の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>潮田は、大潮の夜に、浜で何かをしていることがあるという噂がある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小夜子の秘密①"><div class="hd"><span class="loc">小夜子の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>小夜子は、若いころ館長と親しかったという噂がある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小夜子の秘密②"><div class="hd"><span class="loc">小夜子の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>小夜子は、亡くなった汐里という女性の幼なじみだ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐生 葵の秘密①"><div class="hd"><span class="loc">桐生 葵の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>桐生は、23:00〜23:30、旅館の二階の部屋にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐生 葵の秘密②"><div class="hd"><span class="loc">桐生 葵の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>桐生は、十年前の地元の新聞を何部も持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="久我 源治の秘密①"><div class="hd"><span class="loc">久我 源治の秘密 ①</span><span>SECRET 17</span></div><div class="bd"><p>久我は、潮の満ち引きの時間をいつも頭に入れている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="久我 源治の秘密②"><div class="hd"><span class="loc">久我 源治の秘密 ②</span><span>SECRET 18</span></div><div class="bd"><p>久我は、22:50〜23:40、旅館のラウンジで寝ていた（誰も見ていない時間がある）。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="展示室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">展示室 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>館長は『海の記憶』の前にうつ伏せ。後頭部を一度、強く殴られている。そばにブロンズの小さな彫刻（展示台から取られたもの）。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="展示室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">展示室 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">『海の記憶』</span><p>連作『海の記憶』。荒れた海と小舟の絵。右下の「鷹野」のサインのまわりだけ、絵の具の色がわずかに新しい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="展示室 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">展示室 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">展示室の入口</span><p>展示室の入口は二つ。宿泊棟側と、浜へ出る裏口。どちらも鍵はかかっていなかった。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="展示室 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">展示室 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">裏口の床</span><p>浜側の裏口から展示室の中まで、濡れた砂のあとが点々と続いている。小さな海藻のかけらも落ちている。<b>長靴の底の形</b>。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="展示室 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">展示室 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体のポケット</span><p>館長の上着のポケットに、潮田汐里の名前が書かれた古い領収書。「絵画　二十点　一括　五十万円」。十二年前の日付。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="宿泊棟 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">宿泊棟 ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ラウンジ</span><p>宿泊棟のラウンジのテーブルに、スピーチ原稿の書き損じ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="宿泊棟 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">宿泊棟 ②</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">廊下</span><p>宿泊棟の廊下は一本。夜中でも、誰かが歩けば足音が響く。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="宿泊棟 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">宿泊棟 ③</span><span class="ph">調査2</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">宿泊棟の玄関</span><p>宿泊棟の玄関の靴箱。島にいた五人の靴は、どれも乾いている。長靴をはいている人はいない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="島の桟橋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">島の桟橋 ①</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">防犯カメラ</span><p>桟橋の防犯カメラの記録。21:05に最後の渡し船が出たあと、朝まで、船は一艘も映っていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="島の桟橋 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">島の桟橋 ②</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">桟橋の柱</span><p>桟橋の柱に、潮の高さの目盛り。今夜は大潮で、満潮と干潮の差が大きい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="旅館「潮見荘」 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">旅館「潮見荘」 ①</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ラウンジ</span><p>旅館のラウンジ。22:50から23:40ごろ、ソファで久我がうたた寝していた。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="旅館「潮見荘」 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">旅館「潮見荘」 ②</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">窓</span><p>旅館の窓から、となりの潮田の家と、その裏の浜が見える。霧が出ると、何も見えない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="旅館「潮見荘」 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">旅館「潮見荘」 ③</span><span class="ph">調査2</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">玄関の土間</span><p>0:05、潮田が旅館に入ってきたあとの土間に、濡れた砂のあと。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="島の浜 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">島の浜 ①</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">浜</span><p>島の浜。砂州の島側の入口。今は満潮で、砂州は海の下に沈んでいる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="島の浜 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">島の浜 ②</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">波打ちぎわの上</span><p>満潮でも波が届かないところの砂に、長靴の足あとが二筋（行きと帰り）。砂州のほうと美術館のほうを結んでいる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="館長室 ①" data-phase="1" data-lock="館長室の鍵"><div class="hd"><span class="loc">館長室 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机の上</span><p>東條リゾートとの売買の話の書類。館長の字で「売らない。澄香のために」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="館長室 ②" data-phase="2" data-lock="館長室の鍵"><div class="hd"><span class="loc">館長室 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">引き出し</span><p>古い手紙の束。「鷹野様　絵を返してください　汐里」。何通も。十年前の日付まで。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="収蔵庫 ①" data-phase="1" data-lock="収蔵庫の鍵"><div class="hd"><span class="loc">収蔵庫 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">汐里の下絵</span><div class="txt">『海の記憶』そっくりの下絵。すみに「汐里」のサイン。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">作品</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="収蔵庫 ②" data-phase="2" data-lock="収蔵庫の鍵"><div class="hd"><span class="loc">収蔵庫 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">収蔵品の台帳</span><p>十二年前の台帳。「『海の記憶』二十点　購入元：潮田汐里」。その上から、黒く塗りつぶされている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="潮田の船小屋 ①" data-phase="1" data-lock="船小屋の鍵"><div class="hd"><span class="loc">潮田の船小屋 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">船</span><p>潮田の渡し船。21:15に戻ってから、動かした様子はない。エンジンは冷えている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="潮田の船小屋 ②" data-phase="2" data-lock="船小屋の鍵"><div class="hd"><span class="loc">潮田の船小屋 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">船小屋の床</span><p>床に、脱ぎ捨てた濡れた服。ズボンは膝の上まで濡れて、砂がついている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="砂州 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">砂州 ①</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">砂州の説明板</span><p>港町の浜の説明板。「砂州は干潮の前後一時間ほど現れます。夜間の通行は危険なので禁止します」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="砂州 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">砂州 ②</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">港町の浜</span><p>港町側の浜、潮田の家の裏から砂州の入口へ、長靴の足あとが行きと帰りの二筋。帰りの足あとは、満ちてきた潮で途中から消えている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>鷹野 澄香</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>足止め</b></td><td>久我 源治</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">3</td><td><b>目利き</b></td><td>真砂 圭</td><td>1人を選び、その人の持ち物をすべて見る。その中の「作品」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">4</td><td><b>買収</b></td><td>東條 剛</td><td>「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">5</td><td><b>力ずく</b></td><td>葉山 諒</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">6</td><td><b>すり取り</b></td><td>小春</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>すり替え</b></td><td>潮田 海斗</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">8</td><td><b>返却</b></td><td>小夜子</td><td>1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代役</b></td><td>桐生 葵</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は潮田海斗（渡し船の船頭）。</b>母の汐里は漁師の妻で、絵を描く人だった。十二年前、鷹野は汐里の絵二十点を五十万円で買い取り、サインを描きかえて自分の代表作『海の記憶』にした。汐里は抗議を続け、十年前の嵐の夜、絵を取り返そうと小舟で島へ向かい、戻らなかった。</p><p>今夜21:00、最後の船のあと、海斗は桟橋で鷹野に母の名前を言い、「漁師の女房の落書きに意味を与えてやったのは私だ」と笑われた。</p><p>今夜は大潮で、干潮は23:15。海斗は22:50に旅館を出て、23:00に家の裏の浜から、霧の中、夜の砂州を歩いて島へ渡った（23:10）。23:20、展示室で鷹野をブロンズの彫刻で殴った（小春が23:20に浜の明かりを見る）。23:25、満ちはじめた砂州を膝までつかって戻り（23:30に小夜子が浜の明かりを見る）、23:45に家で着がえ、長靴を船小屋に入れた。0:05、髪を濡らし、サンダルで旅館に来た。</p><p>島の桟橋のカメラに船は映っておらず、霧で船も出ない。だから「犯人は島に泊まっていた五人の中にいる」と思わせられる。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>島には歩いて渡れた。</b>今夜は大潮で干潮23:15（久我の潮見表）。砂州は干潮の前後に現れる（砂州①・全員が知っていること）。昔は夜の砂州を渡った（久我）。</li><li><b>砂州を渡った跡。</b>島の浜の波の届かないところに長靴の足あとが行き帰り（浜②）、港町側の浜にも二筋（砂州②）、展示室の裏口から濡れた砂と海藻・長靴の底の形（展示室④）。島の五人の靴はどれも乾いていて、長靴の人はいない（宿泊棟③）。23:20と23:30の浜の明かり（小春・小夜子）。</li><li><b>22:50〜0:05に港町からいなくなった人。</b>潮田（小夜子・久我・桐生）。0:05に髪が濡れ、ズボンに砂、霧の夜なのにサンダル（小夜子・久我）、旅館の土間の砂（旅館③）、船小屋の濡れた服（船小屋②）、泥のついた長靴（潮田の持ち物）。船は動かしていない（船小屋①）＝歩いて渡った。</li><li><b>動機。</b>『海の記憶』のサインの色（展示室②）、汐里の下絵（収蔵庫①）、台帳の購入元「潮田汐里」（収蔵庫②）、汐里の手紙（館長室②）、遺体のポケットの領収書（展示室⑤）、十年前の新聞（桐生）、母のスケッチ帳（潮田の持ち物）、21:00の桟橋での言い合い（澄香）。</li></ol>
+    <p class="note">議論2の半ばになっても「島の五人の中に犯人がいる」前提が崩れないときは、GMから「月見島へ渡る方法は、本当に船だけでしょうか」と問いかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>小春</b>：館長に言い寄られ、23:30に展示室へ呼ばれていた。→ 行かなかった。23:00〜23:30は葉山と一緒。</li><li><b>葉山</b>：館長の新作を代わりに描かされ、明日のスピーチで話されるかもしれなかった。→ 小春と一緒。</li><li><b>東條</b>：売買を断られ、「今夜中に片をつける」と電話。23:30に展示室へ行きかけた。→ 霧で引き返した。長靴でもない。</li><li><b>真砂</b>：金で評論を書いていた。23:00〜23:40に一人。→ 宿泊棟のラウンジにいた（廊下の東條の電話を聞いている）。</li><li><b>澄香</b>：遺体を見つけた。父の絵の秘密に気づいていた。→ 宿泊棟の部屋にいた。</li><li><b>久我</b>：夜の砂州を知っていて、東條から金を受け取っていた。22:50〜23:40に誰も見ていない時間がある。→ ラウンジで寝ていた。長靴は濡れていない。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「砂州」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。澄香の「守りが役に立つ」は、守った人に誰かがスキルを向けたら達成。</li><li>足止めが成功した相手は、そのあとの順番でスキルを使えない。</li><li>目利きで取れるのは「作品」の印がある持ち物だけ（母のスケッチ帳・新作『潮騒』の下絵・スケッチブック・汐里の下絵）。</li><li>買収に使えるお金のカードは、小切手帳（東條）と東條からの封筒（久我）。</li><li>代役は、まねたスキルのすぐあとに処理する。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（館長室・収蔵庫・潮田の船小屋）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>鷹野 澄香</td><td>□　□</td><td></td></tr><tr><td>葉山 諒</td><td>□　□</td><td></td></tr><tr><td>真砂 圭</td><td>□　□</td><td></td></tr><tr><td>東條 剛</td><td>□　□</td><td></td></tr><tr><td>小春</td><td>□　□</td><td></td></tr><tr><td>潮田 海斗</td><td>□　□</td><td></td></tr><tr><td>小夜子</td><td>□　□</td><td></td></tr><tr><td>桐生 葵</td><td>□　□</td><td></td></tr><tr><td>久我 源治</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>収蔵庫①（汐里の下絵）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「汐里の下絵」は澄香、「新作『潮騒』の下絵」は葉山（持ちたい）と真砂（見せて明かしたい）、「東條からの封筒」は久我と桐生、「お礼の封筒」は真砂と桐生の取り合い。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>鷹野 澄香①</td><td>収蔵庫の鍵</td><td class='t'>—</td><td>鍵：持っている間、「収蔵庫」を調べられる。</td><td> </td></tr><tr><td>鷹野 澄香②</td><td>館長室の鍵</td><td class='t'>—</td><td>鍵：持っている間、「館長室」を調べられる。</td><td> </td></tr><tr><td>鷹野 澄香③</td><td>式典のあいさつ文</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鷹野 澄香④</td><td>母の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>葉山 諒①</td><td>新作『潮騒』の下絵</td><td class='t'>—</td><td>—</td><td>作品 </td></tr><tr><td>葉山 諒②</td><td>パレットナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>葉山 諒③</td><td>小春のヘアゴム</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>葉山 諒④</td><td>先生のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>真砂 圭①</td><td>お礼の封筒</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>真砂 圭②</td><td>評論の切り抜き</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>真砂 圭③</td><td>ルーペ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>真砂 圭④</td><td>スピーチ原稿</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>東條 剛①</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>東條 剛②</td><td>売買の契約書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>東條 剛③</td><td>ゴルフのパター</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>東條 剛④</td><td>島の完成予想図</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小春①</td><td>館長のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小春②</td><td>スケッチブック</td><td class='t'>—</td><td>—</td><td>作品 </td></tr><tr><td>小春③</td><td>滞在の契約書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小春④</td><td>絵の具箱</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>潮田 海斗①</td><td>泥のついた長靴</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>潮田 海斗②</td><td>母のスケッチ帳</td><td class='t'>—</td><td>—</td><td>作品 </td></tr><tr><td>潮田 海斗③</td><td>船小屋の鍵</td><td class='t'>—</td><td>鍵：持っている間、「潮田の船小屋」を調べられる。</td><td> </td></tr><tr><td>潮田 海斗④</td><td>船の櫂</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>小夜子①</td><td>昔の手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小夜子②</td><td>汐里との写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小夜子③</td><td>旅館の帳面</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小夜子④</td><td>出刃包丁</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>桐生 葵①</td><td>十年前の新聞</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐生 葵②</td><td>取材ノート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐生 葵③</td><td>カメラ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>桐生 葵④</td><td>記者証</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久我 源治①</td><td>潮見表</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久我 源治②</td><td>東條からの封筒</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>久我 源治③</td><td>漁協の反対署名</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>久我 源治④</td><td>古い漁師の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）収蔵庫①・調査1</td><td>汐里の下絵</td><td class='t'>—</td><td>—</td><td>作品 </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>真砂 圭</td><td>議論中に「新作『潮騒』の下絵」を全員に見せながら、館長の新作を描いていたのは葉山だと明かす。</td><td></td></tr><tr><td>潮田 海斗</td><td>議論中に「母のスケッチ帳」を全員に見せながら、『海の記憶』は鷹野の絵ではないと明かす。</td><td></td></tr><tr><td>桐生 葵</td><td>議論中に「十年前の新聞」を全員に見せながら、潮田汐里が島へ向かって亡くなったことを明かす。</td><td></td></tr><tr><td>久我 源治</td><td>議論中に「潮見表」を全員に見せながら、今夜23時ごろ砂州を歩いて島へ渡れたと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>鷹野 澄香</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「汐里の下絵」を自分が持っている。<br>+1　葉山諒が最多票に<b>ならない</b>。<br>+1　スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</td></tr><tr><td><b>葉山 諒</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「新作『潮騒』の下絵」を自分が持っている。<br>+1　小春が最多票に<b>ならない</b>。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>真砂 圭</b></td><td>+3　最後に「お礼の封筒」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「目利き」で、「作品」の印の持ち物を1つ手に入れる。<br>+1　議論中に「新作『潮騒』の下絵」を全員に見せながら、館長の新作を描いていたのは葉山だと明かす。</td></tr><tr><td><b>東條 剛</b></td><td>+3　最後に「売買の契約書」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「買収」を成功させる。<br>+1　久我源治が最多票に<b>ならない</b>。</td></tr><tr><td><b>小春</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　葉山諒が最多票に<b>ならない</b>。<br>+1　最後に「館長のメモ」を自分が持っている。<br>+1　スキル「すり取り」を成功させる。</td></tr><tr><td><b>潮田 海斗</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「泥のついた長靴」を自分が持って<b>いない</b>。<br>+1　最後に「母のスケッチ帳」を自分が持っている。<br>+1　議論中に「母のスケッチ帳」を全員に見せながら、『海の記憶』は鷹野の絵ではないと明かす。</td></tr><tr><td><b>小夜子</b></td><td>+3　潮田海斗が最多票に<b>ならない</b>。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「昔の手紙」を自分が持っている。<br>+1　スキル「返却」を成功させる。</td></tr><tr><td><b>桐生 葵</b></td><td>+3　最後に「東條からの封筒」か「お礼の封筒」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「代役」で、まねたスキルを成功させる。<br>+1　議論中に「十年前の新聞」を全員に見せながら、潮田汐里が島へ向かって亡くなったことを明かす。</td></tr><tr><td><b>久我 源治</b></td><td>+3　スキル「足止め」を、犯人に成功させる。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「東條からの封筒」を自分が持っている。<br>+1　議論中に「潮見表」を全員に見せながら、今夜23時ごろ砂州を歩いて島へ渡れたと明かす。</td></tr></tbody></table></div>
+    <p class="note">投票の答え：潮田海斗（+4）。潮田本人はこの点なし。久我の「足止め」は、相手が潮田で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>18:00</td><td>島のテラスで前夜祭の夕食。</td></tr><tr><td class='t'>21:00</td><td>最後の渡し船。桟橋で潮田が館長に母の名前を言い、笑われる（澄香が見る）。21:05、船が出る。</td></tr><tr><td class='t'>21:30</td><td>霧。港町の旅館で潮田・久我・桐生が飲む。</td></tr><tr><td class='t'>22:00</td><td>館長、小春に「23時半に展示室へ」。真砂に封筒。</td></tr><tr><td class='t'>22:15</td><td>館長室で館長が東條に「売らない」。</td></tr><tr><td class='t'>22:30</td><td>展示室で館長と葉山（〜22:45）。</td></tr><tr><td class='t'>22:50</td><td>潮田、旅館を出る。久我、ラウンジでうたた寝（〜23:40）。</td></tr><tr><td class='t'>23:00</td><td><b>潮田、家の裏の浜から砂州を歩いて島へ（〜23:10）。</b>葉山と小春は小春の部屋（〜23:30）。真砂は宿泊棟のラウンジ（〜23:40）。桐生は旅館の二階で電話（〜23:30）。</td></tr><tr><td class='t'>23:10</td><td>東條、廊下で「今夜中に片をつける」。</td></tr><tr><td class='t'>23:15</td><td>干潮。</td></tr><tr><td class='t'>23:20</td><td><b>潮田、展示室で館長をブロンズの彫刻で殴る。</b>小春が浜の明かりを見る。</td></tr><tr><td class='t'>23:25</td><td>潮田、満ちはじめた砂州を戻る（〜23:40）。23:30、小夜子が浜の明かりを見る。東條は展示室へ行きかけて引き返す。</td></tr><tr><td class='t'>23:45</td><td>潮田、家で着がえる。長靴を船小屋へ。</td></tr><tr><td class='t'>23:50</td><td>澄香が展示室で館長を見つける。</td></tr><tr><td class='t'>0:05</td><td>港町に知らせ。潮田が髪を濡らし、サンダルで旅館へ。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>鷹野玄一郎を殺したのは、渡し船の船頭・潮田海斗だった。</p><p>霧の夜、船は出なかった。海斗は、母が最後に渡ろうとした海を、自分の足で歩いて渡った。大潮の夜、潮が引くわずかな時間だけ現れる、砂の道を。</p><p>「母の絵を、母の名前に返してやりたかった。それだけです」。海斗は、母のスケッチ帳を、澄香の前に置いた。</p><p>朝、潮が引くと、砂州は何事もなかったように、港町と島をつないでいた。</p>
+    </div>
+    <ul class="epi"><li><b>鷹野 澄香</b>：澄香は、父の絵の秘密を自分の口で公表した。美術館は売らず、汐里の絵の美術館として、もう一度開くことに決めた。</li><li><b>葉山 諒</b>：葉山は、新作『潮騒』を自分の名前で発表した。会場の最前列に、小春が座っていた。</li><li><b>真砂 圭</b>：真砂は、これまで受け取った金のことを雑誌で告白し、評論の筆を置いた。</li><li><b>東條 剛</b>：東條リゾートの月見島の計画は、白紙になった。</li><li><b>小春</b>：小春は滞在制作を続けることになった。最初に描いたのは、霧の夜の浜の、小さな明かりの絵だった。</li><li><b>潮田 海斗</b>：海斗は、自分から警察に話した。『海の記憶』の作者の欄は、一年後、「潮田汐里」に書きかえられた。</li><li><b>小夜子</b>：小夜子は、汐里のことを警察に話した。十年分の涙を、ようやく流した。</li><li><b>桐生 葵</b>：桐生の記事は、リゾート開発の裏金と、一人の女性画家の名前を世に出した。</li><li><b>久我 源治</b>：久我は東條の金を返し、組合長を辞めた。それでも毎朝、浜に出て潮を見ている。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　鷹野玄一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：鷹野澄香・葉山諒・真砂圭・東條剛・小春・潮田海斗・小夜子・桐生葵・久我源治</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('shiohiku-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('shiohiku-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('shiohiku-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('shiohiku-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
