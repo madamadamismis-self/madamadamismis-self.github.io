@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ルーム7の最後の一曲（7人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 夜のカラオケバー。ネオンの紫と桃色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #f1eef5;
+  --surface: #fcfbfe;
+  --ink: #1e1a28;
+  --muted: #625b72;
+  --line: #dad4e3;
+  --accent: #b4237a;
+  --accent-soft: #f8dfee;
+  --teal: #5b3fb5;
+  --teal-soft: #e8e1f8;
+  --slate: #1a1230;
+  --slate-ink: #f4f0fc;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #110d1a; --surface: #1a1426; --ink: #ebe6f5; --muted: #a49cb6; --line: #2f2740;
+    --accent: #f472b6; --accent-soft: #3a1a2e; --teal: #a78bfa; --teal-soft: #261c42;
+    --slate: #08060e; --slate-ink: #ebe6f5; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #110d1a; --surface: #1a1426; --ink: #ebe6f5; --muted: #a49cb6; --line: #2f2740;
+  --accent: #f472b6; --accent-soft: #3a1a2e; --teal: #a78bfa; --teal-soft: #261c42;
+  --slate: #08060e; --slate-ink: #ebe6f5; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #a78bfa, #f472b6, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>ルーム7の最後の一曲</h1>
+    <p>学園祭の打ち上げの夜。ルーム7からは、零時五十分まで歌が流れていた。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>7人 ＋ GM1人</span>
+      <span><b>TIME</b>約130分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・大学そばの貸切カラオケバー</span>
+      <span><b>CARDS</b>キャラシート7・持ち物28・秘密14・証拠23</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">ルーム7の最後の一曲（7人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー7人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、脅迫の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 7人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 28枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 14枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 23枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 7枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「受付カウンターの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>事務室・堂本のスマホは、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>事務室：事務室の鍵</li><li>堂本のスマホ：暗証番号（リサが知っている。リサに教えてもらった人も可）</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「裏口とゴミ置き場」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「動画」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">8分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">14分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">22分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">14分</td><td>調査2</td><td>1人3回。新しいカードと「裏口とゴミ置き場」が加わる。</td></tr>
+        <tr><td class="t">22分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：問いの答えに、プレイヤーが演じている人物の名前を書く（堂本誠也は書けない。自分の名前を書いてもよい）。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「堂本誠也を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十一月の終わり。三日間の学園祭が終わった夜、実行委員たちは大学のそばのカラオケバー「STAGE」に集まった。オーナーの堂本誠也は委員会のOBで、毎年この夜だけは店を貸し切りにしてくれる。</p><p>二十二時、いちばん大きなパーティールームで乾杯。二十三時半を過ぎると、みんな気の合う仲間と、それぞれの小さな部屋に散っていった。堂本は「喉ならしだ」と言って、奥のルーム7に一人で入った。</p><p>ルーム7からは、堂本の十八番のバラードが、ドアごしに何度も流れてきた。最後の曲が終わったのは零時五十分ごろだった。</p><p>一時。ラストオーダーを取りに行った店員のリサが、ルーム7のドアを開けた。堂本はソファに倒れていた。首に、マイクのコードが巻きついていた。テレビの画面には「歌ってくれてありがとう！」の文字が光っていた。</p><p>外は冷たい雨。終電はもうない。誰かが警察に電話をかけ、到着までの三十分、誰もこの店を出ないことになった。</p><p>——最後の一曲を歌ったのは、誰だったのか。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：ルーム7のソファ。首にマイクのコードが巻きついている。1:00に店員のリサが見つけた。</li><li>ルーム7からは、0:10ごろから0:50ごろまで、堂本の十八番の曲が何曲も流れていた（廊下を通った何人もが聞いている）。</li><li>ルーム7のドアの小窓は、堂本がいつも自分の上着をかけてふさいでいる。今夜もそうだった。</li><li>23:30〜1:00、みんな部屋を移ったり、トイレやカウンターへ行ったりしていた。</li><li>鍵のかかる場所：店の事務室。堂本のスマホには暗証番号がある。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れ</h3>
+      <ul><li>22:00 パーティールームで乾杯</li><li>23:30すぎ 小さな部屋に分かれる。堂本はルーム7へ</li><li>0:10〜0:50 ルーム7から曲が流れる</li><li>1:00 リサがルーム7で堂本を見つける</li></ul>
+      <p class="note">店は一本の廊下に、パーティールームとルーム2〜7、トイレ、受付カウンター、事務室（スタッフ用）が並ぶ。廊下の突き当たりに裏口。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　堂本誠也を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>カラオケバー「STAGE」</h3>
+    <svg viewBox="0 0 400 200" role="img" aria-label="店の見取り図">
+      <rect class="room" x="10" y="80" width="380" height="30"/><text x="150" y="100">廊下</text>
+      <rect class="room" x="10" y="10" width="90" height="70"/><text class="sm" x="16" y="48">パーティールーム</text>
+      <rect class="room" x="100" y="10" width="60" height="70"/><text class="sm" x="110" y="48">ルーム2</text>
+      <rect class="room" x="160" y="10" width="60" height="70"/><text class="sm" x="170" y="48">ルーム3</text>
+      <rect class="room" x="220" y="10" width="60" height="70"/><text class="sm" x="230" y="48">ルーム4</text>
+      <rect class="room" x="280" y="10" width="60" height="70"/><text class="sm" x="290" y="48">ルーム5</text>
+      <rect class="hot" x="340" y="10" width="50" height="70"/><text class="ac" x="344" y="48">ルーム7</text>
+      <rect class="room" x="10" y="110" width="90" height="60"/><text class="sm" x="18" y="144">受付カウンター</text>
+      <rect class="room" x="100" y="110" width="60" height="60"/><text class="sm" x="108" y="144">トイレ</text>
+      <rect class="room" x="160" y="110" width="80" height="60"/><text class="sm" x="168" y="144">事務室</text>
+      <rect class="room" x="240" y="110" width="60" height="60"/><text class="sm" x="248" y="144">ルーム6</text>
+      <rect class="stair" x="300" y="110" width="90" height="60"/><text class="sm" x="310" y="144">裏口</text>
+    </svg></div></div><p class="note">ルーム7は廊下のいちばん奥で、向かいが裏口。受付カウンターからは廊下の手前半分しか見えない。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・カラオケバー「STAGE」のオーナー</span><span class="nm">堂本 誠也</span><span class="kana">どうもと せいや（27）</span><p>大学の学園祭実行委員会のOB。卒業してすぐ大学のそばにカラオケバー「STAGE」を開いた。毎年、実行委員の打ち上げに店を貸し切りで出してくれる、気前のいい先輩。歌がうまい。</p></div><div class="person"><span class="role">大学2年・実行委員（20）</span><span class="nm">美咲</span><span class="kana">みさき</span><p>実行委員の2年生。広報班。柏木と付き合っている。</p><p class="look">服装：ベージュのニット、髪をおろしている</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学4年・実行委員長（22）</span><span class="nm">西園寺 崇</span><span class="kana">さいおんじ たかし</span><p>今年の学園祭の実行委員長。堂本の直系の後輩で、堂本からこの店の跡を継がないかと言われている。</p><p class="look">服装：ジャケットにスタッフTシャツ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">大学3年・実行委員（21）</span><span class="nm">奈緒</span><span class="kana">なお</span><p>実行委員の3年生。渉外班。社交的で、どこにでも顔がきく。</p><p class="look">服装：黒いミニのワンピース</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">大学3年・実行委員（21）</span><span class="nm">柏木 翔</span><span class="kana">かしわぎ しょう</span><p>学園祭実行委員の3年生。ステージ班のリーダー。美咲と付き合っている。</p><p class="look">服装：実行委員のスタッフTシャツ、黒いパーカー</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">大学2年・実行委員（20）</span><span class="nm">小野寺 悠</span><span class="kana">おのでら ゆう</span><p>実行委員の2年生。会場班。堂本に特にかわいがられていた。</p><p class="look">服装：白いシャツ、細いネックレス</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">カラオケバー「STAGE」の店員（24）</span><span class="nm">リサ</span><span class="kana">りさ</span><p>STAGEの店員。堂本の店を開店のときから手伝っている。遺体を見つけた。</p><p class="look">服装：黒いエプロン、金髪のショート</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">大学院生・委員会のOB（24）</span><span class="nm">宮本 陸</span><span class="kana">みやもと りく</span><p>大学院生。去年の実行委員会の会計。今年も打ち上げに顔を出した。</p><p class="look">服装：グレーのセーター、眼鏡</p><p class="pstat">基本パワー 2</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">美咲<small>みさき</small></span><span class="rl">大学2年・実行委員</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">西園寺 崇<small>さいおんじ たかし</small></span><span class="rl">大学4年・実行委員長</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">奈緒<small>なお</small></span><span class="rl">大学3年・実行委員</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">柏木 翔<small>かしわぎ しょう</small></span><span class="rl">大学3年・実行委員</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">小野寺 悠<small>おのでら ゆう</small></span><span class="rl">大学2年・実行委員</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">リサ<small>りさ</small></span><span class="rl">カラオケバー「STAGE」の店員</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">宮本 陸<small>みやもと りく</small></span><span class="rl">大学院生・委員会のOB</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="MS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">美咲<small>みさき</small></span><span class="rl">大学2年・実行委員・20歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「美咲です。2年で、広報をやってました。……今夜は、ずっとどこにいたらいいかわからなくて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>人前に出るのは苦手。でも、学園祭のポスターを作るのは好きだった。</p><p>春の打ち上げで、堂本の店でお酒を飲んで、気がついたらルーム7のソファにいた。何があったのか、思い出せない。数日後、堂本から動画が送られてきた。</p><p>「柏木くんに見せたくないよね」。それから何度も、閉店後のルーム7に呼ばれた。行くたびに、自分が少しずつ消えていく気がした。</p><p>今夜23:45、トイレの前で翔に見られた。全部、話してしまった。翔の顔から、表情が消えた。</p><p>0:00から0:30まで、ルーム6で一人で泣いていた。</p><p>翔と初めて話したのは、去年の学園祭の準備の夜だった。脚立から落ちそうになったあなたを、翔が下で受け止めてくれた。</p><p>地元の母は、あなたが東京で楽しくやっていると信じている。電話では、いつも笑ってみせている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>堂本に動画で脅されて、何度もルーム7に呼び出されていた。今夜23:45、翔にそれを全部話した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柏木翔</b>：恋人。23:45、ルーム7のほうへ歩いていった。</li><li><b>リサ</b>：店員。堂本さんに呼ばれる夜、いつも気まずそうに目をそらしていた。</li><li><b>小野寺悠</b>：2年の同期。堂本さんと妙に親しい。</li><li><b>宮本陸</b>：OB。</li><li><b>西園寺崇</b>：委員長。</li><li><b>奈緒</b>：3年の先輩。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">美咲<small>みさき</small></span><span class="rl">大学2年・実行委員・20歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>ルーム6で一人で泣いていた（〜0:30）。隣のルーム7から、何かがぶつかるような音がした気がした。</dd><dt>0:10</dt><dd>ルーム7から、堂本さんの十八番が流れはじめた。</dd><dt>0:30</dt><dd>ルーム2へ。翔が手を握ってくれた。翔はずっとスマホを見ていた。</dd><dt>22:00</dt><dd>乾杯。堂本さんがずっとこっちを見ていた。</dd><dt>23:30</dt><dd>堂本から「今夜もルーム7な」。</dd><dt>23:45</dt><dd>トイレの前で翔に聞かれて、全部話した。翔はルーム7のほうへ歩いていった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:45からトイレ、0:00から0:30までルーム6で休んでいた。そのあとルーム2」。堂本さんのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>翔が疑われたら、守りたい。でも、もし翔が——。</li><li>あなたのスキルで、誰か一人を守れる。</li><li>ルーム6で聞いた、0:00ごろの音は何だったのか。</li><li>堂本さんのスマホに、あなたの動画がある。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>おとなしくて、今にも泣きそうな後輩として振る舞ってください。堂本の名前が出るたびに、肩がびくっと動く。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>柏木翔が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「美咲の動画」を自分か柏木が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">西園寺 崇<small>さいおんじ たかし</small></span><span class="rl">大学4年・実行委員長・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「委員長の西園寺です。堂本さんは、俺の憧れの先輩でした。……誰がこんなことを」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の名士の家の長男。大学で実行委員長をつとめ、春からは父の会社に入ることになっている。</p><p>高校からの彼女がいる。結婚の話も出ている。</p><p>でも、半年前から、3年の奈緒と寝ている。奈緒は、あなたの彼女のことを知っている。それでもいいと言う。</p><p>実行委員会の会計に、300万円の穴がある。委員長のあなたが責任をとらされる。堂本は「穴は俺がうめてやる。そのかわり、卒業したら店を手伝え」と言った。何かがおかしい、と思っていた。</p><p>今夜0:20から0:55まで、ルーム5で奈緒と二人きりだった。</p><p>委員長になったのは、父に「人の上に立つ経験をしろ」と言われたからだ。本当は、ステージ班で照明をやりたかった。</p><p>奈緒といると、委員長でも長男でもない自分でいられる。それが怖い。</p></div>
+      <div class="secret"><h4>秘密</h4><p>彼女がいるのに、3年の奈緒と浮気している。今夜0:20〜0:55、ルーム5で奈緒と関係をもった。委員会の会計に300万円の穴がある。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>奈緒</b>：浮気相手。0:20〜0:55、ルーム5で一緒。</li><li><b>宮本陸</b>：前の委員会の会計。300万円の穴のことを知っているはず。</li><li><b>柏木翔</b>：ステージ班のリーダー。</li><li><b>小野寺悠</b>：2年。堂本さんにだけ、やけになついている。</li><li><b>リサ</b>：店員。</li><li><b>美咲</b>：広報班の2年。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 5）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">西園寺 崇<small>さいおんじ たかし</small></span><span class="rl">大学4年・実行委員長・22歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:20</dt><dd>ルーム5で奈緒と（〜0:55）。ルーム7の曲が壁ごしに聞こえていた。同じ曲が何度も。</dd><dt>0:50</dt><dd>ルーム7の曲が止まった。</dd><dt>0:55</dt><dd>トイレへ。廊下は静かだった。</dd><dt>1:00</dt><dd>リサの悲鳴。</dd><dt>22:00</dt><dd>乾杯の音頭。</dd><dt>22:00</dt><dd>乾杯のあと、堂本さんに「店のこと考えといてくれよ」と肩をたたかれた。</dd><dt>23:40</dt><dd>パーティールームで、会計の帳簿を見ながら一人で飲んでいた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「0:20から0:55まで、ルーム5で一人で寝ていた」。奈緒といたことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>ルーム7から、同じ曲が何度も流れていた。堂本さんは、そんな歌い方をする人だったか。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>同じ曲が何度も流れていた。堂本さんは、本当に歌っていたのか。</li><li>「会計の帳簿」は、宮本さんも欲しがっている。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>頼れる委員長として、場を仕切ってください。ただ、奈緒が話しかけてくると、急に咳ばらいをする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「会計の帳簿」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>奈緒が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="NA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">奈緒<small>なお</small></span><span class="rl">大学3年・実行委員・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「奈緒です。3年で、渉外やってました。スポンサー集めならまかせて。……堂本さんにも、スポンサーを紹介してもらったりしてたのに」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>人と話すのが好きで、どんな人とも三分で仲良くなれる。それが自慢だった。</p><p>委員長の西園寺に彼女がいるのは知っている。それでも、半年前から寝ている。あなたのほうが、本気なのかもしれない。</p><p>去年、堂本の店のアルバイトに誘われた。閉店後に、堂本の知り合いの「お客さん」の相手をする仕事。一晩で、ひと月分の家賃になった。三回でやめた。</p><p>堂本は、そのことを西園寺に言わないかわりに、スポンサーの紹介料を半分よこせと言った。</p><p>今夜0:20から0:55まで、ルーム5で西園寺と二人きりだった。</p><p>実家は小さな居酒屋。人の顔色を読むのは、子どものころからの特技だ。</p><p>西園寺の彼女のSNSを、夜中に何度も見てしまう。</p></div>
+      <div class="secret"><h4>秘密</h4><p>委員長の西園寺と浮気していて、今夜0:20〜0:55、ルーム5で関係をもった。去年、堂本の店で閉店後に客の相手をするアルバイトをしていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>西園寺崇</b>：浮気相手。0:20〜0:55、ルーム5で一緒。</li><li><b>柏木翔</b>：ステージ班。23:50、ルーム7のほうへ早足で歩いていった。</li><li><b>リサ</b>：店員。堂本さんの元カノ。</li><li><b>小野寺悠</b>：2年。</li><li><b>美咲</b>：2年。</li><li><b>宮本陸</b>：OB。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「中身を確認」</b>（処理の順番 3）：1人を選び、その人の持ち物をすべて見る。その中の「動画」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">奈緒<small>なお</small></span><span class="rl">大学3年・実行委員・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:20</dt><dd>ルーム5で西園寺と（〜0:55）。</dd><dt>0:40</dt><dd>ルーム7から、また同じバラードが聞こえてきた。</dd><dt>1:00</dt><dd>リサの悲鳴。</dd><dt>22:00</dt><dd>乾杯。スポンサーの社長にお礼のメッセージを送りまくる。</dd><dt>22:00</dt><dd>乾杯。堂本さんに「紹介料、忘れんなよ」と耳打ちされた。</dd><dt>23:50</dt><dd>廊下で、ルーム7のほうへ早足で歩いていく柏木くんとすれ違った。顔がこわばっていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「0:20から0:55まで、ルーム5でスポンサーへのお礼のメッセージを書いていた。一人で」。西園寺といたことと、アルバイトのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>堂本さんのスマホには、あなたのアルバイトのことも入っているかもしれない。</li><li>あなたのスキルは「動画」の印のついた物を取れる。</li><li>23:50の柏木くんの、こわばった顔。</li><li>西園寺といたことを話せば、アリバイにはなる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るくて、話のうまい先輩として振る舞ってください。誰にでも気さくに話しかける。西園寺には、人前では「委員長」と呼ぶ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「奈緒の動画」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>西園寺崇が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「中身を確認」で、「動画」の印の持ち物を1つ手に入れる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SH">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">柏木 翔<small>かしわぎ しょう</small></span><span class="rl">大学3年・実行委員・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。堂本誠也を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「柏木です。3年で、ステージ班をやってました。堂本さんには、委員会に入ったときからずっと世話になってて……」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校のころから、人を楽しませる裏方が好きだった。実行委員会のステージ班は、あなたの居場所だった。</p><p>後輩の美咲と、一年前から付き合っている。照れ屋で、笑うと目がなくなる子だ。</p><p>この夏から、美咲の様子がおかしかった。夜になると連絡がとれない。理由を聞くと泣くだけだった。</p><p>今夜23:45、トイレの前で美咲のスマホが鳴った。画面に堂本からのメッセージ。「今夜もルーム7な。来なかったら、例の動画、柏木くんに送るよ」。美咲は崩れるように泣いて、全部話した。春の打ち上げで、酒に何かを入れられ、堂本に撮られた。それから、動画をネタに、何度も呼び出されていた。</p><p>あなたはルーム7のドアを開けた。</p><p>父は地元の警察官だ。「人の弱みにつけこむやつだけは許すな」が口ぐせだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜0:00、ルーム7で堂本誠也を殺した。</b>そのあと、自分のスマホのカラオケアプリでルーム7に曲を予約し続け、堂本が0:50まで歌っていたように見せかけた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>美咲</b>：恋人。堂本に動画で脅されていた。</li><li><b>宮本陸</b>：院生のOB。0:05からルーム2で一緒だった。</li><li><b>小野寺悠</b>：2年。23:40ごろ、ルーム7から出てくるのを見た気がする。</li><li><b>リサ</b>：店員。堂本の元カノらしい。</li><li><b>西園寺崇</b>：実行委員長。</li><li><b>奈緒</b>：3年。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 7）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">柏木 翔<small>かしわぎ しょう</small></span><span class="rl">大学3年・実行委員・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>マイクのコードで、堂本の首を絞めた。</dd><dt>0:03</dt><dd>テーブルのQRコードをスマホで読んで、カラオケアプリをルーム7につないだ。上着が小窓にかかっているのを確かめて、外へ。</dd><dt>0:05</dt><dd>ルーム2へ。宮本さんに「トイレ長かったな」と言われた。そこから0:50まで、4〜5分おきに堂本の十八番をアプリで予約した。</dd><dt>0:30</dt><dd>美咲がルーム2に来た。手を握った。美咲は何も聞かなかった。</dd><dt>23:45</dt><dd>トイレの前で、美咲から堂本のことを聞く。</dd><dt>23:50</dt><dd>ルーム7へ。堂本はソファで笑った。「美咲ちゃん？　来てくれないなら、柏木くんに見せようと思ってたんだ」。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:45ごろトイレに行って、0:05からずっとルーム2で宮本さんと飲んでいた。0:30から美咲も一緒」。スマホをいじっていたのは「LINEを返していた」。ルーム7に入ったことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>0:50まで曲が流れていたので、みんな堂本は0:50まで生きていたと思っている。</li><li>「アプリの予約履歴」が見られたら、終わりだ。</li><li>美咲だけは、疑われないようにしたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>面倒見のいい先輩として、みんなを落ち着かせてください。堂本の死にショックを受けているふりをする。美咲が疑われると、つい声が大きくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「アプリの予約履歴」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「美咲の動画」を自分か美咲が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>美咲が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="OS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">小野寺 悠<small>おのでら ゆう</small></span><span class="rl">大学2年・実行委員・20歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「小野寺です。2年で、会場の設営をやってました。堂本さんには、すごくよくしてもらって……」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>田舎から出てきて、仕送りはほとんどない。アルバイトをかけもちしても、家賃でぎりぎりだった。</p><p>去年の冬、堂本に誘われた。最初は食事だけだった。そのうち、閉店後のルーム7で、二人きりで過ごすようになった。堂本は男も女も好きな人だった。帰りに、いつも封筒をくれた。</p><p>誰にも言っていない。男の人とそういう関係になったのも、お金をもらうのも、初めてだった。</p><p>今夜23:40、ルーム7に呼ばれて、二人きりになった。23:48、堂本は「今夜はこのあと別の子が来るから」と言って、あなたを部屋から出した。</p><p>そのあとはルーム4のソファで、酔いつぶれて寝ていた。</p><p>実家は山あいの町の米農家。大学に行ったのは、町でいちばん勉強ができたからだ。</p><p>堂本は、あなたを初めて「かわいい」と言ってくれた人だった。それがお金とつながっていても。</p></div>
+      <div class="secret"><h4>秘密</h4><p>堂本と、お金をもらう関係だった。今夜23:40〜23:48、ルーム7で堂本と二人きりだった。生きている堂本を最後に見たのは、たぶんあなた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柏木翔</b>：3年の先輩。23:48、ルーム7から出たとき、廊下の向こうに立っていた。</li><li><b>美咲</b>：同期。堂本さんは「美咲ちゃんもかわいいよな」と言っていた。</li><li><b>リサ</b>：店員。あなたと堂本さんのことに、気づいているかもしれない。</li><li><b>西園寺崇</b>：委員長。</li><li><b>奈緒</b>：3年の先輩。</li><li><b>宮本陸</b>：OB。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 6）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">小野寺 悠<small>おのでら ゆう</small></span><span class="rl">大学2年・実行委員・20歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:55</dt><dd>目がさめると、ルーム7の曲はもう止まっていた。</dd><dt>1:00</dt><dd>リサの悲鳴。</dd><dt>22:00</dt><dd>乾杯。堂本さんに「あとでな」と言われた。</dd><dt>23:40</dt><dd>ルーム7で堂本と二人きり。</dd><dt>23:48</dt><dd>「このあと別の子が来るから」と言われて、ルーム7を出た。封筒をもらった。</dd><dt>23:50</dt><dd>ルーム4へ。酒を一気に飲んで、そのまま寝てしまった（〜0:55）。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:40ごろからずっとルーム4で寝ていた」。ルーム7にいたことは言わない（言えば、堂本との関係がばれる）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>23:48に堂本さんが言った「別の子」とは誰だったのか。</li><li>堂本さんのスマホに、あなたの動画もあるかもしれない。</li><li>23:48の時点では、堂本さんは生きていた。それを言えば、あなたが最後に会った人になる。</li><li>あなたのスキルは、相手の持ち物を裏向きで引く。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>人なつっこいが、どこかおびえた後輩として振る舞ってください。堂本の話になると、目が泳ぐ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「小野寺の封筒」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「小野寺の動画」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="RI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">リサ<small>りさ</small></span><span class="rl">カラオケバー「STAGE」の店員・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「店員のリサです。この店は、開いたときからずっとここで働いてます。……ラストオーダーを取りに行ったら、オーナーが」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校を出て、夜の店をいくつか回った。堂本に「一緒に店をやろう」と言われて、ここに来た。三年前のことだ。</p><p>最初の一年は、堂本の恋人だった。堂本はすぐにほかの子に目移りした。別れたあとも、店には残った。ほかに行くところがなかった。</p><p>堂本が、閉店後のルーム7に若い子たちを呼んでいるのは知っている。止められなかった。見ないふりをしてきた。</p><p>店の売上から、毎月少しずつお金を抜いている。堂本からもらえなかった給料の分だと思っている。</p><p>今夜0:30から0:45まで、事務室で宮本さんと二人きりだった。</p><p>本当は、自分の店を持ちたい。小さなカウンターだけの店。貯めているお金は、そのためでもある。</p><p>閉店後のルーム7のことを、誰かに話せていたら、と今夜何度も思った。</p></div>
+      <div class="secret"><h4>秘密</h4><p>堂本の元恋人。店の売上から毎月お金を抜いている。今夜0:30〜0:45、事務室でOBの宮本と関係をもった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>宮本陸</b>：0:30〜0:45、事務室で一緒だった。</li><li><b>小野寺悠</b>：オーナーのお気に入りの2年生。閉店後によく呼ばれていた。</li><li><b>美咲</b>：2年生。この夏から、閉店後によく呼ばれていた。</li><li><b>奈緒</b>：3年生。去年、閉店後のアルバイトをしていた。</li><li><b>柏木翔</b>：3年生。</li><li><b>西園寺崇</b>：委員長。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「足止め」</b>（処理の順番 2）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">リサ<small>りさ</small></span><span class="rl">カラオケバー「STAGE」の店員・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:20</dt><dd>ルーム7に飲み物を届けに行った。ドアの前で「置いとくね」と声をかけたが、返事はなかった。中では曲が流れていた。歌声はなかった。</dd><dt>0:30</dt><dd>事務室で宮本さんと（〜0:45）。</dd><dt>0:45</dt><dd>受付カウンターへ戻る。</dd><dt>0:50</dt><dd>ルーム7の曲が止まった。</dd><dt>1:00</dt><dd>ラストオーダーを取りにルーム7へ。上着のかかった小窓。ドアを開けると、オーナーが倒れていた。</dd><dt>22:00</dt><dd>パーティールームに乾杯のシャンパンを運ぶ。</dd><dt>23:30</dt><dd>受付カウンターで、各部屋の注文をさばく。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと受付カウンターにいた。0:20にルーム7に飲み物を届けた」。事務室のことと、売上のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>0:20、ルーム7に声をかけたとき返事がなく、歌声も聞こえなかった。</li><li>オーナーのスマホの暗証番号は、あなたの誕生日。たぶん、今も変えていない。</li><li>0:20、ルーム7で歌声はしなかった。</li><li>事務室にいたことを話せば、宮本さんとのことがばれる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>さばさばした、少し疲れた店員として振る舞ってください。オーナーの死に驚いているが、涙は出ない。若い子たちを見る目が、少しだけやさしい。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「足止め」を、犯人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「売上の帳面」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「カラオケの採点記録」を全員に見せながら、0:00からあとは誰も歌っていなかったと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">宮本 陸<small>みやもと りく</small></span><span class="rl">大学院生・委員会のOB・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「宮本です。院生で、去年の委員会の会計をしてました。……堂本さんとは、何度もお金の話をした仲です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>数字を見るのが好きで、委員会では二年続けて会計をやった。</p><p>去年の決算で、300万円が合わなかった。調べると、堂本の店への「打ち上げの会場費」が、毎年水増しされていた。堂本は笑って「おまえも一口かむか」と言った。あなたは、かんでしまった。今も月に三万円、口座に入ってくる。</p><p>今年の委員長の西園寺に、その穴の責任がかぶせられようとしている。</p><p>店員のリサとは、去年から時々、閉店後に会っている。恋人というわけではない。</p><p>今夜は0:05からルーム2で柏木と飲み、0:30から0:45まで事務室でリサと二人きりだった。</p><p>研究室では、データの不正には人一倍きびしい。自分のしていることとの差に、ときどき吐き気がする。</p><p>リサとは、閉店後のカウンターで、どうでもいい話をする時間がいちばん好きだ。</p></div>
+      <div class="secret"><h4>秘密</h4><p>堂本と組んで、委員会の会場費を水増しして300万円を抜いていた。今夜0:30〜0:45、事務室で店員のリサと関係をもった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柏木翔</b>：23:45〜0:05、トイレに行っていた。0:05からルーム2で一緒。ずっとスマホを触っていた。</li><li><b>リサ</b>：0:30〜0:45、事務室で一緒。</li><li><b>西園寺崇</b>：今年の委員長。300万円の穴を背負わされそうになっている。</li><li><b>美咲</b>：0:30にルーム2に来た。目が赤かった。</li><li><b>小野寺悠</b>：2年。</li><li><b>奈緒</b>：3年。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 4）：「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、札束と交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">宮本 陸<small>みやもと りく</small></span><span class="rl">大学院生・委員会のOB・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:05</dt><dd>ルーム2で柏木と（〜0:30）。柏木はずっとスマホを触っていた。</dd><dt>0:30</dt><dd>美咲ちゃんが来たので、ルーム2を出て事務室でリサと（〜0:45）。</dd><dt>0:45</dt><dd>ルーム2へ戻る。柏木と美咲ちゃんがいた。</dd><dt>0:50</dt><dd>ルーム7の曲が止まった。柏木が、スマホを伏せた。</dd><dt>22:00</dt><dd>乾杯。堂本さんに「今年もよろしく」と言われた。何がよろしくなのか。</dd><dt>23:30</dt><dd>ルーム2で一人で飲む。</dd><dt>23:45</dt><dd>柏木が「トイレ」と出ていった。0:05に戻ってきた。顔が真っ白だった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「0:05から0:30までルーム2で柏木と飲んでいた。0:30から0:45はトイレと外の空気を吸いに。0:45からルーム2」。リサといたことと、300万円のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「会計の帳簿」が人目に出れば、300万円のことがばれる。</li><li>あなたのスキルには「札束」がいる。</li><li>柏木は、ルーム2で何をそんなにスマホで打っていたのか。</li><li>あなたのスキルには「札束」がいる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>落ち着いた、少し皮肉っぽい先輩として振る舞ってください。数字の話になると早口になる。リサとは、人前では店員と客の距離をとる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「会計の帳簿」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>リサが最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">美咲の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="美咲" data-label="美咲の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：美咲</span><span class="ttl">堂本からのメッセージ</span><div class="txt">美咲のスマホの画面。「23:30　今夜もルーム7な。来なかったら、例の動画、柏木くんに送るよ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美咲" data-label="美咲の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：美咲</span><span class="ttl">ポスターの下書き</span><div class="txt">学園祭のポスターの下書き。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美咲" data-label="美咲の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：美咲</span><span class="ttl">ハンカチ</span><div class="txt">涙でぐしゃぐしゃのハンカチ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美咲" data-label="美咲の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：美咲</span><span class="ttl">缶のホットココア</span><div class="txt">冷めかけたココア。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">西園寺 崇の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="西園寺 崇" data-label="西園寺 崇の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：西園寺 崇</span><span class="ttl">会計の帳簿</span><div class="txt">実行委員会の会計の帳簿。会場費の欄に赤い丸。三年分、毎年100万円ずつ増えている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="西園寺 崇" data-label="西園寺 崇の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：西園寺 崇</span><span class="ttl">彼女からのメッセージ</span><div class="txt">「崇くん、学祭お疲れさま。年末、うちの親に会ってね」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="西園寺 崇" data-label="西園寺 崇の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：西園寺 崇</span><span class="ttl">委員長のバインダー</span><div class="txt">ぶ厚い鉄のバインダー。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="西園寺 崇" data-label="西園寺 崇の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：西園寺 崇</span><span class="ttl">ルーム5のマイク</span><div class="txt">ルーム5のワイヤレスマイク。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">奈緒の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="奈緒" data-label="奈緒の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：奈緒</span><span class="ttl">スポンサーの名刺の束</span><div class="txt">スポンサー企業の社長たちの名刺。何枚かの裏に、堂本の字で「紹介済み」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="奈緒" data-label="奈緒の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：奈緒</span><span class="ttl">西園寺からのメッセージ</span><div class="txt">「0:20、ルーム5」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="奈緒" data-label="奈緒の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：奈緒</span><span class="ttl">ヒールの靴</span><div class="txt">ヒールの高いパンプス。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="奈緒" data-label="奈緒の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：奈緒</span><span class="ttl">口紅</span><div class="txt">真っ赤な口紅。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">柏木 翔の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="柏木 翔" data-label="柏木 翔の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：柏木 翔</span><span class="ttl">アプリの予約履歴</span><div class="txt">柏木のスマホのカラオケアプリの画面。「接続先：STAGE　ルーム7（0:03）」「予約：0:10・0:14・0:19・0:24・0:29・0:35・0:41・0:46」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="柏木 翔" data-label="柏木 翔の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：柏木 翔</span><span class="ttl">ステージ班の無線機</span><div class="txt">学園祭で使っていたトランシーバー。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="柏木 翔" data-label="柏木 翔の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：柏木 翔</span><span class="ttl">美咲との写真</span><div class="txt">学園祭のステージ裏で、柏木と美咲が笑っている写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="柏木 翔" data-label="柏木 翔の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：柏木 翔</span><span class="ttl">実行委員の腕章</span><div class="txt">「STAGE」と書かれた赤い腕章。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">小野寺 悠の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="小野寺 悠" data-label="小野寺 悠の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：小野寺 悠</span><span class="ttl">小野寺の封筒</span><div class="txt">堂本からもらった封筒。一万円札が五枚。表に「悠へ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小野寺 悠" data-label="小野寺 悠の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：小野寺 悠</span><span class="ttl">高いネックレス</span><div class="txt">堂本からもらった細いネックレス。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小野寺 悠" data-label="小野寺 悠の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：小野寺 悠</span><span class="ttl">会場班の工具ベルト</span><div class="txt">ドライバーとスパナ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小野寺 悠" data-label="小野寺 悠の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：小野寺 悠</span><span class="ttl">実家の母からの手紙</span><div class="txt">「悠、ちゃんと食べてる？　お米送ったからね」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">リサの持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="リサ" data-label="リサの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：リサ</span><span class="ttl">売上の帳面</span><div class="txt">店の売上の帳面。毎月、レジの合計と帳面の数字が少しずつ合わない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="リサ" data-label="リサの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：リサ</span><span class="ttl">事務室の鍵</span><div class="txt">「事務室」の札がついた鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「事務室」を調べられる。</p></div></div><div class="card item" data-owner="リサ" data-label="リサの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：リサ</span><span class="ttl">開店の日の写真</span><div class="txt">三年前、店の前で堂本とリサが肩を組んでいる写真。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="リサ" data-label="リサの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：リサ</span><span class="ttl">アイスペール</span><div class="txt">重いステンレスのアイスペール。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">宮本 陸の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="宮本 陸" data-label="宮本 陸の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：宮本 陸</span><span class="ttl">札束</span><div class="txt">一万円札が30枚。堂本からの今月分と貯めた分。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="宮本 陸" data-label="宮本 陸の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：宮本 陸</span><span class="ttl">通帳</span><div class="txt">宮本の通帳。毎月「ドウモト　セイヤ　30,000」の入金。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮本 陸" data-label="宮本 陸の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：宮本 陸</span><span class="ttl">電卓</span><div class="txt">使いこんだ電卓。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮本 陸" data-label="宮本 陸の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：宮本 陸</span><span class="ttl">事務室の空き箱</span><div class="txt">事務室に落ちていた、小さな空き箱。リサが拾うのを忘れていた。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="美咲の秘密①"><div class="hd"><span class="loc">美咲の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>美咲は、0:00〜0:30、ルーム6に一人でいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="美咲の秘密②"><div class="hd"><span class="loc">美咲の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>美咲は、ときどき閉店後の店に一人で入っていくところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="西園寺 崇の秘密①"><div class="hd"><span class="loc">西園寺 崇の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>西園寺は、0:20〜0:55、ルーム5にいた。誰かと一緒だったらしい。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="西園寺 崇の秘密②"><div class="hd"><span class="loc">西園寺 崇の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>西園寺には、地元に長年の彼女がいる。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="奈緒の秘密①"><div class="hd"><span class="loc">奈緒の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>奈緒は、0:20〜0:55、ルーム5にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="奈緒の秘密②"><div class="hd"><span class="loc">奈緒の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>奈緒は、去年、閉店後の店に何度か一人で来ていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="柏木 翔の秘密①"><div class="hd"><span class="loc">柏木 翔の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>柏木は、23:45〜0:05、ルーム2にいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="柏木 翔の秘密②"><div class="hd"><span class="loc">柏木 翔の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>柏木は、ルーム2にいる間、ずっとスマホを見ていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小野寺 悠の秘密①"><div class="hd"><span class="loc">小野寺 悠の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>小野寺は、23:40ごろ、ルーム7のほうから出てくるところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小野寺 悠の秘密②"><div class="hd"><span class="loc">小野寺 悠の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>小野寺は、最近、急に高い服を着るようになった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="リサの秘密①"><div class="hd"><span class="loc">リサの秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>リサは、0:30〜0:45、受付カウンターにいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="リサの秘密②"><div class="hd"><span class="loc">リサの秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>リサは、堂本のスマホの暗証番号を知っているかもしれない。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮本 陸の秘密①"><div class="hd"><span class="loc">宮本 陸の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>宮本は、0:30〜0:45、ルーム2にいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮本 陸の秘密②"><div class="hd"><span class="loc">宮本 陸の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>宮本の口座には、毎月、堂本から三万円が振り込まれている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="ルーム7 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ルーム7 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>堂本はソファにあおむけ。首にマイクのコードが二重に巻きついている。テーブルのグラスの氷は、すっかり溶けている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ルーム7 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">ルーム7 ②</span><span class="ph">調査2</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">テーブルのQRコード</span><p>テーブルに「スマホで曲を予約できます！」のQRコード。読みこむと、アプリがこの部屋につながる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ルーム7 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">ルーム7 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ドアの小窓</span><p>ドアの小窓に、堂本の上着がかけてある。外から中は見えない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ルーム7 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">ルーム7 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">カラオケの採点記録</span><div class="txt">採点モードの記録。「23:41〜23:47　2曲　歌声あり」「<b>0:10〜0:50　8曲　すべて『歌声が検出されませんでした』</b>」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="ルーム7 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">ルーム7 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">予約の記録</span><p>この部屋の曲の予約の記録。23:47までは「タッチパネル」。<b>0:10からはすべて「スマホアプリ（ゲスト）」</b>。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="廊下 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">廊下 ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">廊下の壁</span><p>廊下は防音がそれほどよくない。ドアの前を通れば、どの部屋で何の曲が流れているかわかる。歌声も聞こえる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="廊下 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">廊下 ②</span><span class="ph">調査2</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">トイレの前</span><p>トイレの前の床に、ティッシュのくずと、マスカラのにじんだあと。誰かがここで泣いていたらしい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="受付カウンター ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">受付カウンター ①</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">注文の伝票</span><p>「0:20　ルーム7　ハイボール（届けたが返事なし。ドア前に置く）」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="受付カウンター ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">受付カウンター ②</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">カウンターから見えるところ</span><p>受付カウンターからは、廊下の手前半分（パーティールームとルーム2〜3）しか見えない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="受付カウンター ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">受付カウンター ③</span><span class="ph">調査2</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">レジ</span><p>レジの記録と売上の帳面の数字が、毎月少しずつ合わない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ルーム2 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ルーム2 ①</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">テーブル</span><p>グラスが三つ。0:05からここにいた人のぶん。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ルーム2 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">ルーム2 ②</span><span class="ph">調査2</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ルーム2の予約記録</span><p>ルーム2の機械の予約記録。0:05〜1:00、ここでは一曲も予約されていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ルーム5と6 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ルーム5と6 ①</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ルーム5のソファ</span><p>ソファのクッションが乱れて、床に落ちている。ペットボトルの水が二本。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ルーム5と6 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">ルーム5と6 ②</span><span class="ph">調査2</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ルーム6</span><p>ルーム6のテーブルに、手つかずのココアの缶と、ぬれたティッシュ。壁ごしに、ルーム7の音がよく聞こえる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="事務室 ①" data-phase="1" data-lock="事務室の鍵"><div class="hd"><span class="loc">事務室 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机</span><p>事務室の机。堂本の手書きのメモ「委員会　会場費　今年も＋100」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="事務室 ②" data-phase="1" data-lock="事務室の鍵"><div class="hd"><span class="loc">事務室 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ソファ</span><p>事務室の小さなソファに、毛布が乱れている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="事務室 ③" data-phase="2" data-lock="事務室の鍵"><div class="hd"><span class="loc">事務室 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">金庫</span><p>小さな金庫。中に、委員会からの振込の控え。三年分。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="堂本のスマホ ①" data-phase="1" data-lock="暗証番号（リサが知っている。リサに教えてもらった人も可）"><div class="hd"><span class="loc">堂本のスマホ <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">奈緒の動画</span><div class="txt">「N」という名前の動画。閉店後の店。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">動画</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="堂本のスマホ ②" data-phase="1" data-lock="暗証番号（リサが知っている。リサに教えてもらった人も可）"><div class="hd"><span class="loc">堂本のスマホ <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">小野寺の動画</span><div class="txt">「Y」という名前の動画。ルーム7のソファ。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">動画</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="堂本のスマホ ③" data-phase="2" data-lock="暗証番号（リサが知っている。リサに教えてもらった人も可）"><div class="hd"><span class="loc">堂本のスマホ <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">美咲の動画</span><div class="txt">「M」という名前の動画。春の日付。ルーム7。眠っているような女の子。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">動画</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="堂本のスマホ ④" data-phase="2" data-lock="暗証番号（リサが知っている。リサに教えてもらった人も可）"><div class="hd"><span class="loc">堂本のスマホ <span class="lockmark">鍵</span> ④</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">メッセージ</span><p>堂本の送ったメッセージ「23:30　美咲へ：今夜もルーム7な。来なかったら、例の動画、柏木くんに送るよ」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="裏口とゴミ置き場 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">裏口とゴミ置き場 ①</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">裏口</span><p>裏口の鍵は内側からかかっている。今夜、外から入った人はいない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="裏口とゴミ置き場 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">裏口とゴミ置き場 ②</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ゴミ置き場</span><p>ゴミ袋の中に、使われていない予約用のタッチペン。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>美咲</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>足止め</b></td><td>リサ</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。足止めされた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">3</td><td><b>中身を確認</b></td><td>奈緒</td><td>1人を選び、その人の持ち物をすべて見る。その中の「動画」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">4</td><td><b>買収</b></td><td>宮本 陸</td><td>「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、札束と交換させる。パワーは関係ない。</td></tr><tr><td class="t">5</td><td><b>力ずく</b></td><td>西園寺 崇</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">6</td><td><b>すり取り</b></td><td>小野寺 悠</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>すり替え</b></td><td>柏木 翔</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は柏木翔（大学3年）。</b>恋人の美咲は、春の打ち上げで堂本に酒に何かを入れられ、動画を撮られ、それをネタに閉店後のルーム7に何度も呼び出されていた。今夜23:45、トイレの前で美咲から全部を聞いた。</p><p>23:50、柏木はルーム7へ（奈緒が早足の柏木を見る）。小野寺は23:48に部屋を出されたばかりだった。堂本は「美咲ちゃんが来ないなら、柏木くんに見せようと思ってた」と笑った。0:00、マイクのコードで絞殺（隣の部屋の美咲が音を聞く）。</p><p>0:03、テーブルのQRコードを自分のスマホで読み、カラオケアプリをルーム7につないだ。上着で小窓がふさがっているのを確かめて出て、0:05にルーム2へ。そこから0:50まで、堂本の十八番をアプリで8曲予約した。ルーム7からは曲が流れ続け、堂本が0:50まで一人で歌っていたように見えた。</p><p>0:20にリサが飲み物を届けたとき、返事も歌声もなかった。採点の記録では、0:10以降の曲はすべて「歌声が検出されませんでした」。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>0:10からは誰も歌っていない。</b>採点の記録（ルーム7④）、0:20に返事も歌声もない（リサ・受付①）、同じ曲を何度も（西園寺）、グラスの氷が溶けきっている（ルーム7①）、0:00ごろの音（美咲）。</li><li><b>曲はスマホから予約された。</b>予約の記録は0:10から「スマホアプリ（ゲスト）」（ルーム7⑤）、QRコードで部屋につながる（ルーム7②）。ルーム2では一曲も予約されていない（ルーム2②）。</li><li><b>誰が予約していたか。</b>0:05〜0:50、ずっとスマホを触っていた柏木（宮本・美咲）。柏木は23:45〜0:05にいない（柏木の秘密①・宮本）。23:50に早足でルーム7のほうへ（奈緒）、23:48に廊下の向こうに立っていた（小野寺）。アプリの予約履歴（柏木の持ち物）。</li><li><b>動機。</b>堂本から美咲へのメッセージ（美咲の持ち物・スマホ④）、美咲の動画（スマホ③）、トイレの前の泣いたあと（廊下②）。</li></ol>
+    <p class="note">議論2の半ばになっても「0:50まで歌っていた」前提が崩れないときは、GMから「誰か、堂本さんの歌声を聞きましたか」と問いかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>小野寺</b>：23:40〜23:48、ルーム7で堂本と二人きりだった（生きた堂本を見た最後の人と思われる）。→ 23:48に出された。そのあとルーム4で寝ていた。</li><li><b>西園寺・奈緒</b>：0:20〜0:55にルーム5。曲が止まった0:50ごろにいなかった。会計の穴・閉店後のアルバイト。→ 二人で一緒。</li><li><b>リサ</b>：遺体を見つけた。元恋人で、売上を抜いている。0:30〜0:45にいない。→ 事務室で宮本と。</li><li><b>宮本</b>：300万円の水増しの共犯。→ 0:05〜0:30はルーム2、0:30〜0:45はリサと事務室。</li><li><b>美咲</b>：堂本に脅されていた本人。0:00〜0:30に一人。→ ルーム6で泣いていた。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「裏口とゴミ置き場」を開ける。堂本のスマホは、リサから暗証番号を聞いた人も調べてよい（リサが教えると言ったときだけ）。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。美咲の「守りが役に立つ」は、守った人に誰かがスキルを向けたら達成。</li><li>足止めが成功した相手は、そのあとの順番でスキルを使えない。</li><li>中身を確認で取れるのは「動画」の印がある持ち物だけ（奈緒・小野寺・美咲の動画）。</li><li>買収に使えるお金のカードは、札束（宮本）だけ。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（事務室・堂本のスマホ）に誰も入らないまま議論2になったら、「鍵や暗証番号を知っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>美咲</td><td>□　□</td><td></td></tr><tr><td>西園寺 崇</td><td>□　□</td><td></td></tr><tr><td>奈緒</td><td>□　□</td><td></td></tr><tr><td>柏木 翔</td><td>□　□</td><td></td></tr><tr><td>小野寺 悠</td><td>□　□</td><td></td></tr><tr><td>リサ</td><td>□　□</td><td></td></tr><tr><td>宮本 陸</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>ルーム7④（カラオケの採点記録）</td><td></td></tr><tr><td>堂本のスマホ①（奈緒の動画）</td><td></td></tr><tr><td>堂本のスマホ②（小野寺の動画）</td><td></td></tr><tr><td>堂本のスマホ③（美咲の動画）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">動画は映っている本人が取り返したがる（美咲の動画は美咲・柏木）。「会計の帳簿」は西園寺と宮本の取り合い。「アプリの予約履歴」は柏木（手放したい）。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>美咲①</td><td>堂本からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美咲②</td><td>ポスターの下書き</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美咲③</td><td>ハンカチ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美咲④</td><td>缶のホットココア</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>西園寺 崇①</td><td>会計の帳簿</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>西園寺 崇②</td><td>彼女からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>西園寺 崇③</td><td>委員長のバインダー</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>西園寺 崇④</td><td>ルーム5のマイク</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>奈緒①</td><td>スポンサーの名刺の束</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>奈緒②</td><td>西園寺からのメッセージ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>奈緒③</td><td>ヒールの靴</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>奈緒④</td><td>口紅</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>柏木 翔①</td><td>アプリの予約履歴</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>柏木 翔②</td><td>ステージ班の無線機</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>柏木 翔③</td><td>美咲との写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>柏木 翔④</td><td>実行委員の腕章</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小野寺 悠①</td><td>小野寺の封筒</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小野寺 悠②</td><td>高いネックレス</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小野寺 悠③</td><td>会場班の工具ベルト</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>小野寺 悠④</td><td>実家の母からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>リサ①</td><td>売上の帳面</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>リサ②</td><td>事務室の鍵</td><td class='t'>—</td><td>鍵：持っている間、「事務室」を調べられる。</td><td> </td></tr><tr><td>リサ③</td><td>開店の日の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>リサ④</td><td>アイスペール</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>宮本 陸①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>宮本 陸②</td><td>通帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮本 陸③</td><td>電卓</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮本 陸④</td><td>事務室の空き箱</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）ルーム7④・調査2</td><td>カラオケの採点記録</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）堂本のスマホ①・調査1</td><td>奈緒の動画</td><td class='t'>—</td><td>—</td><td>動画 </td></tr><tr><td>（場所）堂本のスマホ②・調査1</td><td>小野寺の動画</td><td class='t'>—</td><td>—</td><td>動画 </td></tr><tr><td>（場所）堂本のスマホ③・調査2</td><td>美咲の動画</td><td class='t'>—</td><td>—</td><td>動画 </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>リサ</td><td>議論中に「カラオケの採点記録」を全員に見せながら、0:00からあとは誰も歌っていなかったと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>美咲</b></td><td>+3　柏木翔が最多票に<b>ならない</b>。<br>+2　最後に「美咲の動画」を自分か柏木が持っている。<br>+1　自分が最多票に<b>ならない</b>。<br>+1　スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</td></tr><tr><td><b>西園寺 崇</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「会計の帳簿」を自分が持っている。<br>+1　奈緒が最多票に<b>ならない</b>。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>奈緒</b></td><td>+3　最後に「奈緒の動画」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　西園寺崇が最多票に<b>ならない</b>。<br>+1　スキル「中身を確認」で、「動画」の印の持ち物を1つ手に入れる。</td></tr><tr><td><b>柏木 翔</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「アプリの予約履歴」を自分が持って<b>いない</b>。<br>+1　最後に「美咲の動画」を自分か美咲が持っている。<br>+1　美咲が最多票に<b>ならない</b>。</td></tr><tr><td><b>小野寺 悠</b></td><td>+3　最後に「小野寺の封筒」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「小野寺の動画」を自分が持っている。<br>+1　スキル「すり取り」を成功させる。</td></tr><tr><td><b>リサ</b></td><td>+3　スキル「足止め」を、犯人に成功させる。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「売上の帳面」を自分が持っている。<br>+1　議論中に「カラオケの採点記録」を全員に見せながら、0:00からあとは誰も歌っていなかったと明かす。</td></tr><tr><td><b>宮本 陸</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　最後に「会計の帳簿」を自分が持っている。<br>+1　スキル「買収」を成功させる。<br>+1　リサが最多票に<b>ならない</b>。</td></tr></tbody></table></div>
+    <p class="note">投票の答え：柏木翔（+4）。柏木本人はこの点なし。リサの「足止め」は、相手が柏木で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>22:00</td><td>パーティールームで乾杯。</td></tr><tr><td class='t'>23:30</td><td>堂本、美咲に「今夜もルーム7な」。小部屋に分かれる。</td></tr><tr><td class='t'>23:40</td><td>小野寺、ルーム7で堂本と（〜23:48）。堂本は2曲歌う（採点に歌声あり）。</td></tr><tr><td class='t'>23:45</td><td>柏木、トイレの前で美咲から話を聞く。</td></tr><tr><td class='t'>23:48</td><td>小野寺、ルーム7を出てルーム4へ（寝てしまう）。</td></tr><tr><td class='t'>23:50</td><td>柏木、ルーム7へ（奈緒が見る）。</td></tr><tr><td class='t'>0:00</td><td><b>柏木、マイクのコードで堂本を絞殺。</b>美咲はルーム6で音を聞く。</td></tr><tr><td class='t'>0:03</td><td>柏木、QRコードでアプリをルーム7につなぎ、部屋を出る。0:05、ルーム2へ。</td></tr><tr><td class='t'>0:10</td><td>ルーム7で曲が流れはじめる（〜0:50、8曲、アプリ予約）。</td></tr><tr><td class='t'>0:20</td><td>リサ、ルーム7に飲み物を置く。返事も歌声もない。西園寺と奈緒、ルーム5へ（〜0:55）。</td></tr><tr><td class='t'>0:30</td><td>美咲、ルーム2へ。宮本とリサ、事務室へ（〜0:45）。</td></tr><tr><td class='t'>0:50</td><td>最後の曲が終わる。</td></tr><tr><td class='t'>1:00</td><td>リサがルーム7で遺体を見つける。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>堂本誠也を殺したのは、柏木翔だった。</p><p>零時十分から五十分まで、ルーム7に流れていたのは、歌のない伴奏だけだった。採点の画面には、八回、「歌声が検出されませんでした」。</p><p>「美咲は、ずっと一人で耐えてたんです。俺は、何も気づかなかった」。柏木はスマホを、テーブルの上に置いた。予約した曲の名前が、画面に並んでいた。</p><p>美咲が、柏木の袖をつかんだ。外の雨はやんでいた。遠くから、サイレンが近づいてきた。</p>
+    </div>
+    <ul class="epi"><li><b>美咲</b>：美咲は、春の夜のことを警察に話した。翔の面会には毎週行っている。ガラス越しに、新しいポスターの下書きを見せる。</li><li><b>西園寺 崇</b>：西園寺は会計の穴のことを大学に報告し、委員長として頭を下げた。彼女には、奈緒のことも話した。</li><li><b>奈緒</b>：奈緒は、西園寺からの連絡を待つのをやめた。スポンサーの名刺の束を、後輩に引き継いだ。</li><li><b>柏木 翔</b>：柏木は取り調べで、美咲のことは最後まで話さなかった。動画のことは、警察が堂本のスマホから見つけた。</li><li><b>小野寺 悠</b>：小野寺は、堂本からもらったネックレスを外した。実家から届いたお米で、久しぶりに自分でご飯を炊いた。</li><li><b>リサ</b>：リサは抜いていたお金のことを自分から話した。店は閉まった。新しい店で、カウンターに立っている。</li><li><b>宮本 陸</b>：宮本は300万円の水増しのことを大学に話し、振り込まれていたお金を全部返した。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　堂本誠也を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：美咲・西園寺崇・奈緒・柏木翔・小野寺悠・リサ・宮本陸</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('room7-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('room7-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('room7-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('room7-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
