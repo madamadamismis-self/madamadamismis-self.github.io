@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>烏丸書房の閉店後（5人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 神保町の古書店。焼けた紙と古い装丁の色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #efebe3;
+  --surface: #fcfaf5;
+  --ink: #2a241c;
+  --muted: #6b6255;
+  --line: #dbd3c6;
+  --accent: #8a3b1e;
+  --accent-soft: #f3e3d9;
+  --teal: #3f5a4a;
+  --teal-soft: #e2ebe4;
+  --slate: #2b2219;
+  --slate-ink: #f5f0e8;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15120e; --surface: #1e1a14; --ink: #ece6dc; --muted: #a59b8d; --line: #362f26;
+    --accent: #e0916c; --accent-soft: #3a2519; --teal: #93bba3; --teal-soft: #1e2b23;
+    --slate: #0c0a07; --slate-ink: #ece6dc; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15120e; --surface: #1e1a14; --ink: #ece6dc; --muted: #a59b8d; --line: #362f26;
+  --accent: #e0916c; --accent-soft: #3a2519; --teal: #93bba3; --teal-soft: #1e2b23;
+  --slate: #0c0a07; --slate-ink: #ece6dc; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #c08a4a, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3a3530; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>烏丸書房の閉店後</h1>
+    <p>神保町の古書店、閉店後の査定会。地下書庫の扉の記録に残っていたのは、店主のカードだけだった。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>5人 ＋ GM1人</span>
+      <span><b>TIME</b>約120分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・東京神保町の老舗古書店</span>
+      <span><b>CARDS</b>キャラシート5・持ち物20・秘密10・証拠22</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">烏丸書房の閉店後（5人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー5人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、家族を捨てた親の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 5人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 20枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 10枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 22枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 5枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「修復室の②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>店主の書斎・帳場の金庫は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>店主の書斎：書斎の鍵</li><li>帳場の金庫：金庫の番号メモ</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「裏の階段と路地」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「稀覯本」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">8分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">12分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">20分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">12分</td><td>調査2</td><td>1人3回。新しいカードと「裏の階段と路地」が加わる。</td></tr>
+        <tr><td class="t">20分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：問いの答えに、プレイヤーが演じている人物の名前を書く（烏丸宗一郎は書けない。自分の名前を書いてもよい）。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「烏丸宗一郎を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十一月の雨の夜。東京・神保町の路地裏に、百年続く古書店「烏丸書房」がある。一階は古書のならぶ店、二階は修復室と閲覧室、地下には温度と湿度を一定に保った書庫がある。</p><p>十九時、閉店。シャッターを半分下ろした店に、五人が残った。今夜は、店の宝である朔間透『月光詩集』初版・献呈署名本の、ひそかな売買の日だった。買い手はコレクターの二階堂、鑑定は藤村、立会いは店主の古い友人・志水。店主の甥の健吾と、修復師の浅見も店にいた。</p><p>店主の烏丸宗一郎は、何度か地下の書庫へ下りては上がってきた。「売る前に、少しだけ別れを言わせてくれ」。二十時、店主は書庫に下りていった。</p><p>二十一時を過ぎても、店主は上がってこない。書庫の扉は、ICカードでしか開かない。予備のカードを二階の書斎から持ってきて、二十一時十五分に扉を開けると、店主は本棚の前に倒れていた。後頭部を殴られ、もう息はなかった。そばに、真鍮のブックエンドが転がっていた。</p><p>書庫の扉の記録に残っていたのは、店主自身のカードだけだった。</p><p>——静かな書庫で、最後のページを閉じたのは誰か。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：地下書庫の本棚の前。後頭部を殴られている。そばに真鍮のブックエンド（二つ一組のうちの一つ）。21:15に予備のカードで扉を開けて見つけた。</li><li>書庫の扉：入るときはICカードが要り、記録が残る。出るときは内側のボタンを押すだけで、記録は残らない。カードは店主のもの（遺体のポケット）と、二階の書斎の予備の二枚だけ。</li><li>書庫の中は、本を守るため、温度と湿度をいつも記録している。</li><li>閉店後、五人は店の中を自由に動いていた。一階の帳場、二階の修復室・閲覧室・店主の書斎、地下の書庫は、店の中の階段でつながっている（裏の階段もある）。</li><li>鍵のかかる場所：店主の書斎・帳場の金庫。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れ</h3>
+      <ul><li>19:00 閉店。査定会の準備</li><li>19:30 店主と鑑定士の藤村が書庫で鑑定（19:50ごろ上がってくる）</li><li>20:00 店主がまた書庫へ</li><li>21:00 店主が上がってこない</li><li>21:15 予備のカードで書庫を開け、店主を見つける</li></ul>
+      <p class="note">店は三層。一階：店と帳場（金庫）。二階：修復室・閲覧室・店主の書斎。地下：書庫。表の階段は帳場の奥、裏の階段は修復室の横から路地へ出られる。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　烏丸宗一郎を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>烏丸書房（たてに切った図）</h3>
+    <svg viewBox="0 0 400 230" role="img" aria-label="烏丸書房の断面図">
+      <rect class="room" x="10" y="10" width="110" height="60"/><text class="sm" x="20" y="44">修復室</text>
+      <rect class="room" x="120" y="10" width="110" height="60"/><text class="sm" x="132" y="44">閲覧室</text>
+      <rect class="room" x="230" y="10" width="110" height="60"/><text class="sm" x="242" y="44">店主の書斎</text>
+      <text x="350" y="44">2階</text>
+      <rect class="room" x="10" y="80" width="220" height="60"/><text class="sm" x="60" y="114">店（古書の棚）</text>
+      <rect class="room" x="230" y="80" width="110" height="60"/><text class="sm" x="242" y="108">帳場</text><text class="sm" x="242" y="124">（金庫）</text>
+      <text x="350" y="114">1階</text>
+      <rect class="hot" x="10" y="160" width="330" height="60"/><text class="ac" x="120" y="194">地下　書庫</text><text class="sm" x="210" y="210">（ICカードの扉）</text>
+      <text x="350" y="194">地下</text>
+      <rect class="stair" x="300" y="140" width="30" height="20"/><text class="sm" x="246" y="155">表の階段</text>
+      <rect class="stair" x="10" y="70" width="30" height="90"/><text class="sm" x="44" y="156">裏の階段（路地へ）</text>
+    </svg></div></div><p class="note">表の階段は帳場の奥から地下と二階へ。裏の階段は修復室の横から、一階の裏口（路地）と地下の書庫の前へ下りられる。閲覧室の扉はいつも開いていて、廊下と表の階段の上がり口が見える。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・古書店「烏丸書房」店主</span><span class="nm">烏丸 宗一郎</span><span class="kana">からすま そういちろう（72）</span><p>神保町の老舗古書店「烏丸書房」の三代目。店の宝は、明治の詩人・朔間透の『月光詩集』初版、詩人の献呈署名入り。今夜、それをコレクターに売るはずだった。</p></div><div class="person"><span class="role">店主の甥（40）</span><span class="nm">烏丸 健吾</span><span class="kana">からすま けんご</span><p>店主の兄の息子。店の手伝いをしながら、ネットで古本を売っている。店の跡を継ぐと思われている。</p><p class="look">服装：くたびれたジャケット、腕時計なし</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">古書コレクター（45）</span><span class="nm">二階堂 薫</span><span class="kana">にかいどう かおる</span><p>名の知れた古書コレクター。今夜、朔間透『月光詩集』の献呈本を3,000万円で買う約束をしていた。</p><p class="look">服装：ベージュのトレンチコート、真珠のピアス</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">古書の修復師（30）</span><span class="nm">浅見 樹</span><span class="kana">あさみ いつき</span><p>烏丸書房の二階で、傷んだ古書を直している修復師。五年前から店で働いている。仕事は正確で、店主の信頼も厚い。</p><p class="look">服装：グレーのエプロン、白い綿の手袋、髪を後ろでまとめている</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">古書の鑑定士（38）</span><span class="nm">藤村 奏</span><span class="kana">ふじむら かなで</span><p>古書オークション会社の鑑定士。今夜は二階堂に雇われて、献呈本の鑑定に来た。</p><p class="look">服装：紺のスーツ、胸ポケットにルーペ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">店主の古い友人・元大学教授（74）</span><span class="nm">志水 恭介</span><span class="kana">しみず きょうすけ</span><p>店主とは五十年来の友人。元は大学の国文学の教授。今夜は売買の立会いを頼まれて来た。</p><p class="look">服装：ツイードの上着、杖</p><p class="pstat">基本パワー 1</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">烏丸 健吾<small>からすま けんご</small></span><span class="rl">店主の甥</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">二階堂 薫<small>にかいどう かおる</small></span><span class="rl">古書コレクター</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">浅見 樹<small>あさみ いつき</small></span><span class="rl">古書の修復師</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">藤村 奏<small>ふじむら かなで</small></span><span class="rl">古書の鑑定士</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">志水 恭介<small>しみず きょうすけ</small></span><span class="rl">店主の古い友人・元大学教授</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="KE">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">烏丸 健吾<small>からすま けんご</small></span><span class="rl">店主の甥・40歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「甥の健吾です。叔父の店を手伝ってます。……叔父は、口は悪いけど、本のことになると子どもみたいな人でした」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>父は烏丸書房の長男だったが、本が嫌いで店を出て、借金を残して死んだ。あなたは叔父に引き取られ、この店の二階で育った。</p><p>叔父はあなたに店を継がせると言っていた。でも、あなたには本の値打ちがわからない。叔父は「おまえの目は節穴だ」と笑った。</p><p>二年前から、店の倉庫の本をこっそり持ち出して、ネットで売っている。借金を返すためだ。売上帳は自分のかばんに入れている。</p><p>先月、叔父に呼ばれた。「倉庫の本が減っている。おまえには一冊も残さん。店は志水にやる」。</p><p>今夜20:40、叔父にもう一度頭を下げようと、書庫の扉をノックした。返事はなかった。</p><p>子どものころ、叔父は店じまいのあと、帳場であなたに古い絵本を読んでくれた。声色を使い分けるのがうまかった。あの声を、もう一度聞きたかった。</p><p>本当は、本が嫌いなわけではない。値打ちがわからないだけだ。値段のつかない本ほど、好きだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>店の倉庫の本を二年間こっそり持ち出して売っていた。叔父に「店は志水にやる」と言われている。20:40、書庫の扉の前まで行った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>志水恭介</b>：叔父の親友。叔父は「店は志水にやる」と言った。</li><li><b>二階堂薫</b>：買い手。20:28〜20:38、裏口から外へ出ていた。</li><li><b>浅見樹</b>：修復師。叔父が一番信用していた。</li><li><b>藤村奏</b>：鑑定士。19:50に叔父と書庫から上がってきた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 4）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">烏丸 健吾<small>からすま けんご</small></span><span class="rl">店主の甥・40歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>閉店。帳場で今夜の売買の書類をそろえる。</dd><dt>19:30</dt><dd>叔父と藤村さんが書庫へ。帳場で二階堂さんと二人きりになり、気まずくて天気の話をした。</dd><dt>20:00</dt><dd>函を持った浅見さんが、表の階段を下りていくのを見た。</dd><dt>20:28</dt><dd>二階堂さんが「外の空気を吸ってくる」と、裏口から出ていった。20:38に戻ってきた。</dd><dt>20:40</dt><dd>表の階段で地下へ。書庫の扉をノックしたが返事がない。扉の向こうは静かだった。カードがないので帳場へ戻った。</dd><dt>21:05</dt><dd>叔父が上がってこない。書斎の予備のカードを取ってくるよう、志水さんに頼まれた。</dd><dt>21:15</dt><dd>予備のカードで扉を開けた。叔父が倒れていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと帳場で書類の整理。20:40に一度だけ書庫の扉をノックした」。本を持ち出していることは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>叔父の遺言書があるなら、書斎の机の中だ。書斎の鍵はあなたが持っている。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li><li>扉の記録には、叔父のカードしか残っていない。叔父は誰と会っていたのか。</li><li>叔父を殴りたいと思ったことはある。でも、殺してはいない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>少しだらしないが、人のいい甥として振る舞ってください。叔父の悪口も言うが、本当は好きだった。お金の話になると、目をそらす。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「遺言書の下書き」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「本の売上帳」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="NI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">二階堂 薫<small>にかいどう かおる</small></span><span class="rl">古書コレクター・45歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「二階堂です。朔間透の本を、ずっと探していました。今夜、やっと手に入るはずだったんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母は、朔間透の孫娘だった。家には、詩人が友人に贈った『月光詩集』の献呈本があった。母の自慢だった。</p><p>あなたが五歳のとき、父が家を出た。父は、母の家の本を何冊も持って消えた。その中に、あの献呈本もあった。父の名前は、烏丸宗一郎。</p><p>母は苦労して、あなたを育て、十年前に死んだ。最期まで「あの本だけは、取り返したかった」と言っていた。</p><p>あなたは結婚して二階堂の姓になり、コレクターとして名を上げた。そして今年、烏丸書房が例の献呈本を売りに出すと聞いた。父は、娘だと気づいていない。あなたも名乗っていない。</p><p>20:25、待ちきれずに父のスマホに電話した。父は「あと30分。今、大事な話の最中だ」と言った。誰と話していたのだろう。</p><p>コレクターとして集めた本は、ほとんどが朔間透のものだ。どれを手にしても、母の家の本棚の匂いはしなかった。</p><p>夫は三年前に亡くなった。子どもはいない。母の本を取り戻したら、どこかの文学館に寄贈するつもりでいる。</p></div>
+      <div class="secret"><h4>秘密</h4><p>店主・烏丸宗一郎の娘。父は、母の家の献呈本を持って家を出た。今夜、名乗らずにその本を買い戻しに来た。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>志水恭介</b>：父の古い友人。母の葬式に、なぜか花を送ってきた人だ。</li><li><b>藤村奏</b>：あなたが雇った鑑定士。鑑定書にサインをした。</li><li><b>烏丸健吾</b>：父の甥。あなたにとってはいとこにあたる。本人は知らない。</li><li><b>浅見樹</b>：修復師。20:00ごろ、函を持って地下へ下りていった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 3）：「小切手帳」か「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">二階堂 薫<small>にかいどう かおる</small></span><span class="rl">古書コレクター・45歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>閉店後の店に入る。父は、あなたの顔をまじまじと見て「どこかで会いましたか」と言った。</dd><dt>19:30</dt><dd>藤村さんに鑑定を頼む。店主と藤村さんが書庫へ。</dd><dt>19:55</dt><dd>藤村さんから鑑定書を受け取る。「本物です」。</dd><dt>20:00</dt><dd>帳場から、函を持った浅見さんが階段を下りていくのが見えた。</dd><dt>20:25</dt><dd>父のスマホに電話。「あと30分。今、大事な話の最中だ」。</dd><dt>20:28</dt><dd>裏口から路地へ出て、たばこを吸った。母のことを思い出して泣いていた（〜20:38）。</dd><dt>21:15</dt><dd>父が見つかった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「ずっと帳場で待っていた。20:25に店主に電話して、20:28から10分くらい外でたばこを吸った」。店主が父だということは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>母の本物の献呈本は、どこにあるのか。今夜の本は、本当に本物なのか。</li><li>あなたのスキルにはお金のカードがいる。「小切手帳」を取られないように。</li><li>20:25の電話で、父は「大事な話の最中だ」と言った。誰かと一緒にいたのでは。</li><li>今夜の本は本当に本物なのか。鑑定書を書いた藤村さんの顔が、ずっと青い。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>上品で、落ち着いたコレクターとして振る舞ってください。父のことは「店主」としか呼ばない。母の話になると、少しだけ声がふるえる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「本物の献呈本」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「戸籍の写し」を全員に見せながら、自分が店主の娘だと名乗る。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">浅見 樹<small>あさみ いつき</small></span><span class="rl">古書の修復師・30歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。烏丸宗一郎を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「修復の浅見です。二階の修復室で、本の手当てをしています。今夜も、売る本の函を直していました。……店主には、本当にお世話になりました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>子どものころ、図書館の古い本の匂いが好きだった。両親を事故で亡くし、十二歳下の妹と二人きりになってから、手に職をつけるために修復の道に入った。</p><p>五年前、烏丸書房に雇われた。店主は、あなたの腕を見て言った。「この手なら、本物を超えられる」。最初はうれしかった。三年前、その意味がわかった。</p><p>店主は、あなたに贋作を作らせていた。詩人の署名、献呈の言葉、古い紙の染み。あなたの作った「朔間透の献呈本」は、もう二冊、外国のコレクターに売られている。断れば「妹の学費は出さない。警察には、おまえが勝手に作ったと言う」。</p><p>今夜売る『月光詩集』も、あなたが作った三冊目だ。本物は、三十年前に店主が誰かに売ってしまったらしい。</p><p>今夜で終わりにする、と決めていた。二十時、店主と書庫に下りて、「もう作りません。辞めます」と言った。</p><p>妹は、あなたが何の仕事をしているのか知らない。「お姉ちゃんの直した本、図書館で見たよ」と、去年うれしそうに言った。その本は、あなたが本当に直した数少ない一冊だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜20:30、地下書庫で烏丸宗一郎を殺した。</b>店主に脅されて、古書の贋作を作らされていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>藤村奏</b>：鑑定士。大学の先輩で、昔の恋人。あなたの手の癖を知っている。</li><li><b>志水恭介</b>：店主の古い友人。今夜はずっと二階の閲覧室にいた。</li><li><b>烏丸健吾</b>：店主の甥。お金に困っていて、店の本をこっそり持ち出している。</li><li><b>二階堂薫</b>：買い手のコレクター。今夜の本が贋作だとは知らないはず。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 5）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">浅見 樹<small>あさみ いつき</small></span><span class="rl">古書の修復師・30歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:55</dt><dd>修復の終わった函を持って、表の階段の下で店主を待つ。</dd><dt>20:00</dt><dd>店主のカードで、あなたも一緒に書庫に入った（記録は一回だけ）。</dd><dt>20:10</dt><dd>「辞めます」と言うと、店主は笑った。「全部おまえが勝手に作ったと警察に言う。妹の学費もそれまでだ」。</dd><dt>20:25</dt><dd>店主のスマホが鳴った（二階堂さん）。店主は「あと30分。今、大事な話の最中だ」と言って切った。</dd><dt>20:30</dt><dd>棚のほうを向いた店主の後頭部を、真鍮のブックエンドで殴った。手袋の指先に血がついた。</dd><dt>20:35</dt><dd>内側のボタンで扉を開けて出て、裏の階段から修復室へ（20:37）。流しで手を洗った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:00に、書庫の扉の前で店主に函を渡して、すぐ二階の修復室に戻った。それからずっと修復室で作業していた」。書庫に入ったことは言わない。贋作のことも言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>扉の記録には、店主のカードしか残っていない。誰かが一緒に入ったとは、思われにくい。</li><li>「白い綿の手袋」には、指先に血がついている。手放したい。</li><li>贋作のことが知られれば、あなたの動機もわかってしまう。でも、店主が何をしていたかは、みんなに知ってほしい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>物静かで、手を動かしているほうが落ち着く職人として振る舞ってください。店主の死には、静かに驚く。本の話になると、少しだけ饒舌になる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「白い綿の手袋」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「署名の練習帳」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「贋作の指示書」を全員に見せながら、店主が贋作を作らせていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="FU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">藤村 奏<small>ふじむら かなで</small></span><span class="rl">古書の鑑定士・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鑑定士の藤村です。今夜の本は、私が鑑定しました。……署名も、紙も、問題はありませんでした」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>古い紙とインクの匂いをかぎ分けられる、と言われて育った。大学で書誌学を学び、オークション会社に入った。</p><p>大学の後輩に、浅見樹がいた。器用で、まじめで、少し不器用に笑う人だった。二年だけ付き合った。あなたが仕事にのめりこんで、自然に終わった。</p><p>先月、店主に呼ばれた。「二階堂に鑑定を頼まれたら、本物と書いてくれ。礼は200万だ」。断れなかった。会社の金に手をつけた穴を埋める必要があった。</p><p>今夜19:30、書庫で献呈本を見た。署名の筆のはこび、献呈の言葉の「の」の字のくせ。あなたは知っている。これは浅見の手だ。</p><p>それでも、「本物」と鑑定書にサインした。</p><p>浅見と別れた夜、あなたは図書館の閉館まで一人で座っていた。それから十年、浅見の名前を見るたびに、胸のどこかが痛んだ。</p><p>オークション会社では「藤村の目は機械より正確」と言われてきた。その目で、今夜、うそをついた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>店主から200万円を受け取り、贋作に「本物」の鑑定書を書いた。その贋作を作ったのが、元恋人の浅見だと気づいている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>浅見樹</b>：元恋人。今夜の贋作を作ったのはこの人の手だ。</li><li><b>二階堂薫</b>：依頼主。本物だと信じて3,000万円を払うつもりでいる。</li><li><b>志水恭介</b>：店主の友人。二階の閲覧室にいた。</li><li><b>烏丸健吾</b>：店主の甥。20:40ごろ、表の階段で地下へ下りていった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（処理の順番 2）：1人を選び、その人の持ち物をすべて見る。その中の「稀覯本」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">藤村 奏<small>ふじむら かなで</small></span><span class="rl">古書の鑑定士・38歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:30</dt><dd>店主と書庫へ（店主のカード）。献呈本を見る。浅見の字だとわかった。</dd><dt>19:50</dt><dd>店主と書庫を出る。19:55、鑑定書にサインして二階堂さんに渡した。</dd><dt>20:00</dt><dd>帳場の奥で、表の階段を下りていく店主と、函を持った浅見を見た。</dd><dt>20:05</dt><dd>帳場で鑑定書の控えを書く（〜21:00）。表の階段から上がってくる人は、誰もいなかった。</dd><dt>21:15</dt><dd>店主が見つかった。</dd><dt>21:15</dt><dd>遺体のそばの机に、今夜の贋作と、浅見の直した函が並んでいた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:30〜19:50に店主と書庫で鑑定。それからはずっと帳場」。200万円のことと、贋作だと気づいていることは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>20:05から21:00まで、表の階段を上がってくる人はいなかった。書庫から上がるなら、裏の階段かもしれない。</li><li>あなたのスキルは「稀覯本」の印のついた物を取れる。</li><li>浅見が疑われたら、守りたい。でも、守れば贋作のことも話すことになる。</li><li>二階堂さんには、本当のことを言うべきかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>冷静で、言葉を選ぶ専門家として振る舞ってください。本の話には自信を持って答える。浅見のことになると、ふっと目をそらす。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「鑑定書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>浅見樹が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」で、「稀覯本」の印の持ち物を1つ手に入れる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SH">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">志水 恭介<small>しみず きょうすけ</small></span><span class="rl">店主の古い友人・元大学教授・74歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「志水です。烏丸とは、学生のころからの付き合いです。……あいつの店の本で、何本論文を書いたかわからない」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>大学で、朔間透の研究をしてきた。詩人の字なら、誰より見てきたつもりだ。</p><p>三十年前、烏丸に頼まれた。「店がつぶれる。この献呈本を買ってくれ。誰にも言うな」。あなたは退職金の前借りで、800万円を払った。本物の献呈本は、それからずっと、あなたの書斎の金庫の中にある。今夜も、かばんの中に入れて持ってきた。</p><p>その本が、烏丸が捨てた妻の家のものだと知ったのは、ずっとあとだった。烏丸の娘の葬儀……いや、妻の葬儀には、匿名で花を送った。</p><p>今夜、二階堂という女性の顔を見て、すぐにわかった。若いころの、烏丸の妻にそっくりだ。</p><p>烏丸は、本物はもうないのに、「献呈本」を売ろうとしている。今夜の本は何なのか。あなたは、それを確かめに来た。</p><p>妻は二十年前に亡くなった。子どもはいない。烏丸の店の閲覧室が、あなたの書斎のようなものだった。</p><p>烏丸とは学生のころ、二人で朔間透の墓を探して、山の寺を三つ回った。あのころの烏丸は、本当に本が好きな男だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>三十年前、烏丸から本物の献呈本を買い、ずっと隠し持っている。二階堂が烏丸の娘だと気づいている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>二階堂薫</b>：烏丸の娘。母親によく似ている。</li><li><b>浅見樹</b>：修復師。20:00に函を持って下り、20:37に裏の階段から上がってきた。</li><li><b>烏丸健吾</b>：烏丸の甥。烏丸は「店は志水にやる」と言っていた。あなたは、いらない。</li><li><b>藤村奏</b>：鑑定士。今夜の本を「本物」と鑑定した。あなたには信じられない。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">志水 恭介<small>しみず きょうすけ</small></span><span class="rl">店主の古い友人・元大学教授・74歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>閉店後の店に入る。二階堂という客の顔を見て、息が止まりそうになった。</dd><dt>19:30</dt><dd>二階の閲覧室で本を読む（〜21:00）。扉は開けたまま。</dd><dt>20:00</dt><dd>閲覧室の前の廊下を、函を持った浅見さんが表の階段のほうへ行くのが見えた。</dd><dt>20:05</dt><dd>修復室はしんとしていた。いつも浅見さんがつけているラジオが聞こえない。</dd><dt>20:37</dt><dd>裏の階段のほうから浅見さんが上がってきて、修復室に入った。エプロンで手をふいていた。流しの水の音がした。</dd><dt>21:05</dt><dd>健吾に、書斎の予備のカードを取ってくるよう頼んだ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:30から21:00まで、二階の閲覧室で本を読んでいた」。本物の献呈本のことは言わない。浅見さんのことは、話すかどうかあなた次第。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>本物の献呈本は、あなたのかばんの中にある。今夜の本は、本物ではありえない。</li><li>あなたのスキルで、誰か一人を守れる。</li><li>二階堂さんに本物を渡すべきか、ずっと迷っている。</li><li>浅見さんは、20:37に裏の階段から上がってきた。なぜ裏から？</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>温厚で、話の長い老教授として振る舞ってください。詩の話になると止まらない。二階堂を見るとき、少しだけ申し訳なさそうな顔をする。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「本物の献呈本」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「古い家族写真」を全員に見せながら、二階堂は烏丸の娘だと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">烏丸 健吾の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="烏丸 健吾" data-label="烏丸 健吾の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：烏丸 健吾</span><span class="ttl">本の売上帳</span><div class="txt">ネット販売の売上帳。「烏丸書房　倉庫」のハンコが押された本ばかり。二年で480万円。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="烏丸 健吾" data-label="烏丸 健吾の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：烏丸 健吾</span><span class="ttl">書斎の鍵</span><div class="txt">「二階　書斎」の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「店主の書斎」を調べられる。</p></div></div><div class="card item" data-owner="烏丸 健吾" data-label="烏丸 健吾の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：烏丸 健吾</span><span class="ttl">叔父の手紙</span><div class="txt">「健吾へ。倉庫の本のことは知っている。おまえには一冊も残さん」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="烏丸 健吾" data-label="烏丸 健吾の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：烏丸 健吾</span><span class="ttl">鉄の文鎮</span><div class="txt">帳場の重い鉄の文鎮。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">二階堂 薫の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="二階堂 薫" data-label="二階堂 薫の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：二階堂 薫</span><span class="ttl">小切手帳</span><div class="txt">二階堂の小切手帳。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="二階堂 薫" data-label="二階堂 薫の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：二階堂 薫</span><span class="ttl">鑑定書</span><div class="txt">「朔間透『月光詩集』初版　献呈署名本　真正と認める　藤村奏」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="二階堂 薫" data-label="二階堂 薫の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：二階堂 薫</span><span class="ttl">母の写真</span><div class="txt">朔間家の縁側で、若い女性が赤ん坊を抱いている。うしろの本棚に『月光詩集』。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="二階堂 薫" data-label="二階堂 薫の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：二階堂 薫</span><span class="ttl">戸籍の写し</span><div class="txt">「二階堂薫　旧姓・烏丸　父・烏丸宗一郎　母・烏丸（朔間）静江」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">浅見 樹の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="浅見 樹" data-label="浅見 樹の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：浅見 樹</span><span class="ttl">白い綿の手袋</span><div class="txt">修復用の白い綿の手袋。<b>右の人さし指の先に、茶色いしみ</b>。洗ったあとがある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅見 樹" data-label="浅見 樹の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：浅見 樹</span><span class="ttl">妹からの手紙</span><div class="txt">「お姉ちゃん、学費いつもありがとう。春には卒業できそう」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅見 樹" data-label="浅見 樹の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：浅見 樹</span><span class="ttl">修復用のヘラ</span><div class="txt">骨でできた修復用のヘラ。先が鋭い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅見 樹" data-label="浅見 樹の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：浅見 樹</span><span class="ttl">修復伝票</span><div class="txt">「函の修復　完了　20:00　店主へお渡し」。浅見の字。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">藤村 奏の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="藤村 奏" data-label="藤村 奏の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：藤村 奏</span><span class="ttl">ルーペ</span><div class="txt">鑑定用の十倍のルーペ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="藤村 奏" data-label="藤村 奏の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：藤村 奏</span><span class="ttl">札束</span><div class="txt">店主から受け取った封筒。一万円札が200枚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="藤村 奏" data-label="藤村 奏の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：藤村 奏</span><span class="ttl">大学のころの写真</span><div class="txt">図書館の前で、藤村と浅見が並んで笑っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="藤村 奏" data-label="藤村 奏の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：藤村 奏</span><span class="ttl">鑑定メモ</span><div class="txt">藤村の手帳。「献呈の『の』の字、払いが右に流れる。A.I.の手ぐせ？」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">志水 恭介の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="志水 恭介" data-label="志水 恭介の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：志水 恭介</span><span class="ttl">本物の献呈本</span><div class="txt">朔間透『月光詩集』初版。見返しに詩人の字で「友へ　月の光の届かぬ夜にも」。古びて、紙は茶色く焼けている。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">稀覯本</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="志水 恭介" data-label="志水 恭介の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：志水 恭介</span><span class="ttl">古い家族写真</span><div class="txt">四十年前の写真。若い烏丸と、着物の女性と、赤ん坊。裏に「宗一郎・静江・薫」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="志水 恭介" data-label="志水 恭介の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：志水 恭介</span><span class="ttl">樫の杖</span><div class="txt">握りのすり減った樫の杖。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="志水 恭介" data-label="志水 恭介の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：志水 恭介</span><span class="ttl">金庫の番号メモ</span><div class="txt">烏丸が昔、志水に教えた帳場の金庫の番号。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「帳場の金庫」を調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="烏丸 健吾の秘密①"><div class="hd"><span class="loc">烏丸 健吾の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>健吾は20:40ごろ、書庫の扉の前にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="烏丸 健吾の秘密②"><div class="hd"><span class="loc">烏丸 健吾の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>健吾は、ネットで古本をたくさん売っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="二階堂 薫の秘密①"><div class="hd"><span class="loc">二階堂 薫の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>二階堂は20:28〜20:38、裏口から外へ出ていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="二階堂 薫の秘密②"><div class="hd"><span class="loc">二階堂 薫の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>二階堂の母の旧姓は「朔間」だ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="浅見 樹の秘密①"><div class="hd"><span class="loc">浅見 樹の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>浅見は20:00ごろ、修復した函を持って地下へ下りていった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="浅見 樹の秘密②"><div class="hd"><span class="loc">浅見 樹の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>浅見は、朔間透の字のくせを、誰よりもよく知っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="藤村 奏の秘密①"><div class="hd"><span class="loc">藤村 奏の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>藤村は19:30〜19:50、店主と書庫にいた（扉の記録に残っている）。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="藤村 奏の秘密②"><div class="hd"><span class="loc">藤村 奏の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>藤村と浅見は、同じ大学の出身だ。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="志水 恭介の秘密①"><div class="hd"><span class="loc">志水 恭介の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>志水は19:30〜21:00、二階の閲覧室にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="志水 恭介の秘密②"><div class="hd"><span class="loc">志水 恭介の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>志水は三十年前、烏丸から何か高い物を買っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="地下書庫 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">地下書庫 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>店主は稀覯本の棚の前にうつ伏せ。後頭部を一度、強く殴られている。そばに真鍮のブックエンド。もう一つは棚に残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="地下書庫 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">地下書庫 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">扉の記録</span><p>扉の入室の記録。「19:30　店主のカード」「20:00　店主のカード」「21:15　予備のカード」。出るときの記録はない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="地下書庫 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">地下書庫 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机の上</span><p>閲覧机の上に、今夜売るはずの『月光詩集』と、修復の終わった函。函には修復室のラベル。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="地下書庫 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">地下書庫 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">湿度の記録</span><p>書庫の湿度の記録。ふだんは一定。<b>19:30〜19:50</b>と<b>20:00〜20:35</b>だけ、ゆっくり上がっている。上がり方は、どちらの時間も同じくらいの速さ。（説明書き：人が一人いると、1時間に約1％上がる）</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="地下書庫 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">地下書庫 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">棚の前の床</span><p>遺体のそばの床に、白い綿の糸くずが一本。手袋の糸のようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="地下書庫 ⑥" data-phase="2" data-lock=""><div class="hd"><span class="loc">地下書庫 ⑥</span><span class="ph">調査2</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">店主のスマホ</span><p>着信記録「20:25　二階堂　通話40秒」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="帳場 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">帳場 ①</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">帳場の机</span><p>売買の書類一式。「代金3,000万円　買主　二階堂薫」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="帳場 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">帳場 ②</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">表の階段</span><p>帳場の奥に、地下と二階へ行く表の階段。帳場の机から、階段の上がり口がよく見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="帳場 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">帳場 ③</span><span class="ph">調査2</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">灰皿</span><p>裏口のそばの灰皿に、細いたばこの吸い殻が三本。口紅の跡。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="修復室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">修復室 ①</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">作業台</span><p>修復の作業台。函を直したあとの切れ端。作業の時間を書く黒板に「函　19:50完了」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="修復室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">修復室 ②</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ラジオ</span><p>作業台の古いラジオ。電源は切れている。浅見はいつも、作業中はラジオをつけているという。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="修復室 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">修復室 ③</span><span class="ph">調査2</span><span>CLUE 12</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">署名の練習帳</span><div class="txt">古い和紙に、朔間透の署名と「友へ」の字が、何十回も練習してある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="修復室 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">修復室 ④</span><span class="ph">調査2</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">流し</span><p>修復室の流し。石けんが濡れていて、排水口のまわりに、うすい茶色の水の跡。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="閲覧室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">閲覧室 ①</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">窓際の席</span><p>閲覧室の窓際の席に、朔間透の研究書が積んである。扉を開けておけば、廊下と表の階段の上がり口、修復室の入口が見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="閲覧室 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">閲覧室 ②</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">廊下の床</span><p>閲覧室の前の廊下、裏の階段の上がり口から修復室まで、うっすら濡れた足跡。雨の路地ではなく、地下からの階段の向き。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="店主の書斎 ①" data-phase="1" data-lock="書斎の鍵"><div class="hd"><span class="loc">店主の書斎 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">遺言書の下書き</span><div class="txt">「烏丸書房は志水恭介に譲る。甥の健吾には何も残さない」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="店主の書斎 ②" data-phase="1" data-lock="書斎の鍵"><div class="hd"><span class="loc">店主の書斎 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">贋作の指示書</span><div class="txt">店主の字のメモ。「朔間透　献呈本　三冊目。浅見に。紙は明治の見返しを使え。報酬：妹の学費」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="店主の書斎 ③" data-phase="2" data-lock="書斎の鍵"><div class="hd"><span class="loc">店主の書斎 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">予備のカード入れ</span><p>予備のICカードを入れる小箱。21:05に健吾が取り出した。それまで、誰も開けていないように見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="帳場の金庫 ①" data-phase="1" data-lock="金庫の番号メモ"><div class="hd"><span class="loc">帳場の金庫 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">古い帳簿</span><p>三十年前の帳簿。「朔間透『月光詩集』献呈本　志水恭介へ　800万円」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="帳場の金庫 ②" data-phase="2" data-lock="金庫の番号メモ"><div class="hd"><span class="loc">帳場の金庫 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">外国からの手紙</span><p>外国のコレクターからの手紙。「朔間透の献呈本、二冊とも届いた。また頼む」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="裏の階段と路地 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">裏の階段と路地 ①</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">裏の階段</span><p>裏の階段は、修復室の横から、一階の裏口と、地下の書庫の扉の前まで続いている。電球がひとつ切れていて暗い。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="裏の階段と路地 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">裏の階段と路地 ②</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">路地</span><p>雨の路地。裏口の前で誰かがたばこを吸っていたらしい。足もとに、小さな水たまりと吸い殻。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>志水 恭介</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>目利き</b></td><td>藤村 奏</td><td>1人を選び、その人の持ち物をすべて見る。その中の「稀覯本」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">3</td><td><b>買収</b></td><td>二階堂 薫</td><td>「小切手帳」か「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">4</td><td><b>力ずく</b></td><td>烏丸 健吾</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">5</td><td><b>すり替え</b></td><td>浅見 樹</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は浅見樹（修復師）。</b>店主に脅されて、朔間透の献呈本の贋作を三年間作らされていた。今夜売る『月光詩集』も浅見の作った三冊目。断れば「全部おまえが勝手に作ったと警察に言う、妹の学費も止める」と言われていた。</p><p>20:00、浅見は函を持って店主と一緒に書庫へ入った（店主のカード一回分しか記録が残らない）。「辞めます」と言うと、店主は脅した。20:25、二階堂からの電話に店主は「今、大事な話の最中だ」。20:30、浅見は真鍮のブックエンドで店主の後頭部を殴った（手袋の指先に血）。</p><p>20:35、内側のボタンで扉を開けて出て（出るときは記録なし）、裏の階段から二階の修復室へ（20:37、志水が見ている）。流しで手を洗った。浅見は「20:00に扉の前で函を渡して、すぐ修復室に戻った」と言う。</p><p>書庫の扉の記録には店主のカードしか残らないので、「書庫には店主ひとりだった」「誰かが店主と入れ替わりに予備のカードで入った」と思わせられる。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>20:00から、書庫には店主と誰かがいた。</b>湿度の記録で、19:30〜19:50（店主と藤村の二人）と20:00〜20:35が同じ速さで上がっている（地下書庫④）。→ 20:00〜20:35は二人。20:35に一人が出た。函は書庫の机の上（地下書庫③）。</li><li><b>20:00に店主と下りたのは浅見。</b>藤村が帳場から、志水が閲覧室から、函を持った浅見が下りていくのを見ている。浅見の秘密①。修復室のラジオは消えていて、20:05から静か（志水・修復室②）。</li><li><b>書庫からどう上がったか。</b>藤村は20:05〜21:00に表の階段を上がる人を見ていない。裏の階段は書庫の前に通じている（裏の階段①）。20:37、浅見が裏の階段から上がり手を拭き、流しの水音（志水）。廊下の濡れた足跡は地下からの向き（閲覧室②）、流しの茶色い水（修復室④）、床の白い綿の糸くず（地下書庫⑤）、指先にしみのある手袋（浅見の持ち物）。</li><li><b>動機。</b>贋作の指示書（書斎②）、署名の練習帳（修復室③）、藤村の鑑定メモ「A.I.の手ぐせ」、外国からの手紙（金庫②）、志水の本物の献呈本（今夜の本は贋作）。</li></ol>
+    <p class="note">議論2の半ばになっても「書庫には店主ひとりだった」前提が崩れないときは、GMから「湿度の記録の説明書きを、もう一度読んでみては」と声をかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>健吾</b>：20:40に書庫の扉の前にいた。店を継げず、本を盗んでいた。→ カードがなく、中に入れない（予備のカードは21:05まで書斎の箱の中）。</li><li><b>二階堂</b>：20:28〜20:38に外へ。店主は家族を捨てた父。→ 裏口の外の路地でたばこ（灰皿・路地）。カードがない。</li><li><b>藤村</b>：19:30〜19:50に店主と書庫にいた。贋作に本物の鑑定書を書いた。→ 19:50に店主と一緒に出て、20:05からは帳場。</li><li><b>志水</b>：本物の献呈本を隠し持つ。→ 19:30〜21:00、閲覧室。浅見の動きの証人。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「裏の階段と路地」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。志水の「守りが役に立つ」は、守った人に誰かがスキルを向けたら達成。</li><li>目利きで取れるのは「稀覯本」の印がある持ち物だけ（本物の献呈本）。</li><li>買収に使えるお金のカードは、小切手帳（二階堂）と札束（藤村）。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（店主の書斎・帳場の金庫）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>烏丸 健吾</td><td>□　□</td><td></td></tr><tr><td>二階堂 薫</td><td>□　□</td><td></td></tr><tr><td>浅見 樹</td><td>□　□</td><td></td></tr><tr><td>藤村 奏</td><td>□　□</td><td></td></tr><tr><td>志水 恭介</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>修復室③（署名の練習帳）</td><td></td></tr><tr><td>店主の書斎①（遺言書の下書き）</td><td></td></tr><tr><td>店主の書斎②（贋作の指示書）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「本物の献呈本」は志水（持っていたい）・二階堂（取り返したい）・藤村（目利きで取れる）の取り合い。「鑑定書」は藤村（自分で持っていたい）と二階堂（最初の持ち主）。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>烏丸 健吾①</td><td>本の売上帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>烏丸 健吾②</td><td>書斎の鍵</td><td class='t'>—</td><td>鍵：持っている間、「店主の書斎」を調べられる。</td><td> </td></tr><tr><td>烏丸 健吾③</td><td>叔父の手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>烏丸 健吾④</td><td>鉄の文鎮</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>二階堂 薫①</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>二階堂 薫②</td><td>鑑定書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>二階堂 薫③</td><td>母の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>二階堂 薫④</td><td>戸籍の写し</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅見 樹①</td><td>白い綿の手袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅見 樹②</td><td>妹からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>浅見 樹③</td><td>修復用のヘラ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>浅見 樹④</td><td>修復伝票</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤村 奏①</td><td>ルーペ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤村 奏②</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>藤村 奏③</td><td>大学のころの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤村 奏④</td><td>鑑定メモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>志水 恭介①</td><td>本物の献呈本</td><td class='t'>—</td><td>—</td><td>稀覯本 </td></tr><tr><td>志水 恭介②</td><td>古い家族写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>志水 恭介③</td><td>樫の杖</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>志水 恭介④</td><td>金庫の番号メモ</td><td class='t'>—</td><td>鍵：持っている間、「帳場の金庫」を調べられる。</td><td> </td></tr><tr><td>（場所）修復室③・調査2</td><td>署名の練習帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）店主の書斎①・調査1</td><td>遺言書の下書き</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）店主の書斎②・調査1</td><td>贋作の指示書</td><td class='t'>—</td><td>—</td><td> </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>二階堂 薫</td><td>議論中に「戸籍の写し」を全員に見せながら、自分が店主の娘だと名乗る。</td><td></td></tr><tr><td>浅見 樹</td><td>議論中に「贋作の指示書」を全員に見せながら、店主が贋作を作らせていたと明かす。</td><td></td></tr><tr><td>志水 恭介</td><td>議論中に「古い家族写真」を全員に見せながら、二階堂は烏丸の娘だと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>烏丸 健吾</b></td><td>+3　最後に「遺言書の下書き」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　最後に「本の売上帳」を自分が持っている。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>二階堂 薫</b></td><td>+3　最後に「本物の献呈本」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　議論中に「戸籍の写し」を全員に見せながら、自分が店主の娘だと名乗る。<br>+1　スキル「買収」を成功させる。</td></tr><tr><td><b>浅見 樹</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「白い綿の手袋」を自分が持って<b>いない</b>。<br>+1　最後に「署名の練習帳」を自分が持っている。<br>+1　議論中に「贋作の指示書」を全員に見せながら、店主が贋作を作らせていたと明かす。</td></tr><tr><td><b>藤村 奏</b></td><td>+3　最後に「鑑定書」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　浅見樹が最多票に<b>ならない</b>。<br>+1　スキル「目利き」で、「稀覯本」の印の持ち物を1つ手に入れる。</td></tr><tr><td><b>志水 恭介</b></td><td>+3　最後に「本物の献呈本」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　議論中に「古い家族写真」を全員に見せながら、二階堂は烏丸の娘だと明かす。<br>+1　スキル「かばう」で守った人に、誰かのスキルが向けられる（守りが役に立つ）。</td></tr></tbody></table></div>
+    <p class="note">投票の答え：浅見樹（+4）。浅見本人はこの点なし。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>19:00</td><td>閉店。査定会の準備。</td></tr><tr><td class='t'>19:30</td><td>店主と藤村が書庫へ（店主のカード）。藤村は贋作を浅見の手だと見抜く。19:50に二人で出る。</td></tr><tr><td class='t'>19:55</td><td>藤村、鑑定書にサインして二階堂に渡す。</td></tr><tr><td class='t'>20:00</td><td><b>店主と浅見が書庫へ（店主のカード一回）。</b>藤村と志水が、函を持って下りる浅見を見る。</td></tr><tr><td class='t'>20:10</td><td>浅見「辞めます」。店主が脅す。</td></tr><tr><td class='t'>20:25</td><td>二階堂から店主に電話（40秒）。「今、大事な話の最中だ」。</td></tr><tr><td class='t'>20:28</td><td>二階堂、裏口から路地へ（〜20:38）。</td></tr><tr><td class='t'>20:30</td><td><b>浅見、ブックエンドで店主を殴る。</b></td></tr><tr><td class='t'>20:35</td><td>浅見、内側のボタンで書庫を出て裏の階段へ。20:37、修復室（志水が見る）。手を洗う。</td></tr><tr><td class='t'>20:40</td><td>健吾、表の階段で地下へ。扉をノックするが返事なし。</td></tr><tr><td class='t'>21:05</td><td>店主が上がってこない。健吾が書斎から予備のカードを出す。</td></tr><tr><td class='t'>21:15</td><td>予備のカードで扉を開け、遺体を見つける。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>烏丸宗一郎を殺したのは、修復師の浅見樹だった。</p><p>「店主は、わたしの手を『本物を超えられる手』と言いました。その手で、偽物ばかり作らせました」。浅見は、白い手袋を外して、自分の指を見つめた。</p><p>書庫の扉は、入る人しか数えない。けれど、本を守るための湿度計は、二人分の息を数えていた。</p><p>そして、志水が古いかばんから一冊の本を取り出した。茶色く焼けた見返しに、詩人の字。「友へ　月の光の届かぬ夜にも」。三十年ぶりに、本物の『月光詩集』が、烏丸の娘の前に置かれた。</p>
+    </div>
+    <ul class="epi"><li><b>烏丸 健吾</b>：健吾は売った本の代金を返し、店の倉庫の目録を一から作り直している。店の名前は、まだ「烏丸書房」のままだ。</li><li><b>二階堂 薫</b>：二階堂は、志水から本物の献呈本を受け取った。母の墓の前で、初めて詩集を声に出して読んだ。</li><li><b>浅見 樹</b>：浅見は贋作のことをすべて話した。外国に売られた二冊は、浅見の証言で回収された。妹は春に卒業し、面会室で卒業証書を見せた。</li><li><b>藤村 奏</b>：藤村は200万円を返し、鑑定士の資格を返上した。最後に、浅見の手で直された一冊の本を、正しく「修復本」と鑑定した。</li><li><b>志水 恭介</b>：志水は、烏丸から譲られた店を、健吾に任せることにした。自分は閲覧室の窓際の席に、毎日通っている。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　烏丸宗一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：烏丸健吾・二階堂薫・浅見樹・藤村奏・志水恭介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　烏丸宗一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：烏丸健吾・二階堂薫・浅見樹・藤村奏・志水恭介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　烏丸宗一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：烏丸健吾・二階堂薫・浅見樹・藤村奏・志水恭介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　烏丸宗一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：烏丸健吾・二階堂薫・浅見樹・藤村奏・志水恭介</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　烏丸宗一郎を殺したのは誰か（+4）</span><span class="ln"></span>
+      <span class="note">書けるのは：烏丸健吾・二階堂薫・浅見樹・藤村奏・志水恭介</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('karasuma-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('karasuma-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('karasuma-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('karasuma-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
