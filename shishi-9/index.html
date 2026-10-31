@@ -184,6 +184,9 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
 .tl.ans dt { color: var(--ink); font-family: var(--f-body); font-weight: 700; font-size: 12.5px; }
 .tips { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
 .tips h4 { color: var(--teal); margin-bottom: 0; }
+.skill { border: 1px dashed var(--teal); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skill h4 { color: var(--teal); margin-bottom: 0; }
+.skill p { margin: 0; }
 .card .star { font-size: 12px; font-weight: 700; color: var(--accent); border-top: 1px dashed var(--line); padding-top: 6px; }
 .stmts { gap: 8px; }
 .stmts li { font-weight: 700; }
@@ -217,7 +220,7 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
   .sheet .tl dt { break-after: avoid; }
   .sheet .tl dd { break-inside: avoid; }
   .sheet .bgtext p { margin-bottom: 1.6mm; }
-  .sheet .secret, .sheet .tips, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet .secret, .sheet .tips, .sheet .answer, .sheet .skill { padding: 2.5mm 3mm; }
   .sheet .tl.ans { display: block; }
   .sheet .tl.ans dt { font-size: 9pt; padding: 0; }
   .sheet .tl.ans dd { margin: 0 0 1.6mm; }
@@ -286,7 +289,7 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
     </div>
   </div>
 </header>
-<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">解決編<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票用紙</button></div></nav>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">解決編<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・能力用紙</button></div></nav>
 <main class="wrap">
 <div class="printonly">獅子は夜半に昇る（9人用）</div>
 
@@ -301,7 +304,7 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
   <div class="box">
     <h3>はじめての人へ</h3>
     <ul>
-      <li>このシナリオは<b>犯人がばれにくい</b>作りです。何人もの人が、事件の時間に「本当とは違うこと」を言っています。嘘をついている人が、そのまま犯人とはかぎりません。</li><li>決め手は、1枚のカードではなく、<b>何枚かのカードと何人かの証言を組み合わせて</b>はじめて見えてきます。</li>
+      
       <li>マーダーミステリーは、<b>犯人当てと、役になりきる会話を楽しむゲーム</b>です。上手に推理できなくても、自分の目的を目指して話せば十分楽しめます。</li>
       <li>キャラシートの2枚目に、<b>「聞かれたときの答え方」</b>と<b>「立ち回りのコツ」</b>が全員分あります。困ったら、そこを見ながら話してください。</li>
       <li>嘘をついてよいのは、主に<b>自分の秘密を守るとき</b>です。犯人以外も、知られたくないことは隠してかまいません。</li>
@@ -315,7 +318,7 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
         <li>キャラクターシート 9人分（1人2枚）と持ち物カード 9枚。宛名ラベルを貼った封筒に、1人分ずつ入れる</li>
         <li>証拠カード 30枚（調査1が18枚、調査2が12枚）</li>
         <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
-        <li>投票用紙 9枚、筆記用具、タイマー</li>
+        <li>投票用紙・能力用紙 9枚ずつ、記録メモ1枚、筆記用具、タイマー</li>
         <li>解決編（封筒に入れて、投票まで開けない）</li>
       </ul>
     </div>
@@ -356,7 +359,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
         <tr><td class="t">10分</td><td>調査2</td><td>調査2のカードを、なくなるまで順番に引く。</td></tr>
         <tr><td class="t">30分</td><td>議論2</td><td>最後の追及。</td></tr>
         <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を話し、投票用紙に3問の答えを書いて一斉に見せる。</td></tr>
-        <tr><td class="t">15分</td><td>解決編</td><td>司会が解決編を開き、秘密の挙手 → 真相 → 点数の順に進める。</td></tr>
+        <tr><td class="t">5分</td><td>能力</td><td>全員が能力用紙を書き、司会が順番どおりに呼んで使う。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>司会が解決編を開き、真相 → 秘密の判定 → 点数の順に進める。</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -366,23 +370,29 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
     <ul>
       <li><b>問1「鳴沢修造を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</li>
       <li>書けるのはプレイヤーが演じている人物の名前だけ（鳴沢修造は書けない）。それぞれの問いで、票がいちばん多かった人を「最多票」と呼ぶ。同じ数で並んだら、その全員が最多票。</li>
-      <li>それとは別に、全員に<b>「目的」が4つ</b>あり、達成すると点が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。</li>
+      <li>それとは別に、全員に<b>「目的」が3つ</b>あり、達成すると点が入ります（+3／+2／+1。犯人だけは「逃げ切る」が+5）。</li>
       <li>最後に点数がいちばん高い人が、その回のMVPです。</li>
     </ul>
   </div>
 
   <div class="box">
-    <h3>秘密の挙手（投票のあとにやります）</h3>
-    <p>「〜がばれない」「〜がばれる」「〜が信じられる」という目的は、投票のあとの<b>秘密の挙手</b>で決めます。</p>
+    <h3>秘密が「ばれる」とき</h3>
+    <p>目的の中には、誰かの秘密を<b>「守りきる」「ばれない」</b>、または<b>「暴く」</b>ものがあります。秘密が「ばれた」になるのは、次の2つのときだけです。</p>
     <ol>
-      <li>司会が解決編を開き、最初に並んでいる文を1つずつ読み上げる。</li>
-      <li>読むたびに、その文が「本当だと思う人」が手を挙げる。</li>
-      <li>文に名前が出てくる<b>当事者</b>は、手を挙げない。</li>
-      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた（信じられた）」。</li>
-      <li>文の中には<b>本当ではないダミーが2つ</b>まじっている。ダミーに手を挙げても減点はない。どれがダミーかは、真相と一緒にわかる。</li>
+      <li><b>議論中</b>に、誰かが<b>その秘密の根拠になるカード</b>（証拠カードか持ち物カード）を全員に見せながら、その秘密をはっきり言ったとき。司会は、誰が・誰の・どんな秘密を言ったかを「記録メモ」に書いておく（言うだけで、カードを見せなければ数えない）。</li>
+      <li><b>投票のあと</b>に、誰かの能力「見抜く」で当てられたとき。</li>
     </ol>
-    <p class="note">例：「AとBは昔、夫婦だった」→ AとBは手を挙げない。残り5人のうち3人が挙げたら「ばれた」。</p>
-    <p class="note">「自分で指摘し」とある目的は、議論中にその人が自分の口で言っていないと達成になりません。</p>
+    <p>言ったことが本当だったか、見せたカードが根拠になるかは、解決編の「隠していた秘密」の表で確かめます。どちらかが合わなければ、ばれたことにはなりません。「暴く」は、自分の手で「ばれた」にすることです（議論中に自分でカードを見せて言うか、自分の「見抜く」で当てる）。</p>
+  </div>
+
+  <div class="box">
+    <h3>能力（投票のあとにやります）</h3>
+    <ol>
+      <li>全員に1つずつ、<b>自分だけが知っている能力</b>がある（キャラシートの2枚目に書いてある）。どんな能力かは、使うまで誰にも言わない。</li>
+      <li>投票が終わったら、全員が能力用紙に「能力を向ける相手」（必要なら、ほかに書くこと）を書いて、裏返して出す。使わない人は「使わない」と書く。</li>
+      <li>司会が「順番1の能力の人」「順番2の人」……と呼ぶ。呼ばれた人は、そこで初めて<b>自分の能力の名前と効果を全員に言い</b>、用紙を見せる。</li>
+      <li>「見抜く」が当たったかどうかは、解決編を開いてから確かめる。</li>
+    </ol>
   </div>
 </section>
 <section class="panel" id="intro" hidden>
@@ -448,7 +458,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測会が始まる。ラウンジでライブ配信を始める（〜23:00。画面にはラウンジのテーブルと、窓の外の夜空が映っている）。</dd><dt>22:20</dt><dd>秋月さんからLINE「先生と話してくる」。</dd><dt>22:30</dt><dd>父のトランシーバーの声を聞く。</dd><dt>22:38</dt><dd>志賀さんが「トイレ」とラウンジを出る。</dd><dt>22:41</dt><dd>広場のほうから歓声。ラウンジの窓は北向きで、火球は見えなかった。</dd><dt>22:44</dt><dd>トランシーバーで「父さん、火球見た？」と呼ぶ。<b>返事がなかった。</b>撮影中でも、父はいつも一言は返してくれるのに。</dd><dt>22:45</dt><dd>志賀さんがラウンジに戻ってくる。</dd><dt>23:00</dt><dd>配信を終える。父が来ない。</dd><dt>23:05</dt><dd>志賀さんとドームへ。23:07、倒れている父を見つける。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>21:00〜23:00</dt><dd>「ずっとラウンジで配信してた。録画が残ってる」（本当）</dd><dt>22:44</dt><dd>「父を呼んだけど、返事がなかった」（本当。言えば時刻の手がかりになる）</dd><dt>秋月さんのこと</dt><dd>「父の元弟子。今はほとんど会ってない」（付き合っていることは伏せる）</dd><dt>23:05〜23:07</dt><dd>「志賀さんとドームへ行って、父を見つけた」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。配信の録画があるので、あなたへの疑いは薄い。そのぶん、みんなの話をまとめる役になれる。</li><li>22:44に父が返事をしなかったことは、犯行の時刻を絞る大事な手がかりかもしれない。小早川先生の言う「亡くなって15〜20分」と合うだろうか。</li><li>秋月さんが疑われたら、かばいたい。でも、かばいすぎると二人の関係がばれる。</li><li>遺言書がなくなったことも気になる。金庫の番号を知っていそうなのは誰だろう。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「遥香と秋月は、ひそかに付き合っている」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問2（遺言書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、<b>秋月俊介</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「かばう」</b>（順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人の能力がひとつも効かなくなる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「遥香と秋月は、ひそかに付き合っている」を<b>守りきる</b></span></div><div class="goal"><span class="pt">+2</span><span>問2（遺言書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、<b>秋月俊介</b>が最多票にならない</span></div></div></div>
     </div>
     </div>
   </article>
@@ -470,7 +481,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場のいちばん東の端のマットに寝転ぶ。</dd><dt>22:12</dt><dd>ドームの入り口から誰かが出てくるのを見る（体格からして志賀さん？）。</dd><dt>22:20</dt><dd>遥香にLINEしてから、ドームへ。霜の降りた草を踏んで歩いた。</dd><dt>22:28</dt><dd>鳴沢と言い争ったあと、ドームを出る。</dd><dt>22:29</dt><dd>広場に戻る途中、三上くんとすれ違う。「どうでした？」と聞かれ、首を横に振った。</dd><dt>22:30</dt><dd>鳴沢のトランシーバーの声を聞く。（まだ生きている）</dd><dt>22:41</dt><dd>ドームの向こうの空が明るくなる。火球そのものは見えなかった。LINEに「空が明るくなった！」と書く。</dd><dt>22:52</dt><dd>トイレへ（〜22:58）。</dd><dt>23:00</dt><dd>ラウンジに集まる。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜23:00</dt><dd>「ずっと広場の東の端で寝転んでた」（ドームへ行ったことは伏せる）</dd><dt>22:41</dt><dd>「ドームの向こうが光っただけで、火球は見えなかった」（本当）</dd><dt>22:52〜22:58</dt><dd>「トイレに行ってた」（本当）</dd><dt>22:12</dt><dd>ドームから出てくる人影（志賀さん？）を見たことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、鳴沢とは因縁があり、事件の直前にドームへ行っている。それがばれたら、いちばん疑われるだろう。</li><li>ドームへ行ったのは22:20〜22:28で、22:30には鳴沢の声がしていた。もしばれたら、そのことを強く言おう。</li><li>三上くんの彗星のことは、みんなに知ってほしい。それは鳴沢の本当の姿を知らせることでもある。</li><li>広場の東の端からドームまでの霜には、あなたの足跡が残っているかもしれない。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「見抜く」</b>（順番 3）：1人を選び、その人が隠している秘密を、能力用紙に一言で書く。当たっていれば、その秘密は「ばれた」になる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を<b>守りきる</b></span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」が、最後まで<b>ばれない</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -492,7 +504,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>ラウンジで、お茶や毛布を配る。</dd><dt>22:00</dt><dd>「頭が痛い」と言って2階の自分の部屋へ。</dd><dt>22:30</dt><dd>夫のトランシーバーの声を部屋で聞く。</dd><dt>22:35</dt><dd>書斎へ行き、金庫から遺言書を持ち出す。</dd><dt>22:40</dt><dd>書斎の窓から、駐車場で軽トラの荷台の明かりがついているのを見る。</dd><dt>22:41</dt><dd>書斎の窓から、<b>南西の空に大きな火球</b>が見えた。緑色で、とちゅうで二つに割れた。</dd><dt>22:45</dt><dd>部屋に戻り、遺言書を旅行かばんの底に隠す。</dd><dt>22:58</dt><dd>ラウンジに下りる。</dd><dt>23:07</dt><dd>ドームで夫が見つかったと聞く。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜22:58</dt><dd>「頭が痛くて、ずっと自分の部屋で横になってました」（書斎のことは伏せる）</dd><dt>22:41</dt><dd>「火球？　部屋のカーテンを閉めていたので、何も」（書斎の窓から見えたことは伏せる）</dd><dt>遺言書</dt><dd>「金庫の番号なんて、夫しか知りません」</dd><dt>22:40</dt><dd>駐車場の軽トラの明かり（堂島さん）のことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、遺言書が消えたとわかれば、あなたが真っ先に疑われる。遺言書の中身（寄付と、九重への遺贈）は、できれば誰にも知られたくない。</li><li>九重さやかが夫の隠し子だとしたら……。それがばれれば、遺産の話はもっとややこしくなる。</li><li>駐車場の軽トラの明かりのことは、話せば堂島さんに目が向く。使いどころを考えよう。</li><li>火球のことを細かく話すと、部屋ではなく書斎にいたことがばれるかもしれない。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問2（遺言書を持ち去ったのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「口止め」</b>（順番 2）：1人を選ぶ。その人は、能力を使えなくなる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問2（遺言書を持ち去ったのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」が、最後まで<b>ばれない</b></span></div><div class="goal"><span class="pt">+1</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を<b>暴く</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -514,7 +527,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場で流れ星を見る。</dd><dt>22:15</dt><dd>たばこを吸いに駐車場へ。</dd><dt>22:20</dt><dd>赤と緑のライトがドームへ向かうのを見る。</dd><dt>22:35</dt><dd>堂島さんが軽トラを駐車場に回してくる。</dd><dt>22:38</dt><dd>倉庫から運んだレンズのケースが荷台に積まれる。代金の半分の15万円を渡す。</dd><dt>22:39</dt><dd>志賀さんが来て、自分の車に乗りこむ。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。LINEに「駐車場から見えた、でかい！」と書く。</dd><dt>22:46</dt><dd>堂島さんと別れる。</dd><dt>22:50</dt><dd>ラウンジへ戻る。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:15〜22:50</dt><dd>「駐車場でたばこを吸ってた。堂島さんと世間話をしてた」（レンズのことは伏せる）</dd><dt>22:41</dt><dd>「駐車場からよく見えた。緑で、二つに割れた」（本当）</dd><dt>22:20</dt><dd>赤と緑のライトのこと（秋月さん）は、言うかどうか自由</dd><dt>22:39</dt><dd>「志賀さんが来て、自分の車で何かしてた」（言うかどうか自由）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。駐車場にいたことは、堂島さんと志賀さんが知っている。レンズの話さえ出なければ、あなたは安全だ。</li><li>寄付を断られていたあなたにも、動機があると思われるかもしれない。</li><li>秋月さんがドームへ行ったことを話せば、疑いをそらせる。</li><li>志賀さんが「トイレにいた」と言ったら、駐車場で見たことを話すか考えよう。話せば、あなたが駐車場にいた理由も聞かれる。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問3（レンズを持ち出したのは誰か）で、<b>堂島剛</b>が最多票にならない</span></div><div class="goal"><span class="pt">+1</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「見抜く」</b>（順番 3）：1人を選び、その人が隠している秘密を、能力用紙に一言で書く。当たっていれば、その秘密は「ばれた」になる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を<b>守りきる</b></span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を<b>暴く</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -536,7 +550,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>22:10</dt><dd>三脚をかついで西の尾根へ。</dd><dt>22:13</dt><dd>ドームの入り口から、封筒を持った志賀さんが出てくるのを見る（写真に写った）。</dd><dt>22:25</dt><dd>尾根に着き、天文台と南西の空にカメラを向けて連写を始める。</dd><dt>22:41</dt><dd><b>大きな火球が写る。</b>南西の低い空、緑色で、とちゅうで二つに割れた。</dd><dt>22:50</dt><dd>撮影を終えて、尾根を下りる。</dd><dt>23:02</dt><dd>ラウンジに着く。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:10〜23:02</dt><dd>「西の尾根で撮影してた。カメラに時刻つきの写真が残ってる」（本当）</dd><dt>22:41</dt><dd>「ばっちり撮れた。緑で、二つに割れた」（本当。写真を見せれば証明できる）</dd><dt>鳴沢との関係</dt><dd>「先生に写真を気に入ってもらって、呼んでもらった」（娘であることは伏せる）</dd><dt>22:13</dt><dd>「ドームから封筒を持った志賀さんが出てきた」（写真がある。言うかどうか自由）</dd><dt>22:50〜23:02</dt><dd>「尾根を下りてきた。暗くて12分かかった」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。写真の時刻があなたのアリバイ。ただし「カメラの時計は変えられる」と言われるかもしれない。</li><li>あなたが鳴沢の娘だと知られれば、遺産のために殺したと疑われる。</li><li>星の写り方の知識は、きっと誰かのカードを読み解くのに役立つ。</li><li>22:50〜23:02の帰り道は、誰にも見られていない。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「九重は、鳴沢の隠し子である」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問2（遺言書を持ち去ったのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「口止め」</b>（順番 2）：1人を選ぶ。その人は、能力を使えなくなる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「九重は、鳴沢の隠し子である」を<b>守りきる</b></span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を<b>暴く</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -558,7 +573,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>発電機小屋と広場を見回る。</dd><dt>22:35</dt><dd>「発電機に燃料を入れてくる」と言って、倉庫からレンズのケースを運び出し、軽トラを駐車場へ。</dd><dt>22:38</dt><dd>荷台にケースを積み、宇佐美さんから15万円を受け取る。</dd><dt>22:39</dt><dd>志賀さんが自分の車に乗りこむのが見えた。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。（あなたはスマホを持っていない）</dd><dt>22:46</dt><dd>軽トラの荷台にシートをかけ、宇佐美さんと別れる。</dd><dt>22:55</dt><dd>ラウンジへ。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:35〜22:55</dt><dd>「発電機小屋で燃料を入れてた。そのあと駐車場で宇佐美さんと一服」（レンズのことは伏せる）</dd><dt>22:41</dt><dd>「駐車場からよう見えた。緑で、二つに割れた」（本当）</dd><dt>12年前の夜</dt><dd>白い軽自動車のことを話すかどうかは自由。</dd><dt>22:39</dt><dd>「志賀さんが駐車場に来とった」（言うかどうか自由）</dd><dt>手袋</dt><dd>「わしの手袋は厚手の作業用だで」（本当）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でもレンズのことがばれれば、先生と金のことでもめていたと思われる。</li><li>発電機の燃料は、本当は入れていない。燃料の量を調べられたらまずい。</li><li>十二年前の田所さんの事故の犯人を、あなたはずっと知りたかった。今夜の事件と関係があるのだろうか。</li><li>宇佐美さんとは口裏を合わせてある。でも、宇佐美さんが先にしゃべったら終わりだ。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問3（レンズを持ち出したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「かばう」</b>（順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人の能力がひとつも効かなくなる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>問3（レンズを持ち出したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+2</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」が、最後まで<b>ばれない</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」を<b>暴く</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -580,7 +596,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>22:00</dt><dd>ドームから広場の西の端のマットに戻る（隣は三上くん）。</dd><dt>22:33</dt><dd>三上くんに「ちょっとトイレ」と言って立つ。寝袋はふくらませておいた。</dd><dt>22:36</dt><dd>外トイレの前の踏み固められた道からドームへ。回顧録をやめてと頼むが、断られる。</dd><dt>22:40</dt><dd>床のおもりで先生の後頭部を殴る。望遠鏡が大きく揺れ、<b>診察用の薄い青い手袋の指先が、望遠鏡の金具に引っかかって破れた。</b></dd><dt>22:41</dt><dd><b>スリットの向こうの南西の空に、大きな火球。</b>緑色で、とちゅうで二つに割れた。</dd><dt>22:43</dt><dd>回顧録の最後のページを破り取る。グループLINEに「見た!? 緑の火球、とちゅうで二つに割れた！」と書く。</dd><dt>22:44</dt><dd>おもりを拭いてドームを出る（机のトランシーバーから遥香さんの声）。22:47、広場のマットに戻る。</dd><dt>23:10</dt><dd>遺体を調べ、<b>「亡くなって15〜20分」とうそを言う。</b></dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:33〜22:47</dt><dd>「外のトイレに行って、22:38ごろには広場に戻って、寝袋でうとうとしてた」</dd><dt>22:42の三上くん</dt><dd>呼びかけに答えなかったのは「寝てたのかも」</dd><dt>火球</dt><dd>「広場の西の端で立ち上がって見た」（「広場からは見えない」と言われたら「少し歩いたから」）</dd><dt>死亡時刻</dt><dd>「体の温かさからみて22:50〜22:55ごろ」と言い張る</dd><dt>手袋の切れ端</dt><dd>「23:10に遺体を調べたとき、破れたのかも」</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li><b>あなたは犯人。</b>ほかにも何人もが本当と違うことを言っている。医師として、落ち着いた「まとめ役」になろう。</li><li>死亡時刻を22:50〜22:55だと思わせれば、その時間にアリバイのない人に疑いが向く。</li><li>LINEの火球の書きこみは失敗だったかもしれない。十二年前のことと結びつけられないよう、誰かの秘密を暴いて話をそらそう。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b>（逃げ切る）</span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+1</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「見抜く」</b>（順番 3）：1人を選び、その人が隠している秘密を、能力用紙に一言で書く。当たっていれば、その秘密は「ばれた」になる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b>（逃げ切る）</span></div><div class="goal"><span class="pt">+2</span><span>「九重は、鳴沢の隠し子である」を<b>暴く</b></span></div><div class="goal"><span class="pt">+1</span><span>「小早川は、12年前のひき逃げの運転手だった」が、最後まで<b>ばれない</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -602,7 +619,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>観測広場の西の端のマットへ。隣は小早川先生。</dd><dt>22:25</dt><dd>トイレの帰り、22:29、ドームのほうから戻ってくる秋月さんとすれ違う。</dd><dt>22:30</dt><dd>鳴沢のトランシーバーの声。</dd><dt>22:33</dt><dd>小早川先生が「ちょっとトイレ」と立つ。</dd><dt>22:41</dt><dd>ドームの向こうの空がぱっと明るくなる。火球そのものは見えなかった。LINEに「ドームの向こうが光った！　見えなかった〜」と書く。</dd><dt>22:42</dt><dd>隣の寝袋に話しかけるが、返事がない。</dd><dt>22:47</dt><dd>隣の寝袋がもぞもぞ動く。</dd><dt>23:00</dt><dd>ラウンジへ。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:00〜23:00</dt><dd>「ずっと広場の西の端にいた。22:25にトイレに行ったくらい」（本当）</dd><dt>22:41</dt><dd>「ドームの向こうが光っただけ。広場の西の端からは、南西の低い空はドームと杉林で見えない」（本当）</dd><dt>小早川先生</dt><dd>「22:33にトイレに立って、そのあとは隣で寝てた……と思う」（暗くて顔は見ていない）</dd><dt>22:29</dt><dd>「ドームのほうから戻ってくる秋月さんとすれ違った」（言うかどうか自由）</dd><dt>彗星</dt><dd>「僕が見つけたんです。元の画像があります」（言うかどうか自由）</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、彗星を横取りされそうだったあなたにも、動機があると思われるかもしれない。</li><li>彗星のことは、みんなに信じてほしい。元の画像がスマホにあることを、使いどころで話そう。</li><li>隣のマットの小早川先生のことは、見たこと・聞いたことを正直に話せばいい。それが誰の助けになるかは、あなたにもわからない。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「三上は、鳴沢の新彗星の本当の発見者である」が、秘密の挙手で<b>信じられる</b></span></div><div class="goal"><span class="pt">+2</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div><div class="goal"><span class="pt">+1</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「見抜く」</b>（順番 3）：1人を選び、その人が隠している秘密を、能力用紙に一言で書く。当たっていれば、その秘密は「ばれた」になる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>議論中に「スマホの元画像」を全員に見せて、自分が新彗星の本当の発見者だと名乗り、<b>しかも</b>問1で自分が最多票にならない</span></div><div class="goal"><span class="pt">+2</span><span>「秋月は、事件の前にドームで鳴沢と言い争っていた」を<b>暴く</b></span></div><div class="goal"><span class="pt">+1</span><span>「遥香と秋月は、ひそかに付き合っている」を<b>暴く</b></span></div></div></div>
     </div>
     </div>
   </article>
@@ -614,7 +632,7 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「志賀光学の志賀です。鳴沢先生には、親父の代からごひいきにしていただいて……。うちの望遠鏡で、先生は彗星を見つけてくださった。誇りでした」</p></div>
       <div class="bgtext"><h4>あなたについて（あなたしか知らないこと）</h4><p>あなたは父から会社を継ぎ、職人十五人の小さな工場を守ってきた。「鳴沢彗星を見つけた望遠鏡」は、会社のいちばんの宣伝文句だ。</p><p>半年前、志賀光学の新型の赤道儀（望遠鏡を載せる台）で、<b>おもりを留める金具がゆるむ不具合</b>が見つかった。おもりが落ちて、客がけがをしかけた。あなたは公表せず、こっそり部品を取り替えて回っている。</p><p>先月、鳴沢のドームの赤道儀でも、金具がゆるんだ。鳴沢は「リコールしなければ、雑誌に書く」と言った。リコールになれば、会社はつぶれる。</p><p>今夜、あなたは決めた。お金で黙ってもらうしかない。</p><p>鳴沢は、志賀光学の望遠鏡を「日本一だ」と言ってくれた人でもあった。二十年前、父の葬式で弔辞を読んでくれたのも鳴沢だった。</p><p>工場の職人たちには、家族がいる。その顔が、今夜もずっと頭から離れない。</p><p>赤道儀のおもりは約5kg。金具がゆるめば、足もとに落ちてくる。鳴沢のドームの赤道儀は、まだ部品を取り替えていない。</p></div>
       <div class="secret"><h4>秘密</h4><p><b>22:12、ドームで鳴沢に200万円の入った封筒を渡そうとして、突き返された。</b>封筒は自分の車のトランクに隠すつもりで、22:38に「トイレ」と言ってラウンジを出て、駐車場へ行った。22:44にラウンジへ戻った。</p></div>
-      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：台長の娘。22:38に「トイレ」と言ってラウンジを出た。（本当は駐車場へ）</li><li><b>秋月俊介</b>：鳴沢の元弟子。</li><li><b>鳴沢真理子</b>：台長の奥さん。</li><li><b>宇佐美健</b>：22:39、駐車場で堂島さんと一緒にいた。軽トラの荷台に、細長いケースが見えた。</li><li><b>九重さやか</b>：22:13、ドームを出たところで、カメラを持ったこの人とすれ違った。見られたかもしれない。</li><li><b>堂島剛</b>：管理人。22:39、駐車場で宇佐美さんと何か話していた。</li><li><b>小早川玲奈</b>：鳴沢の主治医。</li><li><b>三上蒼汰</b>：天文部の学生。</li></ul></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>鳴沢遥香</b>：台長の娘。22:38に「トイレ」と言ってラウンジを出た。（本当は駐車場へ）</li><li><b>秋月俊介</b>：鳴沢の元弟子。</li><li><b>鳴沢真理子</b>：台長の奥さん。</li><li><b>宇佐美健</b>：22:39、駐車場で堂島さんと一緒にいた。軽トラの荷台に、細長いケースが見えた。</li><li><b>九重さやか</b>：22:13、ドームを出たところで、カメラを持ったこの人とすれ違った。見られたかもしれない。先月、先生が酒の席で「あの子は、昔の恋人との娘なんだ」とこぼしていた。この人のことだろう。</li><li><b>堂島剛</b>：管理人。22:39、駐車場で宇佐美さんと何か話していた。</li><li><b>小早川玲奈</b>：鳴沢の主治医。</li><li><b>三上蒼汰</b>：天文部の学生。</li></ul></div>
       <div class="acting"><h4>演じ方のヒント</h4><p>腰が低く、何かと「恐縮です」と言う。追い詰められると、眼鏡を何度もかけ直す。</p></div>
     </div>
     </div>
@@ -624,7 +642,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <div class="secret"><h4>今夜の、あなたの本当の行動</h4><dl class="tl"><dt>21:00</dt><dd>ラウンジで、遥香さんの配信を手伝う。</dd><dt>22:10</dt><dd>ドームへ。22:12、封筒を渡そうとして突き返される。</dd><dt>22:13</dt><dd>ドームを出たところで、カメラを持った九重さんとすれ違う。</dd><dt>22:15</dt><dd>ラウンジに戻る。</dd><dt>22:38</dt><dd>「トイレ」と言ってラウンジを出て、駐車場の自分の車へ。封筒をトランクに隠す。</dd><dt>22:39</dt><dd>駐車場に宇佐美さんと堂島さん。軽トラの荷台に細長いケース。</dd><dt>22:41</dt><dd><b>南西の低い空に、大きな火球。</b>緑色だった。LINEに「緑色！」と書く。</dd><dt>22:44</dt><dd>ラウンジに戻る。</dd><dt>23:05</dt><dd>遥香さんとドームへ。23:07、倒れている鳴沢を見つける。</dd></dl></div>
       <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><dl class="tl ans"><dt>22:10〜22:15</dt><dd>「ラウンジの外の空気を吸ってた」（ドームへ行ったことは伏せる）</dd><dt>22:38〜22:44</dt><dd>「トイレに行ってた」（駐車場のことは伏せる）</dd><dt>22:41</dt><dd>「トイレの窓から見えた」（本当は駐車場から。トイレの窓は北向きなので、ばれるかもしれない）</dd><dt>22:39</dt><dd>駐車場の軽トラの細長いケースのことは、言うかどうか自由</dd></dl><p class="note">ここに書いていないことを聞かれたら、「覚えてない」か、ほかの人の話と食い違わない範囲で答えればOK。</p></div>
       <div class="tips"><h4>立ち回りのコツ</h4><ul><li>あなたは犯人ではない。でも、鳴沢を口止めしようとしていたこと、事件の時間に「トイレ」とうそをついたことがばれれば、疑われる。</li><li>LINEに「緑色！」と書いたのは、うかつだった。トイレからは火球は見えないはずだ。</li><li>駐車場で見た軽トラのケースのことは、話せば疑いをそらせる。</li><li>本当のことを言うなら、「駐車場にいて、宇佐美さんと堂島さんが証人だ」と言える。ただし、封筒のことを聞かれる。</li></ul></div>
-      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」が<b>ばれない</b>（秘密の挙手）</span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問3（レンズを持ち出したのは誰か）で、<b>正解の人</b>が最多票になる</span></div><div class="goal"><span class="pt">+1</span><span>「宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた」を議論中に<b>自分で指摘し</b>、秘密の挙手で<b>ばれる</b></span></div></div></div>
+      <div class="skill"><h4>あなたの能力（投票のあとに1回だけ）</h4><p><b>「見抜く」</b>（順番 3）：1人を選び、その人が隠している秘密を、能力用紙に一言で書く。当たっていれば、その秘密は「ばれた」になる。</p><p class="note">能力はあなただけの秘密。使うときに、はじめて全員に言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>「志賀は、鳴沢を200万円で口止めしようとしていた」を<b>守りきる</b></span></div><div class="goal"><span class="pt">+2</span><span>問1（鳴沢修造を殺したのは誰か）で、自分が最多票に<b>ならない</b></span></div><div class="goal"><span class="pt">+1</span><span>問3（レンズを持ち出したのは誰か）で、<b>正解の人</b>が最多票になる</span></div></div></div>
     </div>
     </div>
   </article></div>
@@ -653,17 +672,15 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
   </div>
   <div class="gated" data-for="gm" hidden>
   <div class="box">
-    <h3>1. 秘密の挙手（真相を読む前に）</h3>
-    <p>司会が下の文を<b>1つずつ</b>読み上げます。読むたびに、<b>「本当だと思う人」は手を挙げます</b>。</p>
-    <ul>
-      <li>その文の<b>当事者</b>（文に名前が出てくる人）は手を挙げません。「信じられる」が目的の人も、その文の当事者です（解決編のあとで確認します）。</li>
-      <li>当事者以外の<b>過半数</b>が手を挙げたら、その文は「ばれた／信じられた」。手の数をメモしておく。</li>
-      <li>文の中には<b>本当ではないもの（ダミー）が2つ</b>まじっています。</li>
-      <li>議論で根拠が出なかった文には、手を挙げなくてかまいません。</li>
-    </ul>
-    <ol class="stmts"><li>遥香と秋月は、ひそかに付き合っている</li><li>三上は、鳴沢の新彗星の本当の発見者である</li><li>秋月は、事件の前にドームで鳴沢と言い争っていた</li><li>九重は、鳴沢の隠し子である</li><li>志賀は、鳴沢を200万円で口止めしようとしていた</li><li>宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた</li><li>小早川は、12年前のひき逃げの運転手だった</li><li>真理子は、宇佐美とひそかに付き合っている</li><li>堂島は、12年前のひき逃げの瞬間を見ていた</li></ol>
-    <p class="note">「三上は、鳴沢の新彗星の本当の発見者である」は、三上・遥香・秋月の3人が当事者（手を挙げない）。残り6人のうち4人以上で「信じられた」。</p>
-  </div><div class="warn gate2"><p><strong>秘密の挙手が全部終わってから</strong>、下のボタンで真相を開いてください。</p><button type="button" class="btn" id="reveal-truth">挙手が終わったので、真相を表示する</button></div><div class="truth" id="truth" hidden>
+    <h3>1. 能力を使う（真相を読む前に）</h3>
+    <ol>
+      <li>全員の能力用紙が出そろったら、司会が<b>「順番1の能力の人」</b>と呼ぶ。その能力を持つ人は手を挙げ、能力の名前と効果を言い、用紙を見せる。</li>
+      <li>続けて<b>順番2</b>、<b>順番3</b>と呼ぶ。同じ順番の人が何人もいたら、ROLL番号の小さい人から。</li>
+      <li>先に使われた能力の効果は、あとの能力にもかかる（例：順番1で守られた人には、順番2・3の能力が効かない。順番2で能力を封じられた人は、順番3で使えない）。</li>
+      <li>「見抜く」で書いた秘密が当たっているかどうかは、このあと真相の「隠していた秘密」の表で確かめる。</li>
+    </ol>
+    <p class="note">能力の効果を言うときに、嘘をついてはいけません。</p>
+  </div><div class="warn gate2"><p><strong>能力を全部使い終わってから</strong>、下のボタンで真相を開いてください。</p><button type="button" class="btn" id="reveal-truth">能力が終わったので、真相を表示する</button></div><div class="truth" id="truth" hidden>
   <div class="box">
     <h3>2. 投票の答え</h3>
     <ul>
@@ -692,17 +709,21 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
     <p class="note">ほかの人の秘密：秋月（22:20〜22:28にドーム・霜の足跡）、志賀（200万円の封筒・「トイレ」のうそ）、真理子（遺言書・金庫の番号0612・書斎の窓）、堂島と宇佐美（レンズ・燃料計・町役場のメモ）、九重（隠し子・遺言書の下書き）、三上（彗星の本当の発見者）。どれも殺人とは別の秘密です。</p>
   </div>
   <div class="box">
-    <h3>5. 秘密の挙手の答え</h3>
-    <p><b>ダミー（本当ではない文）</b></p><ul><li>真理子は、宇佐美とひそかに付き合っている</li><li>堂島は、12年前のひき逃げの瞬間を見ていた</li></ul>
-    <p><b>本当の文</b></p><ul><li>遥香と秋月は、ひそかに付き合っている（当事者：鳴沢 遥香・秋月 俊介）</li><li>三上は、鳴沢の新彗星の本当の発見者である（当事者：三上 蒼汰・鳴沢 遥香・秋月 俊介）</li><li>秋月は、事件の前にドームで鳴沢と言い争っていた（当事者：秋月 俊介）</li><li>九重は、鳴沢の隠し子である（当事者：九重 さやか）</li><li>志賀は、鳴沢を200万円で口止めしようとしていた（当事者：志賀 誠）</li><li>宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた（当事者：宇佐美 健・堂島 剛）</li><li>小早川は、12年前のひき逃げの運転手だった（当事者：小早川 玲奈）</li></ul>
-    <p class="note">ダミーに手を挙げても減点はありません。</p>
+    <h3>5. 隠していた秘密（「ばれた」の判定）</h3>
+    <p>下の6つが、目的に出てくる秘密です。次のどちらかがあれば、その秘密は<b>「ばれた」</b>。</p>
+    <ul>
+      <li>議論中に、誰かが<b>その秘密の「根拠になるカード」</b>を全員に見せながら、その秘密をはっきり言った（司会の記録メモで確かめる。ほかのカードを見せただけなら数えない）。</li>
+      <li>能力「見抜く」で、その秘密の当事者の誰かに向けて、その秘密を書いた（言い方がちがっても、中身が合っていれば当たり）。能力が封じられたり、相手が守られていたりしたら無効。</li>
+    </ul>
+    <ol class="stmts"><li>遥香と秋月は、ひそかに付き合っている<br><span class="note">当事者：鳴沢 遥香・秋月 俊介／根拠になるカード：持ち物「遥香とのLINE」</span></li><li>秋月は、事件の前にドームで鳴沢と言い争っていた<br><span class="note">当事者：秋月 俊介／根拠になるカード：観測広場「広場の霜」、持ち物「遥香とのLINE」</span></li><li>九重は、鳴沢の隠し子である<br><span class="note">当事者：九重 さやか／根拠になるカード：書斎「遺言書の下書き」</span></li><li>志賀は、鳴沢を200万円で口止めしようとしていた<br><span class="note">当事者：志賀 誠／根拠になるカード：持ち物「カメラの画像」、持ち物「車のトランクの封筒」</span></li><li>宇佐美は、堂島から天文台のレンズを安く買い取る約束をしていた<br><span class="note">当事者：宇佐美 健・堂島 剛／根拠になるカード：持ち物「手帳のメモ」、持ち物「作業着のポケット」、駐車場「町役場のメモ」</span></li><li>小早川は、12年前のひき逃げの運転手だった<br><span class="note">当事者：小早川 玲奈／根拠になるカード：観測広場「茂みの紙切れ」、ラウンジ「観測会の古いアルバム」、ラウンジ「新聞の切り抜き」</span></li></ol>
+    <p class="note">ここにない内容（遺言書・レンズを持ち出したこと、殺人そのもの）を書いた「見抜く」は外れ。それは投票の問いで決まります。</p>
   </div>
   <div class="box">
     <h3>6. 点数の数え方</h3>
     <ol>
       <li>投票：問1の正解 +4、問2・問3の正解 +2ずつ（答えの本人はその問いの点なし）。</li>
       <li>各自のキャラシートの「目的」を読み上げ、達成していれば点を足す（犯人の「逃げ切る」は+5）。</li>
-      <li>「ばれない／ばれる／信じられる」は、さっきの秘密の挙手の結果で決める。「自分で指摘し」とある目的は、議論中に本人が言っていなければ不成立。</li>
+      <li>「守りきる」「ばれない」は、5の表で「ばれた」になっていなければ達成。「暴く」は、自分で議論中にカードを見せて言ったか、自分の「見抜く」で当てたときだけ達成。</li>
       <li>いちばん点の高い人がMVP。</li>
     </ol>
   </div>
@@ -716,8 +737,8 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
   </div></div></div>
 </section>
 <section class="panel" id="vote" hidden>
-  <h2>投票用紙</h2>
-  <p class="lead">切り分けて1人1枚ずつ使います。全員が書き終わったら、一斉に見せます。</p>
+  <h2>投票・能力用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。投票用紙は全員が書き終わったら一斉に見せます。能力用紙は、投票のあとに書きます。</p>
   <div class="vote"><div class="slip"><b>投票用紙</b>
       <span>わたしの名前</span><span class="ln"></span>
       <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
@@ -746,6 +767,38 @@ td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numer
       <span>わたしの名前</span><span class="ln"></span>
       <span>問1　鳴沢修造を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　書斎の金庫から遺言書を持ち去ったのは誰か（+2）</span><span class="ln"></span><span>問3　倉庫から古いレンズを持ち出したのは誰か（+2）</span><span class="ln"></span>
       <span class="note">書けるのは：鳴沢遥香・秋月俊介・鳴沢真理子・宇佐美健・九重さやか・堂島剛・小早川玲奈・三上蒼汰・志賀誠</span></div></div>
+  <h3 class="sub">能力用紙</h3>
+  <div class="vote"><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div><div class="slip"><b>能力用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>能力を向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（「見抜く」の人は、当てる秘密を一言で）</span><span class="ln"></span></div></div>
+  <h3 class="sub">記録メモ（司会用）</h3>
+  <div class="vote"><div class="slip memo"><b>議論中に「カードを見せながら」明かされた秘密</b>
+    <span>誰が／誰の／どんな秘密／見せたカード</span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div></div>
 </section>
 </main>
 <script>

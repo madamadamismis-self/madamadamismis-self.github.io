@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>スペードの女王は眠らない（12人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 嵐の夜の客船カジノ。緑のフェルトと赤のスペードの、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eceee9;
+  --surface: #fcfcf9;
+  --ink: #1b2420;
+  --muted: #5b6862;
+  --line: #d2d8d2;
+  --accent: #a32f3f;
+  --accent-soft: #f5e1e4;
+  --teal: #1f5c48;
+  --teal-soft: #dfece6;
+  --slate: #10241c;
+  --slate-ink: #f1f4f2;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1512; --surface: #16201b; --ink: #e5ebe7; --muted: #98a59f; --line: #2a3630;
+    --accent: #e7808f; --accent-soft: #3a2228; --teal: #7fc7a9; --teal-soft: #1c2f27;
+    --slate: #08100c; --slate-ink: #e5ebe7; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1512; --surface: #16201b; --ink: #e5ebe7; --muted: #98a59f; --line: #2a3630;
+  --accent: #e7808f; --accent-soft: #3a2228; --teal: #7fc7a9; --teal-soft: #1c2f27;
+  --slate: #08100c; --slate-ink: #e5ebe7; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #c9a24a, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3b2a33; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>スペードの女王は眠らない</h1>
+    <p>嵐の夜の客船。チェーンのかかったスイートで、「女王」は死んでいた。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>12人 ＋ GM1人</span>
+      <span><b>TIME</b>約180分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・瀬戸内を行く豪華客船</span>
+      <span><b>CARDS</b>キャラシート12・持ち物48・秘密24・証拠36</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">スペードの女王は眠らない（12人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー12人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、親子を引き離す話、不倫の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人2回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 12人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 48枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 24枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 36枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 12枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は2周（1人2回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「サロンの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>会長室の金庫・警備室・湊の部屋は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>会長室の金庫：金庫の番号メモ</li><li>警備室：警備室の鍵</li><li>湊の部屋：自室のカードキー（湊）／マスターカード</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「乗組員のロッカー室」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「宝飾」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">14分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">20分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">30分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人2回。新しいカードと「乗組員のロッカー室」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票（3問）。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：3つの問いに、プレイヤーが演じている人物の名前を書く（黒崎冴子は書けない。自分の名前を書いてもよい）。</li>
+      <li>問1の票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>問1「黒崎冴子を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十一月の終わり。神戸を出た豪華客船「ラ・レーヌ号」は、瀬戸内の島々のあいだを、ゆっくりと西へ進んでいた。三か月前にこの船を買い取ったのは、ホテルとリゾートの女帝、黒崎グループ会長・黒崎冴子。今夜の航海は、冴子が家族と身内だけを招いた、二泊三日の貸し切りクルーズだ。</p><p>ディナーの席で、冴子はグラスを鳴らして言った。「今夜零時、サロンで、黒崎の後継ぎを発表します」。その一言で、テーブルの空気が凍りついた。</p><p>二十一時半から、サロンでは恒例のポーカー。「スペードの女王」と呼ばれた冴子は、いつものように強かった。二十二時半、冴子は「零時にまた」と言って席を立ち、七階の最上級のスイート「クイーン」へ戻っていった。</p><p>二十三時半ごろ、雨が降り出した。風が強まり、船が大きく揺れ始めた。</p><p>零時。サロンに家族がそろっても、冴子は現れなかった。電話にも出ない。秘書と警備主任がスイートへ向かった。ドアの内側には、チェーンがかかっていた。チェーンを切って中へ入ると、冴子は床に倒れていた。後頭部を殴られ、もう息はなかった。そばに、シャンパンの瓶が転がっていた。</p><p>嵐で港には戻れず、ヘリも飛べない。警察が乗りこんでくるのは、早くても明日の朝だ。</p><p>——眠らないはずの女王を眠らせたのは、この船の誰かだ。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：クイーン・スイートの居間の床。後頭部を殴られている。そばにシャンパンの瓶（底に血。表面は拭かれている）。0:10に秘書の白石と警備主任の森が見つけた。船医の見立てでは、亡くなったのは23時〜23時40分ごろ。</li><li>スイートのドア：内側からチェーンがかかっていた（チェーンを切って入った）。ドアには鍵もかかっていた。</li><li>スイートのバルコニーは海に面している。となりの客室のバルコニーとは、高い仕切り壁で区切られていて行き来できない。バルコニーの端には鉄の門があり、乗組員だけが鍵で開けて、後部デッキへ出入りできる。</li><li>7階の廊下には防犯カメラがある（映像は警備室で見られる）。</li><li>雨が降り出したのは23:30ごろ。</li><li>鍵のかかる場所：会長室の金庫・警備室・湊の部屋。</li><li>乗組員の制服：客室係は白、船医は白（船の士官服）、ディーラーとバーテンダーは黒、警備は紺。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の予定と場所</h3>
+      <ul><li>19:30 ディナー（メインダイニング）</li><li>21:30 サロンでポーカー（ディーラー：早瀬）</li><li>22:30 会長、スイートへ戻る</li><li>23:15〜 ラウンジでピアノ演奏（湊）</li><li>0:00 サロンで「後継ぎの発表」の予定</li></ul>
+      <p class="note">7階：クイーン・スイート、会長室（船首側）、客室係詰所、ゲスト用の客室。6階：サロン、バー・ラウンジ、カジノ、医務室、リネン室。後部デッキは6階の後ろの屋外デッキで、喫煙所がある。乗組員の階段で6階と7階の裏を行き来できる。</p>
+      <h3 class="sub">投票の3つの問い</h3>
+      <ul><li>問1　黒崎冴子を殺したのは誰か（+4）</li><li>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</li><li>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>7階（客室の階）</h3>
+    <svg viewBox="0 0 400 190" role="img" aria-label="7階の見取り図">
+      <rect class="room" x="10" y="80" width="290" height="30"/><text x="80" y="100">7階の廊下（防犯カメラ）</text>
+      <rect class="room" x="10" y="10" width="70" height="70"/><text class="sm" x="18" y="44">会長室</text><text class="sm" x="18" y="58">（金庫）</text>
+      <rect class="room" x="80" y="10" width="70" height="70"/><text class="sm" x="84" y="48">客室係詰所</text>
+      <rect class="room" x="150" y="10" width="75" height="70"/><text class="sm" x="158" y="48">ゲスト客室</text>
+      <rect class="room" x="225" y="10" width="75" height="70"/><text class="sm" x="229" y="48">となりの客室</text>
+      <rect class="room" x="10" y="110" width="290" height="70"/><text class="sm" x="20" y="148">ゲスト客室（湊の部屋・707号室ほか）</text>
+      <rect class="hot" x="300" y="10" width="60" height="170"/><text class="ac" x="306" y="86">クイーン</text><text class="ac" x="306" y="102">スイート</text>
+      <rect class="stair" x="360" y="10" width="30" height="140"/>
+      <text class="sm" x="370" y="40">バ</text><text class="sm" x="370" y="54">ル</text><text class="sm" x="370" y="68">コ</text><text class="sm" x="370" y="82">ニ</text><text class="sm" x="370" y="96">ー</text>
+      <rect class="hot" x="360" y="150" width="30" height="30"/><text class="sm" x="370" y="170">門</text>
+    </svg></div><div class="box map"><h3>6階（パブリックと後部デッキ）</h3>
+    <svg viewBox="0 0 400 150" role="img" aria-label="6階の見取り図">
+      <rect class="room" x="10" y="10" width="80" height="60"/><text class="sm" x="22" y="44">サロン</text>
+      <rect class="room" x="90" y="10" width="90" height="60"/><text class="sm" x="96" y="38">バー・</text><text class="sm" x="96" y="52">ラウンジ</text>
+      <rect class="room" x="180" y="10" width="70" height="60"/><text class="sm" x="192" y="44">カジノ</text>
+      <rect class="room" x="250" y="10" width="60" height="60"/><text class="sm" x="258" y="44">医務室</text>
+      <rect class="room" x="10" y="70" width="80" height="40"/><text class="sm" x="16" y="94">リネン室</text>
+      <rect class="room" x="90" y="70" width="110" height="40"/><text class="sm" x="96" y="94">乗組員のロッカー室</text>
+      <rect class="room" x="200" y="70" width="70" height="40"/><text class="sm" x="206" y="94">警備室</text>
+      <rect class="stair" x="270" y="70" width="40" height="40"/><text class="sm" x="232" y="128">乗組員の階段</text>
+      <rect class="hot" x="310" y="10" width="80" height="130"/><text class="ac" x="318" y="60">後部</text><text class="ac" x="318" y="76">デッキ</text><text class="sm" x="318" y="96">喫煙所</text>
+    </svg></div></div><p class="note">クイーン・スイートは7階の船尾側のいちばん端で、バルコニーは海側（図の右）。バルコニーの端の鉄の門の外は、細い外階段で6階の後部デッキにつながっている。乗組員の階段は、6階の裏（リネン室・ロッカー室・警備室）と7階の裏（客室係詰所）、後部デッキを結ぶ。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・黒崎グループ会長／ラ・レーヌ号の船主</span><span class="nm">黒崎 冴子</span><span class="kana">くろさき さえこ（72）</span><p>ホテルとリゾートで一代で財を成した女帝。ポーカーの名手で「スペードの女王」と呼ばれる。いつもスペードのクイーンのカードを一枚、お守りに持ち歩いている。</p></div><div class="person"><span class="role">会長の長男・黒崎グループ社長（46）</span><span class="nm">黒崎 恭平</span><span class="kana">くろさき きょうへい</span><p>冴子の長男。グループの社長で、母の右腕と呼ばれてきた。妻は由紀。</p><p class="look">服装：濃いグレーのスーツ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">会長の長女・副社長（43）</span><span class="nm">黒崎 麗華</span><span class="kana">くろさき れいか</span><p>冴子の長女。グループの副社長で、ホテル部門を率いる。独身。</p><p class="look">服装：黒のパンツスーツ、真珠のブローチ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">会長の次男・ジャズピアニスト（31）</span><span class="nm">黒崎 湊</span><span class="kana">くろさき みなと</span><p>冴子の次男。ジャズピアニスト。家の仕事には関わらず、今夜もこの船のラウンジで演奏する。</p><p class="look">服装：黒いシャツに細いネクタイ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">恭平の妻（44）</span><span class="nm">黒崎 由紀</span><span class="kana">くろさき ゆき</span><p>恭平の妻。元はホテルのフロント係。社交的で、いつも笑顔。</p><p class="look">服装：淡いピンクのワンピース</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">黒崎家の顧問弁護士（61）</span><span class="nm">一ノ瀬 修</span><span class="kana">いちのせ おさむ</span><p>黒崎家の顧問弁護士。三十年、冴子の法律の相談役をつとめてきた。</p><p class="look">服装：紺のスーツ、銀ぶちの眼鏡</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">会長秘書（34）</span><span class="nm">白石 真琴</span><span class="kana">しらいし まこと</span><p>冴子の秘書。7階の会長室で、会長の予定と書類のすべてを管理している。</p><p class="look">服装：グレーのスーツ、ヒールの靴</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">警備主任（52）</span><span class="nm">森 剛</span><span class="kana">もり つよし</span><p>ラ・レーヌ号の警備主任。元は海上保安官。夜の見回りと警備室の記録を任されている。</p><p class="look">服装：紺の警備服、黒い革のブーツ</p><p class="pstat">基本パワー 3</p></div><div class="person"><span class="role">カジノディーラー（27）</span><span class="nm">早瀬 陸</span><span class="kana">はやせ りく</span><p>船のカジノのディーラー。今夜のポーカーも仕切った。カードさばきは船でいちばん。</p><p class="look">服装：黒いベストに蝶ネクタイ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">客室係（7階スイート担当）（29）</span><span class="nm">水野 柚月</span><span class="kana">みずの ゆづき</span><p>ラ・レーヌ号の客室係。7階のスイートの担当。物腰がやわらかく、客の名前を一度で覚える。</p><p class="look">服装：白い客室係の制服、黒いゴム底の靴、髪をまとめている</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">バーテンダー（38）</span><span class="nm">桐生 譲二</span><span class="kana">きりゅう じょうじ</span><p>バー・ラウンジのバーテンダー。客の話を聞くのがうまい。今夜23:10、スイートにシャンパンを届けた。</p><p class="look">服装：黒いベスト、白いシャツの袖をまくっている</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">船医（50）</span><span class="nm">加賀美 恵一</span><span class="kana">かがみ けいいち</span><p>ラ・レーヌ号の船医。会長の主治医も兼ねている。遺体を最初に診た。</p><p class="look">服装：白い士官服</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">元映画女優・会長の旧友（70）</span><span class="nm">藤堂 静</span><span class="kana">とうどう しずか</span><p>往年の映画女優。冴子とは五十年来の友人で、今夜の招待客。スイートのとなりの客室に泊まっている。</p><p class="look">服装：藤色の着物、白髪をきれいにまとめている</p><p class="pstat">基本パワー 1</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">黒崎 恭平<small>くろさき きょうへい</small></span><span class="rl">会長の長男・黒崎グループ社長</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">黒崎 麗華<small>くろさき れいか</small></span><span class="rl">会長の長女・副社長</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">黒崎 湊<small>くろさき みなと</small></span><span class="rl">会長の次男・ジャズピアニスト</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">黒崎 由紀<small>くろさき ゆき</small></span><span class="rl">恭平の妻</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">一ノ瀬 修<small>いちのせ おさむ</small></span><span class="rl">黒崎家の顧問弁護士</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">白石 真琴<small>しらいし まこと</small></span><span class="rl">会長秘書</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">森 剛<small>もり つよし</small></span><span class="rl">警備主任</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">早瀬 陸<small>はやせ りく</small></span><span class="rl">カジノディーラー</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">水野 柚月<small>みずの ゆづき</small></span><span class="rl">客室係（7階スイート担当）</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 10</span><span class="nm">桐生 譲二<small>きりゅう じょうじ</small></span><span class="rl">バーテンダー</span><span class="in">中身：キャラクターシート（ROLL 10・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 11</span><span class="nm">加賀美 恵一<small>かがみ けいいち</small></span><span class="rl">船医</span><span class="in">中身：キャラクターシート（ROLL 11・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 12</span><span class="nm">藤堂 静<small>とうどう しずか</small></span><span class="rl">元映画女優・会長の旧友</span><span class="in">中身：キャラクターシート（ROLL 12・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="KY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">黒崎 恭平<small>くろさき きょうへい</small></span><span class="rl">会長の長男・黒崎グループ社長・46歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「黒崎恭平です。グループの社長をしております。……母がこんなことになるとは。皆さん、落ち着いて話しましょう」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>子どものころから、母の期待に応えるのが仕事だった。成績はいつも一番、大学も母の決めたところへ行った。母に褒められたことは、一度もない。</p><p>由紀と結婚して十五年。子どもには恵まれなかった。母は会うたびに「跡取りは」と由紀を責めた。</p><p>三年前、自分で始めた投資が失敗した。穴を埋めるために、グループの子会社の金を少しずつ動かした。いま、その額は5億円になる。</p><p>今夜22:42、母のスイートへ行った。母は言った。「5億のことは知っているわ。社長を降りなさい。跡取りは陽太。警察に言わないのは、母親としての最後の情けよ」。陽太とは誰なのか、聞いても答えなかった。</p><p>部屋に戻って、東京の顧問会社に衛星電話をかけた。どうやって5億を埋めるか、それだけを考えた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>グループの金5億円を使いこんでいた。今夜22:42〜22:47、母のスイートで、社長を降りるよう言われた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎由紀</b>：妻。最近、夜になると部屋にいないことが多い。</li><li><b>黒崎麗華</b>：妹。22:52ごろ、母のスイートの前ですれ違った。</li><li><b>黒崎湊</b>：弟。ディナーで母に何か言われて、真っ青になっていた。</li><li><b>一ノ瀬修</b>：顧問弁護士。母の遺言書を預かっている。</li><li><b>白石真琴</b>：母の秘書。会長室の金庫の番号を知っている。</li><li><b>桐生譲二</b>：バーテンダー。口が軽そうに見えて、何を考えているかわからない。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 5）：お金のカード（札束・小切手帳・チップ）を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、自分のお金のカード1枚と交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">黒崎 恭平<small>くろさき きょうへい</small></span><span class="rl">会長の長男・黒崎グループ社長・46歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>サロンへ。母が来ない。0:10、母が見つかった。</dd><dt>0:05</dt><dd>サロンで待つあいだ、由紀の手を握った。由紀の手は、雨にぬれたように冷たかった。</dd><dt>19:30</dt><dd>ディナー。母の「後継ぎを発表します」の一言で、由紀の手が震えたのが見えた。</dd><dt>21:30</dt><dd>サロンでポーカー（〜22:30）。</dd><dt>22:42</dt><dd>母のスイートへ。「社長を降りなさい。跡取りは陽太」。22:47に出た。</dd><dt>22:50</dt><dd>バーで一杯。桐生に「母さえいなければ」とこぼした。</dd><dt>23:05</dt><dd>自分の部屋から、東京の顧問会社に衛星電話（〜23:24）。</dd><dt>23:30</dt><dd>部屋で一人。雨の音を聞いていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:42に母におやすみを言いに行った。23時すぎからは自分の部屋で、東京と仕事の電話をしていた」。5億のことと、社長を降りろと言われたことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「裏帳簿のUSB」には、5億円のことも入っているはずだ。誰が持ち出したのか。</li><li>「陽太」とは誰なのか。母が跡取りに選んだ子ども。</li><li>妻の由紀が、何か隠している気がする。</li><li>あなたのスキルにはお金のカードがいる。「札束」を取られないように。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>落ち着いた長男として、みんなをまとめようとしてください。ただ、お金の話になると早口になる。母の死に動揺しているのか、ほっとしているのか、自分でもわからない。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「裏帳簿のUSB」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「麗華からの手紙」か「707号室のカードキー」を全員に見せながら、麗華と一ノ瀬が恋人どうしだと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="RE">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">黒崎 麗華<small>くろさき れいか</small></span><span class="rl">会長の長女・副社長・43歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「黒崎麗華です。ホテル部門を見ております。……母の後継ぎの話は、もう意味がなくなりましたね」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>「お母さまにそっくり」。子どものころから、そう言われるのが嫌いだった。母のように冷たく、母のように強く。そうでなければ、この家では生き残れなかった。</p><p>ホテル部門を一から立て直したのは自分だ。後継ぎは自分しかいない、と思っていた。</p><p>一年前から、母に内緒で、外資のファンドにグループのホテル部門を売る話を進めてきた。母の時代は終わる。売れば、社員の給料も守れる。</p><p>顧問弁護士の一ノ瀬修とは、十年前から恋人どうし。一ノ瀬には、東京で長く入院している妻がいる。</p><p>今夜22:52、母のスイートへ行った。母は覚書のコピーを机に投げた。「裏切り者。あなたは明日でクビよ。後継ぎは陽太」。陽太とは誰なのか。</p></div>
+      <div class="secret"><h4>秘密</h4><p>外資ファンドへのホテル部門の身売りを、母に内緒で進めていた。顧問弁護士の一ノ瀬と十年前から恋人どうし。今夜23:05〜23:40、一ノ瀬の部屋（707号室）にいた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>一ノ瀬修</b>：恋人。母の新しい遺言書の中身を知っている。</li><li><b>黒崎恭平</b>：兄。22:47ごろ、母のスイートから青い顔で出てきた。</li><li><b>黒崎由紀</b>：兄の妻。22:35ごろ、サロンのテーブルのそばに一人で立っていた。</li><li><b>黒崎湊</b>：弟。ディナーのあと、客室係の女の子をじっと見ていた。</li><li><b>白石真琴</b>：母の秘書。最近、母に隠れて誰かと電話している。</li><li><b>森剛</b>：警備主任。母に頼まれて、何かを調べていたらしい。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「交換条件」</b>（処理の順番 10）：1人を選ぶ。相手のパワーが自分と同じか低ければ、お互いの持ち物を見せ合い、1つずつ選んで交換する（相手のものは自分が、自分のものは相手が選ぶ）。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">黒崎 麗華<small>くろさき れいか</small></span><span class="rl">会長の長女・副社長・43歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>サロンへ。0:10、母が見つかった。</dd><dt>0:05</dt><dd>サロンで待つあいだ、一ノ瀬とは目を合わせなかった。</dd><dt>19:30</dt><dd>ディナー。母が湊に何か耳打ちするのを、横目で見ていた。</dd><dt>21:30</dt><dd>サロンでポーカー（〜22:30）。</dd><dt>22:35</dt><dd>サロンを出るとき、由紀さんがテーブルの横に一人で立っていた。</dd><dt>22:52</dt><dd>母のスイートへ。「あなたはクビよ」。22:58に出た。</dd><dt>23:05</dt><dd>707号室（一ノ瀬の部屋）へ。「遺言書は、どうなっているの」。一ノ瀬は新しい遺言書の中身を話してくれた（〜23:40）。</dd><dt>23:40</dt><dd>自分の部屋へ戻る。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:52に母と少し仕事の話をして、23時すぎからは自分の部屋で休んでいた」。一ノ瀬の部屋にいたことは言わない（一ノ瀬もそう答えるはず）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>新しい遺言書があなたに不利なら、それが人目に出る前に手に入れたい。原本は会長室の金庫にある。</li><li>一ノ瀬と一緒にいたと言えば、アリバイにはなる。でも、二人の関係が知られてしまう。</li><li>首飾りは母の形見。誰の手にも渡したくない。</li><li>あなたのスキルは、相手のパワーが自分以下のときだけ使える。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>母ゆずりの、冷静で高飛車な副社長として振る舞ってください。感情を見せない。一ノ瀬とは、人前では仕事の話しかしない。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「遺言書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「女王の首飾り」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「交換条件」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MN">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">黒崎 湊<small>くろさき みなと</small></span><span class="rl">会長の次男・ジャズピアニスト・31歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「湊です。ピアノ弾きです。家の仕事は兄貴と姉貴に任せてる。……母さんとは、仲がいいとは言えなかったな」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>子どものころ、母はピアノの先生を何人も替えた。「一番になれないなら、やめなさい」。十五で家を出ようとして、連れ戻された。ピアノだけが、母に逆らえる場所だった。</p><p>七年前、マカオのジャズバーに出ていたころ、カジノホテルのディーラーの女の子と恋に落ちた。柚月。「東京で一緒に暮らそう」と言って帰国した。ところが携帯は母に解約され、柚月からの手紙は一通も届かなかった。半年後にマカオへ戻ったが、柚月はもういなかった。</p><p>今夜、この船の客室係に柚月がいた。七年ぶりだった。目が合ったが、柚月は他人の顔をしていた。</p><p>ディナーの席で、母が耳打ちした。「お前には息子がいる。零時に発表する。母親のことは忘れなさい。もう話はついているから」。頭が真っ白になった。</p><p>ライブハウスを開くために借りた3,000万円の借金がある。母に頼んだら「ピアノで返しなさい」と笑われた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>七年前、マカオで客室係の水野柚月と恋人どうしだった。今夜、母から「お前には息子がいる」と聞かされた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>水野柚月</b>：七年前の恋人。今夜は他人の顔をしていた。</li><li><b>黒崎恭平</b>：兄。母の右腕。最近、金の話になると目が泳ぐ。</li><li><b>黒崎麗華</b>：姉。母にいちばん似ている。冷たい。</li><li><b>早瀬陸</b>：ディーラー。柚月と親しげに話していた。</li><li><b>桐生譲二</b>：バーテンダー。ピアノのあいだ、ずっとカウンターにいた。</li><li><b>白石真琴</b>：母の秘書。母の書類は全部この人が知っている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 7）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">黒崎 湊<small>くろさき みなと</small></span><span class="rl">会長の次男・ジャズピアニスト・31歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:10</dt><dd>母が見つかったと聞いた。</dd><dt>19:30</dt><dd>ディナー。客室係の柚月が、自分の皿を下げるとき、一瞬だけ手が止まった。</dd><dt>21:00</dt><dd>ディナーの席で、母に「お前には息子がいる」と耳打ちされる。</dd><dt>21:30</dt><dd>サロンでポーカー（〜22:30）。何も頭に入らなかった。</dd><dt>22:30</dt><dd>母が席を立つとき、「零時、遅れるんじゃないわよ」と肩をたたかれた。</dd><dt>22:45</dt><dd>柚月を探して7階の廊下を歩いたが、会えなかった。</dd><dt>23:00</dt><dd>後部デッキの喫煙所でたばこ（〜23:10）。誰もいなかった。鉄の門は閉まっていた。</dd><dt>23:15</dt><dd>ラウンジでピアノ（〜23:45）。バーのカウンターに加賀美先生がいた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:00から23:10は後部デッキでたばこ、23:15から23:45はラウンジでピアノを弾いていた」。本当のことなので、そのまま話していい。柚月とのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「息子」はどこにいるのか。母親は誰なのか。</li><li>母を殺したいほど憎んでいた人は、この船に何人もいる。</li><li>柚月を問いつめたい。でも、人前では聞けない。</li><li>あなたのスキルは、パワーが相手より高くないと成功しない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>斜にかまえた、皮肉屋の次男として振る舞ってください。ただ、柚月のことになると冷静でいられない。母の死を悲しむふりはしなくていい。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「陽太の写真」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「親権の申立書」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="YK">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">黒崎 由紀<small>くろさき ゆき</small></span><span class="rl">恭平の妻・44歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「恭平の妻の由紀です。お義母さまには、本当にお世話に……なりました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の小さな町の、ふつうの家に生まれた。黒崎のホテルのフロントで働いていたとき、恭平に見初められた。シンデレラだと、みんなに言われた。</p><p>結婚して十五年。子どもはできなかった。義母は会うたびに「跡取りは」と言った。不妊治療に通う日々が続いた。夫は何も言わなかった。</p><p>三年前、この船の前の持ち主のころから、船のカジノに通うようになった。チップを積んでいるあいだだけは、何も考えずにすんだ。借金は2千万円になった。警備主任の森にお金を渡して、借用書のことを夫に知られないようにしてもらっている。</p><p>去年、船医の加賀美と出会った。話を聞いてくれたのは、加賀美だけだった。</p><p>今夜、ポーカーのあと、義母がテーブルの箱に置いていった「女王の首飾り」が目に入った。気がついたら、手に取っていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>船のカジノに2千万円の借金がある。今夜22:35、サロンのテーブルの箱から「女王の首飾り」を盗んだ。船医の加賀美と、ひそかに付き合っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎恭平</b>：夫。最近、夜中に一人で電話していることが多い。</li><li><b>加賀美恵一</b>：恋人。船医。白い制服。</li><li><b>森剛</b>：警備主任。お金を渡して、カジノの借用書を夫に隠してもらっている。</li><li><b>早瀬陸</b>：ディーラー。22:35、サロンにいた。</li><li><b>水野柚月</b>：客室係。白い制服。</li><li><b>黒崎麗華</b>：義妹。あなたのことを「フロントの人」と呼ぶ。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代理」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">黒崎 由紀<small>くろさき ゆき</small></span><span class="rl">恭平の妻・44歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:10</dt><dd>義母が見つかった。</dd><dt>19:30</dt><dd>ディナー。義母の「後継ぎ」の言葉に、夫の顔がこわばった。</dd><dt>21:30</dt><dd>サロンでポーカー。義母は首飾りを外して、テーブルの横の箱に入れた。</dd><dt>22:35</dt><dd>サロンで、テーブルの箱から首飾りを取った（ディーラーの早瀬くんがこちらを見ていた気がする）。</dd><dt>22:40</dt><dd>カジノで早瀬くんのテーブル（〜23:20）。また負けた。</dd><dt>23:22</dt><dd>後部デッキの喫煙所で一服（〜23:28）。23:25ごろ、デッキの奥の外階段を、白い制服の人影が下りてきて、乗組員の階段へ消えた。</dd><dt>23:30</dt><dd>雨。医務室へ。加賀美さんと会った（〜23:45）。</dd><dt>23:50</dt><dd>部屋に戻る。夫は電話を終えていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:40から23:20まではカジノ。そのあとは部屋で休んでいた」。後部デッキと医務室のことは言わない。後部デッキで見た人影のことを話すかどうかは、あなた次第（話せば、なぜそこにいたのかを聞かれる）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>後部デッキで見た白い制服は、客室係か、船医か。</li><li>「カジノの借用書」は警備室にあるはず。誰かに見られる前に取り戻したい。</li><li>首飾りを持っていると知られれば、問2であなたの名前が書かれる。</li><li>あなたのスキルは、誰かのスキルをまねる。誰のスキルが役に立ちそうか、見きわめよう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るく、少しおっちょこちょいな若奥様として振る舞ってください。義母の悪口は言わない。ただ、カジノの話になると口が重くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「女王の首飾り」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問2で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「カジノの借用書」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="IC">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">一ノ瀬 修<small>いちのせ おさむ</small></span><span class="rl">黒崎家の顧問弁護士・61歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「弁護士の一ノ瀬です。会長とは三十年のお付き合いになります。……法律の話が必要になったら、何でも聞いてください」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>苦学生だったころ、冴子のホテルで夜警のアルバイトをしていた。司法試験に受かった日、冴子は「うちの顧問になりなさい」と言った。それから三十年、冴子の汚れた仕事の後始末もしてきた。</p><p>東京の病院に、十年眠ったままの妻がいる。毎週、花を替えに行く。</p><p>十年前から、麗華と恋人どうし。冴子は知っていた。「娘をよろしくね、先生」。そう笑って、あなたの首に鎖をつけた。</p><p>先週、冴子は新しい遺言書を書いた。「全財産の二分の一を孫・陽太に遺す。残りは慈善団体に。恭平・麗華・湊には遺留分のみ」。原本は会長室の金庫、写しはあなたが持っている。</p><p>陽太の母親のことも、あなたは知っている。冴子に命じられて、親権の申立書を書いたのはあなただ。</p></div>
+      <div class="secret"><h4>秘密</h4><p>麗華と十年前から恋人どうし。冴子の新しい遺言書の中身と、陽太の母親を知っている。今夜23:05〜23:40、自分の部屋（707号室）で麗華と一緒だった。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎麗華</b>：恋人。新しい遺言書のことを、今夜話した。</li><li><b>水野柚月</b>：客室係。陽太の母親。親権の申立書の相手方。</li><li><b>黒崎湊</b>：陽太の父親。今夜、母から聞かされたらしい。</li><li><b>黒崎恭平</b>：社長。会社のお金のことで、会長に何か握られている。</li><li><b>白石真琴</b>：秘書。会長室の金庫の番号を知っている。</li><li><b>森剛</b>：警備主任。会長の頼みで、湊くんを見張っていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「返却」</b>（処理の順番 11）：1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">一ノ瀬 修<small>いちのせ おさむ</small></span><span class="rl">黒崎家の顧問弁護士・61歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>サロンへ。0:10、会長が見つかった。</dd><dt>19:30</dt><dd>ディナー。会長が湊くんに耳打ちしたとき、何を言ったのか、あなたにはわかった。</dd><dt>21:30</dt><dd>サロンでポーカーを見ていた（〜22:30）。</dd><dt>22:35</dt><dd>サロンを出る。廊下で、白石さんが会長室のほうへ急ぐのを見た。</dd><dt>22:55</dt><dd>白石さんから「会長が明日の朝一番に書類を、とのことです」と伝えられる。</dd><dt>23:05</dt><dd>707号室に麗華が来る。新しい遺言書の中身を話した（〜23:40）。</dd><dt>23:30</dt><dd>雨が降り出した。窓の外の海が真っ暗だった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23時すぎからは自分の部屋で、明日の書類を読んでいた。ひとりだった」。麗華といたことは言わない（麗華もそう答えるはず）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>遺言書の原本は会長室の金庫にある。それを誰が持つかで、この家の行く末が変わる。</li><li>陽太の母親のことは、あなたが一番よく知っている。話すかどうかは、あなた次第。</li><li>遺言書を麗華に渡すべきか、迷っている。</li><li>あなたのスキルで、取られた持ち物を元の持ち主に返させることができる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>穏やかで、言葉を選ぶ老弁護士として振る舞ってください。法律の話になると饒舌になる。麗華には、人前では「麗華さん」とていねいに呼ぶ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「遺言書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「返却」を成功させる。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「親権の申立書」を全員に見せながら、会長が陽太という子を母親から取り上げようとしていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">白石 真琴<small>しらいし まこと</small></span><span class="rl">会長秘書・34歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「会長秘書の白石です。会長の書類は、すべて私が管理しておりました。……チェーンを切ったのは、私と森さんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母子家庭で育った。母は清掃の仕事をかけもちして、あなたを大学まで行かせてくれた。冴子の自伝を読んで、女ひとりでここまで来た人に憧れて、黒崎に入った。</p><p>秘書になって五年。冴子の影のように働いた。そして、冴子のもう一つの顔を知った。海外の口座に隠した利益、帳簿の書き換え。脱税の額は数十億になる。</p><p>憧れは、怒りに変わった。母が汗を流して払ってきた税金を、この人は笑って逃れている。</p><p>先月、東京国税局の査察部に匿名で連絡をとった。「証拠を持ってきてください」。会長室の金庫には、裏帳簿の入ったUSBがある。番号を知っているのは、会長とあなただけだ。</p><p>今夜23:00、会長がスイートに戻ったのを見はからって、金庫を開けた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>会長の脱税を国税局に告発するつもりで、今夜23:00、会長室の金庫から「裏帳簿のUSB」を持ち出した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>水野柚月</b>：客室係。22:31、会長をスイートまで送っていった。</li><li><b>森剛</b>：警備主任。後部デッキの門の鍵を持っている（あなたも会長から一本預かっている）。</li><li><b>黒崎恭平</b>：社長。裏帳簿には、彼の使いこみのことも書いてある。</li><li><b>一ノ瀬修</b>：顧問弁護士。会長の遺言書を書いた人。</li><li><b>桐生譲二</b>：バーテンダー。会長に、客の噂話を報告していた。</li><li><b>黒崎麗華</b>：副社長。外資のファンドの人と、こっそり会っていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「差し押さえ」</b>（処理の順番 6）：1人を選ぶ。その人が持っているお金のカード（札束・小切手帳・チップ）を、すべて自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">白石 真琴<small>しらいし まこと</small></span><span class="rl">会長秘書・34歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:00</dt><dd>会長がサロンに来ない。0:05、森さんとスイートへ。チェーンがかかっていた。0:10、チェーンを切って入り、会長を見つけた。</dd><dt>19:30</dt><dd>ディナーのあいだ、会長のうしろに控えていた。会長は湊さんに何か耳打ちした。</dd><dt>22:31</dt><dd>会長が客室係の水野さんに送られてスイートへ戻るのを、会長室の前から見た。</dd><dt>22:55</dt><dd>一ノ瀬先生に、明日の書類のことを伝える。</dd><dt>23:00</dt><dd>会長室の金庫から裏帳簿のUSBを取り出した（〜23:05）。</dd><dt>23:05</dt><dd>USBを上着の内ポケットに入れた。手が冷たくなっていた。</dd><dt>23:15</dt><dd>会長室で一人、書類の整理（〜23:50）。7階の廊下は静かだった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23時からは、会長室でずっと明日の書類を整理していた。ひとりだった」。USBのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>スイートのチェーンは内側からかかっていた。犯人は、ドア以外から出入りしたはずだ。</li><li>「裏帳簿のUSB」は、恭平にとっては命取り。取られないように。</li><li>「USB」を持っていると知られれば、問3であなたの名前が書かれる。</li><li>門の鍵を持っていることを話すかどうか、決めておこう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>有能で、感情を出さない秘書として振る舞ってください。会長のことは「会長」としか呼ばない。数字や時間を正確に答える。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「裏帳簿のUSB」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問3で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「差し押さえ」で、お金のカードを1枚以上手に入れる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">森 剛<small>もり つよし</small></span><span class="rl">警備主任・52歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「警備主任の森です。元は海上保安庁にいました。……チェーンを切ったのは私です。皆さん、勝手に現場に入らないように」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>海上保安官を二十年やった。十年前、密輸船を追って嵐の海に出た夜、若い部下が波にさらわれた。追えと命じたのは自分だった。翌月、制服を返した。</p><p>客船の警備に拾われて八年。夜の見回りのたびに、海を見ないようにしている。</p><p>由紀さんが船のカジノで借金を重ねていることを知っている。由紀さんに頼まれ、金を受け取って、借用書を警備室の引き出しにしまい、恭平さんには知らせないでいる。娘の大学の学費が、どうしても足りなかった。</p><p>三か月前、会長から個人的に頼まれた。「湊を見張って。あの子が誰と会うか、全部報告して」。今夜も、湊さんが7階の廊下で誰かを探していたのを報告した。</p><p>今夜の見回りは、いつもどおりだった。23:20、6階のリネン室の前を通ったとき、明かりは消えていて、誰もいなかった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>由紀から金を受け取り、カジノの借用書を恭平に隠していた。会長に頼まれて湊を見張っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎由紀</b>：カジノの借金のことで、金を受け取っている。</li><li><b>黒崎湊</b>：会長に頼まれて見張っていた。22:45、7階の廊下で誰かを探していた。</li><li><b>白石真琴</b>：会長秘書。後部デッキの門の鍵を一本、会長から預かっている。</li><li><b>水野柚月</b>：客室係。後部デッキの門の鍵を持っている。</li><li><b>加賀美恵一</b>：船医。由紀さんと、医務室でこそこそ会っているらしい。</li><li><b>桐生譲二</b>：バーテンダー。会長と何かの取引をしていたようだ。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「見張り」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">森 剛<small>もり つよし</small></span><span class="rl">警備主任・52歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:05</dt><dd>白石さんとスイートへ。チェーンがかかっていた。0:10、チェーンを切って入った。</dd><dt>21:30</dt><dd>サロンの入口に立って警備。会長は、ポーカーの途中で何度も時計を見ていた。</dd><dt>22:30</dt><dd>警備室でカメラの確認。</dd><dt>22:45</dt><dd>7階の廊下で、湊さんが誰かを探しているのを見て、会長に報告した。</dd><dt>23:00</dt><dd>見回り開始。23:10、7階の廊下（異常なし）。</dd><dt>23:20</dt><dd>6階の裏。リネン室の前を通る。明かりは消えていて、誰もいなかった。</dd><dt>23:35</dt><dd>後部デッキ。雨が降っていた。鉄の門には鍵がかかっていた。喫煙所には誰もいなかった。</dd><dt>23:45</dt><dd>警備室に戻る。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23時から23:45まで見回り。7階、6階の裏、後部デッキの順。ひとりだった」。見回りの記録がある。由紀さんのことと、湊さんの見張りのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>チェーンが内側からかかっていたなら、出入りできるのはバルコニーだけ。バルコニーへは、後部デッキの門の鍵がなければ行けない。</li><li>「見回りの記録」は、誰かのうそを崩せるかもしれない。</li><li>由紀さんの借用書が人目に出れば、あなたのことも知られる。</li><li>あなたのスキルで、誰か一人を守れる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で、元海上保安官らしく、てきぱきと現場を仕切ってください。ただ、由紀の話になると歯切れが悪くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「カジノの借用書」を自分か由紀が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「見回りの記録」を全員に見せながら、23:20にリネン室には誰もいなかったと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「後部デッキの門の鍵」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">早瀬 陸<small>はやせ りく</small></span><span class="rl">カジノディーラー・27歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「ディーラーの早瀬です。今夜のポーカーのカードを配っていました。会長は……本当に強い人でした」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>施設で育った。手先だけは器用で、十八でマカオに渡り、カジノのディーラーになった。そこで、二つ年上の柚月と出会った。</p><p>柚月は、あなたの姉のような人だった。柚月が日本人のピアニストと恋をして、その人がいなくなって、ひとりで陽太を産んだとき、病院に付きそったのはあなただった。陽太は、あなたを「りくにい」と呼ぶ。</p><p>柚月のことが、ずっと好きだ。言ったことはない。</p><p>二年前から、カジノのチップを少しずつ抜いて、貯めている。陽太が小学校に上がるとき、ランドセルと学費にするつもりだ。</p><p>今夜のポーカーのあと、22:35、サロンのテーブルの箱のそばに由紀さんが一人で立っていた。そのあと、箱は空になっていた。</p><p>休みの日は、陽太とビデオ通話をする。画面の向こうで、陽太はいつもトランプの手品をせがむ。</p></div>
+      <div class="secret"><h4>秘密</h4><p>カジノのチップを少しずつ抜いて、柚月の息子の学費のために貯めている。柚月にずっと片想いしている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>水野柚月</b>：マカオ時代からの同僚。陽太の母親。</li><li><b>黒崎湊</b>：陽太の父親。柚月を捨てた男だと、ずっと思っていた。</li><li><b>黒崎由紀</b>：22:35、テーブルの箱のそばにいた。22:40〜23:20はカジノ。</li><li><b>桐生譲二</b>：バーテンダー。何でも知っている顔をしている。</li><li><b>森剛</b>：警備主任。カジノの借金のことで、由紀さんと何か話していた。</li><li><b>加賀美恵一</b>：船医。白い制服。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 8）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">早瀬 陸<small>はやせ りく</small></span><span class="rl">カジノディーラー・27歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:10</dt><dd>会長が見つかったと聞いた。会長がスペードのクイーンを握っていたらしい。あなたのトランプからも一枚足りない（22:20に会長が「縁起物よ」とポケットに入れたもの）。</dd><dt>21:30</dt><dd>サロンでポーカーのディーラー（〜22:30）。会長はいつものように強かった。</dd><dt>22:20</dt><dd>会長が、ポーカーの途中で船のトランプのスペードのクイーンを抜き取り、「縁起物よ」とポケットに入れた。席次表のメモに書いておいた。</dd><dt>22:35</dt><dd>サロンの片づけ。テーブルの箱のそばに由紀さんが一人で立っていた。箱は、あとで見たら空だった。</dd><dt>22:40</dt><dd>カジノのテーブルへ（〜23:20）。由紀さんがずっと打っていた。</dd><dt>23:30</dt><dd>休憩。7階の客室係詰所に柚月の顔を見に行ったが、いなかった（23:32）。</dd><dt>23:45</dt><dd>カジノに戻る。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:40から23:20まではカジノのテーブル。由紀さんが打っていた。23:30から休憩」。休憩中にどこへ行ったかは「乗組員のロッカー室で休んでいた」と言う。チップのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>会長の手にあったスペードのクイーン。あなたのトランプから一枚足りないのは、会長が持っていったから。でも、信じてもらえるだろうか。</li><li>柚月が疑われたら、あなたはどうする。</li><li>由紀さんが首飾りを盗んだのなら、問2の答えはわかっている。</li><li>柚月の「陽太の写真」が人に取られないよう、気をつけてやりたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>人当たりのいい、若いディーラーとして振る舞ってください。カードを指で回す癖がある。柚月が疑われると、ついかばってしまう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>水野柚月が問1で最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問2で、正解の人が最多票になる。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="YZ">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">水野 柚月<small>みずの ゆづき</small></span><span class="rl">客室係（7階スイート担当）・29歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。黒崎冴子を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「客室係の水野です。7階のスイートを担当しております。会長には、いつも目をかけていただきました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>長崎の港町で、母ひとり子ひとりで育った。母は客船の清掃係だった。十八で母を亡くし、あなたも船で働き始めた。</p><p>七年前、マカオのカジノでディーラーをしていたころ、日本から来た若いピアニストと恋に落ちた。黒崎湊。湊は「東京で一緒に暮らそう」と言って帰国し、それきり連絡が途絶えた。冴子が湊の携帯を解約させ、あなたの手紙を捨てさせていたのだと、あとで知った。</p><p>翌年の春、男の子を産んだ。陽太。いま五歳。長崎の叔母に預けて、船で働いて仕送りをしている。湊には知らせていない。</p><p>三か月前、黒崎グループがこの船を買い取り、先月、冴子があなたを名指しでスイート担当にした。冴子は陽太のことを調べ上げていた。</p><p>恭平夫婦には子がなく、麗華は独身。冴子は言った。「黒崎の血を引く男の子は、陽太だけ。あの子を跡取りにする。一億払うから、母親であることを放棄しなさい」。あなたは断った。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜23:22、クイーン・スイートで黒崎冴子を殺した。</b>湊とのあいだに五歳の息子・陽太がいる。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎湊</b>：陽太の父親。今夜のディナーで、会長から何か耳打ちされて顔色を変えた。</li><li><b>早瀬陸</b>：ディーラー。マカオ時代からの同僚。陽太のことを知っている、ただ一人の人。</li><li><b>桐生譲二</b>：バーテンダー。23:10ごろ、スイートにシャンパンを届けたはず。</li><li><b>森剛</b>：警備主任。夜の見回りで6階の裏をよく通る。後部デッキの門の鍵を持っている。</li><li><b>白石真琴</b>：会長秘書。後部デッキの門の鍵を、会長から預かっている。</li><li><b>加賀美恵一</b>：船医。あなたと同じ白い制服。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 9）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">水野 柚月<small>みずの ゆづき</small></span><span class="rl">客室係（7階スイート担当）・29歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>22:31</dt><dd>会長をスイートへ送る。「零時に陽太を跡取りと発表する。拒むなら、あなたが首飾りを盗んだことにする」。22:35に出た。</dd><dt>23:14</dt><dd>詰所に会長から電話。「後部デッキの門からバルコニーに来なさい。最後の話をしましょう」。</dd><dt>23:17</dt><dd>乗組員の階段から後部デッキへ。鍵で鉄の門を開け、バルコニーへ。会長がガラス戸を開けた。グラスが二つ。</dd><dt>23:22</dt><dd>「署名を。陽太とは二度と会わせない。母親なんてお金で買えるのよ」。気がつくと、シャンパンの瓶で会長の頭を殴っていた。</dd><dt>23:24</dt><dd>瓶を拭き、自分の名前の入った「同意書」をつかんで門から出た（袖口が掛け金に引っかかった）。後部デッキに人影があった気がした。</dd><dt>23:31</dt><dd>6階のリネン室の明かりをつけ、補充のふり。23:40、詰所で袖のほつれた上着を着がえた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:35に会長をスイートにお送りしたあとは、詰所で翌朝の準備。23:15から23:40までは6階のリネン室で備品の補充をしていた。ひとりだった」。23:14の電話は「とっていない」と言う。湊とのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>後部デッキの門の鍵を持っているのは、あなたと、森と、白石の三人。</li><li>「同意書」と「陽太の写真」は、あなたと会長を結びつける。</li><li>23:14の電話は、どこかに記録が残っているかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>控えめで、気のきく客室係として振る舞ってください。誰に対しても丁寧。ただ、子どもの話になると、ほんの少し表情がゆるむ。湊とは目を合わせないように。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1で自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「陽太の写真」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「親権の申立書」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「放棄の同意書」を自分が持って<b>いない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 10 ／ 本人以外閲覧禁止</span><span class="nm">桐生 譲二<small>きりゅう じょうじ</small></span><span class="rl">バーテンダー・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「バーテンダーの桐生です。23時すぎに、会長のお部屋にシャンパンをお届けしました。……それが最後になるなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>二十代は新宿でホストをしていた。借金を背負って逃げるように船に乗った。冴子はその借金を肩代わりしてくれた。条件は一つ。「バーで聞いた話を、全部私に教えて」。</p><p>それから二年、あなたは客の噂話を冴子に売ってきた。誰が誰と寝ているか、誰がいくら損をしたか。冴子はそれを、人を動かすために使った。</p><p>今夜も、恭平がバーで「母さえいなければ」とこぼしたことを、メモにして会長に渡すつもりだった。</p><p>23:05、スイートから電話で注文が来た。「ドン・ペリニヨンを一本。グラスは二つ」。会長は一人のはずだった。</p><p>23:10、スイートに届けた。会長はドアを少しだけ開けて、盆を受け取った。部屋の奥のバルコニーのガラス戸が、少し開いていて、海の風が入ってきていた。ドアが閉まって、チェーンをかける音がした。23:13だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>会長に借金を肩代わりしてもらうかわりに、バーで聞いた客の話を報告していた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎恭平</b>：22:50、バーで「母さえいなければ」とこぼした。</li><li><b>加賀美恵一</b>：23:16〜23:30、バーのカウンターにいた。そのあと医務室へ。</li><li><b>黒崎湊</b>：23:15〜23:45、ラウンジでピアノを弾いていた。</li><li><b>黒崎由紀</b>：船医の先生と、ときどき医務室で会っているらしい。</li><li><b>森剛</b>：警備主任。由紀さんからお金を受け取っていた、とバーで噂になっている。</li><li><b>白石真琴</b>：会長秘書。会長に近い人ほど、会長を嫌っていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「酔わせる」</b>（処理の順番 2）：1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 10 ／ 2枚目</span><span class="nm">桐生 譲二<small>きりゅう じょうじ</small></span><span class="rl">バーテンダー・38歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:10</dt><dd>会長が見つかったと聞いた。届けた瓶で殴られたと聞いて、膝がふるえた。</dd><dt>21:30</dt><dd>バーでグラスを磨きながら、サロンのポーカーの声を聞いていた。</dd><dt>22:50</dt><dd>恭平さんがバーで一杯。「母さえいなければ」とこぼした。</dd><dt>23:05</dt><dd>スイートから注文。「シャンパン一本、グラスは二つ」。</dd><dt>23:10</dt><dd>スイートに届ける。会長がドアを少し開けて受け取った。23:13、チェーンの音。</dd><dt>23:16</dt><dd>バーに戻る。カウンターに加賀美先生（〜23:30）。23:15から湊さんのピアノ。</dd><dt>23:30</dt><dd>加賀美先生が「ちょっと医務室へ」と出ていった。</dd><dt>23:45</dt><dd>湊さんのピアノが終わった。最後の曲は、マカオの古いジャズだった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23:10にシャンパンを届けて、23:13にチェーンの音を聞いた。23:16からはずっとバーにいた」。報告のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>グラスが二つ。会長は、23:13のあと、誰かを待っていた。</li><li>チェーンがかかったあと、部屋に入れたのはどこからか。</li><li>「報告メモ」を見られたら、あなたが会長の「耳」だったと知られる。</li><li>23:10のスイートのガラス戸。開いていたことを話すかどうか。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>軽口をたたく、人なつっこいバーテンダーとして振る舞ってください。ただ、自分が最後に会長に会った一人だということは、重く受けとめている。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「報告メモ」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「注文票」を全員に見せながら、会長がグラスを二つ頼んでいたと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「アイスピック」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KG">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 11 ／ 本人以外閲覧禁止</span><span class="nm">加賀美 恵一<small>かがみ けいいち</small></span><span class="rl">船医・50歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「船医の加賀美です。会長の遺体を診ました。亡くなったのは、23時から23時40分のあいだだと思います」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>大学病院の外科医だった。十二年前、上司の手術ミスの責任を押しつけられ、病院を追われた。誰も、あなたの言うことを信じなかった。</p><p>船医になって十年。海の上の医者は、話を聞くのも仕事だ。由紀さんは、よく頭痛で医務室に来た。話を聞くうちに、ただの頭痛ではないとわかった。いつのまにか、恋をしていた。</p><p>会長の主治医として、毎晩二錠の睡眠薬を出している。会長は先月、あなたを呼んで言った。「由紀とのこと、知っているわよ。恭平に言われたくなければ、黙って私の薬を出し続けなさい」。最近、会長は薬の量を増やせと言う。</p><p>今夜、由紀さんから「23:30に医務室で」とメモをもらった。</p><p>0:15、会長の遺体を診た。後頭部に一撃。体温と血のかたまり具合から、23時から23時40分のあいだ。</p><p>休みの日は、甲板で釣り糸をたれる。何も釣れなくても、海の上では、誰もあなたの過去を聞かない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>恭平の妻・由紀と付き合っている。会長にそのことで脅されていた。今夜23:30〜23:45、医務室で由紀と会っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒崎由紀</b>：恋人。23:30〜23:45、医務室で会った。</li><li><b>桐生譲二</b>：バーテンダー。23:16からずっとカウンターにいた。</li><li><b>黒崎湊</b>：23:15からラウンジでピアノを弾いていた。</li><li><b>黒崎恭平</b>：由紀さんの夫。会長に、何か弱みを握られているようだった。</li><li><b>水野柚月</b>：客室係。同じ白い制服だが、客室係は黒いゴム底の靴、士官は白い革靴。</li><li><b>森剛</b>：警備主任。元海上保安官。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「鎮静剤」</b>（処理の順番 3）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。相手は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 11 ／ 2枚目</span><span class="nm">加賀美 恵一<small>かがみ けいいち</small></span><span class="rl">船医・50歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:15</dt><dd>会長の遺体を診る。後頭部を一撃。23時〜23時40分。</dd><dt>19:30</dt><dd>ディナー。由紀さんと目が合わないように気をつけた。</dd><dt>21:30</dt><dd>サロンでポーカーを見物（〜22:30）。</dd><dt>22:30</dt><dd>会長が席を立つとき、「先生、今夜も二錠ね」と言われた。</dd><dt>23:00</dt><dd>バーのカウンターで一杯（〜23:30）。23:10ごろ桐生くんがシャンパンを持って出ていき、23:16に戻ってきた。湊くんのピアノが始まった。</dd><dt>23:30</dt><dd>医務室へ。由紀さんが来た（〜23:45）。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「23時から23時半まではバー。そのあとは医務室で薬の整理をしていた。ひとりだった」。由紀さんのことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>亡くなったのは23時〜23時40分。でも、もっと狭められるはずだ。</li><li>白い制服を着ているのは、あなたと客室係。疑われるかもしれない。</li><li>遺体の見立てを話すのはあなたの役目。どこまで狭められるか、ほかの人の証言と合わせてみよう。</li><li>由紀さんが疑われたら、かばいたい。でも、かばえば二人のことが知られる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>落ち着いた、皮肉の効いた船医として振る舞ってください。医学のことは専門家として答える。由紀の話になると、少しだけ目をそらす。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「鎮静剤」を、問1の正解の人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「由紀の写真」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「睡眠薬の処方箋」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TD">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 12 ／ 本人以外閲覧禁止</span><span class="nm">藤堂 静<small>とうどう しずか</small></span><span class="rl">元映画女優・会長の旧友・70歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「藤堂です。昔、少しだけ映画に出ておりました。冴子さんとは、五十年のお友だち。……あの人が死ぬなんて、思ってもみなかった」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>五十年前、あなたと冴子は、温泉街の賭場で組んでいた。冴子が札を読み、あなたが合図を送る。合図は、スペードのクイーン。二人で、ずいぶん稼いだ。</p><p>ある晩、警察が踏みこんだ。冴子は「静ちゃん、先に逃げて」と言った。そして、あなたの荷物にカードを入れて、自分だけ逃げた。あなたは二年、刑務所に入った。出所の日、冴子から手紙が来た。「いつか必ず返す」。</p><p>あなたは女優になった。冴子は女帝になった。冴子が二人の稼ぎで最初に買ったのが「女王の首飾り」だ。半分は、あなたのものだと思っている。</p><p>女優の仕事がなくなって十年。蓄えは底をついた。今夜は、冴子に五十年分の「返す」を言いに来た。</p><p>23:20ごろ、となりのスイートから、若い女の泣くような声と、冴子の笑い声が壁ごしに聞こえた。23:22、何かが倒れるような、鈍い音がした。それきり静かになった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>五十年前、冴子と組んで賭場でイカサマをしていた。冴子の身代わりで刑務所に入った。今夜、冴子に金を無心しに来ていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>水野柚月</b>：客室係。22:31、冴子をとなりのスイートまで送ってきた声がした。</li><li><b>黒崎麗華</b>：冴子の娘。若いころの冴子にそっくり。</li><li><b>黒崎由紀</b>：恭平の妻。ポーカーのあと、テーブルの箱をじっと見ていた。</li><li><b>早瀬陸</b>：ディーラー。いい手をしている。昔の冴子を思い出す。</li><li><b>一ノ瀬修</b>：弁護士。冴子の汚れ仕事の後始末をしてきた人。</li><li><b>桐生譲二</b>：バーテンダー。冴子の「耳」だと、すぐにわかった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（処理の順番 4）：1人を選び、その人の持ち物をすべて見る。その中の「宝飾」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 12 ／ 2枚目</span><span class="nm">藤堂 静<small>とうどう しずか</small></span><span class="rl">元映画女優・会長の旧友・70歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>0:10</dt><dd>廊下が騒がしくなり、冴子が死んだと聞いた。</dd><dt>19:30</dt><dd>ディナー。冴子は乾杯のとき、あなたのほうを一度も見なかった。</dd><dt>21:30</dt><dd>サロンでポーカーを見物（〜22:30）。冴子は、昔と同じ指の動きで札を読んでいた。</dd><dt>22:30</dt><dd>冴子が席を立つとき、テーブルの箱に首飾りを入れていくのが見えた。昔と同じ、無造作な手つき。</dd><dt>22:40</dt><dd>自分の客室へ（スイートのとなり）。冴子への手紙を書いた。</dd><dt>23:20</dt><dd>壁ごしに、若い女の泣くような声と冴子の笑い声。23:22、鈍い音。それきり静か。</dd><dt>23:40</dt><dd>眠れずに窓の外を見ていた。雨が強くなっていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「22:40からずっと自分の部屋にいた。ひとりだった」。壁ごしの声と音のことは、話していい。昔のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>23:22の鈍い音。あれが、冴子が死んだ瞬間だったのでは。</li><li>冴子が握っていたスペードのクイーンは、五十年前の、二人の合図のカードかもしれない。</li><li>首飾りは、半分はあなたのもの。誰が持っているのか。</li><li>五十年前のことを話すかどうかは、あなた次第。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>品のいい往年の女優として、ゆったりと話してください。ときどき昔の映画の台詞を口にする。冴子のことを話すとき、懐かしさと恨みが半分ずつまじる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「女王の首飾り」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「スペードの女王」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」で、「宝飾」の印の持ち物を1つ手に入れる。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">黒崎 恭平の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒崎 恭平" data-label="黒崎 恭平の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 恭平</span><span class="ttl">札束</span><div class="txt">帯封つきの一万円札の束が五つ。500万円。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="黒崎 恭平" data-label="黒崎 恭平の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 恭平</span><span class="ttl">損失報告書</span><div class="txt">「黒崎インベストメント　損失額　4億8千万円」。社長の印。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 恭平" data-label="黒崎 恭平の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 恭平</span><span class="ttl">金の腕時計</span><div class="txt">母から社長就任の祝いにもらった金の腕時計。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">宝飾</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 恭平" data-label="黒崎 恭平の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 恭平</span><span class="ttl">衛星電話の通話票</span><div class="txt">船の衛星電話の利用票。「23:05〜23:24　発信　東京」。恭平の部屋番号。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒崎 麗華の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒崎 麗華" data-label="黒崎 麗華の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 麗華</span><span class="ttl">ファンドとの覚書</span><div class="txt">「黒崎ホテルズの株式譲渡に関する覚書（極秘）」。署名は黒崎麗華。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 麗華" data-label="黒崎 麗華の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 麗華</span><span class="ttl">707号室のカードキー</span><div class="txt">「707」と書かれたカードキー。麗華の部屋の番号ではない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 麗華" data-label="黒崎 麗華の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 麗華</span><span class="ttl">小切手帳</span><div class="txt">麗華個人の小切手帳。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="黒崎 麗華" data-label="黒崎 麗華の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 麗華</span><span class="ttl">真珠のブローチ</span><div class="txt">母から成人の祝いにもらった真珠のブローチ。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">宝飾</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒崎 湊の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒崎 湊" data-label="黒崎 湊の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 湊</span><span class="ttl">母のメモ</span><div class="txt">ディナーの席で母が渡したメモ。「零時　サロン　跡取りの発表。湊、遅れるな。お前の息子のことよ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 湊" data-label="黒崎 湊の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 湊</span><span class="ttl">マカオの写真</span><div class="txt">マカオの夜景を背に、若い湊と、ディーラーの制服の女性。女性の顔は半分、影になっている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 湊" data-label="黒崎 湊の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 湊</span><span class="ttl">自室のカードキー</span><div class="txt">湊の部屋のカードキー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「湊の部屋」を調べられる。</p></div></div><div class="card item" data-owner="黒崎 湊" data-label="黒崎 湊の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 湊</span><span class="ttl">折りたたみナイフ</span><div class="txt">護身用の小さなナイフ。マカオで買った。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒崎 由紀の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒崎 由紀" data-label="黒崎 由紀の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 由紀</span><span class="ttl">女王の首飾り</span><div class="txt">大粒のダイヤを連ねた首飾り。留め金に小さく「S&S」と彫ってある。</div><div class="bdg"><span class="pw on">パワー +1</span><span class="art">宝飾</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 由紀" data-label="黒崎 由紀の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 由紀</span><span class="ttl">カジノのチップ</span><div class="txt">船のカジノの一万円チップが20枚。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="黒崎 由紀" data-label="黒崎 由紀の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 由紀</span><span class="ttl">加賀美からのメモ</span><div class="txt">小さな紙。「23:30　医務室で　K」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒崎 由紀" data-label="黒崎 由紀の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒崎 由紀</span><span class="ttl">不妊治療の診察券</span><div class="txt">東京の病院の診察券。裏に、びっしりと予約の日付。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">一ノ瀬 修の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="一ノ瀬 修" data-label="一ノ瀬 修の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：一ノ瀬 修</span><span class="ttl">遺言書の写し</span><div class="txt">会長の新しい遺言書の写し。「全財産の二分の一を、孫・陽太に遺す。残りは慈善団体に」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="一ノ瀬 修" data-label="一ノ瀬 修の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：一ノ瀬 修</span><span class="ttl">麗華からの手紙</span><div class="txt">「修さん。全部終わったら、二人でどこか遠くへ。　麗華」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="一ノ瀬 修" data-label="一ノ瀬 修の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：一ノ瀬 修</span><span class="ttl">弁護士バッジ</span><div class="txt">ひまわりの弁護士バッジ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="一ノ瀬 修" data-label="一ノ瀬 修の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：一ノ瀬 修</span><span class="ttl">重い法律書</span><div class="txt">分厚い六法全書。角で殴れば、人が倒れそうだ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">白石 真琴の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="白石 真琴" data-label="白石 真琴の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：白石 真琴</span><span class="ttl">裏帳簿のUSB</span><div class="txt">銀色のUSBメモリ。ラベルに「Q」の一文字。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白石 真琴" data-label="白石 真琴の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：白石 真琴</span><span class="ttl">金庫の番号メモ</span><div class="txt">会長室の金庫の番号。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「会長室の金庫」を調べられる。</p></div></div><div class="card item" data-owner="白石 真琴" data-label="白石 真琴の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：白石 真琴</span><span class="ttl">後部デッキの門の鍵</span><div class="txt">「後部デッキ　門」の札がついた鉄の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白石 真琴" data-label="白石 真琴の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：白石 真琴</span><span class="ttl">国税局の名刺</span><div class="txt">「東京国税局　査察部」の名刺。裏に手書きで「12/1　午前10時」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">森 剛の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="森 剛" data-label="森 剛の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：森 剛</span><span class="ttl">警備室の鍵</span><div class="txt">「警備室」の札がついた鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「警備室」を調べられる。</p></div></div><div class="card item" data-owner="森 剛" data-label="森 剛の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：森 剛</span><span class="ttl">後部デッキの門の鍵</span><div class="txt">「後部デッキ　門」の札がついた鉄の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="森 剛" data-label="森 剛の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：森 剛</span><span class="ttl">特殊警棒</span><div class="txt">伸縮式の特殊警棒。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="森 剛" data-label="森 剛の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：森 剛</span><span class="ttl">見回りの記録</span><div class="txt">今夜の見回りの記録。「23:10　7階廊下　異常なし」「23:20　6階リネン室前　消灯・無人」「23:35　後部デッキ　雨　門施錠」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">早瀬 陸の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="早瀬 陸" data-label="早瀬 陸の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：早瀬 陸</span><span class="ttl">トランプのケース</span><div class="txt">船のカジノのトランプ。裏に船の紋章。数えると51枚。スペードのクイーンがない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早瀬 陸" data-label="早瀬 陸の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：早瀬 陸</span><span class="ttl">抜いたチップ</span><div class="txt">小袋に入った一万円チップが30枚。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="早瀬 陸" data-label="早瀬 陸の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：早瀬 陸</span><span class="ttl">渡せなかった手紙</span><div class="txt">「柚月へ。陽太のランドセル、おれに買わせてくれ。　陸」。封はしていない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早瀬 陸" data-label="早瀬 陸の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：早瀬 陸</span><span class="ttl">ディーラーの名札</span><div class="txt">「DEALER　RIKU HAYASE」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">水野 柚月の持ち物（ROLL 09 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="水野 柚月" data-label="水野 柚月の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－①</span></div><div class="bd"><span class="owner">最初の持ち主：水野 柚月</span><span class="ttl">陽太の写真</span><div class="txt">五歳くらいの男の子が、海辺で笑っている写真。裏に「陽太　五歳の誕生日」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="水野 柚月" data-label="水野 柚月の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－②</span></div><div class="bd"><span class="owner">最初の持ち主：水野 柚月</span><span class="ttl">放棄の同意書</span><div class="txt">「私、水野柚月は、陽太の親権を放棄し、黒崎冴子にゆだねることに同意します」。署名欄は空白。端に、シャンパンのしみ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="水野 柚月" data-label="水野 柚月の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－③</span></div><div class="bd"><span class="owner">最初の持ち主：水野 柚月</span><span class="ttl">マスターカード</span><div class="txt">客室係用のマスターカードキー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「湊の部屋」を調べられる。</p></div></div><div class="card item" data-owner="水野 柚月" data-label="水野 柚月の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－④</span></div><div class="bd"><span class="owner">最初の持ち主：水野 柚月</span><span class="ttl">後部デッキの門の鍵</span><div class="txt">「後部デッキ　門」の札がついた鉄の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">桐生 譲二の持ち物（ROLL 10 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="桐生 譲二" data-label="桐生 譲二の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－①</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 譲二</span><span class="ttl">注文票</span><div class="txt">ルームサービスの注文票。「23:05　クイーン・スイート　ドン・ペリニヨン1　グラス2」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 譲二" data-label="桐生 譲二の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－②</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 譲二</span><span class="ttl">報告メモ</span><div class="txt">会長あてのメモ。「恭平様、22:50、バーにて『母さえいなければ』」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 譲二" data-label="桐生 譲二の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－③</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 譲二</span><span class="ttl">アイスピック</span><div class="txt">バーのアイスピック。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="桐生 譲二" data-label="桐生 譲二の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－④</span></div><div class="bd"><span class="owner">最初の持ち主：桐生 譲二</span><span class="ttl">シェイカー</span><div class="txt">銀のシェイカー。よく磨かれている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">加賀美 恵一の持ち物（ROLL 11 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="加賀美 恵一" data-label="加賀美 恵一の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 11－①</span></div><div class="bd"><span class="owner">最初の持ち主：加賀美 恵一</span><span class="ttl">往診かばん</span><div class="txt">聴診器、体温計、注射器。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="加賀美 恵一" data-label="加賀美 恵一の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 11－②</span></div><div class="bd"><span class="owner">最初の持ち主：加賀美 恵一</span><span class="ttl">睡眠薬の処方箋</span><div class="txt">「黒崎冴子様　睡眠薬　毎晩二錠」。最近、量を増やした跡。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="加賀美 恵一" data-label="加賀美 恵一の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 11－③</span></div><div class="bd"><span class="owner">最初の持ち主：加賀美 恵一</span><span class="ttl">メス</span><div class="txt">使い捨てのメス。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="加賀美 恵一" data-label="加賀美 恵一の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 11－④</span></div><div class="bd"><span class="owner">最初の持ち主：加賀美 恵一</span><span class="ttl">由紀の写真</span><div class="txt">海辺で笑う由紀の写真。裏に「K へ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">藤堂 静の持ち物（ROLL 12 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="藤堂 静" data-label="藤堂 静の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 12－①</span></div><div class="bd"><span class="owner">最初の持ち主：藤堂 静</span><span class="ttl">五十年前の写真</span><div class="txt">温泉街の賭場の前で、若い女性が二人、肩を組んで笑っている。一人はスペードのクイーンのカードを指にはさんでいる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="藤堂 静" data-label="藤堂 静の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 12－②</span></div><div class="bd"><span class="owner">最初の持ち主：藤堂 静</span><span class="ttl">ルーペ</span><div class="txt">宝石を見るためのルーペ。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="藤堂 静" data-label="藤堂 静の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 12－③</span></div><div class="bd"><span class="owner">最初の持ち主：藤堂 静</span><span class="ttl">出所の日の手紙</span><div class="txt">「静ちゃん、いつか必ず返す。　冴子」。五十年前の日付。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="藤堂 静" data-label="藤堂 静の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 12－④</span></div><div class="bd"><span class="owner">最初の持ち主：藤堂 静</span><span class="ttl">翡翠の指輪</span><div class="txt">若いころ、映画の撮影で使って、そのままもらった翡翠の指輪。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">宝飾</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="黒崎 恭平の秘密①"><div class="hd"><span class="loc">黒崎 恭平の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>恭平は22:42〜22:47、母のスイートにいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 恭平の秘密②"><div class="hd"><span class="loc">黒崎 恭平の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>恭平は、グループの子会社の口座から、何度も大きなお金を動かしている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 麗華の秘密①"><div class="hd"><span class="loc">黒崎 麗華の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>麗華は22:52〜22:58、母のスイートにいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 麗華の秘密②"><div class="hd"><span class="loc">黒崎 麗華の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>麗華は23:05ごろ、707号室（一ノ瀬の部屋）に入っていくところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 湊の秘密①"><div class="hd"><span class="loc">黒崎 湊の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>湊は23:15から23:45まで、ラウンジでピアノを弾いていた（何人も聞いている）。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 湊の秘密②"><div class="hd"><span class="loc">黒崎 湊の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>湊はディナーのあと、7階の廊下で誰かを探して歩き回っていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 由紀の秘密①"><div class="hd"><span class="loc">黒崎 由紀の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>由紀は、ここ三年、船のカジノに通いつめている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒崎 由紀の秘密②"><div class="hd"><span class="loc">黒崎 由紀の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>由紀は、23時すぎ、後部デッキのほうへ歩いていくところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="一ノ瀬 修の秘密①"><div class="hd"><span class="loc">一ノ瀬 修の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>一ノ瀬は、会長の新しい遺言書の写しを持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="一ノ瀬 修の秘密②"><div class="hd"><span class="loc">一ノ瀬 修の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>一ノ瀬の妻は、十年前から東京の病院に入院している。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="白石 真琴の秘密①"><div class="hd"><span class="loc">白石 真琴の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>白石は、会長室の金庫の番号を知っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="白石 真琴の秘密②"><div class="hd"><span class="loc">白石 真琴の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>白石は、23時ごろ、会長室の金庫の前にしゃがんでいるところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="森 剛の秘密①"><div class="hd"><span class="loc">森 剛の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>森は、後部デッキの門の鍵を持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="森 剛の秘密②"><div class="hd"><span class="loc">森 剛の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>森は、ときどき由紀と警備室で二人きりで話している。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早瀬 陸の秘密①"><div class="hd"><span class="loc">早瀬 陸の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>早瀬のトランプのケースから、スペードのクイーンが一枚なくなっている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早瀬 陸の秘密②"><div class="hd"><span class="loc">早瀬 陸の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>早瀬は、休憩時間によく7階の客室係詰所に顔を出す。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="水野 柚月の秘密①"><div class="hd"><span class="loc">水野 柚月の秘密 ①</span><span>SECRET 17</span></div><div class="bd"><p>水野は、七年前までマカオのカジノでディーラーをしていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="水野 柚月の秘密②"><div class="hd"><span class="loc">水野 柚月の秘密 ②</span><span>SECRET 18</span></div><div class="bd"><p>水野は、毎月、長崎の住所に現金書留を送っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐生 譲二の秘密①"><div class="hd"><span class="loc">桐生 譲二の秘密 ①</span><span>SECRET 19</span></div><div class="bd"><p>桐生は23:10〜23:13、スイートのドアの前にいた（防犯カメラに映っている）。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="桐生 譲二の秘密②"><div class="hd"><span class="loc">桐生 譲二の秘密 ②</span><span>SECRET 20</span></div><div class="bd"><p>桐生は、ときどき会長にメモを渡していた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="加賀美 恵一の秘密①"><div class="hd"><span class="loc">加賀美 恵一の秘密 ①</span><span>SECRET 21</span></div><div class="bd"><p>加賀美は、会長の睡眠薬を処方していた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="加賀美 恵一の秘密②"><div class="hd"><span class="loc">加賀美 恵一の秘密 ②</span><span>SECRET 22</span></div><div class="bd"><p>加賀美は、23:30ごろ、バーを出て医務室のほうへ歩いていった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="藤堂 静の秘密①"><div class="hd"><span class="loc">藤堂 静の秘密 ①</span><span>SECRET 23</span></div><div class="bd"><p>藤堂は、スイートのとなりの客室に泊まっている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="藤堂 静の秘密②"><div class="hd"><span class="loc">藤堂 静の秘密 ②</span><span>SECRET 24</span></div><div class="bd"><p>藤堂は、五十年前に二年間、刑務所に入っていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="クイーン・スイート ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>会長は居間の床にうつ伏せに倒れている。後頭部を一度、強く殴られている。そばにシャンパンの瓶。底に血がつき、瓶の表面はきれいに拭かれている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="クイーン・スイート ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">テーブルのグラス</span><p>テーブルにシャンパングラスが二つ。一つは半分飲まれていて、ふちに会長の口紅。<b>もう一つは注がれたまま、口をつけていない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="クイーン・スイート ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ドアのチェーン</span><p>ドアのチェーンは切られている（0:10に森が切った）。チェーンは内側からしかかけられない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="クイーン・スイート ④" data-phase="1" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ④</span><span class="ph">調査1</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">書き物机</span><p>机の上に会長の手帳。今夜のページ「零時　発表　陽太」「恭平—5億」「麗華—覚書」。その下に「23時すぎ　最後の話」とある。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="クイーン・スイート ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">部屋の電話</span><p>スイートの電話の発信記録。「23:05　バー」「<b>23:14　7階客室係詰所</b>」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="クイーン・スイート ⑥" data-phase="2" data-lock=""><div class="hd"><span class="loc">クイーン・スイート ⑥</span><span class="ph">調査2</span><span>CLUE 06</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">スペードの女王</span><div class="txt">会長が握っていたスペードのクイーン。角が丸くすり切れた、古いカード。<b>裏の模様は、船のカジノのトランプとはちがう。</b></div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="スイートのバルコニー ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">スイートのバルコニー ①</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ガラス戸</span><p>居間からバルコニーへのガラス戸は閉まっていたが、<b>鍵はかかっていなかった。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="スイートのバルコニー ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">スイートのバルコニー ②</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">屋根の下の床</span><p>バルコニーの屋根の下、雨のかからない乾いた床に、うっすらと靴跡。<b>細かい波模様のゴム底</b>。客室係などの乗組員がはく、滑り止めの靴の底だ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="スイートのバルコニー ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">スイートのバルコニー ③</span><span class="ph">調査2</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鉄の門</span><p>バルコニーの端の鉄の門。鍵がかかっている。外は細い外階段で、6階の後部デッキへ下りる。<b>門の掛け金に、白い綿の糸くずが引っかかっている。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="後部デッキ ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">後部デッキ ①</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">喫煙所の灰皿</span><p>吸い殻が何本か。黒い紙巻き（湊がいつも吸っている銘柄）と、細い女性用のメンソール。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="後部デッキ ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">後部デッキ ②</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">乗組員の階段</span><p>後部デッキの奥に「関係者以外立入禁止」の扉。乗組員の階段で、6階の裏（リネン室・ロッカー室・警備室）と7階の客室係詰所へつながっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="後部デッキ ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">後部デッキ ③</span><span class="ph">調査2</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">外階段</span><p>鉄の門から下りてくる外階段は、喫煙所からよく見える。夜は足もとの灯りがつくので、人が通れば影が見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="サロン ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">サロン ①</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">テーブルの箱</span><p>ポーカーのテーブルの横の、ビロードの箱。会長が首飾りを外して入れていた箱だ。<b>中は空っぽ。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="サロン ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">サロン ②</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">席次表</span><p>今夜のポーカーの席次。会長・恭平・麗華・湊・由紀。見物は一ノ瀬・加賀美ほか。ディーラーは早瀬。メモ欄に、早瀬の字で「22:20　会長、スペードのQを『縁起物よ』とポケットへ」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="サロン ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">サロン ③</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">カードの山</span><p>サロンとカジノのトランプは、すべて船の紋章入り。古いカードは一枚もない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="バー・ラウンジ ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">バー・ラウンジ ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ピアノ</span><p>ラウンジのピアノ。譜面台に手書きの楽譜。演奏の記録用の小さなレコーダーに「23:15〜23:46」の録音が残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="バー・ラウンジ ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">バー・ラウンジ ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">カウンター</span><p>バーの伝票。「23:00　加賀美様　ウイスキー」「23:20　加賀美様　おかわり」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="バー・ラウンジ ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">バー・ラウンジ ③</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">グラスの棚</span><p>シャンパングラスが二つ減っている。ルームサービスで持っていったものらしい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="医務室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">医務室 ①</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">薬棚</span><p>睡眠薬の在庫表。会長の分が、先月から倍になっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="医務室 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">医務室 ②</span><span class="ph">調査2</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ティーカップ</span><p>流しに、紅茶のカップが二つ。片方に、淡いピンクの口紅。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="リネン室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">リネン室 ①</span><span class="ph">調査1</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">補充表</span><p>リネン室の補充表。今夜の欄は空白。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="リネン室 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">リネン室 ②</span><span class="ph">調査2</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">照明の記録</span><p>リネン室の照明は人感センサー式。記録「22:10　点灯／22:25　消灯／<b>23:31　点灯</b>／23:42　消灯」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客室係詰所 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">客室係詰所 ①</span><span class="ph">調査1</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">当番表</span><p>客室係詰所の当番表。「7階スイート担当　22:00〜翌2:00　水野（ひとり）」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客室係詰所 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">客室係詰所 ②</span><span class="ph">調査1</span><span>CLUE 24</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">詰所の電話</span><p>内線の電話。着信履歴は、ボタンを押せば見られる仕組みらしいが、ロックがかかっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="客室係詰所 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">客室係詰所 ③</span><span class="ph">調査2</span><span>CLUE 25</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ハンガー</span><p>壁のハンガーに、客室係の白い制服の上着が一枚。<b>右の袖口がほつれている。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="会長室の金庫 ①" data-phase="1" data-lock="金庫の番号メモ"><div class="hd"><span class="loc">会長室の金庫 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 26</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">空の仕切り</span><p>金庫の中の仕切りの一つに「Q」のラベル。中は空っぽ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="会長室の金庫 ②" data-phase="1" data-lock="金庫の番号メモ"><div class="hd"><span class="loc">会長室の金庫 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 27</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">遺言書</span><div class="txt">会長の新しい遺言書の原本。「全財産の二分の一を、孫・陽太に遺す。残りは慈善団体に。恭平・麗華・湊には遺留分のみ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="会長室の金庫 ③" data-phase="2" data-lock="金庫の番号メモ"><div class="hd"><span class="loc">会長室の金庫 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 28</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">親権の申立書</span><div class="txt">家庭裁判所への申立書。「申立人　黒崎冴子／子　水野陽太（五歳）／相手方　母　水野柚月」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="警備室 ①" data-phase="1" data-lock="警備室の鍵"><div class="hd"><span class="loc">警備室 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 29</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">7階のカメラ</span><p>7階の廊下の防犯カメラの記録。スイートのドアの前に来たのは「22:31　会長と客室係」「22:42〜22:47　恭平」「22:52〜22:58　麗華」「23:10〜23:13　バーテンダー」。<b>そのあと0:05まで、誰もドアの前に来ていない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="警備室 ②" data-phase="1" data-lock="警備室の鍵"><div class="hd"><span class="loc">警備室 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 30</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">カジノの借用書</span><div class="txt">船のカジノの借用書。「黒崎由紀　2,000万円」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="警備室 ③" data-phase="2" data-lock="警備室の鍵"><div class="hd"><span class="loc">警備室 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 31</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">後部デッキのカメラ</span><p>後部デッキのカメラは、先週から故障中。修理の依頼書が貼ってある。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="警備室 ④" data-phase="2" data-lock="警備室の鍵"><div class="hd"><span class="loc">警備室 <span class="lockmark">鍵</span> ④</span><span class="ph">調査2</span><span>CLUE 32</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">衛星電話の記録</span><p>船の衛星電話の記録。「23:05〜23:24　恭平様の部屋から東京へ」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="湊の部屋 ①" data-phase="1" data-lock="自室のカードキー（湊）／マスターカード"><div class="hd"><span class="loc">湊の部屋 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 33</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机の上</span><p>走り書きのメモ。「息子？　五歳？　母親は誰だ」。その下に、何度も書いては消した「ゆ」の字。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="湊の部屋 ②" data-phase="2" data-lock="自室のカードキー（湊）／マスターカード"><div class="hd"><span class="loc">湊の部屋 <span class="lockmark">鍵</span> ②</span><span class="ph">調査2</span><span>CLUE 34</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">引き出し</span><p>古い手帳。マカオの日付のページに「Y　今夜も負けた。おれの負けだ」と、照れくさそうな字。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="乗組員のロッカー室 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">乗組員のロッカー室 ①</span><span class="ph">調査2</span><span>CLUE 35</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">靴の棚</span><p>乗組員の靴が並んでいる。客室係・ディーラー・バーテンダーは黒いゴム底の滑り止めの靴。警備は革のブーツ。士官（船医）は白い革靴。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="乗組員のロッカー室 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">乗組員のロッカー室 ②</span><span class="ph">調査2</span><span>CLUE 36</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ごみ箱</span><p>ごみ箱に、くしゃくしゃのペーパータオル。シャンパンのにおいがする。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>見張り</b></td><td>森 剛</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>酔わせる</b></td><td>桐生 譲二</td><td>1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</td></tr><tr><td class="t">3</td><td><b>鎮静剤</b></td><td>加賀美 恵一</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。相手は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">4</td><td><b>目利き</b></td><td>藤堂 静</td><td>1人を選び、その人の持ち物をすべて見る。その中の「宝飾」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">5</td><td><b>買収</b></td><td>黒崎 恭平</td><td>お金のカード（札束・小切手帳・チップ）を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、自分のお金のカード1枚と交換させる。パワーは関係ない。</td></tr><tr><td class="t">6</td><td><b>差し押さえ</b></td><td>白石 真琴</td><td>1人を選ぶ。その人が持っているお金のカード（札束・小切手帳・チップ）を、すべて自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>力ずく</b></td><td>黒崎 湊</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">8</td><td><b>すり取り</b></td><td>早瀬 陸</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">9</td><td><b>すり替え</b></td><td>水野 柚月</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">10</td><td><b>交換条件</b></td><td>黒崎 麗華</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ、お互いの持ち物を見せ合い、1つずつ選んで交換する（相手のものは自分が、自分のものは相手が選ぶ）。</td></tr><tr><td class="t">11</td><td><b>返却</b></td><td>一ノ瀬 修</td><td>1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代理</b></td><td>黒崎 由紀</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は水野柚月（客室係）。</b>七年前、マカオで黒崎湊と恋人どうしだった。冴子に仲を裂かれたあと、ひとりで湊の子・陽太（五歳）を産み、長崎の叔母に預けて船で働いてきた。</p><p>恭平夫婦に子がなく、麗華も独身。冴子は「黒崎の血を引く男の子」陽太を跡取りにすると決め、親権の申立書を一ノ瀬に作らせ、柚月をスイート担当に名指しした。「一億払うから母親を放棄しなさい。拒むなら首飾りを盗んだことにする」。</p><p>22:31、柚月は冴子をスイートへ送り、脅しを聞かされる。23:05、冴子はバーにシャンパンとグラス二つを注文（23:10〜23:13に桐生が届け、冴子はチェーンをかけた）。23:14、冴子はスイートから客室係詰所に電話し、「誰にも見られないよう、後部デッキの門からバルコニーに来なさい」と柚月を呼んだ。</p><p>23:17、柚月は乗組員の階段から後部デッキへ出て、自分の鍵で鉄の門を開け、バルコニーから招き入れられた。冴子は同意書への署名を迫り、「母親なんて、お金で買えるのよ」と笑った。23:22、柚月はシャンパンの瓶で冴子の後頭部を殴った（藤堂が壁ごしに音を聞いている）。</p><p>柚月は瓶を拭き、自分の名前の入った同意書だけを持ってバルコニーから出た。門に鍵をかけるとき、袖口が掛け金に引っかかってほつれた。23:25、外階段を下りるところを、喫煙所の由紀に白い制服の人影として見られる。23:31にリネン室の明かりをつけ、「23:15からリネン室にいた」ことにした。ドアのチェーンは、冴子自身が23:13にかけたもの。</p><p><b>問2の答え：黒崎由紀。</b>22:35、ポーカーのあと、冴子がテーブルの箱に置いていった首飾りを盗んだ（カジノの借金2千万円のため）。</p><p><b>問3の答え：白石真琴。</b>23:00、会長室の金庫（番号を知っている）から裏帳簿のUSBを持ち出した（国税局に脱税を告発するため）。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>犯人はドアから入っていない。</b>7階のカメラでは、23:13のあと0:05まで誰もドアの前に来ていない（警備室①）。チェーンは内側からしかかからない（スイート③）。→ 出入りはバルコニーから。バルコニーへは、後部デッキの門の鍵がないと行けない（全員が知っていること）。</li><li><b>会長は客を待っていた。</b>グラスを二つ注文し（桐生の注文票）、一つは注がれたまま（スイート②）。23:10にはバルコニーのガラス戸が開いていた（桐生）。ガラス戸は鍵がかかっていなかった（バルコニー①）。23:14にスイートから客室係詰所へ電話（スイート⑤）。詰所の当番は水野ひとり（詰所①）。</li><li><b>門の鍵を持つ三人。</b>水野・森・白石。バルコニーの靴跡は乗組員の滑り止めのゴム底（バルコニー②）。森は革のブーツ、白石はヒール（ロッカー室①・人物一覧の服装）。門の掛け金に白い綿の糸くず（バルコニー③）、詰所に袖口のほつれた客室係の上着（詰所③）。</li><li><b>時刻とうそ。</b>23:22の鈍い音（藤堂）。23:25、白い制服が外階段を下りた（由紀）。水野は「23:15からリネン室」と言うが、23:20のリネン室は消灯・無人（森の見回りの記録）、点灯は23:31（リネン室②）。</li><li><b>動機。</b>親権の申立書「相手方　母　水野柚月」（会長室の金庫③）、会長の手帳「陽太」「23時すぎ　最後の話」（スイート④）、湊の部屋のメモ「母親は誰だ」「ゆ」（湊の部屋①）、陽太の写真・放棄の同意書（水野の持ち物）。</li></ol>
+    <p class="note">どれか1本が隠されても、ほかの筋からたどり着けるようにしてあります。議論2の半ばになっても誰も「ドアではなくバルコニーから出入りした」と言い出さないときは、GMから「チェーンは内側からしかかけられませんね」と一言そえてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>恭平</b>：22:42〜22:47にスイート。5億の使いこみがばれ、社長を降りろと言われた。「母さえいなければ」（桐生の報告メモ）。→ 23:05〜23:24は自室から衛星電話（警備室④・恭平の持ち物）。</li><li><b>麗華</b>：22:52〜22:58にスイート。身売りがばれてクビと言われた。→ 23:05〜23:40は一ノ瀬の部屋（二人の秘密）。</li><li><b>湊</b>：母を憎んでいた。23:00〜23:10は後部デッキにいた。→ 23:15〜23:45はラウンジでピアノ（バー①・桐生・加賀美）。門の鍵も持っていない。</li><li><b>桐生</b>：最後にスイートに行った。凶器は彼が届けた瓶。→ 23:13に会長がチェーンをかけた。23:16からバー。</li><li><b>加賀美</b>：白い制服。会長に脅されていた。→ 23:30まではバー（伝票・桐生）。23:30〜23:45は医務室で由紀と会っていた。履いているのは白い革靴。</li><li><b>森・白石</b>：門の鍵を持っている。→ 森は見回り中で、靴は革のブーツ。白石は会長室にいて、靴はヒール。</li><li><b>早瀬</b>：トランプのスペードのクイーンが一枚ない。→ 22:20に会長がポケットに入れた（サロン②の席次表のメモ）。会長が握っていたのは古い別のカード（スイート⑥）。会長のスーツのポケットには、船のトランプのクイーンが入っている（聞かれたらGMが答える）。</li><li><b>藤堂</b>：となりの部屋。会長を五十年恨んでいた。→ となりのバルコニーとは仕切り壁で行き来できない。門の鍵もない。</li><li><b>由紀</b>：23:22〜23:28に後部デッキにいた。→ 首飾りを盗んだ（問2）。白い制服の人影を見た証人。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は2周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「乗組員のロッカー室」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：3問を回収し、問1の最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>見張りで守られた人には、ほかのスキルが効かない（酔わせる・鎮静剤も効かない）。</li><li>酔わせるを受けた人のパワーは、そのあとの判定（鎮静剤・力ずく・交換条件）では0として扱う。</li><li>鎮静剤が成功した相手は、そのあとの順番でスキルを使えない。</li><li>代理は、まねたスキルのすぐあとに処理する。まねたスキルが「買収」なら、代理の人がお金のカードを持っていないと使えない。</li><li>目利きで取れるのは「宝飾」の印がある持ち物だけ（女王の首飾り・金の腕時計・真珠のブローチ・翡翠の指輪）。</li><li>差し押さえで取れるお金のカードは、札束・小切手帳・カジノのチップ・抜いたチップ。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（会長室の金庫・警備室・湊の部屋）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>黒崎 恭平</td><td>□　□</td><td></td></tr><tr><td>黒崎 麗華</td><td>□　□</td><td></td></tr><tr><td>黒崎 湊</td><td>□　□</td><td></td></tr><tr><td>黒崎 由紀</td><td>□　□</td><td></td></tr><tr><td>一ノ瀬 修</td><td>□　□</td><td></td></tr><tr><td>白石 真琴</td><td>□　□</td><td></td></tr><tr><td>森 剛</td><td>□　□</td><td></td></tr><tr><td>早瀬 陸</td><td>□　□</td><td></td></tr><tr><td>水野 柚月</td><td>□　□</td><td></td></tr><tr><td>桐生 譲二</td><td>□　□</td><td></td></tr><tr><td>加賀美 恵一</td><td>□　□</td><td></td></tr><tr><td>藤堂 静</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>クイーン・スイート⑥（スペードの女王）</td><td></td></tr><tr><td>会長室の金庫②（遺言書）</td><td></td></tr><tr><td>会長室の金庫③（親権の申立書）</td><td></td></tr><tr><td>警備室②（カジノの借用書）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「陽太の写真」は水野（犯人）と湊の取り合い、「遺言書」は麗華と一ノ瀬の取り合い、「裏帳簿のUSB」は白石と恭平の取り合い、「女王の首飾り」は由紀・麗華・藤堂の取り合いです。後部デッキの門の鍵は同じ名前のカードが3枚あります（水野・白石・森）。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>黒崎 恭平①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>黒崎 恭平②</td><td>損失報告書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 恭平③</td><td>金の腕時計</td><td class='t'>—</td><td>—</td><td>宝飾 </td></tr><tr><td>黒崎 恭平④</td><td>衛星電話の通話票</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 麗華①</td><td>ファンドとの覚書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 麗華②</td><td>707号室のカードキー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 麗華③</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>黒崎 麗華④</td><td>真珠のブローチ</td><td class='t'>—</td><td>—</td><td>宝飾 </td></tr><tr><td>黒崎 湊①</td><td>母のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 湊②</td><td>マカオの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 湊③</td><td>自室のカードキー</td><td class='t'>—</td><td>鍵：持っている間、「湊の部屋」を調べられる。</td><td> </td></tr><tr><td>黒崎 湊④</td><td>折りたたみナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>黒崎 由紀①</td><td>女王の首飾り</td><td class='t'>+1</td><td>—</td><td>宝飾 </td></tr><tr><td>黒崎 由紀②</td><td>カジノのチップ</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>黒崎 由紀③</td><td>加賀美からのメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒崎 由紀④</td><td>不妊治療の診察券</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>一ノ瀬 修①</td><td>遺言書の写し</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>一ノ瀬 修②</td><td>麗華からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>一ノ瀬 修③</td><td>弁護士バッジ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>一ノ瀬 修④</td><td>重い法律書</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>白石 真琴①</td><td>裏帳簿のUSB</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>白石 真琴②</td><td>金庫の番号メモ</td><td class='t'>—</td><td>鍵：持っている間、「会長室の金庫」を調べられる。</td><td> </td></tr><tr><td>白石 真琴③</td><td>後部デッキの門の鍵</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>白石 真琴④</td><td>国税局の名刺</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>森 剛①</td><td>警備室の鍵</td><td class='t'>—</td><td>鍵：持っている間、「警備室」を調べられる。</td><td> </td></tr><tr><td>森 剛②</td><td>後部デッキの門の鍵</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>森 剛③</td><td>特殊警棒</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>森 剛④</td><td>見回りの記録</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早瀬 陸①</td><td>トランプのケース</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早瀬 陸②</td><td>抜いたチップ</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>早瀬 陸③</td><td>渡せなかった手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早瀬 陸④</td><td>ディーラーの名札</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水野 柚月①</td><td>陽太の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水野 柚月②</td><td>放棄の同意書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>水野 柚月③</td><td>マスターカード</td><td class='t'>—</td><td>鍵：持っている間、「湊の部屋」を調べられる。</td><td> </td></tr><tr><td>水野 柚月④</td><td>後部デッキの門の鍵</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐生 譲二①</td><td>注文票</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐生 譲二②</td><td>報告メモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>桐生 譲二③</td><td>アイスピック</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>桐生 譲二④</td><td>シェイカー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>加賀美 恵一①</td><td>往診かばん</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>加賀美 恵一②</td><td>睡眠薬の処方箋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>加賀美 恵一③</td><td>メス</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>加賀美 恵一④</td><td>由紀の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤堂 静①</td><td>五十年前の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤堂 静②</td><td>ルーペ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤堂 静③</td><td>出所の日の手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>藤堂 静④</td><td>翡翠の指輪</td><td class='t'>—</td><td>—</td><td>宝飾 </td></tr><tr><td>（場所）クイーン・スイート⑥・調査2</td><td>スペードの女王</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）会長室の金庫②・調査1</td><td>遺言書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）会長室の金庫③・調査2</td><td>親権の申立書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）警備室②・調査1</td><td>カジノの借用書</td><td class='t'>—</td><td>—</td><td> </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>黒崎 恭平</td><td>議論中に「麗華からの手紙」か「707号室のカードキー」を全員に見せながら、麗華と一ノ瀬が恋人どうしだと明かす。</td><td></td></tr><tr><td>一ノ瀬 修</td><td>議論中に「親権の申立書」を全員に見せながら、会長が陽太という子を母親から取り上げようとしていたと明かす。</td><td></td></tr><tr><td>森 剛</td><td>議論中に「見回りの記録」を全員に見せながら、23:20にリネン室には誰もいなかったと明かす。</td><td></td></tr><tr><td>桐生 譲二</td><td>議論中に「注文票」を全員に見せながら、会長がグラスを二つ頼んでいたと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>黒崎 恭平</b></td><td>+3　最後に「裏帳簿のUSB」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　スキル「買収」を成功させる。<br>+1　議論中に「麗華からの手紙」か「707号室のカードキー」を全員に見せながら、麗華と一ノ瀬が恋人どうしだと明かす。</td></tr><tr><td><b>黒崎 麗華</b></td><td>+3　最後に「遺言書」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「女王の首飾り」を自分が持っている。<br>+1　スキル「交換条件」を成功させる。</td></tr><tr><td><b>黒崎 湊</b></td><td>+3　最後に「陽太の写真」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　スキル「力ずく」を成功させる。<br>+1　最後に「親権の申立書」を自分が持っている。</td></tr><tr><td><b>黒崎 由紀</b></td><td>+3　最後に「女王の首飾り」を自分が持っている。<br>+2　問2で自分が最多票に<b>ならない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「カジノの借用書」を自分が持っている。</td></tr><tr><td><b>一ノ瀬 修</b></td><td>+3　最後に「遺言書」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　スキル「返却」を成功させる。<br>+1　議論中に「親権の申立書」を全員に見せながら、会長が陽太という子を母親から取り上げようとしていたと明かす。</td></tr><tr><td><b>白石 真琴</b></td><td>+3　最後に「裏帳簿のUSB」を自分が持っている。<br>+2　問3で自分が最多票に<b>ならない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　スキル「差し押さえ」で、お金のカードを1枚以上手に入れる。</td></tr><tr><td><b>森 剛</b></td><td>+3　最後に「カジノの借用書」を自分か由紀が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「見回りの記録」を全員に見せながら、23:20にリネン室には誰もいなかったと明かす。<br>+1　最後に「後部デッキの門の鍵」を自分が持っている。</td></tr><tr><td><b>早瀬 陸</b></td><td>+3　水野柚月が問1で最多票に<b>ならない</b>。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　問2で、正解の人が最多票になる。<br>+1　スキル「すり取り」を成功させる。</td></tr><tr><td><b>水野 柚月</b></td><td>+5　問1で自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「陽太の写真」を自分が持っている。<br>+1　最後に「親権の申立書」を自分が持っている。<br>+1　最後に「放棄の同意書」を自分が持って<b>いない</b>。</td></tr><tr><td><b>桐生 譲二</b></td><td>+3　最後に「報告メモ」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「注文票」を全員に見せながら、会長がグラスを二つ頼んでいたと明かす。<br>+1　最後に「アイスピック」を自分が持っている。</td></tr><tr><td><b>加賀美 恵一</b></td><td>+3　スキル「鎮静剤」を、問1の正解の人に成功させる。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「由紀の写真」を自分が持っている。<br>+1　最後に「睡眠薬の処方箋」を自分が持っている。</td></tr><tr><td><b>藤堂 静</b></td><td>+3　最後に「女王の首飾り」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「スペードの女王」を自分が持っている。<br>+1　スキル「目利き」で、「宝飾」の印の持ち物を1つ手に入れる。</td></tr></tbody></table></div>
+    <p class="note">投票：問1 水野柚月（+4）／問2 黒崎由紀（+2）／問3 白石真琴（+2）。答えの本人はその問いの点なし。加賀美の「鎮静剤」は、相手が水野で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>21:00</td><td>ディナー。会長が湊に「お前には息子がいる」と耳打ち。</td></tr><tr><td class='t'>21:30</td><td>サロンでポーカー（ディーラー早瀬）。22:20、会長が船のトランプのスペードのQを「縁起物よ」とポケットへ。</td></tr><tr><td class='t'>22:30</td><td>会長、席を立つ。22:31、水野に送られてスイートへ。脅しを聞かせる。22:35、水野は出る。</td></tr><tr><td class='t'>22:35</td><td>由紀、テーブルの箱から首飾りを盗む（早瀬が見る）。</td></tr><tr><td class='t'>22:42</td><td>恭平がスイートへ（〜22:47）。22:52、麗華がスイートへ（〜22:58）。</td></tr><tr><td class='t'>22:50</td><td>恭平、バーで「母さえいなければ」。</td></tr><tr><td class='t'>23:00</td><td>白石、会長室の金庫からUSBを持ち出す。湊、後部デッキでたばこ（〜23:10）。森、見回り開始。加賀美、バーへ。</td></tr><tr><td class='t'>23:05</td><td>会長、シャンパンとグラス二つを注文。恭平、衛星電話（〜23:24）。麗華、707号室へ（〜23:40）。</td></tr><tr><td class='t'>23:10</td><td>桐生がシャンパンを届ける（ガラス戸が開いている）。23:13、チェーン。森、7階の廊下。</td></tr><tr><td class='t'>23:14</td><td>会長、スイートから客室係詰所に電話し、水野を呼ぶ。</td></tr><tr><td class='t'>23:15</td><td>湊、ラウンジでピアノ（〜23:45）。桐生、23:16にバーへ戻る。</td></tr><tr><td class='t'>23:17</td><td>水野、乗組員の階段→後部デッキ→鉄の門→バルコニー。会長がガラス戸を開ける。</td></tr><tr><td class='t'>23:20</td><td>森、6階のリネン室の前（消灯・無人）。由紀、23:20にカジノを出る。</td></tr><tr><td class='t'>23:22</td><td><b>水野、シャンパンの瓶で会長を殴る。</b>（藤堂が壁ごしに音を聞く）由紀、後部デッキの喫煙所へ（〜23:28）。</td></tr><tr><td class='t'>23:24</td><td>水野、瓶を拭き、同意書を持って門から出る（袖口がほつれる）。23:25、外階段を下りるのを由紀が見る。</td></tr><tr><td class='t'>23:30</td><td>雨が降り出す。加賀美、医務室へ（由紀が来る。〜23:45）。早瀬、休憩で詰所をのぞくが誰もいない（23:32）。</td></tr><tr><td class='t'>23:31</td><td>水野、リネン室の明かりをつける（〜23:42）。23:35、森が後部デッキ（門は施錠）。23:40、水野は詰所で上着を替える。</td></tr><tr><td class='t'>0:00</td><td>会長がサロンに来ない。0:05、白石と森がスイートへ。0:10、チェーンを切って遺体を発見。</td></tr><tr><td class='t'>0:15</td><td>加賀美が遺体を診る（23時〜23時40分）。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>黒崎冴子を殺したのは、客室係の水野柚月だった。</p><p>「陽太は、私の子です」。柚月は、白い制服の袖口を握りしめて言った。「あの人は、母親なんてお金で買えると笑いました。……買えないって、教えたかった」。</p><p>女王は、最後の勝負に客を呼んだ。誰にも見られない、バルコニーの扉から。チェーンは、女王が自分の手でかけたものだった。</p><p>朝、嵐が去った。港に着いた船のタラップを、警察に付きそわれて柚月が下りていく。湊が、その背中に何か言いかけて、やめた。</p>
+    </div>
+    <ul class="epi"><li><b>黒崎 恭平</b>：恭平は5億円のことを自分から公表し、社長を退いた。由紀の手を握って「もう、跡取りの話はやめよう」と言った。</li><li><b>黒崎 麗華</b>：麗華は母の遺言書を燃やさなかった。ファンドとの覚書を破り、黒崎ホテルズの社長として、母とは違うやり方で会社を守ると決めた。</li><li><b>黒崎 湊</b>：湊は長崎へ行った。玄関に出てきた小さな男の子は、知らない男を見て、叔母のうしろに隠れた。湊はしゃがんで、ポケットからピアノの形のキーホルダーを出した。</li><li><b>黒崎 由紀</b>：由紀は首飾りを返し、カジノの借金のことを夫に話した。恭平は怒らなかった。それが、いちばんこたえた。</li><li><b>一ノ瀬 修</b>：一ノ瀬は遺言書を家庭裁判所に提出した。陽太の取り分は、母親が刑期を終えるまで、信託に預けられることになった。</li><li><b>白石 真琴</b>：十二月一日の朝十時、白石は東京国税局の扉をたたいた。黒崎グループの脱税の記事が新聞に載ったのは、その三か月後だった。</li><li><b>森 剛</b>：森は由紀から受け取った金を、全部返した。娘には、大学の奨学金の書類を一緒に書こうと電話した。</li><li><b>早瀬 陸</b>：早瀬はチップを全部カジノに戻し、船を降りた。長崎の小学校の入学式の日、ランドセルを背負った陽太の写真が、柚月の元に届いた。撮ったのは早瀬だった。</li><li><b>水野 柚月</b>：取り調べで、柚月は一度も泣かなかった。ただ、面会に来た叔母に「陽太には、お母さんは遠くの船で働いているって言って」と頼んだ。</li><li><b>桐生 譲二</b>：桐生は報告メモをすべて燃やした。バーのカウンターで、今夜も誰かの話を聞いている。ただ、それを誰かに売ることは、もうない。</li><li><b>加賀美 恵一</b>：加賀美は船医をやめた。由紀には何も言わずに。半年後、由紀のもとに、どこかの離島の診療所の消印のついた絵はがきが届いた。</li><li><b>藤堂 静</b>：藤堂は、冴子が握っていたスペードのクイーンを、棺にそっと入れた。「五十年分、返してもらったわ」。首飾りのことは、もう口にしなかった。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　黒崎冴子を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　サロンから「女王の首飾り」を盗んだのは誰か（+2）</span><span class="ln"></span><span>問3　会長室の金庫から「裏帳簿のUSB」を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：黒崎恭平・黒崎麗華・黒崎湊・黒崎由紀・一ノ瀬修・白石真琴・森剛・早瀬陸・水野柚月・桐生譲二・加賀美恵一・藤堂静</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('queen-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('queen-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('queen-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('queen-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>

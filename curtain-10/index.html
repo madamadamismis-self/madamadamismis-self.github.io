@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>カーテンコールは一度だけ（10人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 雪の夜の芝居小屋。藍の幕と朱の差し色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #eef0f2;
+  --surface: #fcfcfb;
+  --ink: #1c2230;
+  --muted: #5d6676;
+  --line: #d3d8df;
+  --accent: #b0372b;
+  --accent-soft: #f6e3df;
+  --teal: #2d4f7c;
+  --teal-soft: #e2e9f3;
+  --slate: #172238;
+  --slate-ink: #f2f4f7;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10141c; --surface: #181e29; --ink: #e6e9ee; --muted: #9aa3b2; --line: #2c3442;
+    --accent: #e8836f; --accent-soft: #3a2420; --teal: #8fb1e3; --teal-soft: #1f2b3e;
+    --slate: #0a0e16; --slate-ink: #e6e9ee; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10141c; --surface: #181e29; --ink: #e6e9ee; --muted: #9aa3b2; --line: #2c3442;
+  --accent: #e8836f; --accent-soft: #3a2420; --teal: #8fb1e3; --teal-soft: #1f2b3e;
+  --slate: #0a0e16; --slate-ink: #e6e9ee; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #d9574a, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3c3550; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>カーテンコールは一度だけ</h1>
+    <p>取り壊される芝居小屋の、最後の千秋楽。座長は、カーテンコールに現れなかった。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>10人 ＋ GM1人</span>
+      <span><b>TIME</b>約170分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>現代・雪の温泉町の芝居小屋</span>
+      <span><b>CARDS</b>キャラシート10・持ち物40・秘密20・証拠36</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">カーテンコールは一度だけ（10人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー10人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、殺人と、過去の転落事故による死、職場でのハラスメントの話、妊娠の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人3回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 10人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 40枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 20枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 36枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 10枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は3周（1人3回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「楽屋Aの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>鍵のかかった場所を調べる</b><p>座長室・事務所・大道具倉庫は、<b>その鍵を今持っている人だけ</b>が調べられる。<ul class="mini"><li>座長室：座長室の合鍵／マスターキー束／針金</li><li>事務所：事務所の鍵／マスターキー束／針金</li><li>大道具倉庫：マスターキー束／針金</li></ul></p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「小鏡の間」と「楽屋口の外」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、鍵になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「小道具」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">12分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">18分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人3回。新しいカードと「小鏡の間」「楽屋口の外」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票（3問）。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：3つの問いに、プレイヤーが演じている人物の名前を書く（柳宗一郎は書けない。自分の名前を書いてもよい）。</li>
+      <li>問1の票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>問1「柳宗一郎を殺したのは誰か」に正解：+4点</b>／<b>問2・問3に正解：各+2点</b>（答えの本人は、その問いの点はなし）。</p>
+    <p>それとは別に、全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。目的は、次の3つの形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>十二月二十七日。奥飛騨の温泉町・湯ノ沢。明治の終わりに建てられた芝居小屋「朱鷺座」は、今夜を最後に幕を下ろす。年が明ければ取り壊され、跡地にはリゾートホテルが建つ。</p><p>劇団「朱鷺座一座」のさよなら公演、千秋楽。演目は、座長・柳宗一郎が四十年前に書いた『雪女房』。客席には町の人たちが六十人あまり。外では朝から雪が降り続いている。</p><p>二幕四場。眠るお雪の枕もとに、せりに乗って、白い面の亡霊が現れる。千秋楽だけ座長みずから演じる、この劇団の名物だ。亡霊は紗幕の向こうをゆっくりと歩き、またせりで沈んでいった。</p><p>二十一時、終演。拍手の中、幕が上がる。役者たちが並んで頭を下げる。座長はいつも最後にひとりで出てきて、一度だけ深く礼をする。「カーテンコールは一度だけ。二度目は、いらん」。それが口ぐせだった。</p><p>だが今夜、座長は出てこなかった。</p><p>二十一時八分。舞台監督たちが奈落へ下りると、奥の古い道具の陰、黒い幕の下で、座長が倒れていた。首には、紅い絹の帯締めが巻きついていた。</p><p>峠の道は雪崩でふさがり、警察が来られるのは明日の朝だという。客が帰ったあとの芝居小屋に残ったのは、劇団の者と、二人の招待客だけ。</p><p>——最後の幕を下ろしたのは、この中の誰かだ。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：奈落の奥、古い道具の陰で、黒い幕をかぶせられていた。首を紅い絹の帯締め（お雪の衣装の小道具）で絞められている。21:08に舞台監督の宮下と演出助手の早乙女が見つけた。</li><li>亡霊：座長は毎年、千秋楽だけ二幕四場の「亡霊」を演じる。台詞はなく、白装束・白頭巾・白い面。奈落からせりで上がり、紗幕の裏を歩いて、せりで下りる。今夜も20:40〜20:46に、舞台・客席・楽屋のスピーカーの音で、みんなが亡霊の場を見聞きしている。</li><li>せりは上手袖の舞台監督の操作盤で動かす。奈落とはインカムで話す。二幕のあいだ、奈落には座長しかいない決まり。</li><li>奈落へは、上手袖から下りる表の階段と、楽屋の廊下の奥から下りる裏の階段がある。</li><li>白塗り（顔を白く塗る舞台化粧）をしているのは、お雪役とお霜役の二人だけ。二人とも白い着物。</li><li>鍵のかかる場所：座長室・事務所・大道具倉庫。</li><li>観客は21:15までに全員帰った（受付が見送った）。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の香盤（二幕）</h3>
+      <ul><li>19:00 開演・一幕（〜19:50）／19:50 休憩（15分）</li><li>20:05 一場「雪の夜」お雪・お霜・巳之吉</li><li>20:20 二場「寄合」巳之吉・村長</li><li>20:35 三場「雪の舞」お雪（ひとり）</li><li>20:40 四場「亡霊」お雪（眠っている）・亡霊</li><li>20:50 五場「別れ」お雪・お霜・巳之吉・村長</li><li>21:00 終演・カーテンコール</li></ul>
+      <p class="note">配役：お雪＝小町しずく／お霜＝朝霧ゆかり／巳之吉＝柳伸也／村長＝黒田権蔵／亡霊＝柳宗一郎。20:46〜20:50は暗転と音楽。</p>
+      <h3 class="sub">投票の3つの問い</h3>
+      <ul><li>問1　柳宗一郎を殺したのは誰か（+4）</li><li>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</li><li>問3　座長室から新作の台本を持ち出したのは誰か（+2）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>朱鷺座 1階と2階</h3>
+    <svg viewBox="0 0 400 300" role="img" aria-label="朱鷺座の1階と2階の見取り図">
+      <rect class="room" x="10" y="10" width="380" height="34"/><text x="20" y="32">楽屋の廊下</text>
+      <rect class="room" x="10" y="44" width="56" height="44"/><text class="sm" x="16" y="70">楽屋口</text>
+      <rect class="room" x="66" y="44" width="54" height="44"/><text class="sm" x="72" y="70">楽屋A</text>
+      <rect class="room" x="120" y="44" width="54" height="44"/><text class="sm" x="126" y="70">楽屋B</text>
+      <rect class="room" x="174" y="44" width="58" height="44"/><text class="sm" x="178" y="70">衣装部屋</text>
+      <rect class="room" x="232" y="44" width="56" height="44"/><text class="sm" x="236" y="70">小鏡の間</text>
+      <rect class="room" x="288" y="44" width="56" height="44"/><text class="sm" x="294" y="70">座長室</text>
+      <rect class="stair" x="344" y="10" width="46" height="78"/><text class="sm" x="348" y="52">裏の</text><text class="sm" x="348" y="64">階段↓</text>
+      <rect class="room" x="10" y="88" width="64" height="40"/><text class="sm" x="16" y="112">事務所</text>
+      <rect class="room" x="74" y="88" width="80" height="40"/><text class="sm" x="80" y="112">大道具倉庫</text>
+      <rect class="room" x="10" y="128" width="80" height="88"/><text x="18" y="166">下手袖</text><text class="sm" x="16" y="184">プロンプター</text>
+      <rect class="hot" x="90" y="128" width="220" height="88"/><text class="ac" x="184" y="160">舞台</text><text class="sm" x="150" y="178">奥に紗幕・中央にせり</text>
+      <rect class="stair" x="185" y="186" width="30" height="22"/>
+      <rect class="room" x="310" y="128" width="80" height="88"/><text x="318" y="166">上手袖</text><text class="sm" x="316" y="184">舞台監督の机</text>
+      <rect class="room" x="10" y="216" width="300" height="76"/><text x="130" y="250">客席</text><text class="sm" x="104" y="268">2階のうしろに調光室</text>
+      <rect class="room" x="310" y="216" width="80" height="76"/><text x="326" y="258">ロビー</text>
+    </svg></div><div class="box map"><h3>奈落（舞台の下）</h3>
+    <svg viewBox="0 0 400 150" role="img" aria-label="奈落の見取り図">
+      <rect class="hot" x="10" y="10" width="380" height="130"/>
+      <rect class="stair" x="170" y="56" width="60" height="40"/><text class="sm" x="178" y="80">せり</text>
+      <text class="sm" x="240" y="70">座長の椅子・インカム</text><text class="sm" x="240" y="86">亡霊の衣装掛け</text>
+      <rect class="room" x="24" y="20" width="110" height="40"/><text class="sm" x="32" y="44">古い道具・黒幕</text>
+      <text class="ac" x="150" y="34">奈落</text>
+      <rect class="stair" x="340" y="104" width="42" height="28"/><text class="sm" x="250" y="124">表の階段→上手袖</text>
+      <rect class="stair" x="340" y="16" width="42" height="28"/><text class="sm" x="268" y="36">裏の階段→廊下</text>
+    </svg></div></div><p class="note">2階の調光室は客席のうしろの上にあり、窓から舞台全体が見下ろせる。楽屋口は外の路地に出る扉。ロビーから楽屋の廊下へは、いったん外に出て楽屋口から入る。小鏡の間は、ふだん使われない予備の化粧部屋。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーは全員に公開されています（スキルは本人しか知りません）。</p><div class="people"><div class="person victim"><span class="role">被害者・朱鷺座一座の座長／劇作家</span><span class="nm">柳 宗一郎</span><span class="kana">やなぎ そういちろう（67）</span><p>四十年前に劇団「朱鷺座一座」を旗揚げし、『雪女房』を書いた。芝居の鬼と呼ばれる。昔の事故で左足が悪く、少し引きずって歩く。千秋楽だけ、二幕四場の「亡霊」を自分で演じるのが名物。</p></div><div class="person"><span class="role">主演女優・お雪役（27）</span><span class="nm">小町 しずく</span><span class="kana">こまち しずく</span><p>劇団の看板女優。座長がみずから見いだし、二十歳からずっとお雪を演じてきた。</p><p class="look">服装：お雪の白い着物、白塗り、長い黒髪のかつら</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">副座長・巳之吉役（35）</span><span class="nm">柳 伸也</span><span class="kana">やなぎ しんや</span><p>座長の一人息子で、副座長。二枚目の役が多い。劇団の経理も任されている。</p><p class="look">服装：巳之吉の野良着、首に手ぬぐい</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">老優・村長役（70）</span><span class="nm">黒田 権蔵</span><span class="kana">くろだ ごんぞう</span><p>劇団の最古参。座長とは四十年来の相棒で、どんな役もこなす名脇役。</p><p class="look">服装：村長の羽織、白いつけひげ</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">照明係（31）</span><span class="nm">青柳 拓海</span><span class="kana">あおやぎ たくみ</span><p>照明係。劇団に入って八年。舞台の光は全部この人がつくる。</p><p class="look">服装：黒いTシャツと作業ズボン、腰に工具ベルト</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">女優・お霜役（38）</span><span class="nm">朝霧 ゆかり</span><span class="kana">あさぎり ゆかり</span><p>劇団に入って十年。脇の女役が多い。舞台の外では物静かで、後輩の面倒見がいい。今夜はお雪の姉・お霜を演じた。</p><p class="look">服装：お霜の白い着物、白塗り、白髪まじりのかつら</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">舞台監督（52）</span><span class="nm">宮下 恭子</span><span class="kana">みやした きょうこ</span><p>舞台監督。舞台の進行と、せりなどの機械をまとめている。劇団に入って二十五年。</p><p class="look">服装：黒いトレーナー、首にインカム</p><p class="pstat">基本パワー 2</p></div><div class="person"><span class="role">鷲尾開発 社長（45）</span><span class="nm">鷲尾 誠</span><span class="kana">わしお まこと</span><p>「鷲尾開発」の社長。朱鷺座の土地と建物を買い、跡地にリゾートホテルを建てる。今夜は招待客。</p><p class="look">服装：紺のスーツに黒いロングコート</p><p class="pstat">基本パワー 3</p></div><div class="person"><span class="role">地方紙「飛騨日報」記者（29）</span><span class="nm">秋山 葵</span><span class="kana">あきやま あおい</span><p>地方紙「飛騨日報」文化部の記者。さよなら公演の取材に来た。七年前まで、この劇団の団員だった。</p><p class="look">服装：グレーのダッフルコート、首からカメラ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">演出助手・プロンプター（24）</span><span class="nm">早乙女 律</span><span class="kana">さおとめ りつ</span><p>演出助手。本番中は下手袖でプロンプター（台詞を忘れた役者に小声で教える係）をしている。劇団に入って三年。</p><p class="look">服装：黒いパーカー、首にストップウォッチ</p><p class="pstat">基本パワー 1</p></div><div class="person"><span class="role">衣装方（68）</span><span class="nm">菊池 タエ</span><span class="kana">きくち たえ</span><p>衣装方。劇団ができたときからいる最古参の裏方。役者の着付けも、衣装の繕いも、全部この人。</p><p class="look">服装：割烹着、腕に針山</p><p class="pstat">基本パワー 1</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">小町 しずく<small>こまち しずく</small></span><span class="rl">主演女優・お雪役</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">柳 伸也<small>やなぎ しんや</small></span><span class="rl">副座長・巳之吉役</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">黒田 権蔵<small>くろだ ごんぞう</small></span><span class="rl">老優・村長役</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">青柳 拓海<small>あおやぎ たくみ</small></span><span class="rl">照明係</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">朝霧 ゆかり<small>あさぎり ゆかり</small></span><span class="rl">女優・お霜役</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">宮下 恭子<small>みやした きょうこ</small></span><span class="rl">舞台監督</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">鷲尾 誠<small>わしお まこと</small></span><span class="rl">鷲尾開発 社長</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">秋山 葵<small>あきやま あおい</small></span><span class="rl">地方紙「飛騨日報」記者</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">早乙女 律<small>さおとめ りつ</small></span><span class="rl">演出助手・プロンプター</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 10</span><span class="nm">菊池 タエ<small>きくち たえ</small></span><span class="rl">衣装方</span><span class="in">中身：キャラクターシート（ROLL 10・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="KO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">小町 しずく<small>こまち しずく</small></span><span class="rl">主演女優・お雪役・27歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「小町しずくです。お雪をやらせてもらっています。座長には、十九のときに拾ってもらいました。……まだ、信じられません」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>金沢の小さな呉服屋の娘。高校の文化祭の芝居を、たまたま座長が見ていた。「お前は雪の顔をしている」。そう言われて、十九で家を飛び出した。親とは、それきり口をきいていない。</p><p>座長は厳しかった。台詞を一つ間違えるたびに、稽古場の床に正座させられた。それでも、お雪を演じられるのは自分だけだと思うと、どんな稽古にも耐えられた。</p><p>三年前から、照明の青柳拓海と付き合っている。劇団は「団員どうしの恋愛禁止」。座長に知られたら、どちらかが辞めさせられる。だから二人のことは誰にも言っていない。先月、拓海から指輪をもらった。</p><p>今月、おなかに子どもがいるとわかった。十二週。今朝、楽屋の鏡に座長のメモが貼ってあった。「来春から主役は外す。理由は本人がよく知っている」。座長は、どこかで知ったのだ。拓海のことも、子どものことも。</p><p>終演後、座長と話をつけるつもりだった。「子どもを産んでも、お雪はやれます」と。その座長は、もういない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>照明の青柳拓海と婚約していて、おなかに子どもがいる。二幕の早替えのあと、20:27〜20:30、こっそり2階の調光室へ行き、拓海に会っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>朝霧ゆかり</b>：お霜役の先輩。今朝、泣いているあなたに黙ってハンカチを渡してくれた。</li><li><b>青柳拓海</b>：婚約者。照明係。亡霊の場では、2階の調光室から紗幕の裏に光を当てる。</li><li><b>菊池タエ</b>：衣装方。20:20〜20:26、楽屋Aで早替えを手伝ってくれた。</li><li><b>柳伸也</b>：座長の息子で、巳之吉役。最近、あなたを見る目つきが妙にやさしい。</li><li><b>黒田権蔵</b>：村長役の大先輩。二幕のあいだ、楽屋Bのほうから酒のにおいがした。</li><li><b>鷲尾誠</b>：ホテルの会社の社長。今朝、座長と劇場の前で言い争っていた。「約束が違う」と。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「代役」</b>（処理の順番 —）：自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">小町 しずく<small>こまち しずく</small></span><span class="rl">主演女優・お雪役・27歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>07:50</dt><dd>楽屋の鏡に座長のメモ。泣いているところを朝霧さんに見られた。</dd><dt>18:00</dt><dd>楽屋Aで化粧。隣の鏡台の朝霧さんは「開演前に奈落の片づけをしてくる」と言って出ていった。</dd><dt>19:50</dt><dd>休憩。楽屋Aで、タエさんに着物を直してもらう（〜20:03）。</dd><dt>20:05</dt><dd>二幕一場。20:20、上手へ下がり、楽屋Aでタエさんと早替え。20:26、タエさんが衣装部屋へ戻る。</dd><dt>20:27</dt><dd>2階の調光室へ。拓海に「座長にばれてる」と伝えた。拓海は「終わったら二人で話そう」と言った。20:30、楽屋Aへ戻る。</dd><dt>20:34</dt><dd>上手袖へ。20:35〜20:50、三場の舞。四場（亡霊の場）は舞台で眠っている役で、目を閉じていた。そのまま五場へ。</dd><dt>20:50</dt><dd>五場で、お霜（朝霧さん）がそばにひざまずいたとき、薄目で見えた足袋の裏が真っ黒だった。（何だろう、と思った）</dd><dt>21:00</dt><dd>終演。カーテンコールに座長が出てこない。</dd><dt>21:10</dt><dd>座長が見つかったと聞いて、腰が抜けた。拓海が来て、黙って肩に手を置いてくれた。人前なのに。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:20から20:34までは楽屋Aで早替えと化粧直し。20:26まではタエさんが一緒だった」。調光室へ行ったことは言わない。亡霊の場は「目を閉じて眠る役だったから、亡霊は見ていない」。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>凶器はお雪の帯締め。あなたのものだ。真っ先に疑われるかもしれない。</li><li>調光室へ行ったことを話せばアリバイにはなる。でも、拓海とのことが知られてしまう。</li><li>「母子手帳」を人に見られたくない。取られないように気をつけよう。</li><li>五場で見た、お霜の足袋の黒い裏。あれは何だったのだろう。</li><li>座長が死んで、主役を外す話はなくなった。そう思ってしまった自分が怖い。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>主演女優らしく、凛として振る舞ってください。ただ、座長の死を聞いてから、ときどきおなかに手をやってしまう。疑われたら「わたしは舞台にいました」と、まっすぐ言い返す。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「母子手帳」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「婚約指輪」を自分か青柳が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「代役」で、まねたスキルを成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SH">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">柳 伸也<small>やなぎ しんや</small></span><span class="rl">副座長・巳之吉役・35歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「柳伸也です。座長の息子で、今夜は巳之吉をやりました。……親父が、こんな死に方をするなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母の春江は、あなたが十のときに病気で死んだ。物心ついたころから、あなたの世話をしてくれたのは衣装方のタエさんだった。母が入院がちだったからだ、と聞いている。</p><p>父は芝居の鬼だった。息子にも容赦がなかった。「お前は顔だけだ」。二十歳で初めて主役をもらった日も、終演後にそう言われた。それでも、父の舞台がいちばん好きだった。</p><p>五年前から劇団の経理を任された。父には内緒で、競艇にのめりこんだ。勝てば取り返せると思った。いま、闇金に280万円の借りがある。「年内に返さなければ、劇場に取り立てに行く」と言われている。</p><p>今夜18:00、父に頭を下げた。父は言った。「小屋は鷲尾に売った。劇団も今夜で解散だ。金は全部、俺の老後と、俺が決めた者に渡す。お前には一円もやらん」。</p><p>父の新作『春の亡霊』の台本が、座長室にあるはずだ。父は「来年、東京でこれを打つ」と言っていた。あの台本の権利があれば、金になるかもしれない。</p><p>子どものころ、熱を出すとタエさんが生姜湯を作ってくれた。母の作るものより、なぜかそちらのほうが好きだった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>今夜20:36〜20:46、事務所の金庫から、劇団のお金300万円を持ち出した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>菊池タエ</b>：子どものころから、母親がわりに面倒を見てくれた人。</li><li><b>黒田権蔵</b>：父の古い相棒。父とあなたを「似てない親子だ」とよく笑う。</li><li><b>小町しずく</b>：お雪役。ひそかに、ずっと好きだった。</li><li><b>鷲尾誠</b>：劇場を買った男。20:46、なぜか楽屋の廊下にいた。</li><li><b>秋山葵</b>：地方紙の記者。七年前まで劇団にいた。あなたと少しだけ付き合っていた（誰も知らない）。</li><li><b>早乙女律</b>：演出助手。父の新作の台本を、いつも気にしていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「大立ち回り」</b>（処理の順番 6）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">柳 伸也<small>やなぎ しんや</small></span><span class="rl">副座長・巳之吉役・35歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>座長室で父に借金のことを頼み、断られる。「お前には一円もやらん」。</dd><dt>19:50</dt><dd>休憩中、楽屋Bで黒田さんに「親父に小屋を売られた」とこぼした。黒田さんは「お前の親父は、昔からそういう男だ」とだけ言った。</dd><dt>20:05</dt><dd>二幕一場。20:20〜20:35、二場（黒田さんと）。</dd><dt>20:36</dt><dd>上手から下がり、自分の鍵で事務所へ。金庫の番号は経理だから知っている。300万円の封筒を懐に入れた。</dd><dt>20:46</dt><dd>事務所を出たところで、廊下で鷲尾社長とすれ違った。何も言われなかった。</dd><dt>20:48</dt><dd>下手袖へ（早乙女くんがいた）。20:50、五場。</dd><dt>21:00</dt><dd>終演。父がカーテンコールに出てこない。21:10、奈落で父が見つかったと聞いた。</dd><dt>21:10</dt><dd>奈落で父の遺体を見た。首の紅い帯締めを見て、なぜか小町さんの顔が浮かんだ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二場のあと、20:36から20:48までは楽屋Bで水を飲んで、着物を直していた」と言う。楽屋Bには黒田さんもいたはずなので「黒田さんと一緒だった」と言ってもいい（黒田さんがどう答えるかはわからない）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>300万円が消えたことは、すぐに知られる。金庫を開けられるのは、鍵を持つあなたと、マスターキーの宮下さんくらいだ。</li><li>「札束」を誰かに取られたら、スキルで取り返せるかもしれない。</li><li>父が新作を「東京で打つ」と言っていたのは本当だろうか。</li><li>鷲尾は、あなたが事務所から出てくるのを見たかもしれない。先に、鷲尾が二幕の途中で廊下にいたことを突けば、黙らせられるかもしれない。</li><li>二場（20:20〜20:35）のあいだは、ずっと舞台にいた。それは客席の全員が見ている。</li><li>「新作の台本」は座長室から消えていた。誰が持ち出したのだろう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>軽薄な二枚目を演じてください。父の死を悲しんでいるのか、ほっとしているのか、自分でもわからない。金の話になると目が泳ぐ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「札束」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問2で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「新作の台本」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">黒田 権蔵<small>くろだ ごんぞう</small></span><span class="rl">老優・村長役・70歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「黒田です。座長とは、四十年、同じ釜の飯を食ってきました。……こんな幕切れは、台本にない」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>若いころは東京の新劇の役者だった。食えなくなって、旅回りの一座に拾われた。そこで同い年の柳と出会い、二人で「朱鷺座一座」を立ち上げた。四十年前に柳が『雪女房』を書き、あなたが村長を演じた。それからずっと、村長はあなたの役だ。</p><p>柳には、あなたにしか見せない顔があった。三十五年前、衣装方のタエが男の子を産んだ。父親は柳だ。柳はその子を、子どものできない妻・春江の子として育てた。それが伸也だ。伸也はいまも何も知らない。タエが黙っているからだ。</p><p>十八年前の十二月、雪の夜。あなたは楽屋で飲んでいて、奈落から悲鳴を聞いた。駆けつけると、せりの操作盤の前に柳が立っていた。その下で、若い真壁透が倒れていた。柳は言った。「事故だ。お前は何も見ていない。そのかわり、死ぬまで役をやる」。あなたは黙った。役者でいたかった。</p><p>それから十八年、酒の量が増えた。座長は千秋楽の亡霊の前に、必ず20:30に楽屋Bに寄って、あなたと一杯だけ酒を飲む。それが、二人の手打ちのようなものだった。</p><p>柳が死んだいま、伸也には本当の母親のことを教えてやりたい。タエは嫌がるだろうが、伸也には知る権利がある。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十八年前、座長がせりを動かして真壁透を死なせたのを見ていて、黙っていた。今夜も二幕のあいだ、楽屋Bで酒を飲んでいた（本番中の酒は禁止）。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>菊池タエ</b>：伸也の本当の母親。三十五年、黙って伸也を見守ってきた。</li><li><b>柳伸也</b>：座長とタエの息子。本人は知らない。</li><li><b>宮下恭子</b>：十八年前の奈落番。座長に言われて、嘘の報告書を書いた（あなたは知っている）。</li><li><b>朝霧ゆかり</b>：お霜役。誰かに似ている、とずっと思っていた。目もとが、十八年前の誰かに。</li><li><b>秋山葵</b>：七年前に劇団を辞めた子。座長が座長室で何かしたらしい、と噂があった。</li><li><b>青柳拓海</b>：照明係。腕はいい。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目くらまし」</b>（処理の順番 2）：1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">黒田 権蔵<small>くろだ ごんぞう</small></span><span class="rl">老優・村長役・70歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>楽屋Bで化粧。座長が顔を出し、「今夜も20:30にな」と言った。</dd><dt>19:50</dt><dd>休憩中、伸也が楽屋Bに来て「親父に小屋を売られた」とこぼした。</dd><dt>20:20</dt><dd>二幕二場（伸也と）。20:35、下手へ下がる。</dd><dt>20:36</dt><dd>楽屋Bへ。座卓に湯のみを二つ並べて座長を待った。座長は来なかった。（二場の途中、20:30には来るはずだったのに。妙だと思った）</dd><dt>20:40</dt><dd>一人でスキットルの酒を飲んだ。スピーカーから、亡霊の場の音楽が聞こえた。伸也は楽屋Bに来なかった。</dd><dt>20:48</dt><dd>下手袖へ。20:50、五場。</dd><dt>21:00</dt><dd>終演。座長が出てこない。21:10、奈落で座長が見つかったと聞いた。</dd><dt>21:10</dt><dd>奈落で座長の遺体を見た。紺の着流しのまま。亡霊の白装束は、衣装掛けにかかっていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二場のあと20:36から20:48までは、楽屋Bで台詞のおさらいをしていた。ひとりだった」。酒のことは言わない。座長が20:30に来なかったことを話すかどうかは、あなた次第（話せば、酒のことも聞かれるだろう）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>座長が20:30に楽屋Bに来なかったのは、なぜだろう。もう、動けなかったのではないか。</li><li>「稽古日誌」というものがあるなら、十八年前のことが書いてあるかもしれない。あなたが黙ってきたことが、すべて明るみに出る。</li><li>今夜の亡霊を、あなたはスピーカーの音でしか知らない。亡霊を実際に見たのは誰だろう。</li><li>伸也に母親のことを話すなら、証拠がいる。タエは「へその緒の箱」を、肌身はなさず持っているはずだ。</li><li>スキットルを見られたら、本番中の酒がばれる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>豪快で、どこか寂しげな老優として振る舞ってください。冗談で場をなごませるが、十八年前の話になると急に酒の話をする。伸也には甘い。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「稽古日誌」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「へその緒の箱」か「古い写真」を全員に見せながら、伸也の本当の母はタエだと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「スキットル」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">青柳 拓海<small>あおやぎ たくみ</small></span><span class="rl">照明係・31歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「照明の青柳です。今夜の光も、僕がつくっていました。……亡霊の場の光が、座長の最後の光になるなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>中学の文化祭で、スポットライトを当てる係をやった。光の中で、ふだんは目立たない同級生が、まるで別人みたいに輝いた。光をつくる人になろう、とそのとき決めた。</p><p>東京の照明会社で働いたあと、朱鷺座一座の舞台の光を見て、ここで働きたいと思った。座長は「光で嘘をつけ」と言った。月の光、雪の光、亡霊の光。この小屋の古い電気回路を、八年かけて自分で直した。</p><p>三年前から、主演の小町しずくと付き合っている。団員どうしの恋愛は禁止。先月、指輪を渡した。来月、二人で座長に話しに行くつもりだった。しずくのおなかには、子どもがいる。</p><p>今夜20:27、しずくが調光室に駆け上がってきた。「座長にばれてる。主役を外すって」。あなたは「終わったら二人で話そう」と言った。座長を殴ってやりたい気持ちを、光のつまみを握ってこらえた。</p><p>亡霊の場で、あなたは紗幕の裏の亡霊に、うす青い光を当て続けた。八年間、毎年同じ光を当ててきた。だから気づいた。今夜の亡霊は、足を引きずらなかった。背筋がまっすぐで、いつもより少し小さく見えた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>主演の小町しずくと婚約していて、子どもが生まれる。今夜20:27〜20:30、しずくが調光室に来ていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>小町しずく</b>：婚約者。今朝、座長のメモで泣いていた。</li><li><b>柳伸也</b>：副座長。しずくに気があるらしい。気に入らない。</li><li><b>宮下恭子</b>：舞台監督。終演後、「20:38の奈落の『準備よし』、声がかすれてたのよね」とつぶやいていた。</li><li><b>黒田権蔵</b>：大先輩。本番中に酒を飲んでいると、ときどき噂になる。</li><li><b>鷲尾誠</b>：20:15ごろ、客席の前の列から立って出ていった。</li><li><b>秋山葵</b>：20:28ごろ、客席のうしろの扉から出ていった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「取り押さえ」</b>（処理の順番 3）：1人を選ぶ。相手のパワーが自分と同じか低ければ成功。取り押さえられた人は、まだスキルを使っていなければ使えなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">青柳 拓海<small>あおやぎ たくみ</small></span><span class="rl">照明係・31歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>調光室で最後の点検。</dd><dt>19:00</dt><dd>開演。調光室で、きっかけ表どおりに光を変える。</dd><dt>20:05</dt><dd>二幕一場。お雪・お霜・巳之吉に雪明かりの光。20:20、二場の光に切りかえる。客席はしんとしていた。</dd><dt>20:15</dt><dd>調光室の窓から、客席の前の列の男（鷲尾社長）が席を立って出ていくのが見えた。20:28には、うしろの扉から女の人（秋山さん）が出ていった。</dd><dt>20:27</dt><dd>しずくが来る。20:30に戻っていった。</dd><dt>20:40</dt><dd>亡霊の場（〜20:46）。紗幕の裏の亡霊にフォロースポット。いつもと歩き方がちがった。</dd><dt>20:46</dt><dd>せりが下りると同時に暗転。20:50、五場の光。お雪とお霜の白い着物が、雪の光でよく映えた。</dd><dt>21:00</dt><dd>終演。カーテンコールの光。座長の立つ位置に光を置いたが、誰も入ってこなかった。21:10、座長が見つかったと聞いて調光室から下りた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二幕のあいだは、ずっと2階の調光室にいた。ひとりで光を操作していた」。しずくが来たことは言わない。亡霊の歩き方のことは、言うかどうかあなた次第（言えば、なぜそんなに見ていたのかと聞かれるかも）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「亡霊は足を引きずらなかった」——もし亡霊が座長ではなかったとしたら？</li><li>「操作記録表」には、あなたの気づいたことがメモしてある。</li><li>しずくの「母子手帳」と「婚約指輪」は、取られたら困る。</li><li>亡霊が座長でなかったなら、座長はいつ、どこで死んだのか。</li><li>あなたのスキルは、パワーが相手と同じか高くないと成功しない。スパナを手放さないように。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>職人気質で、口数の少ない青年として振る舞ってください。光の話になると急に饒舌になる。しずくが疑われると、むきになってかばってしまう。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>スキル「取り押さえ」を、問1の正解の人に成功させる。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「母子手帳」を小町か自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「操作記録表」を全員に見せながら、今夜の亡霊は足を引きずっていなかったと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">朝霧 ゆかり<small>あさぎり ゆかり</small></span><span class="rl">女優・お霜役・38歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。柳宗一郎を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「朝霧ゆかりです。この劇団に入って十年になります。今夜はお霜をやりました。……この小屋の舞台に立てるのも、今夜が最後だったんですね」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>あなたの本当の名前は、真壁ゆかり。両親を早くに亡くし、十も年の離れた弟・透と二人で生きてきた。透は芝居が好きで、高校を出るとすぐ「朱鷺座一座」に入った。初舞台の前の晩、透は電話で「姉ちゃん、見に来てね」と言った。</p><p>十八年前の十二月、その初舞台の三日前に、透は死んだ。この朱鷺座の奈落で、せりの穴に落ちたのだ。十九歳だった。劇団の説明は「酒に酔って、勝手にせりに乗って遊んでいた」。報告書にもそう書いてあった。でも透は、酒が一滴も飲めなかった。</p><p>葬式で、座長の柳は深く頭を下げた。「目を離した私たちの責任です」。その顔を、あなたは一日も忘れなかった。</p><p>十年前、あなたは「朝霧ゆかり」という名前で入団試験を受けた。弟が最後に何を見たのか、知りたかった。黒田と宮下は、あの冬の話になると口を閉ざす。わかったのは、それだけだった。</p><p>今夜、開演前。取り壊しの片づけで、奈落の古いロッカーを開けた。奥から、黒い表紙の「稽古日誌」が出てきた。十八年前の、座長の字だった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十八年前に弟を死なせたのは座長だった。そして今夜、<b>あなたが座長を殺した。</b>そのあと、座長のかわりに亡霊を演じた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>小町しずく</b>：お雪役。座長に「来春から主役を外す」と言われ、今朝、楽屋で泣いていた。</li><li><b>黒田権蔵</b>：十八年前も劇団にいた。透のことを聞くと、いつも酒の話にすり替える。</li><li><b>宮下恭子</b>：十八年前の奈落番。日誌によれば、嘘の報告書を書いたのはこの人。</li><li><b>柳伸也</b>：座長の息子。最近、父親に金のことでよく怒鳴られている。</li><li><b>菊池タエ</b>：衣装方。透の葬式で、あなたの手を握ってくれた。顔を覚えているだろうか。</li><li><b>早乙女律</b>：プロンプター。20:49、あなたが下手袖に戻ったとき、そこにいた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「早替え」</b>（処理の順番 8）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">朝霧 ゆかり<small>あさぎり ゆかり</small></span><span class="rl">女優・お霜役・38歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:30</dt><dd>奈落のロッカーで稽古日誌を見つける（中身は持ち物カードのとおり）。</dd><dt>18:35</dt><dd>背後に座長。「読んだか、真壁の姉さん。最初から知っていたよ。黙っていれば来年の主役をやろう。いやなら弟と同じところへ行くか」。日誌はたもとに隠した。</dd><dt>19:55</dt><dd>休憩中、タエさんが楽屋Aにいるあいだに衣装部屋へ。小道具の棚から、お雪の予備の帯締めを抜いた。</dd><dt>20:20</dt><dd>一場を終えて下手へ。暗幕をくぐって廊下へ出て、20:22、裏の階段から奈落へ（廊下の先に人影があった）。</dd><dt>20:24</dt><dd>台本を読む座長の後ろから、帯締めで首を絞めた。遺体を奥の道具の陰に隠し、黒幕をかぶせた。</dd><dt>20:35</dt><dd>かつらを外し、亡霊の白装束・頭巾・面をつける。20:38、インカムに小声で「……準備よし」。</dd><dt>20:40</dt><dd>せりで上がり、紗幕の裏を歩いた（足を引きずるのを忘れた）。20:46、せりで下りる。</dd><dt>20:47</dt><dd>衣装を掛け戻し、かつらを直して廊下へ。20:49、下手袖（早乙女くんがいた）。20:50、五場。足袋の裏がせりの油で黒い。21:20、楽屋Aで拭いたが落ちない。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「20:20に一場を終えてから20:49まで、廊下の奥の『小鏡の間』（予備の化粧部屋）で、かつらと化粧を直していた。ひとりだった」。亡霊の場は「スピーカーの音を聞いていた」。十八年前のことは「入団前なので知らない」。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>亡霊は座長だったとみんなが信じるかぎり、事件は20:46より後。その時間、あなたは五場の舞台にいた。</li><li>「稽古日誌」は、あなたの動機そのもの。だが、座長が透を死なせた証拠でもある。</li><li>白塗りはお雪とお霜だけ。凶器がお雪の帯締めなので、疑いは小町に向くかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>落ち着いた、面倒見のいい先輩として振る舞ってください。座長の死には、静かに驚いてみせる。十八年前の話になったら、少しだけ黙ってから、他人事のように話す。弟の話をするときだけ、声がやわらかくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>問1で自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「稽古日誌」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「事故報告書の控え」を全員に見せながら、十八年前の報告書は嘘だったと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「白足袋」を自分が持って<b>いない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">宮下 恭子<small>みやした きょうこ</small></span><span class="rl">舞台監督・52歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「舞台監督の宮下です。今夜の進行も、私がやっていました。……せりを上げたのも、下げたのも、私です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校を出て、大道具の手伝いで劇団に入った。力仕事なら男に負けなかった。二十五年で、奈落番から舞台監督になった。役者の誰より早く小屋に来て、誰より遅く帰る。それが自慢だった。</p><p>十八年前の十二月。あなたは奈落番だった。あの夜、座長に「今日はもう上がっていい」と言われて奈落を離れた。三十分後、悲鳴を聞いて戻ると、せりの下に透くんが倒れていた。操作盤の前には、座長と黒田さんがいた。</p><p>座長は言った。「透が勝手にせりに乗ったことにしろ。報告書はお前が書け。でなきゃ、目を離した奈落番の責任だ」。あなたは、言われたとおりに書いた。その控えは、いまも座長が持っている。透くんは、いつも「宮下さん」と呼んで、お守りをくれた子だった。</p><p>あの日から、せりを動かすたびに手が冷たくなる。それでも、この劇団を離れられなかった。ほかに行く場所がなかった。</p><p>今夜20:38、奈落のインカムから「……準備よし」と聞こえた。いつもの座長は「準備よし、上げてくれ」と言う。今夜は小声で、それだけだった。風邪かと思った。</p><p>独り身で、休みの日は小屋の近くの川で釣りをする。釣った魚は、タエさんの台所に持っていく。</p></div>
+      <div class="secret"><h4>秘密</h4><p>十八年前の事故で、座長に言われて嘘の報告書を書いた（透は勝手にせりに乗ったのではない）。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒田権蔵</b>：十八年前、操作盤の前に座長といた。</li><li><b>朝霧ゆかり</b>：開演前、奈落の古いロッカーの片づけを引き受けてくれた。</li><li><b>早乙女律</b>：プロンプター。20:25〜20:33、下手袖の席にいなかった。</li><li><b>青柳拓海</b>：照明。腕は確か。</li><li><b>菊池タエ</b>：衣装方。劇団でいちばん古い。</li><li><b>秋山葵</b>：七年前に辞めた元団員。今夜は記者として来ている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「楽屋検め」</b>（処理の順番 4）：1人を選び、その人の持ち物をすべて見る。その中の「小道具」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">宮下 恭子<small>みやした きょうこ</small></span><span class="rl">舞台監督・52歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:30</dt><dd>奈落の片づけを確認。古いロッカーの片づけは、朝霧さんが引き受けてくれた。</dd><dt>19:00</dt><dd>開演。上手袖の机で進行。</dd><dt>20:05</dt><dd>二幕。インカムで照明（青柳くん）と音響に合図。</dd><dt>20:25</dt><dd>上手袖から、下手袖のプロンプター席が空になっているのが見えた（20:33には戻っていた）。</dd><dt>20:38</dt><dd>奈落から小声の「……準備よし」。「せり、上げます」と答えた。</dd><dt>20:40</dt><dd>せりを上げる。20:46、下げる。</dd><dt>20:48</dt><dd>暗転のあいだに、五場の役者がそろったのを確かめた。お雪・お霜・巳之吉・村長。全員いた。</dd><dt>21:05</dt><dd>終演後、座長が出てこないので、早乙女くんと表の階段から奈落へ。21:08、奥の黒幕の下で座長を見つけた。</dd><dt>21:10</dt><dd>遺体のそばで、衣装掛けの白装束の袖が裏返っているのに気づいた。座長は衣装の扱いにうるさい人だったのに。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二幕のあいだは、ずっと上手袖の机にいた」。上手袖にはほかに誰もいなかったので、証人はいない。インカムのことは話していい。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「事故報告書の控え」は、座長室にあるはず。誰かに見られる前に手に入れたい。マスターキーなら開けられる。</li><li>20:38の声は、本当に座長だったのだろうか。</li><li>「せりの点検記録」というものが残っていれば、十八年前の夜、誰がせりを動かしたかが書いてある。</li><li>五場の前に役者が四人そろっていたことは、あなたが一番よく知っている。</li><li>亡霊の白装束の袖が裏返っていたのはなぜだろう。座長なら、きちんと掛けたはずだ。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>仕事のできる、てきぱきした舞台監督として振る舞ってください。みんなを仕切るのは得意。十八年前の話になると、声が硬くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「事故報告書の控え」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「せりの点検記録」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「楽屋検め」で、「小道具」の印の持ち物を1つ手に入れる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="WA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">鷲尾 誠<small>わしお まこと</small></span><span class="rl">鷲尾開発 社長・45歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「鷲尾開発の鷲尾です。この小屋を買わせていただきました。……壊す前に、一度ちゃんと見ておきたかったものですから」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>湯ノ沢の、つぶれた温泉旅館の三男坊。父の旅館は、あなたが中学生のときに人手に渡った。町を出て、不動産屋で働き、四十で会社を起こした。故郷にホテルを建てて、町をもう一度にぎやかにする。それが夢だった。</p><p>朱鷺座の土地は、町でいちばんいい場所にある。座長は最初「小屋は売らん」と突っぱねたが、劇団の借金がかさんで、やっと首をたてに振った。1億2千万円。</p><p>取り壊しには町の許可がいる。あなたは町議の田辺に、温泉旅館の駐車場で500万円の封筒を渡した。どこで嗅ぎつけたのか、座長はその写真を持っていた。</p><p>今朝、劇場の前で座長に言われた。「上乗せ2千万。払わなければ、写真を新聞に出す。ちょうど記者も来る」。あなたは「約束が違う」と怒鳴った。会社には、もうそんな金はない。</p><p>二幕の途中、座長と話をつけようと客席を立った。座長室で待つつもりだったが、鍵がかかっていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>町議にわいろを渡して、劇場の取り壊しの許可をとった。座長にその写真で脅されていた。今夜、二幕の途中で客席を抜け、楽屋の廊下に入りこんだ。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柳伸也</b>：座長の息子。20:46、事務所から出てきた。何か持ち出したに違いない。</li><li><b>秋山葵</b>：地方紙の記者。座長が「記者も来る」と言っていたのは、この女だろう。</li><li><b>小町しずく</b>：看板女優。ポスターで見た。</li><li><b>宮下恭子</b>：舞台監督。今朝、座長との言い争いを見られた。</li><li><b>早乙女律</b>：演出助手。開演前、ロビーで「座長室の鍵は僕が預かっています」と話していた。黒いパーカー。</li><li><b>菊池タエ</b>：衣装方の老女。廊下ですれ違ったとき、頭を下げてくれた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 3</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「口利き」</b>（処理の順番 5）：「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">鷲尾 誠<small>わしお まこと</small></span><span class="rl">鷲尾開発 社長・45歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>10:00</dt><dd>劇場の前で座長と言い争い。「上乗せ2千万」。</dd><dt>19:00</dt><dd>開演。客席の最前列。一幕の雪の場面で、少しだけ泣いた。子どものころ、父に連れられてこの小屋で見た芝居と同じだった。</dd><dt>20:15</dt><dd>客席を立ち、ロビーから外へ出て、楽屋口から楽屋の廊下へ。座長室は鍵がかかっていた。</dd><dt>20:22</dt><dd>廊下で待っていると、奥の暗い階段を、白い着物の女が下りていくのが見えた。白塗りで、顔はよくわからない。</dd><dt>20:25</dt><dd>黒いパーカーの若い男が、鍵で座長室を開けて入り、紙の束を抱えて出ていった。</dd><dt>20:30</dt><dd>待ちくたびれて、楽屋口から外の路地へ。雪の中でたばこを3本吸った。</dd><dt>20:46</dt><dd>廊下に戻ると、事務所から伸也が出てきた。懐がふくらんでいた。20:48、客席に戻る。亡霊の場は見ていない。</dd><dt>21:10</dt><dd>座長が死んだと聞いた。写真のことが頭をよぎった。座長室の写真が誰かの手に渡る前に、取り戻さなければ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二幕の途中で電話をかけに出た。ロビーは電波が悪いので、外の路地で話していた。20:15から20:48まで」。廊下に入ったことは言わない（座長に会おうとしていたと知られるから）。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「受け渡しの写真」は、座長室にあるはずだ。鍵を持っている者から手に入れたい。</li><li>20:22に階段を下りていった「白い着物の女」は誰だろう。白塗りなのは、お雪とお霜の二人だけだという。</li><li>あなたのスキルには「小切手帳」がいる。取られないように。</li><li>秋山はあなたのわいろを嗅ぎつけているかもしれない。先に、秋山が二幕の途中で客席にいなかったことを突こう。</li><li>伸也の持ち出した金のことを明かせば、疑いをそちらへ向けられる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>押しの強い実業家として振る舞ってください。たいていのことは金で片がつくと思っている。ただ、故郷の話をするときだけ、少年のような顔になる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「受け渡しの写真」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「札束」か「金庫の出し入れ帳」を全員に見せながら、伸也が金庫の金を持ち出したと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「口利き」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AK">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">秋山 葵<small>あきやま あおい</small></span><span class="rl">地方紙「飛騨日報」記者・29歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「飛騨日報の秋山です。七年前まで、この劇団にいました。今夜は記者として、最後の舞台を見に来ました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十八で劇団に入った。女優になりたかった。小さな役をもらえるだけで、うれしかった。</p><p>二十二の冬、座長に座長室へ呼ばれた。「主役をやりたいか」。肩に置かれた手を払いのけて、その夜のうちに荷物をまとめた。誰にも言えなかった。言っても、誰も信じないと思った。同じ思いをした子がほかにもいたと知ったのは、ずっとあとだった。</p><p>劇団を辞めて、新聞記者になった。座長の「本当の顔」を書く。それが、記者になった理由だ。劇団にいたころ、伸也と少しだけ付き合っていた。お金にだらしない人だったけれど、やさしかった。</p><p>取材を続けるうちに、十八年前の事故にたどりついた。若い団員の転落死。「酒に酔って」とされたが、その子は酒が飲めなかったという話を聞いた。</p><p>今夜、二幕の途中で客席を抜け、針金で大道具倉庫の鍵を開けた。古い棚から、十八年前の「せりの点検記録」を見つけた。事故の夜の欄に「21:10　せり操作：柳」とあった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>七年前、座長に言い寄られて劇団を辞めた。今夜20:28〜20:50、客席を抜けて大道具倉庫に忍びこみ、十八年前の書類を持ち出した。昔、伸也と付き合っていた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柳伸也</b>：七年前、少しだけ付き合っていた。お金にだらしない人だった。</li><li><b>宮下恭子</b>：十八年前の奈落番。点検記録の字は、この人のもの。</li><li><b>黒田権蔵</b>：十八年前も劇団にいた。事故のことを知っているはず。</li><li><b>鷲尾誠</b>：町議の田辺と、温泉旅館の駐車場で会っていたという噂を、社会部の先輩から聞いた。</li><li><b>小町しずく</b>：今の看板女優。あなたが辞めたあと、お雪をやるようになった。</li><li><b>朝霧ゆかり</b>：お霜役。あなたが辞めたあとに入った人。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「抜き取り」</b>（処理の順番 7）：1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">秋山 葵<small>あきやま あおい</small></span><span class="rl">地方紙「飛騨日報」記者・29歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:30</dt><dd>開演前、楽屋口で座長に取材。「十八年前、ここで亡くなった若い人がいましたね」と聞くと、座長は「事故だよ」と笑った。</dd><dt>19:00</dt><dd>開演。客席のうしろの招待席。</dd><dt>20:28</dt><dd>客席のうしろの扉から抜け、外を回って楽屋口から廊下へ。楽屋口のそばを、外へ出ていくコートの男の背中が見えた。奥の大道具倉庫の鍵を針金で開けた。</dd><dt>20:30</dt><dd>倉庫の古い棚を探して、「せりの点検記録」を見つけた（〜20:45）。</dd><dt>20:45</dt><dd>倉庫を出て、廊下を戻った。廊下には誰もいなかった。20:50、客席に戻る。亡霊の場は見ていない。</dd><dt>21:00</dt><dd>終演。座長がカーテンコールに出てこない。</dd><dt>21:10</dt><dd>座長が見つかったと聞いて、点検記録をコートの内ポケットに押しこんだ。手が震えていた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二幕の途中で気分が悪くなって、20:28から20:50までロビーのソファで休んでいた」。大道具倉庫のことは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「稽古日誌」というものがあるなら、記者として喉から手が出るほどほしい。</li><li>鷲尾のわいろの証拠があれば、記事にできる。</li><li>点検記録の「21:10　せり操作：柳」は宮下さんの字。宮下さんは、何を知っているのだろう。</li><li>あなたのスキルは、相手の持ち物を裏向きのまま引く。誰が「稽古日誌」を持っているか見きわめよう。</li><li>七年前のことは、話すかどうかあなた次第。話せば、座長を恨んでいたと思われる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>冷静な記者として振る舞ってください。質問攻めにするのは得意。ただ、座長の昔の話になると、一瞬だけ言葉がとぎれる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「稽古日誌」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「稽古日誌」か「せりの点検記録」を全員に見せながら、十八年前の事故は座長が起こしたと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「受け渡しの写真」か「封筒の控え」を全員に見せながら、鷲尾が町議にわいろを渡したと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="RI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">早乙女 律<small>さおとめ りつ</small></span><span class="rl">演出助手・プロンプター・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「演出助手の早乙女です。本番中は、下手袖で台詞をつけていました。座長には、芝居の全部を教わりました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>大学の演劇サークルで脚本を書いていた。四年の冬、朱鷺座一座の『雪女房』を見て、雷に打たれた。卒業式にも出ずに、劇団の門をたたいた。</p><p>座長は「書きたいなら、まず人の芝居を千回見ろ」と言った。三年間、下手袖の暗がりで、同じ芝居を何百回も見た。夜は、劇団の寮で自分の台本を書いた。</p><p>去年の秋、書き上げた『春の亡霊』を座長に読んでもらった。座長は黙って原稿を持っていった。そして先月、劇団員の前で発表した。「来年、東京で新作を打つ。柳宗一郎作『春の亡霊』」。題も、台詞も、あなたのものだった。</p><p>抗議すると、座長は笑った。「お前の名前で、誰が客を呼べる。黙っていれば、演出助手として名前を入れてやる」。あなたの手元には、日付入りの創作ノートだけが残った。</p><p>今夜、座長室の合鍵は、演出助手のあなたが預かっていた。二幕の途中、座長が奈落にいるあいだに、原稿を取り返すと決めた。</p><p>実家は新潟の小さな酒屋。父は「芝居で食えるか」と言いながら、毎年千秋楽には一升瓶を送ってくる。今年も楽屋に届いていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>座長の新作『春の亡霊』は、あなたが書いた台本。今夜20:25〜20:33、プロンプター席を離れ、座長室から原稿を取り返した。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>朝霧ゆかり</b>：20:20、一場のあと廊下へ出ていき、20:49に廊下側から戻ってきた。かつらが曲がっていた。</li><li><b>柳伸也</b>：20:48、下手袖に来た。息が上がっていた。</li><li><b>宮下恭子</b>：舞台監督。21:05、一緒に奈落へ下りた。</li><li><b>鷲尾誠</b>：20:25、楽屋の廊下の奥に立っていた。客なのに、なぜ廊下に。</li><li><b>小町しずく</b>：お雪役。台詞を一度も忘れたことがない。</li><li><b>菊池タエ</b>：衣装方。劇団のことは、何でも知っている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「返し」</b>（処理の順番 9）：1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">早乙女 律<small>さおとめ りつ</small></span><span class="rl">演出助手・プロンプター・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>座長から座長室の合鍵を預かる（「終演後、挨拶文を取ってこい」）。</dd><dt>20:20</dt><dd>お霜（朝霧さん）が一場を終えて下手に下がり、暗幕をくぐって廊下へ出ていった。</dd><dt>20:25</dt><dd>二場の途中で席を立ち、廊下を通って座長室へ。合鍵で開け、机の上の原稿の束を取った。廊下の奥に、コートの男（鷲尾社長）が立っていた。</dd><dt>20:33</dt><dd>プロンプター席に戻る。二場の終わりに間に合った。</dd><dt>20:35</dt><dd>三場。お雪の舞。袖から見ていて、今夜の小町さんの舞がいちばんきれいだと思った。</dd><dt>20:48</dt><dd>伸也さんが下手袖に来た。息が上がっていた。20:49、朝霧さんが廊下側の暗幕から戻ってきた。かつらが少し曲がっていたので、直してあげた。</dd><dt>21:05</dt><dd>宮下さんと表の階段から奈落へ。21:08、座長を見つけた。</dd><dt>21:10</dt><dd>遺体のそばに座長の台本が落ちていた。開いていたのは二幕二場のページだった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「二幕のあいだは、ずっと下手袖のプロンプター席にいた」。20:25〜20:33に席を外したことは言わない。もし誰かに見られていたら「トイレに行った」と言う。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>「新作の台本」があなたの手にあると知られれば、問3であなたの名前が書かれる。</li><li>でも、座長があなたの台本を盗んだことは、みんなに知ってほしい。「創作ノート」には日付が入っている。</li><li>下手袖からは、廊下へ出入りする人が見える。20:20から20:50のあいだに、誰が出入りしたか思い出そう。</li><li>あなたのスキルで、人の手に渡った「新作の台本」を取り返せるかもしれない。</li><li>鷲尾社長は、あなたが座長室に入るのを見ていたかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し神経質な若者として振る舞ってください。座長を尊敬していた、と言うときだけ目をそらす。ストップウォッチで時間を確かめるのが癖。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「新作の台本」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>問3で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「創作ノート」を全員に見せながら、『春の亡霊』を書いたのは自分だと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 10 ／ 本人以外閲覧禁止</span><span class="nm">菊池 タエ<small>きくち たえ</small></span><span class="rl">衣装方・68歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「衣装の菊池です。この劇団の着物は、ぜんぶ私が縫ってきました。……座長の亡霊の白装束も」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>呉服屋の針子だった。二十代のころ、旅回りの一座の着物を繕いに通ううち、若い座長の柳と恋仲になった。柳にはすでに、妻の春江がいた。</p><p>三十五年前、男の子を産んだ。春江は子どもができない体だった。柳は「春江の子として育てる。お前は衣装方として、そばにいればいい」と言った。あなたはうなずいた。それが伸也だ。へその緒の箱だけは、手放せなかった。</p><p>伸也のおむつを替え、熱を出せば夜通しそばにいた。春江が死んでからも、母とは名乗らなかった。伸也が「お母さん」の墓に手を合わせるのを、何度も後ろで見てきた。</p><p>十八年前、若い透くんが死んだ。あなたは葬式で、泣いている透くんのお姉さんの手を握った。透くんは、あなたの縫った初舞台の着物を、一度も着られなかった。</p><p>今夜の休憩前（19:45）、小道具の棚の「お雪の予備の帯締め」がちゃんとあるのを確かめた。二幕のあと、それがなくなっていた。そして座長の首に、紅い帯締めが巻かれていた。</p><p>伸也が二十歳で初めて主役をやった夜、あなたは客席のいちばんうしろで泣いた。終演後、柳は伸也に「お前は顔だけだ」と言った。あなたは柳の背中に、初めて「ひどい人」と言った。</p></div>
+      <div class="secret"><h4>秘密</h4><p>柳伸也の本当の母親。三十五年間、伸也にも黙ってきた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>柳伸也</b>：あなたの息子。本人は知らない。</li><li><b>小町しずく</b>：20:20〜20:26、楽屋Aで早替えを手伝った。そのあいだ、ずっと一緒だった。</li><li><b>朝霧ゆかり</b>：お霜役。十八年前、葬式で手を握った透くんのお姉さんに、どこか似ている。</li><li><b>黒田権蔵</b>：伸也のことを知っている、ただ一人の人。</li><li><b>秋山葵</b>：七年前に辞めた子。辞める前の晩、衣装部屋で泣いていた。</li><li><b>宮下恭子</b>：十八年前の奈落番。あの事故のあと、ずっと顔色が悪い。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「付き人」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">スキルはあなただけの秘密。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 10 ／ 2枚目</span><span class="nm">菊池 タエ<small>きくち たえ</small></span><span class="rl">衣装方・68歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>楽屋で役者たちの着付け。座長の亡霊の白装束に、最後のアイロンをかけた。</dd><dt>19:45</dt><dd>衣装部屋で小道具の棚を確認（お雪の予備の帯締めもあった）。</dd><dt>19:50</dt><dd>休憩。楽屋Aで小町ちゃんの着付け直し（〜20:03）。</dd><dt>20:20</dt><dd>楽屋Aで小町ちゃんの早替え。20:26、衣装部屋へ戻る。</dd><dt>20:26</dt><dd>衣装部屋で一人、終演後の片づけの準備（〜21:00）。廊下は静かだった。20:45ごろと20:48ごろ、廊下を足早に通る足音を聞いた。</dd><dt>21:10</dt><dd>奈落の遺体を見に行った。座長の首の紅い帯締めは、お雪の予備のものだった。結び目の房の糸のほつれを、あなたが去年つくろったから、わかる。</dd><dt>21:15</dt><dd>座長が見つかったあと、奈落で亡霊の衣装を片づけようとした。面の裏に白粉がついていた。座長は面の下に化粧をしない。妙だと思い、そのままにした。</dd><dt>21:30</dt><dd>伸也が奈落の前で立ちつくしていた。生姜湯を作って持っていった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「休憩は楽屋Aで小町ちゃんの着付け。二幕は、20:20〜20:26に楽屋Aで小町ちゃんの早替えを手伝ったほかは、ずっと衣装部屋にいた。ひとりだった」。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>帯締めがなくなったのは、19:45より後。休憩中にあなたが楽屋Aにいたあいだ、衣装部屋は空だった。</li><li>亡霊の面の裏の白粉。面をつけたのは、白塗りの誰かだったのでは。</li><li>小町ちゃんが疑われたら、20:20〜20:26は一緒だったと言ってあげられる。</li><li>伸也が何か隠している。上着の内側を何度も押さえていた。</li><li>黒田さんは伸也のことを知っている。余計なことを言わないよう、目を配っておこう。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>口数は少ないが、みんなの母親のような存在として振る舞ってください。役者たちを「ちゃん」「くん」で呼ぶ。伸也が疑われると、思わず声が大きくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「へその緒の箱」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>伸也が問1で最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>問1で自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「札束」を伸也が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">小町 しずくの持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="小町 しずく" data-label="小町 しずくの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：小町 しずく</span><span class="ttl">母子手帳</span><div class="txt">町の役場でもらったばかりの母子手帳。名前は「小町しずく」。最初のページに「妊娠12週」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小町 しずく" data-label="小町 しずくの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：小町 しずく</span><span class="ttl">婚約指輪</span><div class="txt">細い銀の指輪。内側に「T to S」と彫ってある。舞台ではお守り袋に入れて首から下げている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小町 しずく" data-label="小町 しずくの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：小町 しずく</span><span class="ttl">お雪の簪</span><div class="txt">銀の簪。お雪の衣装の一部。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">小道具</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小町 しずく" data-label="小町 しずくの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：小町 しずく</span><span class="ttl">座長のメモ</span><div class="txt">座長の字。「小町：来春から主役は外す。理由は本人がよく知っている」。今朝、楽屋の鏡に貼ってあった。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">柳 伸也の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="柳 伸也" data-label="柳 伸也の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：柳 伸也</span><span class="ttl">札束</span><div class="txt">劇団の名前入りの封筒に、帯封つきの一万円札が300枚。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="柳 伸也" data-label="柳 伸也の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：柳 伸也</span><span class="ttl">事務所の鍵</span><div class="txt">「事務所」の札がついた鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「事務所」を調べられる。</p></div></div><div class="card item" data-owner="柳 伸也" data-label="柳 伸也の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：柳 伸也</span><span class="ttl">木刀</span><div class="txt">殺陣の稽古に使う木刀。</div><div class="bdg"><span class="pw on">パワー +1</span><span class="art">小道具</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="柳 伸也" data-label="柳 伸也の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：柳 伸也</span><span class="ttl">闇金の督促状</span><div class="txt">「元利合計280万円。年内にご返済なき場合、劇場まで伺います」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒田 権蔵の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒田 権蔵" data-label="黒田 権蔵の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒田 権蔵</span><span class="ttl">スキットル</span><div class="txt">銀の小さな酒入れ。中はウイスキー。半分ほど減っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒田 権蔵" data-label="黒田 権蔵の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒田 権蔵</span><span class="ttl">村長の煙管</span><div class="txt">村長の小道具の長い煙管。四十年使いこんで、吸い口が黒い。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">小道具</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒田 権蔵" data-label="黒田 権蔵の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒田 権蔵</span><span class="ttl">樫の杖</span><div class="txt">足腰が弱ってからの相棒。太くて重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒田 権蔵" data-label="黒田 権蔵の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒田 権蔵</span><span class="ttl">座長からの手紙</span><div class="txt">十八年前の日付。座長の字で「お前は何も見ていない。そのかわり、死ぬまで役をやる。柳」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">青柳 拓海の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="青柳 拓海" data-label="青柳 拓海の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：青柳 拓海</span><span class="ttl">操作記録表</span><div class="txt">照明のきっかけ表。「Q34　20:40　亡霊・フォロー（青）」の横に、今夜の鉛筆のメモ：「座長、今日は足を引きずらない？　背が低い？」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="青柳 拓海" data-label="青柳 拓海の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：青柳 拓海</span><span class="ttl">スパナ</span><div class="txt">工具ベルトのスパナ。ずしりと重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="青柳 拓海" data-label="青柳 拓海の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：青柳 拓海</span><span class="ttl">結婚式場のパンフレット</span><div class="txt">来年六月の空き日に赤い丸。予約の欄に「青柳・小町　様」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="青柳 拓海" data-label="青柳 拓海の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：青柳 拓海</span><span class="ttl">懐中電灯</span><div class="txt">黒い細身の懐中電灯。暗い袖や奈落で使う。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">朝霧 ゆかりの持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="朝霧 ゆかり" data-label="朝霧 ゆかりの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：朝霧 ゆかり</span><span class="ttl">稽古日誌</span><div class="txt">黒い表紙のノート。「稽古日誌　柳」。十八年前の十二月の最後のページ：「透が辞めると言う。東京の劇団へ行くと。恩知らずめ。せりで少し脅かしてやる」「せりは私が下ろした。透は落ちた。宮下に報告書を書かせる。黒田には次の主役をやる」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>これを持っている人は、議論中に日誌の中身を読み上げてよい。</p></div></div><div class="card item" data-owner="朝霧 ゆかり" data-label="朝霧 ゆかりの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：朝霧 ゆかり</span><span class="ttl">白足袋</span><div class="txt">お霜の衣装の白足袋。足の裏が、黒い油でべっとり汚れている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="朝霧 ゆかり" data-label="朝霧 ゆかりの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：朝霧 ゆかり</span><span class="ttl">お霜の扇</span><div class="txt">お霜が舞で使う扇。骨に鉄が入っていて重い。</div><div class="bdg"><span class="pw on">パワー +1</span><span class="art">小道具</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="朝霧 ゆかり" data-label="朝霧 ゆかりの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：朝霧 ゆかり</span><span class="ttl">弟の写真</span><div class="txt">古い写真。稽古場で、十九歳くらいの若者が笑っている。裏に「透　初舞台の稽古」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">宮下 恭子の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="宮下 恭子" data-label="宮下 恭子の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：宮下 恭子</span><span class="ttl">マスターキー束</span><div class="txt">劇場じゅうの鍵の束。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「座長室」「事務所」「大道具倉庫」を調べられる。</p></div></div><div class="card item" data-owner="宮下 恭子" data-label="宮下 恭子の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：宮下 恭子</span><span class="ttl">進行表</span><div class="txt">舞台監督の進行表。「20:38 奈落より準備よし → 20:40 せり上げ（亡霊）→ 20:46 せり下げ」。20:38の欄に、今夜の鉛筆書き「声かすれ？」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮下 恭子" data-label="宮下 恭子の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：宮下 恭子</span><span class="ttl">胃薬</span><div class="txt">空になりかけた胃薬の瓶。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮下 恭子" data-label="宮下 恭子の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：宮下 恭子</span><span class="ttl">古いお守り</span><div class="txt">色あせたお守り。袋の中に、小さく折った紙。「宮下さん、いつもありがとう　透」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">鷲尾 誠の持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="鷲尾 誠" data-label="鷲尾 誠の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：鷲尾 誠</span><span class="ttl">小切手帳</span><div class="txt">鷲尾開発の小切手帳。社長の印が押してある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="鷲尾 誠" data-label="鷲尾 誠の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：鷲尾 誠</span><span class="ttl">封筒の控え</span><div class="txt">手帳から破ったメモ。「11/20　田辺　500　旅館の駐車場」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鷲尾 誠" data-label="鷲尾 誠の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：鷲尾 誠</span><span class="ttl">警棒</span><div class="txt">護身用の伸縮式の警棒。コートの内ポケットに入れている。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="鷲尾 誠" data-label="鷲尾 誠の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：鷲尾 誠</span><span class="ttl">ホテルの完成予想図</span><div class="txt">「湯ノ沢リゾート　朱鷺の湯」の完成予想図。小屋の跡地に、ガラス張りのロビー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">秋山 葵の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="秋山 葵" data-label="秋山 葵の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：秋山 葵</span><span class="ttl">せりの点検記録</span><div class="txt">十八年前の「せり点検記録」。事故の夜の欄に「21:10　せり操作：柳」。その上から、別のペンで線を引いて消してある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="秋山 葵" data-label="秋山 葵の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：秋山 葵</span><span class="ttl">針金</span><div class="txt">細い針金を曲げたもの。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>一度だけ、鍵のかかった場所を1つ調べられる。使ったらGMに返す。</p></div></div><div class="card item" data-owner="秋山 葵" data-label="秋山 葵の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：秋山 葵</span><span class="ttl">ICレコーダー</span><div class="txt">開演前の取材の録音。座長の声「十八年前？　事故だよ。若いのが酔って、勝手にせりに乗ったんだ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="秋山 葵" data-label="秋山 葵の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：秋山 葵</span><span class="ttl">取材ノート</span><div class="txt">「鷲尾—田辺　500万？　11月20日　旅館の駐車場」「十八年前　真壁透（19）　酒は飲めなかった（同期の話）」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">早乙女 律の持ち物（ROLL 09 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="早乙女 律" data-label="早乙女 律の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－①</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 律</span><span class="ttl">新作の台本</span><div class="txt">原稿用紙の束。表紙に『春の亡霊』。作者の欄の「柳宗一郎」だけ、あとから書き足したように字がちがう。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早乙女 律" data-label="早乙女 律の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－②</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 律</span><span class="ttl">座長室の合鍵</span><div class="txt">「座長室」の札がついた合鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>鍵：持っている間、「座長室」を調べられる。</p></div></div><div class="card item" data-owner="早乙女 律" data-label="早乙女 律の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－③</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 律</span><span class="ttl">創作ノート</span><div class="txt">日付入りのノート。「去年8月3日　『春の亡霊』第一稿」。台詞の下書きがびっしり。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="早乙女 律" data-label="早乙女 律の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－④</span></div><div class="bd"><span class="owner">最初の持ち主：早乙女 律</span><span class="ttl">ストップウォッチ</span><div class="txt">今夜の二幕のタイムが残っている。「一場15:02／二場14:58／三場5:01／四場6:00」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">菊池 タエの持ち物（ROLL 10 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="菊池 タエ" data-label="菊池 タエの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－①</span></div><div class="bd"><span class="owner">最初の持ち主：菊池 タエ</span><span class="ttl">へその緒の箱</span><div class="txt">桐の小箱。中に、乾いたへその緒と古い紙。「伸也　母　菊池タエ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="菊池 タエ" data-label="菊池 タエの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－②</span></div><div class="bd"><span class="owner">最初の持ち主：菊池 タエ</span><span class="ttl">裁ちばさみ</span><div class="txt">大きな裁ちばさみ。ずしりと重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="菊池 タエ" data-label="菊池 タエの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－③</span></div><div class="bd"><span class="owner">最初の持ち主：菊池 タエ</span><span class="ttl">衣装の出し入れ帳</span><div class="txt">衣装と小道具の出し入れ帳。今夜の欄に「19:45　小道具棚確認　お雪帯締め（予備）○」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="菊池 タエ" data-label="菊池 タエの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 10－④</span></div><div class="bd"><span class="owner">最初の持ち主：菊池 タエ</span><span class="ttl">針山</span><div class="txt">腕にはめる針山。待ち針が何本も刺さっている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="小町 しずくの秘密①"><div class="hd"><span class="loc">小町 しずくの秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>小町は、二幕の早替えのあと、20:30ごろ、2階の調光室の階段を下りてくるところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="小町 しずくの秘密②"><div class="hd"><span class="loc">小町 しずくの秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>お雪の帯締めは、本番用と予備の2本ある。予備は、いつも衣装部屋の小道具の棚に置いてある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="柳 伸也の秘密①"><div class="hd"><span class="loc">柳 伸也の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>伸也は劇団の経理を任されていて、事務所の金庫の番号を知っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="柳 伸也の秘密②"><div class="hd"><span class="loc">柳 伸也の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>伸也は終演後、何度も上着の内側を手で押さえていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒田 権蔵の秘密①"><div class="hd"><span class="loc">黒田 権蔵の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>黒田は二幕のあいだ楽屋Bにいた。楽屋Bの前を通った人が、酒のにおいに気づいている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒田 権蔵の秘密②"><div class="hd"><span class="loc">黒田 権蔵の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>黒田は、十八年前の事故の夜も劇団にいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="青柳 拓海の秘密①"><div class="hd"><span class="loc">青柳 拓海の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>青柳は亡霊の場で、紗幕の裏の亡霊に光を当てていた。誰よりも亡霊をよく見ていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="青柳 拓海の秘密②"><div class="hd"><span class="loc">青柳 拓海の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>青柳の財布には、小町しずくと二人で写った写真が入っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="朝霧 ゆかりの秘密①"><div class="hd"><span class="loc">朝霧 ゆかりの秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>朝霧は、劇団の入団書類に、本当の名前とは別の名前を書いていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="朝霧 ゆかりの秘密②"><div class="hd"><span class="loc">朝霧 ゆかりの秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>朝霧は、休憩中の19:55ごろ、ひとりで衣装部屋に入っていくところを見られている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮下 恭子の秘密①"><div class="hd"><span class="loc">宮下 恭子の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>宮下は、十八年前の事故の夜、奈落番だった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="宮下 恭子の秘密②"><div class="hd"><span class="loc">宮下 恭子の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>上手袖の舞台監督の机は、客席からも、舞台の役者からも見えない。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鷲尾 誠の秘密①"><div class="hd"><span class="loc">鷲尾 誠の秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>鷲尾は、二幕の途中（20:15ごろ）に客席を立ち、20:48ごろまで戻らなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="鷲尾 誠の秘密②"><div class="hd"><span class="loc">鷲尾 誠の秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>鷲尾は今朝、劇場の前で座長と言い争っていた。「約束が違う」と。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="秋山 葵の秘密①"><div class="hd"><span class="loc">秋山 葵の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>秋山は、二幕の途中（20:28ごろ）に客席のうしろの扉から出ていき、20:50ごろまで戻らなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="秋山 葵の秘密②"><div class="hd"><span class="loc">秋山 葵の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>秋山は七年前まで朱鷺座一座の団員だった。辞めた理由は誰にも話していない。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早乙女 律の秘密①"><div class="hd"><span class="loc">早乙女 律の秘密 ①</span><span>SECRET 17</span></div><div class="bd"><p>早乙女は今夜、座長室の合鍵を預かっていた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="早乙女 律の秘密②"><div class="hd"><span class="loc">早乙女 律の秘密 ②</span><span>SECRET 18</span></div><div class="bd"><p>二幕の途中（20:25ごろ）、下手袖のプロンプター席が空になっていたのを見た人がいる。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="菊池 タエの秘密①"><div class="hd"><span class="loc">菊池 タエの秘密 ①</span><span>SECRET 19</span></div><div class="bd"><p>タエは二幕のあいだ、ほとんど衣装部屋に一人でいた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="菊池 タエの秘密②"><div class="hd"><span class="loc">菊池 タエの秘密 ②</span><span>SECRET 20</span></div><div class="bd"><p>タエは、伸也が熱を出すと、今でも生姜湯を作って持っていく。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「鍵」の印がある場所は、その鍵を持っている人しか調べられません。</p><div class="cards"><div class="card clue" data-label="奈落 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">奈落 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>座長は奈落の奥、古い道具の陰に、黒い幕をかぶせられて倒れていた。首に紅い絹の帯締めが二重に巻きつき、絞められた跡がある。着ているのは、いつもの紺の着流し。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="奈落 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">奈落 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">亡霊の衣装掛け</span><p>せりのそばの衣装掛けに、亡霊の白装束と白頭巾がかけてある。掛け方が雑で、袖が裏返ったまま。面を掛けるフックだけが空いている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="奈落 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">奈落 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">インカム</span><p>奈落のインカム（上手袖の舞台監督の机とつながっている）。受話器がきちんと掛かっていない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="奈落 ④" data-phase="1" data-lock=""><div class="hd"><span class="loc">奈落 ④</span><span class="ph">調査1</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">せりの床</span><p>せりの台の床板には、機械の黒い油がにじんでいる。せりに乗った人の足の裏には、油がつくだろう。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="奈落 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">奈落 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体の足もと</span><p>座長は白足袋をはいている。足の裏はほこりで少し灰色になっているだけで、<b>黒い油はついていない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="奈落 ⑥" data-phase="2" data-lock=""><div class="hd"><span class="loc">奈落 ⑥</span><span class="ph">調査2</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">座長の台本</span><p>椅子のそばに落ちていた座長の台本。開いているのは<b>二幕二場</b>のページ。欄外に鉛筆で「二場　黒田、間をつめろ」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="奈落 ⑦" data-phase="2" data-lock=""><div class="hd"><span class="loc">奈落 ⑦</span><span class="ph">調査2</span><span>CLUE 07</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">亡霊の面</span><div class="txt">衣装掛けの陰に落ちていた、亡霊の白い木の面。<b>裏側に、白い粉がこすれてついている。</b>舞台化粧の白粉だ。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">小道具</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="舞台・袖 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">舞台・袖 ①</span><span class="ph">調査1</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">上手袖の操作盤</span><p>舞台監督の机。インカムと、せりの操作盤。操作盤の記録「20:40　上昇／20:46　下降」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="舞台・袖 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">舞台・袖 ②</span><span class="ph">調査1</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">下手袖のプロンプター席</span><p>プロンプター席の椅子に台本が伏せてある。まわりは暗く、客席からも舞台からも見えない。奥の暗幕をくぐると、楽屋の廊下に出られる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="舞台・袖 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">舞台・袖 ③</span><span class="ph">調査2</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">紗幕の裏の通路</span><p>亡霊が歩く紗幕の裏は、幅50cmほどの板の道。ゆっくり歩けば、足の悪い人でも通れる。床板に、黒い油の足跡が点々とついている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋A ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋A ①</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">二つの鏡台</span><p>お雪とお霜の鏡台が並んでいる。どちらにも白粉と紅。白塗りをするのは、この劇団ではこの二人だけ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋A ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋A ②</span><span class="ph">調査1</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">早替えの着物</span><p>二幕の早替えで脱いだお雪の着物が、衣紋掛けにかけてある。帯締めは本番用の一本（紅）だけ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋A ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋A ③</span><span class="ph">調査2</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">くずかご</span><p>化粧落としのコットンに混じって、<b>黒い油で汚れたコットン</b>が何枚か。足の裏でも拭いたようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋B ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋B ①</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">座卓の湯のみ</span><p>座卓に湯のみが二つ。一つは使った跡があり、もう一つは伏せたまま。伏せてあるほうには「宗」の字。座長の湯のみだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋B ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋B ②</span><span class="ph">調査1</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">楽屋のスピーカー</span><p>舞台の音を流すスピーカー。音は小さいが、今どの場面かはわかる。楽屋A・楽屋B・衣装部屋・小鏡の間にもついている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋B ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋B ③</span><span class="ph">調査2</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ゴミ箱</span><p>ウイスキーのにおいがする。ちり紙に、こぼした酒を拭いた跡。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="衣装部屋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">衣装部屋 ①</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">小道具の棚</span><p>「お雪　帯締め（予備）」の札がついた箱が空っぽ。ほかの小道具はそろっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="衣装部屋 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">衣装部屋 ②</span><span class="ph">調査1</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">古いポスター</span><p>壁に四十年分の公演ポスター。いちばん古い一枚には、若い座長と黒田と、着物姿の若い女性が写っている。女性は赤ん坊を抱いている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="衣装部屋 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">衣装部屋 ③</span><span class="ph">調査2</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">裏の階段</span><p>衣装部屋の前の廊下の奥に、奈落へ下りる裏の階段がある。電球が切れていて暗い。<b>手すりに、白い粉がうっすらついている。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="調光室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">調光室 ①</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">調光室の窓</span><p>2階の調光室。窓から舞台全体と客席が見下ろせる。亡霊の場では、ここから紗幕の裏の亡霊にうす青い光を当てる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="調光室 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">調光室 ②</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">二つの椅子</span><p>狭い調光室に、椅子が二つ並んでいる。片方の座面に、白い粉がうっすら。白粉のようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客席・ロビー ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">客席・ロビー ①</span><span class="ph">調査1</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">受付の名簿</span><p>観客の名簿。町の人が62人。受付のメモ「21:15までに全員お見送り。楽屋に入ったお客様なし」。招待席の欄に「鷲尾様・秋山様（お二人とも二幕の途中で席を立たれた）」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="客席・ロビー ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">客席・ロビー ②</span><span class="ph">調査1</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">記念の展示</span><p>ロビーの「朱鷺座の百年」の展示。十八年前の地元紙の切り抜き：「朱鷺座で劇団員が転落死　真壁透さん（19）　せりで遊んでいたか」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="座長室 ①" data-phase="1" data-lock="座長室の合鍵／マスターキー束／針金"><div class="hd"><span class="loc">座長室 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 24</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">机の挨拶文</span><p>書きかけの挨拶文。「今宵をもって朱鷺座は幕を下ろします。劇団も今夜で解散いたします。……最後に、皆さまにお詫びせねばならぬことが」。ここで止まっている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="座長室 ②" data-phase="1" data-lock="座長室の合鍵／マスターキー束／針金"><div class="hd"><span class="loc">座長室 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 25</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">事故報告書の控え</span><div class="txt">十八年前の事故の報告書の控え。「劇団員・真壁透が無断でせりに乗り、転落。操作した者なし」。署名「奈落番　宮下恭子」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="座長室 ③" data-phase="1" data-lock="座長室の合鍵／マスターキー束／針金"><div class="hd"><span class="loc">座長室 <span class="lockmark">鍵</span> ③</span><span class="ph">調査1</span><span>CLUE 26</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">受け渡しの写真</span><div class="txt">温泉旅館の駐車場。鷲尾が町議の田辺に分厚い封筒を渡している写真。裏に座長の字で「保険」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="座長室 ④" data-phase="2" data-lock="座長室の合鍵／マスターキー束／針金"><div class="hd"><span class="loc">座長室 <span class="lockmark">鍵</span> ④</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">古い写真</span><div class="txt">若い座長と、若いタエが、赤ん坊を抱いている写真。裏に「伸也　生後百日」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="事務所 ①" data-phase="1" data-lock="事務所の鍵／マスターキー束／針金"><div class="hd"><span class="loc">事務所 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 28</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">金庫</span><p>事務所の金庫は扉が開いたまま。中の現金の封筒が空っぽ。帳簿では、今夜の時点で300万円入っていたはず。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="事務所 ②" data-phase="1" data-lock="事務所の鍵／マスターキー束／針金"><div class="hd"><span class="loc">事務所 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 29</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">売買契約書の写し</span><p>朱鷺座の土地と建物の売買契約書の写し。買い主は鷲尾開発、1億2千万円。座長の付箋「上乗せ二千万。払わねば写真を出す」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="事務所 ③" data-phase="2" data-lock="事務所の鍵／マスターキー束／針金"><div class="hd"><span class="loc">事務所 <span class="lockmark">鍵</span> ③</span><span class="ph">調査2</span><span>CLUE 30</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">劇団員名簿</span><p>劇団員名簿。「朝霧ゆかり（本名：真壁ゆかり）」「小町しずく（本名同じ）」「早乙女律（本名同じ）」……。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="事務所 ④" data-phase="2" data-lock="事務所の鍵／マスターキー束／針金"><div class="hd"><span class="loc">事務所 <span class="lockmark">鍵</span> ④</span><span class="ph">調査2</span><span>CLUE 31</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">金庫の出し入れ帳</span><div class="txt">金庫の出し入れ帳。最後の行は今夜、伸也の字で「20:40　300万　一時預かり」。書きかけで線を引いてある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="大道具倉庫 ①" data-phase="1" data-lock="マスターキー束／針金"><div class="hd"><span class="loc">大道具倉庫 <span class="lockmark">鍵</span> ①</span><span class="ph">調査1</span><span>CLUE 32</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">古いせりの部品</span><p>十八年前に取りかえた、古いせりの歯車。札に「事故のあと交換」。歯車に壊れた跡はない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="大道具倉庫 ②" data-phase="1" data-lock="マスターキー束／針金"><div class="hd"><span class="loc">大道具倉庫 <span class="lockmark">鍵</span> ②</span><span class="ph">調査1</span><span>CLUE 33</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺品の箱</span><p>「真壁透」と書かれた段ボール。台本と稽古着。名札の裏に、若い字で「姉ちゃんへ。初舞台、見に来てね」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="小鏡の間 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">小鏡の間 ①</span><span class="ph">調査2</span><span>CLUE 34</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鏡台</span><p>小さな鏡台と椅子。鏡台はほこりをかぶっていて、白粉の箱もふたが閉じたまま。<b>今夜、誰かが使った様子はない。</b></p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋口の外 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋口の外 ①</span><span class="ph">調査2</span><span>CLUE 35</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">雪の足跡</span><p>楽屋口から路地へ、大きな革靴の足跡。行って戻った跡が一組。雪に埋もれかけた吸い殻が3本。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋口の外 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋口の外 ②</span><span class="ph">調査2</span><span>CLUE 36</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">路地の電話ボックス</span><p>路地の先の電話ボックス。中の雪は踏まれていない。今夜は誰も使っていないようだ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>付き人</b></td><td>菊池 タエ</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>目くらまし</b></td><td>黒田 権蔵</td><td>1人を選ぶ。その人のパワーは、このあとのスキルの判定では0として扱う。</td></tr><tr><td class="t">3</td><td><b>取り押さえ</b></td><td>青柳 拓海</td><td>1人を選ぶ。相手のパワーが自分と同じか低ければ成功。取り押さえられた人は、まだスキルを使っていなければ使えなくなる。</td></tr><tr><td class="t">4</td><td><b>楽屋検め</b></td><td>宮下 恭子</td><td>1人を選び、その人の持ち物をすべて見る。その中の「小道具」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">5</td><td><b>口利き</b></td><td>鷲尾 誠</td><td>「札束」か「小切手帳」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、そのお金のカードと交換させる。パワーは関係ない。</td></tr><tr><td class="t">6</td><td><b>大立ち回り</b></td><td>柳 伸也</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">7</td><td><b>抜き取り</b></td><td>秋山 葵</td><td>1人を選び、相手の持ち物を裏向きのまま1つ引いて、自分のものにする。パワーは関係ない。</td></tr><tr><td class="t">8</td><td><b>早替え</b></td><td>朝霧 ゆかり</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引いてもらう。パワーは関係ない。</td></tr><tr><td class="t">9</td><td><b>返し</b></td><td>早乙女 律</td><td>1人を選ぶ。その人が持っている物の中に、ほかの人が最初に持っていた物があれば、見せてもらって1つ選び、元の持ち主に返させる。パワーは関係ない。</td></tr><tr><td class="t">—</td><td><b>代役</b></td><td>小町 しずく</td><td>自分以外の1人を選ぶ。GMがその人のスキルをこっそり教えてくれるので、そのスキルとして別の誰か（または同じ人）に使う。順番は、まねたスキルのすぐあと。まねられた人のスキルはそのまま使える。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は朝霧ゆかり（お霜役）。</b>本名は真壁ゆかり。十八年前にこの奈落で死んだ劇団員・真壁透の姉。</p><p>十八年前、劇団を辞めて東京へ行くと言った透を「脅かしてやる」と、座長がみずからせりを下ろし、透は転落死した。座長は黒田（目撃者）を役で、宮下（奈落番）を責任で黙らせ、「酒に酔って勝手にせりに乗った」という嘘の報告書を宮下に書かせた。</p><p>ゆかりは十年前、偽名で劇団に入り、真相を探してきた。今夜18:30、取り壊しの片づけで奈落のロッカーから座長の稽古日誌を見つけ、すべてを知る。直後に座長に見つかり「最初から知っていた。黙っていれば来年の主役。いやなら弟と同じところへ行くか」と言われる。</p><p>休憩中の19:55、タエが楽屋Aにいるあいだに衣装部屋へ入り、お雪の予備の帯締めを抜く。二幕一場のあと（20:20）、廊下へ出て、20:22に裏の階段から奈落へ（鷲尾が「白い着物の女」として見ている）。20:24、二場の台本を読んでいた座長を帯締めで絞殺し、奥の道具の陰に隠した。</p><p>20:35、かつらを外して亡霊の白装束・白頭巾・面をつけ、20:38にインカムで小声の「準備よし」。20:40〜20:46、座長のかわりに亡霊を演じた（足を引きずらず、背も低かった）。せりの床の油で足袋の裏が黒くなり、面の裏には自分の白粉がついた。20:47に衣装を掛け戻し（面はフックに掛けそこねて陰に落ちた）、裏の階段から廊下へ。20:49に下手袖へ戻り、20:50の五場に出た。</p><p>これで、みんなは「座長は20:46まで生きていた」と信じ、犯行は五場のあいだ舞台にいた役者には無理だと考える。</p><p><b>問2の答え：柳伸也。</b>20:36〜20:46、自分の鍵で事務所の金庫を開け、300万円を持ち出した（闇金の借金のため）。</p><p><b>問3の答え：早乙女律。</b>20:25〜20:33、プロンプター席を離れ、預かっていた合鍵で座長室から『春の亡霊』の原稿を取り返した（もともと律が書いた台本）。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>亡霊は座長ではない。</b>今夜の亡霊は足を引きずらず、背が低かった（青柳の操作記録表・証言）。20:38の「準備よし」は小声でいつもと違った（宮下の進行表・証言）。紗幕の裏とせりの床には黒い油があるのに、座長の足袋の裏はきれい（奈落④・⑤、舞台・袖③）。座長の台本は二場のページで落ちていた（奈落⑥）。座長は20:30に楽屋Bに来るはずが来なかった（黒田の証言、楽屋B①）。→ 座長は二場のあいだ（20:20〜20:35）に死んでいた。</li><li><b>亡霊を演じたのは白塗りの役者。</b>亡霊の面の裏に白粉（奈落⑦）。裏の階段の手すりにも白粉（衣装部屋③）。白塗りはお雪とお霜だけ（全員が知っていること・楽屋A①）。お雪（小町）は20:35〜20:50ずっと舞台にいた（香盤）。→ お霜（朝霧）。</li><li><b>20:20〜20:50のお霜。</b>本人は「小鏡の間にいた」と言うが、小鏡の間は今夜使われていない（小鏡の間①）。20:22、白い着物・白塗りの女が裏の階段を下りた（鷲尾）。そのとき小町は楽屋Aでタエと早替え中（タエ・小町）。20:49、朝霧は廊下側から下手袖へ戻り、かつらが曲がっていた（早乙女）。</li><li><b>足袋の油。</b>朝霧の白足袋の裏が黒い（朝霧の持ち物）。五場で朝霧の足袋の裏が黒かった（小町の証言）。楽屋Aのくずかごに油のコットン（楽屋A③）。</li><li><b>凶器と動機。</b>予備の帯締めは19:45にはあった（タエの出し入れ帳）。19:55に朝霧がひとりで衣装部屋へ（朝霧の秘密②）。十八年前の真壁透（ロビー②、大道具倉庫②「姉ちゃんへ」）と、名簿の「本名：真壁ゆかり」（事務所③）、弟の写真（朝霧の持ち物）、稽古日誌（朝霧の持ち物）。</li></ol>
+    <p class="note">どれか1本が隠されても、ほかの筋からたどり着けるようにしてあります。議論2の半ばになっても「亡霊が座長だった」前提が崩れないときは、GMから「二場のあいだ、奈落の座長を見た人はいますか」と問いかけてもかまいません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>小町</b>：凶器は自分の帯締め。座長に主役を外されると言われた。20:20〜20:35は舞台にいない。→ 20:26まではタエと楽屋A、20:27〜20:30は調光室で青柳と一緒（調光室②）。20:35からはずっと舞台。</li><li><b>伸也</b>：20:36〜20:48、楽屋Bにいたと嘘をつく。父に遺産をもらえない。→ 事務所で金を盗んでいた（問2）。座長が死んだ20:24には舞台（二場）にいた。</li><li><b>黒田</b>：20:36〜20:48、一人。十八年前の事故を見ていた。→ 楽屋Bで酒を飲んでいた。20:24には舞台（二場）。</li><li><b>宮下</b>：せりを動かした本人。十八年前の嘘の報告書。→ 上手袖の操作盤の前にいた。20:38の声に違和感を持っている。</li><li><b>鷲尾</b>：座長に脅されていた。20:15〜20:48に客席にいない。廊下に入りこんだ。→ 廊下と路地にいた。20:22に「白い着物の女」を見た証人。</li><li><b>秋山</b>：座長を恨む元団員。20:28〜20:50に客席にいない。→ 大道具倉庫で点検記録を探していた。</li><li><b>早乙女</b>：座長に台本を盗まれた。20:25〜20:33、席にいない。→ 座長室で原稿を取り返していた（問3）。</li><li><b>青柳・タエ</b>：ひとりの時間が長い。→ 青柳は調光室で照明を操作（小町が来た）。タエは衣装部屋。どちらも白塗りではない。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は3周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>鍵のかかった場所は、鍵を今持っているか、カードを見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「小鏡の間」「楽屋口の外」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：3問を回収し、問1の最多票の人を発表する（正解はまだ言わない）。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>付き人で守られた人には、ほかのスキルが効かない（目くらまし・取り押さえも効かない）。</li><li>目くらましを受けた人のパワーは、そのあとの判定（取り押さえ・大立ち回り）では0として扱う。</li><li>取り押さえが成功した相手は、そのあとの順番でスキルを使えない。</li><li>代役は、まねたスキルのすぐあとに処理する。まねたスキルが「口利き」なら、代役の人がお金のカードを持っていないと使えない。</li><li>楽屋検めで取れるのは「小道具」の印がある持ち物だけ（お霜の扇・お雪の簪・木刀・村長の煙管・亡霊の面）。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">鍵のかかった場所（座長室・事務所・大道具倉庫）に誰も入らないまま議論2になったら、「鍵を持っている人は、調査で使えます」と一言そえてください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>小町 しずく</td><td>□　□</td><td></td></tr><tr><td>柳 伸也</td><td>□　□</td><td></td></tr><tr><td>黒田 権蔵</td><td>□　□</td><td></td></tr><tr><td>青柳 拓海</td><td>□　□</td><td></td></tr><tr><td>朝霧 ゆかり</td><td>□　□</td><td></td></tr><tr><td>宮下 恭子</td><td>□　□</td><td></td></tr><tr><td>鷲尾 誠</td><td>□　□</td><td></td></tr><tr><td>秋山 葵</td><td>□　□</td><td></td></tr><tr><td>早乙女 律</td><td>□　□</td><td></td></tr><tr><td>菊池 タエ</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>奈落⑦（亡霊の面）</td><td></td></tr><tr><td>座長室②（事故報告書の控え）</td><td></td></tr><tr><td>座長室③（受け渡しの写真）</td><td></td></tr><tr><td>座長室④（古い写真）</td><td></td></tr><tr><td>事務所④（金庫の出し入れ帳）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「稽古日誌」は朝霧・黒田・秋山の三人が「最後に持っている」を目指す取り合いの品です。「札束」は伸也・タエ（伸也に持たせたい）と、鷲尾（明かしたい）が関わります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>小町 しずく①</td><td>母子手帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小町 しずく②</td><td>婚約指輪</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>小町 しずく③</td><td>お雪の簪</td><td class='t'>—</td><td>—</td><td>小道具 </td></tr><tr><td>小町 しずく④</td><td>座長のメモ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>柳 伸也①</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>柳 伸也②</td><td>事務所の鍵</td><td class='t'>—</td><td>鍵：持っている間、「事務所」を調べられる。</td><td> </td></tr><tr><td>柳 伸也③</td><td>木刀</td><td class='t'>+1</td><td>—</td><td>小道具 </td></tr><tr><td>柳 伸也④</td><td>闇金の督促状</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒田 権蔵①</td><td>スキットル</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒田 権蔵②</td><td>村長の煙管</td><td class='t'>—</td><td>—</td><td>小道具 </td></tr><tr><td>黒田 権蔵③</td><td>樫の杖</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>黒田 権蔵④</td><td>座長からの手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>青柳 拓海①</td><td>操作記録表</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>青柳 拓海②</td><td>スパナ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>青柳 拓海③</td><td>結婚式場のパンフレット</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>青柳 拓海④</td><td>懐中電灯</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>朝霧 ゆかり①</td><td>稽古日誌</td><td class='t'>—</td><td>これを持っている人は、議論中に日誌の中身を読み上げてよい。</td><td> </td></tr><tr><td>朝霧 ゆかり②</td><td>白足袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>朝霧 ゆかり③</td><td>お霜の扇</td><td class='t'>+1</td><td>—</td><td>小道具 </td></tr><tr><td>朝霧 ゆかり④</td><td>弟の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮下 恭子①</td><td>マスターキー束</td><td class='t'>—</td><td>鍵：持っている間、「座長室」「事務所」「大道具倉庫」を調べられる。</td><td> </td></tr><tr><td>宮下 恭子②</td><td>進行表</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮下 恭子③</td><td>胃薬</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>宮下 恭子④</td><td>古いお守り</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鷲尾 誠①</td><td>小切手帳</td><td class='t'>—</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>鷲尾 誠②</td><td>封筒の控え</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>鷲尾 誠③</td><td>警棒</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>鷲尾 誠④</td><td>ホテルの完成予想図</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>秋山 葵①</td><td>せりの点検記録</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>秋山 葵②</td><td>針金</td><td class='t'>—</td><td>一度だけ、鍵のかかった場所を1つ調べられる。使ったらGMに返す。</td><td> </td></tr><tr><td>秋山 葵③</td><td>ICレコーダー</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>秋山 葵④</td><td>取材ノート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早乙女 律①</td><td>新作の台本</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早乙女 律②</td><td>座長室の合鍵</td><td class='t'>—</td><td>鍵：持っている間、「座長室」を調べられる。</td><td> </td></tr><tr><td>早乙女 律③</td><td>創作ノート</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>早乙女 律④</td><td>ストップウォッチ</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>菊池 タエ①</td><td>へその緒の箱</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>菊池 タエ②</td><td>裁ちばさみ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>菊池 タエ③</td><td>衣装の出し入れ帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>菊池 タエ④</td><td>針山</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）奈落⑦・調査2</td><td>亡霊の面</td><td class='t'>—</td><td>—</td><td>小道具 </td></tr><tr><td>（場所）座長室②・調査1</td><td>事故報告書の控え</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）座長室③・調査1</td><td>受け渡しの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）座長室④・調査2</td><td>古い写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）事務所④・調査2</td><td>金庫の出し入れ帳</td><td class='t'>—</td><td>—</td><td> </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>黒田 権蔵</td><td>議論中に「へその緒の箱」か「古い写真」を全員に見せながら、伸也の本当の母はタエだと明かす。</td><td></td></tr><tr><td>青柳 拓海</td><td>議論中に「操作記録表」を全員に見せながら、今夜の亡霊は足を引きずっていなかったと明かす。</td><td></td></tr><tr><td>朝霧 ゆかり</td><td>議論中に「事故報告書の控え」を全員に見せながら、十八年前の報告書は嘘だったと明かす。</td><td></td></tr><tr><td>鷲尾 誠</td><td>議論中に「札束」か「金庫の出し入れ帳」を全員に見せながら、伸也が金庫の金を持ち出したと明かす。</td><td></td></tr><tr><td>秋山 葵</td><td>議論中に「稽古日誌」か「せりの点検記録」を全員に見せながら、十八年前の事故は座長が起こしたと明かす。</td><td></td></tr><tr><td>秋山 葵</td><td>議論中に「受け渡しの写真」か「封筒の控え」を全員に見せながら、鷲尾が町議にわいろを渡したと明かす。</td><td></td></tr><tr><td>早乙女 律</td><td>議論中に「創作ノート」を全員に見せながら、『春の亡霊』を書いたのは自分だと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>小町 しずく</b></td><td>+3　最後に「母子手帳」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「婚約指輪」を自分か青柳が持っている。<br>+1　スキル「代役」で、まねたスキルを成功させる。</td></tr><tr><td><b>柳 伸也</b></td><td>+3　最後に「札束」を自分が持っている。<br>+2　問2で自分が最多票に<b>ならない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「新作の台本」を自分が持っている。</td></tr><tr><td><b>黒田 権蔵</b></td><td>+3　最後に「稽古日誌」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「へその緒の箱」か「古い写真」を全員に見せながら、伸也の本当の母はタエだと明かす。<br>+1　最後に「スキットル」を自分が持っている。</td></tr><tr><td><b>青柳 拓海</b></td><td>+3　スキル「取り押さえ」を、問1の正解の人に成功させる。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「母子手帳」を小町か自分が持っている。<br>+1　議論中に「操作記録表」を全員に見せながら、今夜の亡霊は足を引きずっていなかったと明かす。</td></tr><tr><td><b>朝霧 ゆかり</b></td><td>+5　問1で自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「稽古日誌」を自分が持っている。<br>+1　議論中に「事故報告書の控え」を全員に見せながら、十八年前の報告書は嘘だったと明かす。<br>+1　最後に「白足袋」を自分が持って<b>いない</b>。</td></tr><tr><td><b>宮下 恭子</b></td><td>+3　最後に「事故報告書の控え」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「せりの点検記録」を自分が持っている。<br>+1　スキル「楽屋検め」で、「小道具」の印の持ち物を1つ手に入れる。</td></tr><tr><td><b>鷲尾 誠</b></td><td>+3　最後に「受け渡しの写真」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「札束」か「金庫の出し入れ帳」を全員に見せながら、伸也が金庫の金を持ち出したと明かす。<br>+1　スキル「口利き」を成功させる。</td></tr><tr><td><b>秋山 葵</b></td><td>+3　最後に「稽古日誌」を自分が持っている。<br>+2　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「稽古日誌」か「せりの点検記録」を全員に見せながら、十八年前の事故は座長が起こしたと明かす。<br>+1　議論中に「受け渡しの写真」か「封筒の控え」を全員に見せながら、鷲尾が町議にわいろを渡したと明かす。</td></tr><tr><td><b>早乙女 律</b></td><td>+3　最後に「新作の台本」を自分が持っている。<br>+2　問3で自分が最多票に<b>ならない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　議論中に「創作ノート」を全員に見せながら、『春の亡霊』を書いたのは自分だと明かす。</td></tr><tr><td><b>菊池 タエ</b></td><td>+3　最後に「へその緒の箱」を自分が持っている。<br>+2　伸也が問1で最多票に<b>ならない</b>。<br>+1　問1で自分が最多票に<b>ならない</b>。<br>+1　最後に「札束」を伸也が持っている。</td></tr></tbody></table></div>
+    <p class="note">投票：問1 朝霧ゆかり（+4）／問2 柳伸也（+2）／問3 早乙女律（+2）。答えの本人はその問いの点なし。青柳の「取り押さえ」は、相手が朝霧で成功したときだけ達成。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>18:00</td><td>座長、伸也の借金の頼みを断る。早乙女に座長室の合鍵を預ける。黒田に「今夜も20:30にな」。</td></tr><tr><td class='t'>18:30</td><td>朝霧、奈落のロッカーで稽古日誌を見つける。18:35、座長に見つかり脅される。秋山、楽屋口で座長に取材。</td></tr><tr><td class='t'>19:00</td><td>開演。一幕（〜19:50）。</td></tr><tr><td class='t'>19:45</td><td>タエ、衣装部屋で予備の帯締めを確認。19:50、休憩。タエは楽屋Aで小町の着付け（〜20:03）。</td></tr><tr><td class='t'>19:55</td><td>朝霧、衣装部屋で予備の帯締めを抜く。</td></tr><tr><td class='t'>20:05</td><td>二幕一場（お雪・お霜・巳之吉）。</td></tr><tr><td class='t'>20:15</td><td>鷲尾、客席を立ち、楽屋口から廊下へ（座長室は鍵）。</td></tr><tr><td class='t'>20:20</td><td>二場（巳之吉・村長）。朝霧は下手から廊下へ。小町は楽屋Aでタエと早替え（〜20:26）。座長は奈落で台本を読む。</td></tr><tr><td class='t'>20:22</td><td>朝霧、裏の階段から奈落へ（鷲尾が「白い着物の女」を見る）。</td></tr><tr><td class='t'>20:24</td><td><b>朝霧、座長を帯締めで絞殺。</b>遺体を奥の道具の陰に隠す。</td></tr><tr><td class='t'>20:25</td><td>早乙女、プロンプター席を離れ、座長室から原稿を取る（鷲尾が見る。宮下は空いた席を見る）。20:33に戻る。</td></tr><tr><td class='t'>20:27</td><td>小町、調光室で青柳に会う（〜20:30）。</td></tr><tr><td class='t'>20:28</td><td>秋山、客席を抜けて楽屋口から廊下へ。20:30、鷲尾は路地へ（〜20:46）。秋山は針金で大道具倉庫へ（〜20:45）。</td></tr><tr><td class='t'>20:30</td><td>座長、楽屋Bに来ない（黒田はまだ舞台。20:36に戻って待つ）。</td></tr><tr><td class='t'>20:35</td><td>三場（お雪）。朝霧、奈落で亡霊の衣装をつける。伸也は事務所へ（20:36〜20:46）。黒田は楽屋Bで酒（20:36〜20:48）。</td></tr><tr><td class='t'>20:38</td><td>奈落から小声の「……準備よし」（朝霧）。</td></tr><tr><td class='t'>20:40</td><td>四場。せり上昇。亡霊（朝霧）が紗幕の裏を歩く。足を引きずらない。20:46、せり下降。</td></tr><tr><td class='t'>20:46</td><td>鷲尾、廊下で事務所から出る伸也を見る。20:48、鷲尾は客席へ。秋山は20:45に倉庫を出て、20:50に客席へ。</td></tr><tr><td class='t'>20:47</td><td>朝霧、衣装を掛け戻し、裏の階段から廊下へ。20:49、下手袖（早乙女がかつらを直す）。</td></tr><tr><td class='t'>20:50</td><td>五場（全員）。小町、朝霧の足袋の裏が黒いのを見る。</td></tr><tr><td class='t'>21:00</td><td>終演。カーテンコールに座長が出てこない。</td></tr><tr><td class='t'>21:05</td><td>宮下と早乙女が表の階段から奈落へ。21:08、遺体発見。</td></tr><tr><td class='t'>21:15</td><td>観客、全員帰る。タエ、亡霊の衣装を片づけようとして面の裏の白粉に気づく。</td></tr><tr><td class='t'>21:20</td><td>朝霧、楽屋Aで足袋の裏を拭くが落ちない。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>柳宗一郎を殺したのは、お霜役の朝霧ゆかりだった。本当の名前は、真壁ゆかり。十八年前、この奈落で死んだ真壁透の姉だ。</p><p>朝霧は、黒い表紙の日誌を胸に抱いて言った。「弟は、お酒が一滴も飲めなかったんです」。</p><p>二十時四十分に紗幕の向こうを歩いた亡霊は、座長ではなかった。座長はそのとき、もう奈落の暗がりで冷たくなっていた。亡霊の面の下で、朝霧は一度も足を引きずらなかった。弟が最後に立った場所を、まっすぐ歩きたかったのかもしれない。</p><p>朝、雪がやんだ。警察の車が峠を越えてくるまで、誰も、もう一度幕を上げようとは言わなかった。</p>
+    </div>
+    <ul class="epi"><li><b>小町 しずく</b>：春、小町は湯ノ沢の小さな公民館で『雪女房』を演じた。客席の最前列で、青柳が赤ん坊用の小さな毛布を膝に抱えていた。</li><li><b>柳 伸也</b>：伸也は300万円を金庫に戻し、闇金のことを警察に話した。タエの生姜湯の味が、なぜか母の味に似ていると、ずっと思っていた。</li><li><b>黒田 権蔵</b>：黒田は十八年前のことを、すべて警察に話した。それから一滴も酒を飲まず、村長の煙管を、透の墓に供えた。</li><li><b>青柳 拓海</b>：青柳は朱鷺座の最後の夜の光を、一つずつ消して回った。最後のスポットライトだけは、座長の立つはずだった位置に、朝までつけておいた。</li><li><b>朝霧 ゆかり</b>：警察の車に乗る前、朝霧は誰もいない舞台に一礼した。カーテンコールは一度だけ。座長の口ぐせを、最後に守ったのは彼女だった。</li><li><b>宮下 恭子</b>：宮下は十八年前の報告書を書き直した。「真壁透さんは、せりで遊んでいたのではありません」。その一行を書くのに、十八年かかった。</li><li><b>鷲尾 誠</b>：鷲尾は田辺とのことを自分から公表した。ホテルの計画は白紙になった。小屋の跡地には、小さな公園ができるという。</li><li><b>秋山 葵</b>：秋山の記事は、飛騨日報の一面に載った。見出しは「朱鷺座、最後の幕」。座長のことも、透のことも、自分のことも、書いた。</li><li><b>早乙女 律</b>：『春の亡霊』は、早乙女律作として、翌年の秋に小さな劇場で初演された。初日の楽屋に、差出人のない白い花が届いた。</li><li><b>菊池 タエ</b>：タエは、へその緒の箱を伸也に渡した。伸也は長いあいだ箱を見つめて、「知ってたよ」と、小さく笑った。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　柳宗一郎を殺したのは誰か（+4）</span><span class="ln"></span><span>問2　事務所の金庫から300万円を持ち出したのは誰か（+2）</span><span class="ln"></span><span>問3　座長室から新作の台本を持ち出したのは誰か（+2）</span><span class="ln"></span>
+      <span class="note">書けるのは：小町しずく・柳伸也・黒田権蔵・青柳拓海・朝霧ゆかり・宮下恭子・鷲尾誠・秋山葵・早乙女律・菊池タエ</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('curtain-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('curtain-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('curtain-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('curtain-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '鍵：' + c.dataset.lock));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>

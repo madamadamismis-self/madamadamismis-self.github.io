@@ -94,7 +94,14 @@ footer { font-size: .78rem; color: var(--muted); }
 <script>
 // 新しい作品を作ったら、ここに1件足す。players はその版で遊ぶプレイヤーの人数（GMは含めない）
 const KITS = [
-  { title: "獅子は夜半に昇る", gm: false, time: "約150分", level: "中級・犯人がばれにくい",
+  { title: "スペードの女王は眠らない", gm: true, time: "約170〜180分", level: "中級",
+    blurb: "嵐の夜の豪華客船。後継ぎの発表を前に、チェーンのかかったスイートで会長が倒れていた。",
+    versions: [{ label: "12人用", players: [12], url: "queen-12/" },
+               { label: "11人用", players: [11], url: "queen-11/" }] },
+  { title: "カーテンコールは一度だけ", gm: true, time: "約170分", level: "中級",
+    blurb: "取り壊される雪の町の芝居小屋、最後の千秋楽。座長はカーテンコールに現れなかった。",
+    versions: [{ label: "10人用", players: [10], url: "curtain-10/" }] },
+  { title: "獅子は夜半に昇る", gm: false, time: "約150分", level: "中級",
     blurb: "しし座流星群の夜、山の上の私設天文台で観測会。ドームの中で台長が倒れていた。",
     versions: [{ label: "9人用", players: [9], url: "shishi-9/" }] },
   { title: "のれんを下ろす夜", gm: false, time: "約110〜130分", level: "初心者向け",
