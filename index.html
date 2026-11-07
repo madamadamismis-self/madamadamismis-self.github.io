@@ -94,6 +94,15 @@ footer { font-size: .78rem; color: var(--muted); }
 <script>
 // 新しい作品を作ったら、ここに1件足す。players はその版で遊ぶプレイヤーの人数（GMは含めない）
 const KITS = [
+  { title: "サーカスの灯が消える夜", gm: true, time: "約160分", level: "中級",
+    blurb: "昭和三十八年、雪の河原の旅回りサーカス。千秋楽のカーテンコールのあと、団長が自分の車の中で倒れていた。誰に投票するかの目的が、人によってちがう回。",
+    versions: [{ label: "9人用", players: [9], url: "circus-9/" }] },
+  { title: "さよなら、ひばりが丘ランド", gm: false, time: "約120分", level: "初心者向け",
+    blurb: "五十二年続いた丘の上の遊園地、最後の夜。観覧車に灯がともったあと、園長室で園長が倒れていた。",
+    versions: [{ label: "7人用", players: [7], url: "hibari-7/" }] },
+  { title: "花火が上がる前に", gm: false, time: "約110分", level: "初心者向け",
+    blurb: "海辺の町の花火大会。開始三十分前の、いつもどおりの試し打ちのあと、工房の倉庫で親方が倒れていた。",
+    versions: [{ label: "5人用", players: [5], url: "hanabi-5/" }] },
   { title: "潮が引く夜に", gm: true, time: "約160分", level: "中級",
     blurb: "霧で船が止まった夜、瀬戸内の小島の美術館で館長が殺された。島へ渡る手段は、もうなかったはずだった。",
     versions: [{ label: "9人用", players: [9], url: "shiohiku-9/" }] },
@@ -163,7 +172,7 @@ const KITS = [
                { label: "6人用", players: [6], url: "endroll-6/" },
                { label: "8人用", players: [8], url: "endroll-8/" }] },
 ];
-const UPDATED = "2026年10月31日";
+const UPDATED = "2026年11月7日";
 
 const shelf = document.getElementById("shelf");
 const filter = document.getElementById("filter");

@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>さよなら、ひばりが丘ランド（7人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 丘の上の遊園地の最後の夜。夜空の藍と、観覧車の灯の色の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #f1eff5;
+  --surface: #fcfbfe;
+  --ink: #241f33;
+  --muted: #645d75;
+  --line: #dcd7e6;
+  --accent: #be185d;
+  --accent-soft: #fbe2ee;
+  --teal: #0f766e;
+  --teal-soft: #dcf0ed;
+  --slate: #1e1838;
+  --slate-ink: #f6f4fb;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #110e1c; --surface: #191527; --ink: #ebe8f3; --muted: #a39cb6; --line: #2e2842;
+    --accent: #f472b6; --accent-soft: #3d1a2c; --teal: #5eead4; --teal-soft: #11302c;
+    --slate: #0a0814; --slate-ink: #ebe8f3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #110e1c; --surface: #191527; --ink: #ebe8f3; --muted: #a39cb6; --line: #2e2842;
+    --accent: #f472b6; --accent-soft: #3d1a2c; --teal: #5eead4; --teal-soft: #11302c;
+    --slate: #0a0814; --slate-ink: #ebe8f3; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #f9a8d4, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #3b3160; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { display: block; }
+  .crow > h3.grp { grid-column: 1 / -1; margin: 3mm 0 -2mm; }
+  .crow { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-bottom: 5mm; break-inside: avoid; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>さよなら、ひばりが丘ランド</h1>
+    <p>五十二年続いた丘の上の遊園地、最後の夜。観覧車に灯がともったあと、園長室の明かりの下で、園長は動かなくなっていた。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>7人（GMなし）</span>
+      <span><b>TIME</b>約120分</span>
+      <span><b>LEVEL</b>初心者向け</span>
+      <span><b>SETTING</b>現代・地方都市の小さな遊園地</span>
+      <span><b>CARDS</b>キャラシート7・持ち物28・秘密14・証拠28</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">解決編<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">さよなら、ひばりが丘ランド（7人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー7人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。<b>GM（進行役）はいりません。</b>プレイヤーの誰か1人が「司会」になり、このページを読み上げながら進めます（司会が犯人でもかまいません。司会も一人のプレイヤーとしてふつうに遊びます）。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには、ほかの人の秘密や真相が含まれます。最初に見てよいのは「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけ。カードは印刷して、中身を見ずに準備してください。</p>
+    <p class="note">このシナリオには、殺人と、遊園地の事故で子どもがけがをした話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴（はじめての人へ）</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調べられると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>調査1は1人3回、調査2は1人2回。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分だけのスキルを1人に使える。パワーが高いほど成功しやすいスキルもある。</li>
+      <li><b>目的は「最後に何を持っているか」「誰の秘密を明かしたか」「投票やスキルの結果」で決まる。</b>みんなで手を挙げて決めるような判定はない。</li>
+      <li>迷ったら、キャラシート2枚目の<b>「立ち回りのコツ」</b>を見てください。全員にあります。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 7人分（1人2枚）・持ち物カード 28枚・秘密カード 14枚。人物ごとに封筒に入れる（宛名ラベルつき）</li>
+        <li>証拠カード 28枚。場所ごとに、番号順（①から）に<b>裏向きで横一列に</b>並べる。「調査2」のカードは別に分けておく</li>
+        <li>事件概要・見取り図・人物一覧（卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 7枚ずつ、記録メモ1枚、筆記用具、タイマー</li>
+      </ul>
+      <p class="note">印刷するときは、カードの面を見ないように、印刷した人以外が切り分けて封筒に入れるのがおすすめです。公開ページで遊ぶ場合は、各自が自分の分だけを開きます。</p>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+        <li><b>ここだけは嘘禁止</b>：調査のときの「条件を満たしています」、スキルのときのパワーの数字、最後の目的の確認。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>司会から時計回りに、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は2周（1人2回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「中央広場の②」＝その場所の左から2枚目）。そのカードを抜いて、自分だけで読む。<br><span class="kind share">共有</span> のカードは、読んだら裏向きのまま<b>元の位置に戻す</b>。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる（場所には戻さない。抜けたところは空けたままにして、番号がずれないようにする）。</p></div>
+      <div class="step"><b>条件のある場所を調べる</b><p>ジェットコースターの操作室・園長室の金庫は、<b>ある条件を満たしている人だけ</b>が調べられる。何が条件かは、関係する持ち物カードやキャラシートに書いてあり、本人にしかわからない。条件を満たしている人は「条件を満たしています」と言えば調べられる（条件のカードは見せなくてよい。ここは嘘禁止）。</p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない（記録メモに書いておく）。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「秘密カード」①か②を指名する。指名された人は、そのカードを<b>調べる人にだけ</b>渡す。読んだら持ち主に返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">最初から調べられる場所：園長室・事務所・売店・中央広場・観覧車・ジェットコースター。調査2では、各場所に新しいカードが足され、「管理棟の非常階段」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、場所を調べる条件になる物、パワーのある物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「思い出」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表（司会が読み上げる）</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>司会を決め、配役を決めて封筒を配る。司会がこの「遊び方」を読む。</td></tr>
+        <tr><td class="t">15分</td><td>読み込み</td><td>各自、キャラシート・持ち物カード・秘密カードを黙読する。</td></tr>
+        <tr><td class="t">10分</td><td>オープニング</td><td>司会が事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">20分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">20分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">15分</td><td>調査2</td><td>1人2回。新しいカードと「管理棟の非常階段」が加わる。</td></tr>
+        <tr><td class="t">20分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、一斉に投票。最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外がスキル用紙を書き、司会が順番に呼ぶ。</td></tr>
+        <tr><td class="t">15分</td><td>解決編</td><td>司会が「解決編」を開いて読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：投票用紙に「日比野銀次郎を殺したのは誰か」の答えを書く。書けるのはプレイヤーが演じている人物の名前だけ（日比野銀次郎は書けない。自分の名前を書いてもよい）。全員が書いたら、いっせいに見せる。</li>
+      <li>票がいちばん多かった人が<b>「最多票」</b>。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、裏向きに自分の前に置く。使わない人は「なし」と書く。</li>
+      <li>全員が置いたら、その時点のパワーで決まる（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>司会が「順番1の人」「順番2の人」…と呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を読み上げ</b>、用紙を見せて実行する。パワーを比べるスキルでは、二人とも自分のパワー（基本パワー＋持ち物のパワー）を言う。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。スキルの順番は全員ちがいます。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>「日比野銀次郎を殺したのは誰か」に正解：+4点</b>（犯人本人は、この点はなし）。</p>
+    <p>それとは別に、全員に「目的」が3つあり、達成すると点数が入ります（+3／+2／+1。犯人だけは「逃げ切る」が+5）。目的は、次の形で判定します。</p>
+    <ul>
+      <li><b>「最後に○○を持っている」</b>：スキルが全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。司会が記録メモに書く。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングで司会が読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">司会 読み上げ</span>
+    <p>三月三十一日。地方都市のはずれ、丘の上の遊園地「ひばりが丘ランド」は、五十二年の歴史に幕を下ろした。18時、最後のお客さんを見送ったあと、園に残ったのは、ここで働いてきた人と、ゆかりのある人たちだけだった。</p><p>18時30分、中央広場でささやかなお別れ会が始まった。園長の日比野銀次郎があいさつをし、19時ちょうど、みんなでカウントダウンをして、観覧車に最後の灯をともした。七色の明かりが、丘の上の夜空にゆっくり回りはじめた。</p><p>そのあと、みんなは思い思いの場所で、最後の夜を過ごした。園長は「仕事が残っている」と、管理棟の二階の園長室へ上がっていった。</p><p>19時50分。花束を届けに園長室へ上がった、着ぐるみ「ひばりん」の中の人・まゆの悲鳴が、管理棟に響いた。園長は机の横に倒れていた。後頭部を殴られ、もう息はなかった。そばには、開園記念の銅の「ひばり像」が転がっていた。</p><p>丘の上へ続く一本道で事故があり、警察が着くのは一時間後になるという。七人は、観覧車の明かりの下に集まった。</p><p>——最後の夜に、園長の灯を消したのは誰か。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：管理棟2階の園長室。机の横に倒れていた。後頭部を殴られている。そばに開園記念の銅の「ひばり像」（重い）。19:50にまゆが見つけた。</li><li>18:30〜19:05ごろは、全員が中央広場のお別れ会にいた。19:00に観覧車の灯をつけた（そのあと、今もずっとついている）。</li><li>管理棟は2階建て。1階は事務所と売店、2階は園長室と会議室。表の階段のほかに、裏に非常階段がある。</li><li>観覧車は19:00からずっと回っている。一周12分。</li><li>調べるのに条件がある場所：ジェットコースターの操作室・園長室の金庫。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の流れ</h3>
+      <ul><li>18:00 閉園。最後のお客さんを見送る</li><li>18:30 中央広場でお別れ会。園長のあいさつ</li><li>19:00 観覧車の点灯（カウントダウン）</li><li>19:05ごろ 園長が園長室へ</li><li>19:50 まゆが園長室で園長を見つける</li></ul>
+      <p class="note">園の中は自由に歩ける。中央広場のとなりに観覧車、奥にジェットコースター、入口のそばに管理棟と駐車場がある。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　日比野銀次郎を殺したのは誰か（+4）</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>ひばりが丘ランド</h3>
+    <svg viewBox="0 0 400 260" role="img" aria-label="遊園地の見取り図">
+      <rect class="room" x="20" y="20" width="120" height="90"/><text class="sm" x="30" y="40">管理棟</text>
+      <rect class="hot" x="28" y="48" width="104" height="26"/><text class="ac" x="34" y="66">2階 園長室・会議室</text>
+      <rect class="room" x="28" y="78" width="104" height="26"/><text class="sm" x="34" y="96">1階 事務所・売店</text>
+      <rect class="stair" x="140" y="30" width="14" height="70"/><text class="sm" x="146" y="120">非常階段</text>
+      <rect class="room" x="20" y="200" width="120" height="44"/><text class="sm" x="40" y="226">入口・駐車場</text>
+      <rect class="room" x="170" y="130" width="120" height="70"/><text class="sm" x="196" y="170">中央広場</text>
+      <circle class="room" cx="230" cy="70" r="50"/><text class="sm" x="206" y="74">観覧車</text>
+      <rect class="room" x="300" y="20" width="90" height="190"/><text class="sm" x="306" y="46">ジェット</text><text class="sm" x="306" y="62">コースター</text>
+      <text class="sm" x="306" y="150">操作室</text><text class="sm" x="306" y="170">写真売り場</text>
+      <text class="sm" x="150" y="250">（管理棟の裏 → 植えこみの裏道 → コースター）</text>
+    </svg></div></div><p class="note">管理棟の表の入口は中央広場に面していて、観覧車の乗り場から見える。非常階段は管理棟の裏側にあり、植えこみの裏道でジェットコースターの操作室のほうへつながっている（裏道は広場からは見えない）。観覧車のてっぺんからは、管理棟の2階の窓と、コースターのレールが見下ろせる。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーとスキルは、本人しか知りません。</p><div class="people"><div class="person victim"><span class="role">被害者・ひばりが丘ランド園長</span><span class="nm">日比野 銀次郎</span><span class="kana">ひびの ぎんじろう（70）</span><p>丘の上の遊園地「ひばりが丘ランド」の二代目園長。客が減り、土地を開発会社「アークランド」に売って、今日で閉園を決めた。働く人たちには「退職金は出せない」と言っている。</p></div><div class="person"><span class="role">事務長・園長の娘（35）</span><span class="nm">日比野 葵</span><span class="kana">ひびの あおい</span><p>園長の一人娘で、園の事務長。経理も人事もこなし、働く人たちからの信頼も厚い。閉園を決めた父と、退職金のことで言い争っていた。</p><p class="look">服装：紺のスーツ、園のスタッフジャンパーを羽織っている、パンプス</p></div><div class="person"><span class="role">整備士（58）</span><span class="nm">坂口 鉄平</span><span class="kana">さかぐち てっぺい</span><p>ひばりが丘ランドの整備士。十八歳から四十年、園の乗り物を一人で直してきた。ジェットコースターも観覧車も、ねじ一本まで知っている。</p><p class="look">服装：油じみた紺のつなぎ、作業帽、安全靴</p></div><div class="person"><span class="role">着ぐるみ「ひばりん」の中の人（24）</span><span class="nm">葛城 まゆ</span><span class="kana">かつらぎ まゆ</span><p>園のマスコット「ひばりん」の着ぐるみに六年入ってきたアルバイト。ひばりんは子どもたちに大人気だった。19:50に園長室で園長を見つけた。</p><p class="look">服装：ひばりんの黄色いTシャツ、ジャージ、髪はおだんご</p></div><div class="person"><span class="role">観覧車係（大学生のアルバイト）（21）</span><span class="nm">小松 ひより</span><span class="kana">こまつ ひより</span><p>観覧車の係をしている大学生のアルバイト。機械が好きで、整備士の坂口に弟子入りしたがっている。今夜は19:00からずっと観覧車を動かしていた。</p><p class="look">服装：園のスタッフジャンパー、軍手、スニーカー</p></div><div class="person"><span class="role">開発会社「アークランド」の担当者（45）</span><span class="nm">浅井 拓郎</span><span class="kana">あさい たくろう</span><p>土地を買った開発会社「アークランド」の用地担当。跡地にショッピングモールを建てる計画を進めている。今夜は契約の最後の確認のために園に来た。</p><p class="look">服装：グレーのスーツ、ネクタイ、革靴</p></div><div class="person"><span class="role">漫画家・元アルバイト（40）</span><span class="nm">白鳥 透</span><span class="kana">しらとり とおる</span><p>ひばりが丘ランドを舞台にした漫画『ひばりが丘の夏』で知られる漫画家。高校から大学まで、この園でアルバイトをしていた。閉園の最後の夜を見届けに来た。</p><p class="look">服装：白いシャツにカーディガン、丸めがね、肩からスケッチブック</p></div><div class="person"><span class="role">売店のおばあちゃん（72）</span><span class="nm">宮内 ハツ</span><span class="kana">みやうち はつ</span><p>開園の年から五十二年、管理棟1階の売店に立ってきた。おでんとソフトクリームが名物。園の誰もが「ハツさん」と呼ぶ。</p><p class="look">服装：割烹着、三角巾、つっかけ</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>注意。</strong>1人分ずつ封筒に入れて配ります。自分のシート以外は見ないでください。</p>
+    <button type="button" class="btn" id="gate-chars">表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">日比野 葵<small>ひびの あおい</small></span><span class="rl">事務長・園長の娘</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">坂口 鉄平<small>さかぐち てっぺい</small></span><span class="rl">整備士</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">葛城 まゆ<small>かつらぎ まゆ</small></span><span class="rl">着ぐるみ「ひばりん」の中の人</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">小松 ひより<small>こまつ ひより</small></span><span class="rl">観覧車係（大学生のアルバイト）</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">浅井 拓郎<small>あさい たくろう</small></span><span class="rl">開発会社「アークランド」の担当者</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">白鳥 透<small>しらとり とおる</small></span><span class="rl">漫画家・元アルバイト</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">宮内 ハツ<small>みやうち はつ</small></span><span class="rl">売店のおばあちゃん</span><span class="in">中身：キャラクターシート（2枚）＋ 持ち物カード4枚 ＋ 秘密カード2枚<br>司会の合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="AO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">日比野 葵<small>ひびの あおい</small></span><span class="rl">事務長・園長の娘・35歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「事務長の日比野葵です。園長の娘です。お別れ会のあとは、管理棟1階の事務所で、みんなの最後のお給料の計算をしていました。……父のこと、まだ信じられません」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>物心ついたときから、ひばりが丘ランドが遊び場だった。母は葵が二歳のときに亡くなったと聞かされている。父は忙しく、売店のハツさんが、よくおにぎりを握ってくれた。</p><p>大学を出て園に入り、十年で事務長になった。客が減るたびに、人を減らす書類を書いたのはあなただ。そのたびに「最後は退職金で報いる」と約束してきた。</p><p>父は土地をアークランドに売ると決めた。それはしかたない。でも父は「退職金は出せない」と言う。売れたお金は借金の返済でなくなる、と。</p><p>今夜、父はアークランドの浅井さんに「あと1億出せば判を押す」と言うつもりだと聞いた。そのお金を、みんなの退職金にしてほしい。19:10、園長室で父に頼んだ。父は「わしの金だ」と言った。</p><p>誰にも言っていないが、あなたは来月から、アークランドが建てるショッピングモールの支配人になる。浅井さんから声をかけられた。みんなのためには、自分が働く場所も必要だと思った。でも、裏切りだと言われてもしかたない。</p><p>母の写真は、家に一枚もない。父は「つらくなるから」と言った。かわりに、売店のハツさんの割烹着のにおいを、あなたは母のにおいのように覚えている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>来月から、園を買ったアークランドのショッピングモールで支配人になる。今夜19:10〜19:15、園長室で父と退職金のことで言い争った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>浅井拓郎</b>：アークランドの担当者。19:15に表の階段で、園長室へ上がっていくのを見た。<b>園長室の金庫の番号は「0331」</b>（開園記念日）。あなたは知っている。</li><li><b>宮内ハツ</b>：売店のハツさん。子どものころから、母親のように世話をしてくれた。</li><li><b>坂口鉄平</b>：整備士。三か月前のコースターの事故のあと、ずっと元気がない。</li><li><b>小松ひより</b>：観覧車係のバイト。坂口さんにくっついて回っている。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「取り上げる」</b>（<b>順番 3</b>）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ取る。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番3」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">日比野 葵<small>ひびの あおい</small></span><span class="rl">事務長・園長の娘・35歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、ハツさんに「葵ちゃん、大きくなったね」と言われた。「もう三十五だよ」と笑った。</dd><dt>19:05</dt><dd>父が園長室へ上がっていく。少しして、あとを追った。</dd><dt>19:10</dt><dd>園長室で父に「1億円はみんなの退職金に」と頼む。父は「わしの金だ」と怒鳴った。</dd><dt>19:15</dt><dd>園長室を出る。表の階段で、上がってくる浅井さんとすれ違った。会釈だけした。</dd><dt>19:16</dt><dd>1階の事務所へ。売店との間の戸は開けたまま。ハツさんが売店にいるのが見える。</dd><dt>19:30</dt><dd>事務所で電卓をたたいていた。上のほうで、ゴトンと小さな音がした気がした。ハツさんが何か落としたのかと思った。</dd><dt>19:40</dt><dd>まゆちゃんが売店に花束を受け取りに来た。</dd><dt>19:45</dt><dd>事務所の窓から、広場で坂口さんが何かの写真をみんなに見せているのが見えた。</dd><dt>19:50</dt><dd>まゆちゃんの悲鳴。ハツさんと二階へ駆け上がった。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:15からはずっと1階の事務所で給料の計算をしていた。戸は開けっぱなしで、ハツさんが売店にいるのが見えていた」。19:10に父と言い争ったことは、聞かれたら認めてよい。アークランドに行くことは言いたくない。金庫の番号を知っていることは、話すかどうか自由。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>浅井さんは19:15に園長室へ上がっていった。父と何を話したのか。</li><li>父が浅井さんからお金を受け取っていたら、それは退職金に回せるかもしれない。</li><li>園長の印鑑があれば、園の口座から退職金を払える。印鑑は金庫にあるはず。</li><li>坂口さんは三か月前の事故のあと、父と何度も言い争っていた。</li><li>まゆちゃんが見つけたとき、父の机の上の書類はどうなっていたのか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>金庫の番号を知っているのはあなた。番号を教えるかわりに、何かと交換してもらうこともできる（教えた相手も金庫を調べられるようになる）。</li><li>19:10に言い争ったことは、隠すとかえって疑われるかもしれない。</li><li>ハツさんとは、事務所と売店でおたがいの姿が見えていた。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>しっかり者の事務長として、落ち着いて話してください。父の死には涙をこらえる。退職金の話になると、声が強くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「園長の印鑑」を自分が持っている（みんなの退職金を払うため）。</span></div><div class="goal"><span class="pt">+2</span><span>議論中に「裏金の受領書」を全員に見せながら、浅井が父に500万円を渡していたと明かす。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「取り上げる」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">坂口 鉄平<small>さかぐち てっぺい</small></span><span class="rl">整備士・58歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。日比野銀次郎を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「整備の坂口です。四十年、ここの乗り物を見てきました。今夜は、最後にコースターに乗っておこうと思ってね。19:20に広場を出て、一周してきました。写真もあります」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>高校を出てすぐ、先代の園長に拾われた。油まみれで乗り物を直し、子どもたちの歓声を聞くのが、あなたの人生のすべてだった。妻は五年前に倒れて、今は施設にいる。月々の費用は、あなたの給料でぎりぎり払っている。</p><p>四か月前、コースターの安全バーの部品がすり減っていると気づき、交換を頼んだ。園長は発注書に「却下」の判を押した。「閉園まで持たせろ。点検記録には『異常なし』と書け」。あなたは逆らえなかった。</p><p>三か月前、安全バーが外れ、小学生の男の子が投げ出されて腕を折った。園長は保険会社にも警察にも「点検は完璧だった」と言い、あなたの書いた「異常なし」の記録を見せた。</p><p>今日の夕方、園長に言われた。「あの記録はわしが預かっとる。明日、警察に『坂口が勝手に書き換えた。園は知らなかった』と話す。退職金はない。それで全部おしまいだ」。四十年が、あの子のけがが、全部あなたのせいになる。施設の妻はどうなる。</p><p>あなたは、閉園前の点検のときに、コースターの写真機の時計を進めておくことを思いついた。写真に入る時刻は、あの機械の時計の時刻だ。整備用の鍵で、あなたなら開けられる。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜19:30、園長室で日比野銀次郎をひばり像で殴って殺した。</b>コースターの写真機の時計を70分進め、18:22に一人で乗った写真を「19:32の写真」に見せかけた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>小松ひより</b>：観覧車係の学生。整備士になりたいと言って、あなたの後ろをついて回っている。かわいい弟子。</li><li><b>日比野葵</b>：園長の娘で事務長。働く人の退職金のことで、ずっと園長とぶつかっていた。</li><li><b>浅井拓郎</b>：開発会社の人。今夜、園長と契約の話をすると言っていた。</li><li><b>宮内ハツ</b>：売店のハツさん。開園のころからいる。園長室の真下が売店。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「押しつけ」</b>（<b>順番 7</b>）：1人を選び、自分の持ち物を1つ渡す。相手は断れない。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番7」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">坂口 鉄平<small>さかぐち てっぺい</small></span><span class="rl">整備士・58歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:15</dt><dd>閉園後の点検のふりをして、コースターの写真機を整備用の鍵で開け、時計を<b>70分進めた</b>。</dd><dt>18:22</dt><dd>ひとりでコースターを一周させて乗った（整備運転）。写真機が撮った写真には「19:32」と印刷された。まだ観覧車の灯がつく前で、空も少し明るかった。</dd><dt>18:30</dt><dd>中央広場のお別れ会へ。</dd><dt>19:00</dt><dd>みんなで観覧車の点灯のカウントダウン。</dd><dt>19:20</dt><dd>広場で「最後にコースターに一周乗ってくる」と言って、コースターのほうへ歩き出した。</dd><dt>19:21</dt><dd>植えこみの裏道をまわって、管理棟の裏の非常階段へ。</dd><dt>19:25</dt><dd>非常階段から園長室へ。「記録を返してくれ」と頼んだ。園長は笑った。</dd><dt>19:30</dt><dd>背を向けた園長の頭を、机の上のひばり像で殴った。机の上の「点検記録」を持って出た。</dd><dt>19:33</dt><dd>非常階段を下りて、裏道でコースターへ。</dd><dt>19:40</dt><dd>広場に戻り、「最後の一周、よかったよ」とみんなに写真を見せた。</dd><dt>19:50</dt><dd>まゆちゃんの悲鳴。管理棟へ走った。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:20に広場を出て、コースターに一人で乗った。写真に19:32と出ている。そのあとホームで少し片づけて、19:40に広場に戻った」。非常階段や管理棟には近づいていない、と言う。写真は見せればアリバイになるが、細かく見られると困るかもしれない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>写真の「19:32」があれば、19:30にあなたはコースターにいたことになる。</li><li>「改ざんした点検記録」を持っていると、動機がばれる。誰かに押しつけたい。</li><li>園長が部品の交換を止めていたことは、本当はみんなに知ってほしい。でも、それを話せばあなたの動機も見える。</li><li>まゆちゃんは、園長の机の上に書類がなかったと言うかもしれない。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>写真を見せるかどうかは、よく考えて。うしろに写っているものを、誰かが気にするかもしれない。</li><li>疑いが向いたら、19:15〜19:22に園長室にいた人がいないか、話を向ける。</li><li>ひよりちゃんは、あなたを信じている。味方になってくれるかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>無口で職人気質の整備士として、短い言葉で話してください。乗り物の話になると目が優しくなる。園長のことを聞かれたら「世話になった」とだけ言う。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「改ざんした点検記録」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>議論中に「部品の発注書」を全員に見せながら、園長が部品の交換を止めていたと明かす。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MY">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">葛城 まゆ<small>かつらぎ まゆ</small></span><span class="rl">着ぐるみ「ひばりん」の中の人・24歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「ひばりんの中の人、葛城まゆです。今夜はお別れ会のあと、白鳥さんと最後に観覧車に乗りました。そのあと、みんなからの花束を園長室に届けに行って……」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十八のとき、家を出た。いろいろあって、帰る場所がなかった。ひばりが丘ランドのアルバイトの面接で、園長は理由を聞かずに「着ぐるみ、入れるか」とだけ言った。</p><p>ひばりんの中は、夏は四十度を超える。でも、子どもが抱きついてくる重さが好きだった。ひばりんの頭は、閉園したら捨てられると聞いた。どうしても持って帰りたい。</p><p>去年、住んでいたアパートを追い出された。園長に話すと「控室で寝ろ。誰にも言うな」と言われた。それから一年、あなたは園の控室で暮らしてきた。園長は口が悪かったが、あなたにとっては恩人だった。</p><p>白鳥さんの漫画『ひばりが丘の夏』のひばりんは、あなたがモデルだと白鳥さんが言ってくれた。今夜、最後に観覧車に乗ろうと誘ってくれたのも白鳥さんだ。</p><p>見つけたとき、園長の机の上には何もなかった。いつもは書類が山になっているのに。</p><p>ひばりんに入っていると、誰もあなたの顔を知らない。それが、ずっと楽だった。最後の日の今日、はじめて素顔で子どもに手を振った。</p><p>園長は毎晩10時に、控室のドアの前にあんパンを一つ置いていった。顔を合わせると「食ったら寝ろ」としか言わなかった。</p><p>閉園したら、控室も出なければならない。行き先は、まだ決まっていない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>一年前から、園長の許しをもらって園の控室に住んでいた。誰にも言っていない。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>白鳥透</b>：漫画家。昔ここでバイトをしていた。あなたをモデルにひばりんを描いてくれた。</li><li><b>小松ひより</b>：観覧車係。坂口さんの弟子みたいな子。</li><li><b>坂口鉄平</b>：整備士。19:20にコースターのほうへ歩いていった。</li><li><b>宮内ハツ</b>：売店のハツさん。花束を用意してくれた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（<b>順番 2</b>）：1人を選び、その人の持ち物をすべて見る。その中の「思い出」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番2」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">葛城 まゆ<small>かつらぎ まゆ</small></span><span class="rl">着ぐるみ「ひばりん」の中の人・24歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、ひばりんの頭をかぶって最後のダンスをした。浅井さんだけが拍手をしていなかった。</dd><dt>19:05</dt><dd>園長が管理棟へ。白鳥さんと広場のベンチで話していた。</dd><dt>19:13</dt><dd>浅井さんが管理棟のほうへ歩いていった。</dd><dt>19:20</dt><dd>坂口さんが「最後にコースターに一周乗ってくる」と言って、コースターのほうへ歩いていった。</dd><dt>19:25</dt><dd>白鳥さんと観覧車の8番ゴンドラに乗る（ひよりちゃんが乗せてくれた）。</dd><dt>19:31</dt><dd>てっぺん。あなたは町の灯を見ていた。白鳥さんは反対側の窓から、じっと下を見ていた。</dd><dt>19:37</dt><dd>観覧車を降りる。</dd><dt>19:40</dt><dd>売店でハツさんから花束を受け取る。事務所に葵さんがいた。</dd><dt>19:45</dt><dd>管理棟の表の階段の下で、花束のリボンを直した。二階はしんと静かだった。</dd><dt>19:50</dt><dd>園長室へ。園長が倒れていた。悲鳴を上げた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:25〜19:37は白鳥さんと観覧車。19:40に売店で花束を受け取って、19:50に園長室へ上がった」。見つけたのは自分なので、疑われやすい。控室に住んでいたことは言いたくない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>見つけたとき、園長の机の上には書類が一枚もなかった。誰かが持っていったのでは。</li><li>観覧車のてっぺんで、白鳥さんは何を見ていたのか。</li><li>見つけたのはあなた。疑われたら、時間の流れを落ち着いて話す。</li><li>坂口さんは19:20にコースターへ行き、19:40に戻ってきた。</li><li>浅井さんは19:13に管理棟のほうへ行った。何の用だったのか。</li><li>ハツさんは、園長室の真下の売店にずっといた。何か聞いていないか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>「ひばりんの頭」は大事な思い出。誰かに取られないように気をつける。白鳥さんも欲しがっているかもしれない。</li><li>スキル「目利き」は、「思い出」の印のある持ち物を取れる。取られたひばりんの頭を取り返すのにも使える。</li><li>白鳥さんと一緒にいたので、19:25〜19:37のアリバイはある。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>明るくて元気な子として、はきはき話してください。ひばりんの話になると、身ぶりが大きくなる。園長の死には、ショックで声がふるえる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「ひばりんの頭」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">小松 ひより<small>こまつ ひより</small></span><span class="rl">観覧車係（大学生のアルバイト）・21歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「観覧車係の小松ひよりです。今夜は19:00の点灯から、ずっと観覧車を動かしていました。19:25に、白鳥さんとまゆさんを8番ゴンドラに乗せました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>工業大学の三年生。小さいころ、ひばりが丘ランドの観覧車のてっぺんで、父に「この大きな輪っかを回してる人がいるんだよ」と教わった。それから、ずっと機械が好きだ。</p><p>二年前にアルバイトを始めて、坂口さんの仕事を見て、整備士になると決めた。坂口さんは口数が少ないが、ねじの締め方ひとつから教えてくれた。</p><p>三か月前のコースターの事故のあと、坂口さんは一人で泣いていた。「わしの記録のせいだ」。あなたは何も言えなかった。でも、坂口さんが手を抜く人じゃないことは、誰よりも知っている。</p><p>閉園したら、観覧車は解体される。坂口さんは「おまえに、わしの工具をやる。操作室の鍵もな」と笑っていた。</p><p>19:22、観覧車の乗り場から、管理棟の表の入口からスーツの男の人が出てくるのを見た。あわてた様子だったので、なんとなくスマホで撮った。</p><p>観覧車の8番ゴンドラは、窓のゆがみがいちばん少ない。てっぺんからの景色がよく見えるので、あなたは大事なお客さんをいつも8番に乗せる。</p><p>父は去年、勤めていた工場が閉まって仕事をなくした。「機械はうそをつかないが、会社はうそをつく」が、父の口ぐせになった。</p><p>コースターの事故の日、あなたは観覧車の乗り場で悲鳴を聞いた。駆けつけたとき、坂口さんは男の子の腕を、そっと両手で支えていた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>19:22に、管理棟の入口から急いで出てくる浅井さんを見て、スマホで撮った。まだ誰にも話していない。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>坂口鉄平</b>：整備の師匠。三か月前の事故は、坂口さんだけのせいじゃないと思っている。</li><li><b>浅井拓郎</b>：19:13に管理棟に入り、19:22に急いで出てきた。</li><li><b>白鳥透</b>：漫画家。観覧車を引き取りたいと言っているらしい。</li><li><b>日比野葵</b>：事務長。厳しいけれど、バイトの給料のことまで気にかけてくれる。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 0</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（<b>順番 1</b>）：1人（自分でもよい）を選ぶ。その人には、このあとのスキルがひとつも効かなくなる。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番1」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">小松 ひより<small>こまつ ひより</small></span><span class="rl">観覧車係（大学生のアルバイト）・21歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、坂口さんに「操作室の鍵、ほんとにくれるんですか」と聞いた。坂口さんは目をそらして「あとでな」と言った。</dd><dt>19:00</dt><dd>観覧車の点灯。そこからずっと乗り場の操作盤の前にいた。</dd><dt>19:13</dt><dd>浅井さんが管理棟の表の入口に入っていくのを見た。</dd><dt>19:20</dt><dd>坂口さんがコースターのほうへ歩いていった。「最後の一周だ」と手を振っていた。</dd><dt>19:22</dt><dd>管理棟の入口から浅井さんが急いで出てきた。スマホで撮った。</dd><dt>19:25</dt><dd>白鳥さんとまゆさんを8番ゴンドラに乗せる。</dd><dt>19:30</dt><dd>観覧車の操作盤の前。コースターのほうは暗くて、音もしなかった気がする（観覧車のモーターの音で、よくわからない）。</dd><dt>19:37</dt><dd>8番ゴンドラが下りてくる。二人を降ろした。</dd><dt>19:40</dt><dd>坂口さんが広場に戻ってきて、写真を見せてくれた。「19:32」と書いてあった。</dd><dt>19:43</dt><dd>坂口さんの写真を思い出す。写真の空の色が、なんだか夕方みたいだった。</dd><dt>19:50</dt><dd>管理棟から悲鳴。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:00から20時すぎまで、ずっと観覧車の乗り場にいた」。浅井さんの写真のことは、話すかどうか、いつ話すかは自由。坂口さんのことは信じている。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>浅井さんは19:13〜19:22に管理棟にいた。何をしていたのか。</li><li>坂口さんが疑われたら、守りたい。</li><li>観覧車のてっぺんからは、管理棟の2階とコースターが見える。乗っていた二人は何か見たかもしれない。</li><li>坂口さんの写真は「19:32」だったけれど、何か変だった気がする。もう一度よく見たい。</li><li>白鳥さんは観覧車を引き取りたがっていた。園長に断られて、怒っていなかったか。</li><li>葵さんは19:10ごろ、園長室で大きな声を出していたらしい。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>「スマホの写真（浅井）」は、浅井さんの話がうそかどうかを確かめる手がかり。見せる相手とタイミングを考える。</li><li>スキル「かばう」は、守りたい人に使える。</li><li>操作室の鍵は坂口さんが持っている。最後にあなたが持っていたい。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>まじめで、少し人見知りな学生として話してください。機械の話になると早口になる。坂口さんのことになると、むきになる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>坂口鉄平が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「操作室の鍵」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」を成功させる（守った人に、誰かがスキルを向ける）。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="AS">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">浅井 拓郎<small>あさい たくろう</small></span><span class="rl">開発会社「アークランド」の担当者・45歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「アークランドの浅井です。今夜は、お別れ会にお招きいただいて。そのあとは、駐車場の車の中で、ずっと会社と電話をしていました。園長さんには、本当にお世話になりました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>地方の土地を買い、店を建てる仕事を二十年。閉園する遊園地を買うのは三つ目だ。最後の夜に招かれるのは初めてだった。</p><p>契約書には、きのう園長の署名をもらった。あとは園長の印鑑を押すだけ。それが今夜の仕事だった。</p><p>園長は「急いで判を押してほしいなら、手みやげを」と言った。きのう、あなたは会社に内緒で500万円を渡した。受領書には園長の署名がある。会社にばれれば、あなたはクビだ。</p><p>上司からは「今夜中に判をもらえなければ、きみの席はない」とメールが来ている。娘は来年、私立の高校に上がる。</p><p>19:15、園長室で印鑑を頼んだ。園長は笑って言った。「あと1億。出さなければ判は押さん」。あなたは「上と相談する」と言って、19:22に部屋を出た。園長はまだ机でたばこを吸っていた。</p><p>モールができれば、この町に五百人の働き口ができる。あなたはそう信じて、この仕事をしてきた。遊園地を壊す男だと嫌われるのも、仕事のうちだ。</p><p>子どものころ、家族で一度だけ、ひばりが丘ランドに来たことがある。観覧車のてっぺんで、父が初めて仕事の話をしてくれた。そのことは、誰にも話していない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>きのう園長に、会社に内緒で500万円を渡していた。今夜19:15〜19:22、園長室で「あと1億」と言われた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>日比野葵</b>：事務長。来月からうちのモールの支配人になってもらう。まだ誰にも言っていないはず。</li><li><b>坂口鉄平</b>：整備士。園長が「事故のことは、あの男のせいにする」と言っていた。</li><li><b>白鳥透</b>：漫画家。観覧車を引き取りたいと、会社に問い合わせてきた。</li><li><b>宮内ハツ</b>：売店のおばあさん。園長室の真下で店番をしていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「お願い」</b>（<b>順番 6</b>）：1人を選び、持ち物の名前を1つ言う。相手がそれを持っていれば、あなたに渡す。かわりに、あなたは自分の持ち物を1つ（好きなものを）相手に渡す。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番6」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">浅井 拓郎<small>あさい たくろう</small></span><span class="rl">開発会社「アークランド」の担当者・45歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、着ぐるみのダンスを見ていた。拍手をするのを忘れていた。</dd><dt>19:05</dt><dd>広場で葵さんに、モールの支配人の話の念押しをした。</dd><dt>19:10</dt><dd>広場で、時計ばかり見ていた。上司から「まだか」とメール。</dd><dt>19:13</dt><dd>広場を抜けて、管理棟へ。</dd><dt>19:15</dt><dd>表の階段で、下りてくる葵さんとすれ違う。園長室へ。</dd><dt>19:22</dt><dd>園長室を出る。園長はたばこを吸っていた。表の階段を下りて、管理棟の入口から外へ。</dd><dt>19:24</dt><dd>駐車場の自分の車へ。上司に電話（19:41まで）。駐車場の係のおじさんが、車の横を何度か通った。</dd><dt>19:41</dt><dd>電話を切る。広場へ戻る。</dd><dt>19:42</dt><dd>広場へ戻ると、坂口さんがコースターの写真をみんなに見せていた。</dd><dt>19:50</dt><dd>悲鳴を聞いて、管理棟へ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:13に広場を出て、駐車場の車で電話をしていた」と言う（園長室に行ったことは隠したい）。見られていたと言われたら「契約の念押しに少し寄っただけ。19:22に出たときは園長は元気だった」。500万円のことは絶対に言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>園長は「事故のことは整備士のせいにする」と言っていた。整備士には動機があるのでは。</li><li>19:22に出たとき、園長は生きていた。そのあと園長室に行ったのは誰か。</li><li>500万円の受領書は、誰にも見られたくない。</li><li>葵さんは19:15に園長室から下りてきた。目が赤かった。何を言い争ったのか。</li><li>白鳥さんは観覧車を譲ってもらえなかった。</li><li>スマホの通話記録を見せれば、19:24〜19:41に電話していたことは証明できる。</li><li>ハツさんは園長室の真下にいた。上の物音を聞いているかもしれない。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>土地の契約書は、園長室の金庫にあるはず。金庫の番号は、娘の葵さんなら知っているかもしれない。</li><li>スキル「お願い」は、名前を言った持ち物を手に入れられる。欲しい物の名前を覚えておく。</li><li>園長室に行ったことがばれたら、19:22に園長が生きていたことを強く言う。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>腰の低い営業マンとして、ていねいな言葉で話してください。ただ、お金や契約の話になると目が鋭くなる。ときどき腕時計を見る。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「土地の契約書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「裏金の受領書」を自分が持っている（誰にも渡さない）。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「お願い」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="SR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">白鳥 透<small>しらとり とおる</small></span><span class="rl">漫画家・元アルバイト・40歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「漫画家の白鳥です。高校生のころ、ここで観覧車の係をしていました。今夜は、まゆちゃんと最後に観覧車に乗りました。19:25から一周です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十六の夏、ここで初めてアルバイトをした。観覧車の係だった。てっぺんで告白するカップル、泣きやまない迷子、毎週ひとりで乗りに来るおじいさん。あの夏のことを描いた漫画が、あなたのデビュー作になった。</p><p>漫画が売れて、ひばりが丘ランドには「聖地」としてファンが来るようになった。それでも客は減り続けた。閉園の知らせを聞いて、あなたは決めた。観覧車だけでも残したい。</p><p>読者に呼びかけて、観覧車を引き取って別の町の公園に移すお金を集めた。園長に「一円で譲ってほしい」と頼んだ。園長は「鉄くずでも百万にはなる」と断った。</p><p>譲渡書の下書きは作って、事務所の葵さんに預けてある。園長の署名さえあれば。</p><p>まゆちゃんは、あなたの漫画のひばりんのモデルだ。ひばりんの頭も、できればあなたの手元に残したい。まゆちゃんには、まだ言っていない。</p><p>デビューして十五年。最近は描けない日が続いている。編集者には「ひばりが丘の夏の続きを」と言われるが、続きを描くには、あの場所がなくてはならない気がする。</p><p>高校生のころ、坂口さんに「観覧車の油は、てっぺんのいちばん寒いところにさすんだ」と教わった。漫画の中でも、整備のおじさんにそう言わせている。</p><p>園長には、ひとつだけ恩がある。漫画に園の名前を使わせてほしいと頼んだとき、「好きに描け。ただし、ひばりんはかわいく描け」と言ってくれた。</p></div>
+      <div class="secret"><h4>秘密</h4><p>観覧車を一円で譲ってほしいと園長に頼み、断られていた。ひばりんの頭も、こっそり欲しいと思っている。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>葛城まゆ</b>：ひばりんの中の人。あなたの漫画のモデル。</li><li><b>小松ひより</b>：観覧車係。昔の自分を見ているようで、応援したくなる。</li><li><b>坂口鉄平</b>：整備士。昔、あなたも油の差し方を教わった。19:20にコースターのほうへ歩いていった。</li><li><b>浅井拓郎</b>：アークランドの担当。観覧車は「契約の中に入っている」と言って、譲ってくれなかった。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（<b>順番 5</b>）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引く。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番5」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">白鳥 透<small>しらとり とおる</small></span><span class="rl">漫画家・元アルバイト・40歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、ひばりんのダンスをスケッチした。</dd><dt>19:00</dt><dd>点灯のカウントダウン。集合写真に入った。観覧車は七色に光り、空はもう真っ暗だった。</dd><dt>19:05</dt><dd>広場のベンチで、まゆちゃんと話す。</dd><dt>19:20</dt><dd>坂口さんが「最後の一周」とコースターのほうへ歩いていった。</dd><dt>19:25</dt><dd>まゆちゃんと観覧車の8番ゴンドラへ。</dd><dt>19:31</dt><dd><b>てっぺんで、管理棟の2階の窓を見下ろした。園長室の明かりの中に、人影が二つ見えた。</b>反対側のコースターは、レールもホームも真っ暗で、何も動いていなかった。スケッチブックに走り書きした。</dd><dt>19:37</dt><dd>観覧車を降りる。</dd><dt>19:40</dt><dd>坂口さんが広場に戻ってきて「最後の一周、よかったよ」と写真を見せていた。</dd><dt>19:43</dt><dd>坂口さんの写真を見せてもらった。うしろの観覧車が、どこか見慣れない姿に見えた。</dd><dt>19:50</dt><dd>悲鳴を聞いて、管理棟へ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:25〜19:37はまゆちゃんと観覧車。それ以外は広場にいた」。てっぺんで見たことを、話すかどうか、いつ話すかは自由。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>19:31、園長室には人影が二つあった。そのとき園長と一緒にいたのは誰か。</li><li>坂口さんは「19:32の写真」と言うが、19:31にコースターは真っ暗だった。</li><li>観覧車の譲渡書は、事務所にあるはず。</li><li>観覧車のてっぺんからは、管理棟の2階がよく見える。あのとき窓のそばにいたのは誰か。</li><li>浅井さんは観覧車を「契約の中に入っている」と言った。契約書はどこにあるのか。</li><li>まゆちゃんが見つけた人だが、19:25〜19:37はずっと自分と一緒だった。</li><li>坂口さんの写真の時刻と、自分が見た真っ暗なコースターは合わない。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたが観覧車のてっぺんで見たことは、事件を解く大きな手がかり。誰に、いつ話すかはあなた次第。</li><li>「ひばりんの頭」はまゆちゃんが持っている。スキル「すり替え」なら、運がよければ手に入る。</li><li>坂口さんの写真を見せてもらえたら、うしろに何が写っているか見てみる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>おだやかで、よく人を観察している漫画家として話してください。ときどきスケッチブックに何か描く。思い出話になると止まらない。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「観覧車の譲渡書」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「ひばりんの頭」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり替え」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">宮内 ハツ<small>みやうち はつ</small></span><span class="rl">売店のおばあちゃん・72歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「売店の宮内ハツです。五十二年、ここでおでんを煮てきました。今夜も、最後まで売店にいましたよ。園長室は、売店の真上なんです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十九で売店に入った。先代の園長の息子、銀次郎は、あのころは笑うと八重歯の見える青年だった。</p><p>三十五年前、あなたは銀次郎の子どもを産んだ。銀次郎には、親の決めた妻がいた。子どもの産めない人だった。銀次郎は言った。「この子は、うちの子として育てる。おまえは母親だと名乗るな。そのかわり、一生ここで働け」。</p><p>その子が葵だ。あなたは売店から、葵が歩き、走り、大人になるのを見てきた。おにぎりを握り、熱を出せば氷を割った。一度も「お母さん」と呼ばれたことはない。</p><p>閉園が決まって、あなたは銀次郎に頼んだ。「最後の日に、葵に本当のことを言わせて」。銀次郎は「言うなら、わしが死んでからにしろ」と言った。</p><p>産院の前で撮った、たった一枚の写真がある。銀次郎が「わしが預かる」と言って、園長室の机にしまったままだ。</p><p>銀次郎の妻は、葵が二歳の冬に亡くなった。葬式の日、銀次郎は売店に来て、黙っておでんを一皿食べていった。二人きりで話したのは、あれが最後だった。</p><p>売店のおでんの汁は、五十二年継ぎ足してきた。今夜で火を落とす。鍋の底に、あなたの人生が全部しみこんでいる気がする。</p><p>坂口ちゃんとは、四十年同じ屋根の下で働いた。三か月前の事故のあと、坂口ちゃんは売店に来ても、何も食べなくなった。</p></div>
+      <div class="secret"><h4>秘密</h4><p>葵の本当の母親は自分だ。三十五年間、名乗らずに売店から見守ってきた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>日比野葵</b>：あなたの娘。本人は知らない。</li><li><b>葛城まゆ</b>：ひばりんの子。ときどき売店の残りのおでんを持たせてやっている。</li><li><b>坂口鉄平</b>：整備士。四十年来の仲間。三か月前の事故のあと、園長とよく言い争っていた。</li><li><b>浅井拓郎</b>：開発会社の人。19:20ごろの男の声は、この人かもしれない。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 0</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「取り戻す」</b>（<b>順番 4</b>）：1人を選ぶ。相手が持っている持ち物のうち、最初の持ち主があなただった物を1つ取り返す。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密。投票のあと、司会が「順番4」を呼んだら、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">宮内 ハツ<small>みやうち はつ</small></span><span class="rl">売店のおばあちゃん・72歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:45</dt><dd>お別れ会で、葵ちゃんに「大きくなったね」と言った。葵ちゃんは笑って「もう三十五だよ」と言った。</dd><dt>19:05</dt><dd>売店に戻る。事務所との間の戸は開けたまま。</dd><dt>19:10</dt><dd>真上の園長室から、葵の声。「みんなの退職金に」。銀次郎の怒鳴り声。</dd><dt>19:16</dt><dd>葵が事務所に下りてきた。目が赤かった。</dd><dt>19:20</dt><dd>真上から、知らない男の人の声と、銀次郎の笑い声。少しして、表の階段を下りていく足音。</dd><dt>19:23</dt><dd>売店の裏の植えこみが、ガサッと鳴った。猫かと思った。</dd><dt>19:30</dt><dd><b>ラジオの時報が鳴った直後、真上でゴトン、と重い物が倒れる音がした。</b>事務所の葵は、電卓をたたいていた。</dd><dt>19:40</dt><dd>まゆちゃんが花束を取りに来た。</dd><dt>19:45</dt><dd>まゆちゃんが出ていったあと、おでんの火を落とした。</dd><dt>19:50</dt><dd>まゆちゃんの悲鳴。葵と二階へ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「19:05から、ずっと売店にいた。事務所の葵ちゃんも見えていた」。19:30の音のことは、話すかどうか自由。葵の母親であることは、自分の口で言いたい。</p></div>
+      <div><h4>議論のヒント</h4><ul><li><b>19:30ちょうどに、真上で重い音がした。</b>それが事件の時刻ではないか。</li><li>19:20ごろの男の声のあと、表の階段を下りていく足音がした。そのあと上がっていく足音は聞いていない。</li><li>葵が疑われたら、守りたい。</li><li>19:20ごろの男の声は、浅井さんだったのでは。</li><li>坂口ちゃんは、三か月前の事故のことで、銀次郎に何か言われていたらしい。</li><li>売店の裏の植えこみで音がした。誰かが通ったのかもしれない。</li><li>まゆちゃんは19:40に花束を取りに来るまで、管理棟には来ていない。</li><li>白鳥さんとまゆちゃんは、19:25から観覧車に乗っていたらしい。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>19:30の音のことは、事件の時刻を決める大事な手がかり。</li><li>産院の写真は、園長室の机にあるはず。見つけて、みんなの前で葵に本当のことを言いたい。</li><li>スキル「取り戻す」は、最初はあなたの物だった持ち物を取り返せる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>おっとりした売店のおばあちゃんとして、ゆっくり話してください。みんなを「ちゃん」づけで呼ぶ。葵の話になると、少しだけ目をふせる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>議論中に「産院の写真」を全員に見せながら、自分が葵の本当の母親だと明かす。</span></div><div class="goal"><span class="pt">+2</span><span>日比野葵が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「取り戻す」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>注意。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">日比野 葵の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="日比野 葵" data-label="日比野 葵の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：日比野 葵</span><span class="ttl">アークランドの採用通知</span><div class="txt">「日比野葵様　新ショッピングモール『アークひばり』支配人として採用いたします」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="日比野 葵" data-label="日比野 葵の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：日比野 葵</span><span class="ttl">スタッフの寄せ書き</span><div class="txt">閉園の日のために、働く人たちが書いた色紙。「葵さん、ありがとう」「最後まで一緒に」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">思い出</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="日比野 葵" data-label="日比野 葵の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：日比野 葵</span><span class="ttl">最後の給料の計算書</span><div class="txt">スタッフ全員の最後の給料。退職金の欄は、全部空白。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="日比野 葵" data-label="日比野 葵の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：日比野 葵</span><span class="ttl">分厚い帳簿の束</span><div class="txt">五十二年分の帳簿。とても重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">坂口 鉄平の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="坂口 鉄平" data-label="坂口 鉄平の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：坂口 鉄平</span><span class="ttl">コースターの記念写真</span><div class="txt">コースターの最初の坂の上で、先頭の席に坂口ひとり。右下に「<b>19:32</b>」。うしろの丘の上に、<b>観覧車が黒い影になって</b>写っている。空のふちが、まだ少し明るい。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="坂口 鉄平" data-label="坂口 鉄平の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：坂口 鉄平</span><span class="ttl">改ざんした点検記録</span><div class="txt">コースターの点検記録。三か月前までずっと「安全バー　異常なし　坂口」。園長室の机から持ち出したもの。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="坂口 鉄平" data-label="坂口 鉄平の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：坂口 鉄平</span><span class="ttl">操作室の鍵</span><div class="txt">「コースター操作室」の札がついた鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>条件：これを持っている間、「ジェットコースターの操作室」を調べられる。</p></div></div><div class="card item" data-owner="坂口 鉄平" data-label="坂口 鉄平の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：坂口 鉄平</span><span class="ttl">大きなスパナ</span><div class="txt">使いこまれた鉄のスパナ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">葛城 まゆの持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="葛城 まゆ" data-label="葛城 まゆの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：葛城 まゆ</span><span class="ttl">ひばりんの頭</span><div class="txt">着ぐるみ「ひばりん」の頭。黄色い羽根が少しすり切れている。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">思い出</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葛城 まゆ" data-label="葛城 まゆの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：葛城 まゆ</span><span class="ttl">園長からのメモ</span><div class="txt">「控室のストーブは12時に消せ。風邪ひくな。日比野」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葛城 まゆ" data-label="葛城 まゆの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：葛城 まゆ</span><span class="ttl">控室の鍵</span><div class="txt">着ぐるみの控室の鍵。まゆの名前のキーホルダー。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="葛城 まゆ" data-label="葛城 まゆの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：葛城 まゆ</span><span class="ttl">ひばりんの胴体</span><div class="txt">着ぐるみの胴体。思ったより重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">小松 ひよりの持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="小松 ひより" data-label="小松 ひよりの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：小松 ひより</span><span class="ttl">スマホの写真（浅井）</span><div class="txt">観覧車の乗り場から撮った写真。管理棟の表の入口から、スーツの男が急いで出てくる。<b>19:22</b>。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小松 ひより" data-label="小松 ひよりの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：小松 ひより</span><span class="ttl">整備の教科書</span><div class="txt">「機械整備の基礎」。表紙の裏に坂口の字で「ねじは心で締めろ」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小松 ひより" data-label="小松 ひよりの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：小松 ひより</span><span class="ttl">観覧車の乗車メモ</span><div class="txt">「19:25　白鳥さん・まゆさん　8番」「19:37　8番　降車」。ほかの時間は「乗客なし」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="小松 ひより" data-label="小松 ひよりの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：小松 ひより</span><span class="ttl">観覧車の予備のハンドル</span><div class="txt">非常用の手回しハンドル。鉄でできている。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">浅井 拓郎の持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="浅井 拓郎" data-label="浅井 拓郎の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：浅井 拓郎</span><span class="ttl">裏金の受領書</span><div class="txt">「金五百万円　確かに受領いたしました　日比野銀次郎」。日付はきのう。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅井 拓郎" data-label="浅井 拓郎の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：浅井 拓郎</span><span class="ttl">上司からのメール</span><div class="txt">「今夜中に印をもらえなければ、きみの席はない」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅井 拓郎" data-label="浅井 拓郎の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：浅井 拓郎</span><span class="ttl">スマホの通話記録</span><div class="txt">「19:24〜19:41　部長（発信）」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="浅井 拓郎" data-label="浅井 拓郎の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：浅井 拓郎</span><span class="ttl">重いアタッシェケース</span><div class="txt">書類がぎっしり入った革のケース。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">白鳥 透の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="白鳥 透" data-label="白鳥 透の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：白鳥 透</span><span class="ttl">漫画『ひばりが丘の夏』</span><div class="txt">白鳥のデビュー作の第1巻。表紙はひばりんと観覧車。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">思い出</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白鳥 透" data-label="白鳥 透の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：白鳥 透</span><span class="ttl">観覧車の募金の記録</span><div class="txt">読者からの募金。「観覧車を残そう　1,280万円」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白鳥 透" data-label="白鳥 透の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：白鳥 透</span><span class="ttl">スケッチブック</span><div class="txt">今夜のスケッチ。夕暮れの観覧車、お別れ会の園長、ひばりんの後ろ姿。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="白鳥 透" data-label="白鳥 透の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：白鳥 透</span><span class="ttl">画材の大きなケース</span><div class="txt">絵の具と道具の入った木のケース。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">宮内 ハツの持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="宮内 ハツ" data-label="宮内 ハツの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：宮内 ハツ</span><span class="ttl">葵の小さいころの絵</span><div class="txt">クレヨンの絵。売店のおばちゃんと女の子が手をつないでいる。「ハツさん　だいすき　あおい」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">思い出</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮内 ハツ" data-label="宮内 ハツの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：宮内 ハツ</span><span class="ttl">売店の売上ノート</span><div class="txt">五十二年分の売上ノートの最後の一冊。今日の欄に「さいご　ありがとう」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮内 ハツ" data-label="宮内 ハツの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：宮内 ハツ</span><span class="ttl">売店のラジオ</span><div class="txt">古いトランジスタラジオ。毎晩19:30の時報のあと、ニュースが始まる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="宮内 ハツ" data-label="宮内 ハツの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：宮内 ハツ</span><span class="ttl">おでんの大鍋</span><div class="txt">五十二年使った大鍋。とても重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>注意。</strong>持ち主の封筒に2枚ずつ入れます。調べられたときだけ、調べた人に渡します。</p>
+    <button type="button" class="btn" id="gate-secrets">表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-owner="日比野 葵" data-label="日比野 葵の秘密①"><div class="hd"><span class="loc">日比野 葵の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>葵は来月から、アークランドが建てるショッピングモールの支配人になる。</p><p class="foot">日比野 葵が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="日比野 葵" data-label="日比野 葵の秘密②"><div class="hd"><span class="loc">日比野 葵の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>19:10〜19:15、葵は園長室で父と退職金のことで言い争っていた。</p><p class="foot">日比野 葵が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="坂口 鉄平" data-label="坂口 鉄平の秘密①"><div class="hd"><span class="loc">坂口 鉄平の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>三か月前、コースターの安全バーが外れて小学生がけがをした。点検記録の「異常なし」は、坂口が園長に言われて書いたもの。</p><p class="foot">坂口 鉄平が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="坂口 鉄平" data-label="坂口 鉄平の秘密②"><div class="hd"><span class="loc">坂口 鉄平の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>コースターの写真機を開けて時計を合わせる整備用の鍵は、坂口が持っている（もう一本は事務所）。</p><p class="foot">坂口 鉄平が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="葛城 まゆ" data-label="葛城 まゆの秘密①"><div class="hd"><span class="loc">葛城 まゆの秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>まゆは一年前から、園長の許しをもらって園の控室に住んでいた。</p><p class="foot">葛城 まゆが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="葛城 まゆ" data-label="葛城 まゆの秘密②"><div class="hd"><span class="loc">葛城 まゆの秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>まゆが園長室に入ったのは19:50が初めて。それまで管理棟の2階には上がっていない（19:40は1階の売店）。</p><p class="foot">葛城 まゆが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="小松 ひより" data-label="小松 ひよりの秘密①"><div class="hd"><span class="loc">小松 ひよりの秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>ひよりは19:00から観覧車の乗り場の操作盤の前を離れていない（白鳥・まゆが見ている）。</p><p class="foot">小松 ひよりが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="小松 ひより" data-label="小松 ひよりの秘密②"><div class="hd"><span class="loc">小松 ひよりの秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>ひよりは坂口に弟子入りして、整備士になるつもりでいる。</p><p class="foot">小松 ひよりが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="浅井 拓郎" data-label="浅井 拓郎の秘密①"><div class="hd"><span class="loc">浅井 拓郎の秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>浅井は19:15〜19:22、園長室にいた。園長に「あと1億出さなければ判は押さん」と言われた。</p><p class="foot">浅井 拓郎が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="浅井 拓郎" data-label="浅井 拓郎の秘密②"><div class="hd"><span class="loc">浅井 拓郎の秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>浅井は19:24〜19:41、駐車場の車で上司と電話していた（スマホの通話記録あり）。</p><p class="foot">浅井 拓郎が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="白鳥 透" data-label="白鳥 透の秘密①"><div class="hd"><span class="loc">白鳥 透の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>白鳥は観覧車を一円で譲ってほしいと園長に頼み、断られていた。</p><p class="foot">白鳥 透が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="白鳥 透" data-label="白鳥 透の秘密②"><div class="hd"><span class="loc">白鳥 透の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>19:31、白鳥は観覧車のてっぺんから、管理棟2階の園長室の窓に人影が二つ見えたのを見ている。</p><p class="foot">白鳥 透が自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="宮内 ハツ" data-label="宮内 ハツの秘密①"><div class="hd"><span class="loc">宮内 ハツの秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>ハツは葵の本当の母親。三十五年、名乗らずにいる。</p><p class="foot">宮内 ハツが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div><div class="card sec" data-owner="宮内 ハツ" data-label="宮内 ハツの秘密②"><div class="hd"><span class="loc">宮内 ハツの秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>19:30ちょうど、ハツは売店の真上（園長室）で重い物が倒れる音を聞いている。そのとき、事務所に葵がいるのを見ている。</p><p class="foot">宮内 ハツが自分の封筒で預かる。調べられたら、調べた人にだけ渡し、読んだら返してもらう。何度でも調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>注意。</strong>場所ごとに番号順に、裏向きで横一列に並べます。調査2のカードは調査2になるまで別にしておきます。</p>
+    <button type="button" class="btn" id="gate-clues">表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「条件」の印がある場所は、条件を満たした人しか調べられません。</p><div class="cards"><div class="card clue" data-label="園長室 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">園長室 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>園長は机の横にうつぶせ。後頭部を一度、強く殴られている。そばに開園記念の銅の「ひばり像」。灰皿のたばこは、吸いかけのまま燃えつきている。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="園長室 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">園長室 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">窓</span><p>窓のカーテンは開いている。窓から観覧車がよく見える。観覧車のてっぺんからなら、部屋の中も見えそうだ。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="園長室 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">園長室 ③</span><span class="ph">調査2</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ひばり像の台座</span><p>ひばり像が置いてあった台座のそばの床に、<b>黒い機械油</b>の小さなしみ。指でこすったような形。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="園長室 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">園長室 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">警察への手紙の下書き</span><p>机の下に落ちていた便せん。「三か月前のコースターの事故は、整備士・坂口が点検記録を書き換えたためである。園は知らなかった。<b>記録は私が預かっている</b>」。日付は今日。机の上にも引き出しにも、点検記録は見あたらない。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="園長室 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">園長室 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">産院の写真</span><div class="txt">古い写真。産院の前で、割烹着の若い女性が赤ん坊を抱いている。裏に園長の字で「葵　ハツ」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">思い出</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="事務所 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">事務所 ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">葵の机</span><p>スタッフ全員の最後の給料の計算。電卓のそばに、書きかけの「退職金のお願い」。事務所と売店の間の戸は開け放してあり、売店のレジが見える。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="事務所 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">事務所 ②</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">部品の発注書</span><div class="txt">コースターの安全バーの部品の発注書。坂口の字で「<b>至急　すり減りあり</b>」。上に園長の判で「<b>却下</b>」。日付は四か月前。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="事務所 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">事務所 ③</span><span class="ph">調査2</span><span>CLUE 08</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">観覧車の譲渡書</span><div class="txt">「観覧車一基を、白鳥透に金一円で譲る」。白鳥の署名あり。園長の署名欄は空白。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="事務所 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">事務所 ④</span><span class="ph">調査2</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鍵の箱</span><p>事務所の鍵の箱。「コースター写真機（整備用）」の予備の鍵がかかっている。ほこりをかぶっていて、しばらく使われていない。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="売店 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">売店 ①</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">売店の天井</span><p>売店の天井のすぐ上が園長室。上で物が倒れたり、大きな声がしたりすれば、よく聞こえる。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="売店 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">売店 ②</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">花束</span><p>カウンターのメモ。「園長へ　花束　19:40にまゆちゃんへ」。ハツの字。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="売店 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">売店 ③</span><span class="ph">調査2</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">古い園内報</span><p>三十五年前の園内報。「園長に長女・葵ちゃん誕生」。写真の園長の横に、売店の割烹着の若い女性が写っている。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="中央広場 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">中央広場 ①</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">点灯の集合写真</span><p>19:00のカウントダウンのあとに撮った集合写真。園長も全員も写っている。<b>うしろの観覧車は七色に光っている</b>。空はもう真っ暗。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="中央広場 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">中央広場 ②</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">今夜の掲示</span><p>「閉園の夜　19:00 観覧車点灯（21:00まで）」「ジェットコースター　営業運転は17:50で終了しました」。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="中央広場 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">中央広場 ③</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">広場のスタッフの話</span><p>片づけをしていたスタッフ。「坂口さんは19:20に『最後の一周』ってコースターのほうへ行って、19:40に写真を持って戻ってきましたよ。そういえば、コースターが走る音は聞こえなかったなあ」。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="観覧車 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">観覧車 ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">観覧車の乗り場</span><p>操作盤は乗り場にある。19:00から、係のひよりがずっと操作盤の前にいた（広場のスタッフも見ている）。一周12分。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="観覧車 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">観覧車 ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">てっぺんからの眺め</span><p>てっぺんからは、管理棟の2階の窓と、ジェットコースターのレールとホームがよく見える。コースターが走れば、車両のライトでわかる。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="観覧車 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">観覧車 ③</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">8番ゴンドラの床</span><p>スケッチブックの切れ端が落ちている。走り書きで「19:31　管理棟2階、窓に人影ふたつ。コースター、まっくら」。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ジェットコースター ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">ジェットコースター ①</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ホーム</span><p>発車ボタンは操作室の中にある。ホームは暗く、車両は止まっている。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ジェットコースター ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">ジェットコースター ②</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">写真売り場</span><p>最初の坂で自動で写真を撮り、出口で印刷する機械。<b>写真に印刷される時刻は、この機械の中の時計の時刻</b>。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ジェットコースター ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">ジェットコースター ③</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">写真機の時計</span><p>機械の画面の時計は、<b>今の本当の時刻より70分進んでいる</b>。時計を直すには、整備用の鍵で機械のふたを開ける。ふたのねじに、新しい油のあと。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="ジェットコースターの操作室 ①" data-phase="1" data-lock="1"><div class="hd"><span class="loc">ジェットコースターの操作室 <span class="lockmark">条件</span> ①</span><span class="ph">調査1</span><span>CLUE 22</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">運転記録</span><p>きょうの運転記録。「営業運転　〜17:50」「<b>整備運転　18:22（1周）</b>」。それより後の記録はない。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="ジェットコースターの操作室 ②" data-phase="2" data-lock="1"><div class="hd"><span class="loc">ジェットコースターの操作室 <span class="lockmark">条件</span> ②</span><span class="ph">調査2</span><span>CLUE 23</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">本当の点検ノート</span><div class="txt">坂口の手帳。毎日の本当の点検の記録。「安全バーすり減り。交換が必要」「部品、園長却下」「記録は『異常なし』と書けと言われた。すまん」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="園長室の金庫 ①" data-phase="1" data-lock="1"><div class="hd"><span class="loc">園長室の金庫 <span class="lockmark">条件</span> ①</span><span class="ph">調査1</span><span>CLUE 24</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">土地の契約書</span><div class="txt">ひばりが丘ランドの土地をアークランドに売る契約書。園長の署名あり。印鑑はまだ押されていない。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="園長室の金庫 ②" data-phase="1" data-lock="1"><div class="hd"><span class="loc">園長室の金庫 <span class="lockmark">条件</span> ②</span><span class="ph">調査1</span><span>CLUE 25</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">園長の印鑑</span><div class="txt">園の実印。これがあれば、園の口座からお金を動かせる。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（場所には戻さない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="園長室の金庫 ③" data-phase="2" data-lock="1"><div class="hd"><span class="loc">園長室の金庫 <span class="lockmark">条件</span> ③</span><span class="ph">調査2</span><span>CLUE 26</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">園長の通帳</span><p>園長個人の通帳。きのうの日付で「現金　5,000,000」の入金。メモ欄に園長の字で「浅井より」。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="管理棟の非常階段 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">管理棟の非常階段 ①</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">2階の扉</span><p>園長室のすぐ横に出る非常階段の扉。<b>内側の取っ手に、黒い機械油</b>がべったりついている。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="管理棟の非常階段 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">管理棟の非常階段 ②</span><span class="ph">調査2</span><span>CLUE 28</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">階段の下</span><p>非常階段の下から、植えこみの裏道を通ると、1分ほどでジェットコースターの操作室の横に出る。裏道は中央広場からも観覧車の乗り場からも見えない。</p><p class="foot">共有：読んだら、裏向きのまま元の場所の元の位置に戻す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>解決編</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>注意。</strong>真相が書かれています。投票とスキルが全部終わってから、司会が開いて読み上げてください。</p>
+    <button type="button" class="btn" id="gate-gm">投票とスキルが終わったので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden>
+  <div class="box gm">
+    <h3>読み上げる順番</h3>
+    <ol>
+      <li>「真相」と「推理の筋道」を司会が読み上げる。</li>
+      <li>「エンディング」を読み上げる。</li>
+      <li>全員が今の持ち物を見せ合い、「目的の判定」で自分の目的を確認する（記録メモも見る）。</li>
+      <li>点数を合計して、MVPを決める。</li>
+    </ol>
+  </div>
+
+  <div class="box gm">
+    <h3>真相</h3>
+    <p><b>犯人は坂口鉄平（整備士）。</b>四か月前、坂口はコースターの安全バーの部品の交換を頼んだが、園長は「却下」し、点検記録に「異常なし」と書かせた。三か月前、安全バーが外れて小学生がけがをした。今日の夕方、園長は「明日、警察に『坂口が勝手に記録を書き換えた』と話す。退職金もない」と言った。</p><p>坂口は、コースターの写真機に入る時刻が「機械の時計の時刻」だと知っていた。18:15、整備用の鍵で時計を70分進め、18:22に一人でコースターに乗った。印刷された写真の時刻は「19:32」。</p><p>19:20、坂口は広場で「最後に一周乗ってくる」と言ってコースターのほうへ歩き、植えこみの裏道から管理棟の非常階段へ。19:25に園長室に入り、19:30、ひばり像で園長を殴った。机の上の点検記録を持ち、19:33に非常階段から出て（取っ手に油）、19:40に広場へ戻って「19:32の写真」を見せた。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>殺されたのは19:30。</b>ハツが、19:30の時報の直後に、真上の園長室で重い物が倒れる音を聞いた。19:31、観覧車のてっぺんの白鳥が、園長室の窓に人影を二つ見ている（8番ゴンドラのメモも）。</li><li><b>「19:32の写真」はうそ。</b>写真のうしろの観覧車は黒い影で、空のふちが明るい。観覧車は19:00からずっと光っていて、19:00の集合写真ではもう真っ暗な空（中央広場①）。写真機の時計は70分進んでいた（コースター③）。運転記録は「整備運転 18:22」（操作室①）。19:31のコースターは真っ暗（白鳥）、走る音もしなかった（広場のスタッフ）。</li><li><b>表の階段を使わずに園長室へ。</b>ハツは19:20すぎに下りる足音（浅井）のあと、上がる足音を聞いていない。非常階段は裏道でコースターの操作室の横に出る（非常階段②）。非常階段の扉の取っ手とひばり像の台座のそばに黒い機械油（非常階段①・園長室③）。</li><li><b>動機。</b>警察への手紙の下書き（園長室④）、部品の発注書の「却下」（事務所②）、本当の点検ノート（操作室②）、坂口の持ち物の「改ざんした点検記録」（机から消えていた記録）。</li></ol>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>浅井</b>：19:15〜19:22に園長室にいて、500万円の裏金と「あと1億」。→ 19:22に出たとき園長は生きていた（ハツが下りる足音と、そのあとも園長の部屋は静か）。19:24〜19:41は駐車場の車で電話。</li><li><b>葵</b>：19:10〜19:15に父と言い争った。→ 19:16からは事務所。19:30はハツから見えていた。</li><li><b>ハツ</b>：園長室の真下にひとり。→ 事務所の葵から見えていた。</li><li><b>まゆ</b>：遺体を見つけた。→ 19:25〜19:37は観覧車、19:40は売店。</li><li><b>白鳥・ひより</b>：観覧車を譲ってもらえなかった／坂口をかばいたい。→ 19:30は観覧車のゴンドラと乗り場で、おたがいが見えていた。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">司会 読み上げ</span>
+      <p>日比野銀次郎を殺したのは、整備士の坂口鉄平だった。</p><p>「写真機の時計なんて、誰も見やしないと思った」。坂口は作業帽を脱いだ。「四十年、ここのねじを締めてきた。最後に、自分の手で全部ゆるめちまった」。</p><p>写真のうしろで、観覧車はまだ灯をともしていなかった。あの夜、丘の上でいちばん正直だったのは、七色の大きな輪だったのかもしれない。</p><p>21時。予定どおり、観覧車の灯が消えた。五十二年分の明かりが、ひとつずつ夜に溶けていった。</p>
+    </div>
+    <ul class="epi"><li><b>日比野 葵</b>：葵はモールの支配人の話を断った。印鑑と、浅井の500万円で、働く人たちに少しずつだが退職金を払った。最後に払ったのは、売店のハツの分だった。</li><li><b>坂口 鉄平</b>：坂口はすべてを話した。本当の点検ノートが証拠になり、三か月前の事故の責任は園にあったと認められた。けがをした男の子の家族は、面会室に一枚の絵を送ってきた。コースターに乗って笑う、男の子の絵だった。</li><li><b>葛城 まゆ</b>：ひばりんの頭は、まゆの新しいアパートの棚の上にある。ときどき、近所の子どもが窓から手を振る。</li><li><b>小松 ひより</b>：ひよりは大学を出て、遊園地の整備会社に入った。工具箱のふたの裏に、坂口の字の「ねじは心で締めろ」が貼ってある。</li><li><b>浅井 拓郎</b>：浅井は裏金のことを会社に話し、用地の仕事を外された。モールの計画は少し変わり、跡地の一角に小さな公園ができることになった。</li><li><b>白鳥 透</b>：観覧車は、白鳥の読者たちの募金で、隣の町の海辺の公園に移された。開業の日、てっぺんのゴンドラには、ひばりんのステッカーが貼ってあった。</li><li><b>宮内 ハツ</b>：ハツは産院の写真を、葵に手渡した。葵はしばらく写真を見つめ、それから「知ってたよ。ハツさんのおにぎりの味で」と言った。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定</h3>
+    <p class="note">投票の答え：坂口鉄平（+4）。坂口本人はこの点なし。「見せながら明かす」は記録メモで確かめる。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>日比野 葵</b></td><td>+3　最後に「園長の印鑑」を自分が持っている（みんなの退職金を払うため）。<br>+2　議論中に「裏金の受領書」を全員に見せながら、浅井が父に500万円を渡していたと明かす。<br>+1　スキル「取り上げる」を成功させる。</td></tr><tr><td><b>坂口 鉄平</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「改ざんした点検記録」を自分が持って<b>いない</b>。<br>+1　議論中に「部品の発注書」を全員に見せながら、園長が部品の交換を止めていたと明かす。</td></tr><tr><td><b>葛城 まゆ</b></td><td>+3　最後に「ひばりんの頭」を自分が持っている。<br>+2　自分が最多票に<b>ならない</b>。<br>+1　スキル「目利き」を成功させる。</td></tr><tr><td><b>小松 ひより</b></td><td>+3　坂口鉄平が最多票に<b>ならない</b>。<br>+2　最後に「操作室の鍵」を自分が持っている。<br>+1　スキル「かばう」を成功させる（守った人に、誰かがスキルを向ける）。</td></tr><tr><td><b>浅井 拓郎</b></td><td>+3　最後に「土地の契約書」を自分が持っている。<br>+2　最後に「裏金の受領書」を自分が持っている（誰にも渡さない）。<br>+1　スキル「お願い」を成功させる。</td></tr><tr><td><b>白鳥 透</b></td><td>+3　最後に「観覧車の譲渡書」を自分が持っている。<br>+2　最後に「ひばりんの頭」を自分が持っている。<br>+1　スキル「すり替え」を成功させる。</td></tr><tr><td><b>宮内 ハツ</b></td><td>+3　議論中に「産院の写真」を全員に見せながら、自分が葵の本当の母親だと明かす。<br>+2　日比野葵が最多票に<b>ならない</b>。<br>+1　スキル「取り戻す」を成功させる。</td></tr></tbody></table></div>
+    <ul><li>「かばう」で守られた人には、そのあとのスキルが効かない。ひよりの「かばうを成功させる」は、守った人に誰かがスキルを向けたら達成。</li><li>「目利き」で取れるのは「思い出」の印がある持ち物（スタッフの寄せ書き・ひばりんの頭・漫画『ひばりが丘の夏』・葵の小さいころの絵・産院の写真）だけ。</li><li>「取り戻す」で取り返せるのは、カードに「最初の持ち主：自分」と書いてある物だけ。場所で見つけた持ち帰りカードは、最初の持ち主がいない。</li><li>「スキルを成功させる」は、相手に効いて結果が出たとき（実際に持ち物が動いたとき）。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>18:15</td><td><b>坂口、コースターの写真機の時計を70分進める。</b></td></tr><tr><td class='t'>18:22</td><td><b>坂口、ひとりでコースターに乗る（写真の時刻は「19:32」）。</b></td></tr><tr><td class='t'>18:30</td><td>中央広場でお別れ会。</td></tr><tr><td class='t'>19:00</td><td>観覧車の点灯。集合写真。</td></tr><tr><td class='t'>19:05</td><td>園長が園長室へ。ハツが売店へ。葵があとを追う。</td></tr><tr><td class='t'>19:10</td><td>葵、園長室で父と言い争う（〜19:15）。ハツが下で聞く。</td></tr><tr><td class='t'>19:13</td><td>浅井、管理棟へ（ひよりが見る）。</td></tr><tr><td class='t'>19:15</td><td>葵と浅井が表の階段ですれ違う。浅井、園長室へ。葵は事務所へ。</td></tr><tr><td class='t'>19:20</td><td><b>坂口、広場で「最後に一周」と言ってコースターのほうへ。裏道から非常階段へ。</b></td></tr><tr><td class='t'>19:22</td><td>浅井、園長室を出る（園長は生きている）。ひよりがスマホで撮る。</td></tr><tr><td class='t'>19:24</td><td>浅井、駐車場の車で電話（〜19:41）。</td></tr><tr><td class='t'>19:25</td><td><b>坂口、非常階段から園長室へ。</b>白鳥とまゆ、観覧車の8番ゴンドラへ。</td></tr><tr><td class='t'>19:30</td><td><b>坂口、ひばり像で園長を殴る。</b>ハツが真上の音を聞く。</td></tr><tr><td class='t'>19:31</td><td>白鳥、観覧車のてっぺんから園長室の人影二つと、真っ暗なコースターを見る。</td></tr><tr><td class='t'>19:33</td><td>坂口、点検記録を持って非常階段から出る（取っ手に油）。</td></tr><tr><td class='t'>19:37</td><td>白鳥とまゆ、観覧車を降りる。</td></tr><tr><td class='t'>19:40</td><td>坂口、広場に戻って「19:32の写真」を見せる。まゆ、売店で花束を受け取る。</td></tr><tr><td class='t'>19:50</td><td>まゆ、園長室で園長を見つける。</td></tr></tbody></table></div>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。スキル用紙は、最多票の人以外が書きます。記録メモは司会が手元に置きます。</p>
+  <div class="box"><h3>記録メモ（司会が書く）</h3>
+      <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数（2枚まで）</th><th>「見せながら明かした」こと（見せたカード）</th></tr></thead><tbody><tr><td>日比野 葵</td><td>□　□</td><td></td></tr><tr><td>坂口 鉄平</td><td>□　□</td><td></td></tr><tr><td>葛城 まゆ</td><td>□　□</td><td></td></tr><tr><td>小松 ひより</td><td>□　□</td><td></td></tr><tr><td>浅井 拓郎</td><td>□　□</td><td></td></tr><tr><td>白鳥 透</td><td>□　□</td><td></td></tr><tr><td>宮内 ハツ</td><td>□　□</td><td></td></tr></tbody></table></div></div>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　日比野銀次郎を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：日比野葵・坂口鉄平・葛城まゆ・小松ひより・浅井拓郎・白鳥透・宮内ハツ</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('hibari-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('hibari-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('hibari-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('hibari-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // 解決編の「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「条件あり」の場所は、条件を満たしている人だけが調べられます。持ち帰りで取られたカードは、もう開かないでください。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '条件あり'));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>サーカスの灯が消える夜（9人用）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 昭和の旅回りサーカス。雪の夜と、大テントの紅と金の、タブ切り替え式の印刷キット。1タブ＝1印刷単位。 */
+:root {
+  --bg: #f2eeec;
+  --surface: #fdfbfa;
+  --ink: #2a1e1c;
+  --muted: #6e5f5b;
+  --line: #e0d6d2;
+  --accent: #b91c1c;
+  --accent-soft: #f9e0de;
+  --teal: #92640c;
+  --teal-soft: #f5ead2;
+  --slate: #2a1214;
+  --slate-ink: #faf4f2;
+  --f-display: "Zen Old Mincho", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --f-body: "Zen Kaku Gothic New", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #140d0d; --surface: #1d1414; --ink: #f0e8e6; --muted: #ad9c98; --line: #3a2a29;
+    --accent: #f87171; --accent-soft: #3e1a1a; --teal: #e9c46a; --teal-soft: #33280f;
+    --slate: #0b0606; --slate-ink: #f0e8e6; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #140d0d; --surface: #1d1414; --ink: #f0e8e6; --muted: #ad9c98; --line: #3a2a29;
+    --accent: #f87171; --accent-soft: #3e1a1a; --teal: #e9c46a; --teal-soft: #33280f;
+    --slate: #0b0606; --slate-ink: #f0e8e6; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.75; padding-inline: 16px; padding-block: 0 64px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+
+.hero { background: var(--slate); color: var(--slate-ink); margin-inline: -16px; padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 28px; }
+.hero .inner { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.hero .rule { height: 2px; max-width: 320px; background: linear-gradient(90deg, #e9c46a, transparent); }
+.hero h1 { font-size: clamp(32px, 7vw, 58px); font-weight: 900; letter-spacing: .06em; }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; opacity: .85; }
+.hero .meta span b { font-family: var(--f-mono); font-weight: 500; margin-right: 6px; letter-spacing: .08em; opacity: .7; }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.tabs .inner { max-width: 980px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { color: var(--surface); background: var(--ink); }
+.tab .lock { font-size: 11px; margin-left: 4px; color: var(--accent); }
+.tab[aria-selected="true"] .lock { color: var(--surface); }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+section.panel { padding-top: 28px; display: grid; gap: 22px; }
+.panel > h2 { font-size: 26px; }
+.lead { color: var(--muted); max-width: 46em; }
+h3.sub, h3.grp { font-size: 18px; margin-top: 8px; }
+.gated { display: grid; gap: 18px; }
+
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.box h3 { font-size: 18px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+ul, ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; align-content: start; }
+.note { font-size: 13px; color: var(--muted); }
+
+.warn { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.warn strong { color: var(--accent); }
+.gate button, .btn { font: inherit; font-weight: 700; color: var(--surface); background: var(--accent); border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; justify-self: start; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.step { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.step b { font-family: var(--f-display); font-size: 16px; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+td.t, th.t { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.read { border-left: 3px solid var(--teal); background: var(--teal-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 15.5px; line-height: 1.95; }
+.read .who { font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .12em; color: var(--teal); }
+.epi { gap: 8px; }
+
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.person .nm { font-family: var(--f-display); font-size: 19px; font-weight: 900; }
+.person .kana { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.person .role { font-size: 12px; font-weight: 700; color: var(--teal); }
+.person .look { font-size: 13px; color: var(--muted); }
+.person .pstat { font-size: 13px; font-weight: 700; border-top: 1px dashed var(--line); padding-top: 6px; }
+.person.victim { border-color: var(--accent); }
+.person.victim .role { color: var(--accent); }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.slate { background: var(--slate); color: var(--slate-ink); padding: 14px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: end; }
+.slate.cont { border-top: 1px solid var(--line); }
+.slate .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; opacity: .7; grid-column: 1 / -1; }
+.slate .nm { font-family: var(--f-display); font-size: 26px; font-weight: 900; }
+.slate .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; opacity: .7; margin-left: 10px; letter-spacing: .06em; }
+.slate .rl { font-size: 13px; opacity: .85; text-align: right; }
+.sheet .body { padding: 20px; display: grid; gap: 18px; }
+.sheet h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.bgtext { display: grid; gap: 8px; }
+.bgtext h4 { margin-bottom: 0; }
+.stance { border: 1px solid var(--ink); border-radius: 6px; padding: 10px 14px; font-weight: 700; }
+.secret { border: 1px dashed var(--accent); border-radius: 6px; padding: 12px 14px; }
+.secret h4 { color: var(--accent); }
+.skillbox { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; display: grid; gap: 4px; }
+.skillbox h4 { color: var(--teal); margin-bottom: 0; }
+.intro { background: var(--teal-soft); border-radius: 6px; padding: 10px 14px; }
+.answer { border: 1px solid var(--teal); border-radius: 6px; padding: 10px 14px; }
+.answer h4 { color: var(--teal); }
+ul.mini { margin: 4px 0 0; padding-left: 1.2em; font-size: 13px; }
+.tl { display: grid; grid-template-columns: 4.4em 1fr; gap: 6px 12px; margin: 0; }
+.tl dt { font-family: var(--f-mono); font-size: 13px; color: var(--teal); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.tl dd { margin: 0; }
+.goals { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; align-items: baseline; }
+.goal .pt { font-family: var(--f-mono); font-size: 13px; color: var(--surface); background: var(--teal); border-radius: 4px; text-align: center; padding: 1px 0; }
+
+.labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 22px; }
+.labels .lb { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; background: var(--surface); }
+.labels .no { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.labels .nm { font-family: var(--f-display); font-size: 24px; font-weight: 900; line-height: 1.3; }
+.labels .nm small { font-family: var(--f-body); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.labels .rl { font-size: 13px; }
+.labels .in { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; margin-top: 4px; }
+.labels-title { font-size: 18px; margin-bottom: 10px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; break-inside: avoid; }
+.card .hd { background: var(--slate); color: var(--slate-ink); padding: 7px 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; }
+.card .hd .loc { font-family: var(--f-body); font-weight: 700; letter-spacing: .04em; font-size: 12px; }
+.card .hd .ph { font-family: var(--f-body); margin-left: auto; opacity: .85; }
+.card .bd { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.card .ttl { font-family: var(--f-display); font-weight: 900; font-size: 17px; }
+.card .owner { font-size: 12px; color: var(--muted); }
+.card .txt { display: grid; gap: 4px; }
+.card .foot { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; }
+.card.item .hd { background: var(--teal); color: var(--surface); }
+.card.sec .hd { background: var(--accent); color: var(--surface); }
+.card.clue.p2 .hd { background: #4a2a1a; }
+.ledger { font-size: 13px; gap: 2px; }
+.bdg { display: flex; flex-wrap: wrap; gap: 6px; }
+.pw, .art, .kind, .lockmark { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; justify-self: start; }
+.pw.on { border-color: var(--accent); color: var(--accent); }
+.art { border-color: var(--teal); color: var(--teal); }
+.kind.take { border-color: var(--accent); color: var(--accent); }
+.kind.share { border-color: var(--teal); color: var(--teal); }
+.card .hd .lockmark { color: inherit; border-color: currentColor; margin-left: 4px; }
+.eff { font-size: 13px; display: flex; gap: 8px; }
+.eff b { flex: none; font-size: 11px; background: var(--ink); color: var(--surface); border-radius: 3px; padding: 0 6px; align-self: center; }
+.eff.none { color: var(--muted); }
+
+.maps { display: grid; gap: 16px; }
+.map svg { width: 100%; max-width: 620px; height: auto; display: block; }
+.map .room { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.map .hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.map .stair { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 1.5; }
+.map text { fill: var(--ink); font-family: var(--f-body); font-size: 12px; }
+.map text.sm { fill: var(--muted); font-size: 9.5px; }
+.map text.ac { fill: var(--accent); font-weight: 700; }
+
+.vote { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vote .slip { border: 1.5px dashed var(--muted); border-radius: 6px; padding: 14px; display: grid; gap: 8px; background: var(--surface); font-size: 13px; }
+.vote .ln { border-bottom: 1px solid var(--ink); height: 1.8em; }
+
+@media (prefers-reduced-motion: no-preference) { .tab { transition: background-color .15s, color .15s; } }
+
+.printonly { display: none; }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  body::before { display: none; }
+  .hero, .tabs, .gate, .noprint { display: none !important; }
+  .printonly { display: block; font-family: var(--f-display); font-size: 12pt; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 8px; }
+  .slate, .card .hd, .goal .pt, .read, .warn, .skillbox, .intro, .answer, .map *, .eff b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  section.panel { padding-top: 0; }
+  .printing section.panel:not([hidden]) ~ section.panel:not([hidden]) { break-before: page; }
+  .labels { grid-template-columns: 1fr 1fr; gap: 0; margin: 0; break-after: page; }
+  .labels .lb { border-radius: 0; height: 49mm; align-content: center; padding: 5mm 8mm; }
+  .labels .nm { font-size: 20pt; }
+  .sheet { border: 0; border-radius: 0; overflow: visible; display: block; }
+  .sheet .pg { display: flex; flex-direction: column; height: 262mm; overflow: hidden; break-before: page; break-inside: avoid; }
+  .sheet .slate { flex: none; padding: 4mm 6mm; }
+  .sheet .slate .nm { font-size: 20pt; }
+  .sheet .body { flex: 1 1 auto; min-height: 0; display: block; column-count: 2; column-fill: auto; column-gap: 7mm; column-rule: 0.3mm solid var(--line); padding: 4mm 0 0; font-size: 9.8pt; line-height: 1.7; }
+  .sheet .body > * { break-inside: avoid; margin: 0 0 3mm; }
+  .sheet .body > .stance { column-span: all; margin-bottom: 4mm; padding: 2.5mm 4mm; font-size: 10pt; }
+  .sheet .body > .bgtext, .sheet .body > .secret:has(.tl) { break-inside: auto; }
+  .sheet .bgtext p { margin-bottom: 1.6mm; }
+  .sheet .secret, .sheet .skillbox, .sheet .intro, .sheet .answer { padding: 2.5mm 3mm; }
+  .sheet h4 { margin-bottom: 1.5mm; font-size: 9pt; }
+  .sheet .tl { grid-template-columns: 3.4em 1fr; gap: 1.2mm 2.5mm; }
+  .sheet .tl dt { font-size: 9pt; padding-top: 0.3mm; }
+  .sheet ul { gap: 1mm; }
+  .sheet .goal { grid-template-columns: 2.6em 1fr; gap: 2mm; }
+  .sheet .goal .pt { font-size: 9pt; }
+  .cards { display: block; }
+  .crow > h3.grp { grid-column: 1 / -1; margin: 3mm 0 -2mm; }
+  .crow { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-bottom: 5mm; break-inside: avoid; }
+  .card { border-style: dashed; font-size: 9.5pt; line-height: 1.55; }
+  .card .ttl { font-size: 13pt; }
+  h3.grp { break-after: avoid; font-size: 12pt; margin-top: 4mm; }
+  .person, .card, .slip, .step, tr, .read p, .box h3 { break-inside: avoid; }
+  .box h3 { break-after: avoid; }
+  .box { display: block; }
+  .box > * + * { margin-top: 3mm; }
+  .grid2 { display: block; }
+  .grid2 > .box + .box { margin-top: 4mm; }
+  .tbl-wrap { overflow: visible; }
+  .gm table { font-size: 8.5pt; }
+}
+
+/* 公開ページ用：名前・カードの一覧から、長押しで1つずつ開く */
+.pl-note { font-size: 13px; color: var(--muted); }
+.pl-banner { border: 1px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: var(--surface); color: var(--ink); display: grid; gap: 4px; }
+.pl-roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.pl-person { font: inherit; text-align: left; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; min-width: 0; }
+.pl-person b { font-family: var(--f-display); font-size: 17px; }
+.pl-person .r { font-size: 12px; color: var(--muted); }
+.pl-person[aria-expanded="true"], .pl-row[aria-expanded="true"] { border-color: var(--teal); box-shadow: inset 0 0 0 1px var(--teal); }
+.pl-open { display: grid; gap: 14px; min-width: 0; }
+.pl-open:empty { display: none; }
+.pl-open .cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.pl-head { font-size: 20px; }
+.pl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.pl-cell { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.pl-row { font: inherit; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; text-align: left; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+.pl-row .pl-place { font-weight: 700; }
+.pl-chip { font-size: 11px; font-weight: 700; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; color: var(--muted); white-space: nowrap; }
+.pl-chip.p2, .pl-chip.lk { border-color: var(--accent); color: var(--accent); }
+.pl-btn { font: inherit; font-size: 14px; font-weight: 700; border-radius: 6px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--teal); background: var(--teal); color: var(--surface); justify-self: start; }
+.pl-btn.ghost { background: transparent; color: var(--teal); }
+.pl-hold { position: relative; overflow: hidden; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pl-gauge { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: var(--accent); pointer-events: none; }
+.pl-hold.pl-holding .pl-gauge { width: 100%; transition: width 3s linear; }
+.pl-hold.pl-holding { border-color: var(--accent); }
+.btn.pl-hold .pl-gauge { background: var(--surface); height: 5px; }
+.pl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--surface); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { .pl-hold.pl-holding .pl-gauge { transition-timing-function: steps(3, end); } }
+.pl-btn:focus-visible, .pl-row:focus-visible, .pl-person:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <div class="rule"></div>
+    <h1>サーカスの灯が消える夜</h1>
+    <p>昭和三十八年、雪の河原の大テント。千秋楽のカーテンコールのあと、団長は自分の車の中で、グラスを手にしたまま倒れていた。</p>
+    <div class="meta">
+      <span><b>PLAYERS</b>9人 ＋ GM1人</span>
+      <span><b>TIME</b>約160分</span>
+      <span><b>LEVEL</b>中級</span>
+      <span><b>SETTING</b>昭和38年・信州の河原のサーカス小屋</span>
+      <span><b>CARDS</b>キャラシート9・持ち物36・秘密18・証拠27</span>
+    </div>
+  </div>
+</header>
+<nav class="tabs noprint" aria-label="セクション"><div class="inner" role="tablist"><button class="tab" role="tab" data-tab="howto" aria-selected="true">遊び方</button><button class="tab" role="tab" data-tab="intro" aria-selected="false">事件概要・見取り図</button><button class="tab" role="tab" data-tab="people" aria-selected="false">人物一覧</button><button class="tab" role="tab" data-tab="chars" aria-selected="false">キャラシート<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="items" aria-selected="false">持ち物カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="secrets" aria-selected="false">秘密カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="clues" aria-selected="false">証拠カード<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="gm" aria-selected="false">GMブック<span class=lock>秘</span></button><button class="tab" role="tab" data-tab="vote" aria-selected="false">投票・スキル用紙</button></div></nav>
+<main class="wrap">
+<div class="printonly">サーカスの灯が消える夜（9人用）</div>
+
+<section class="panel" id="howto">
+  <h2>遊び方</h2>
+  <p class="lead">プレイヤー9人がそれぞれ登場人物になり、話し合いと調査で犯人を探します。犯人役もプレイヤーの中にいます。進行役のGMは1人で、この資料を全部読んでから当日に臨んでください。</p>
+  <div class="warn">
+    <p><strong>ネタバレ注意。</strong>「秘」のついたタブには真相が含まれます。GM以外の人は「遊び方」「事件概要」「人物一覧」「投票・スキル用紙」だけを見てください。</p>
+    <p class="note">このシナリオには、毒による殺人と、家族への暴力の話が出てきます。遊ぶ前に、メンバーに一言確認してください。</p>
+  </div>
+
+  <div class="box">
+    <h3>このシナリオの特徴</h3>
+    <ul>
+      <li><b>持ち物は1人4つ。</b>自分の持ち物は最初から見られる。ほかの人に調査されると、その持ち物は取られてしまう。</li>
+      <li><b>調べられるのは、場所・人の持ち物・人の秘密。</b>1回の調査時間に調べられる回数が決まっている（調査1は1人3回、調査2は1人2回）。何を調べるかはあなた次第。</li>
+      <li><b>パワーとスキル。</b>投票のあと、最多票になった人以外は、自分のスキルを1人に向けて使える。スキルがうまくいくかどうかは、パワーで決まることがある。どんなスキルを持っているかは、本人しか知らない。</li>
+      <li><b>犯人を当てても、それだけでは点にならない。</b>「犯人に投票する」が目的の人もいれば、犯人が誰であれ別の目的のために投票する人もいる。投票は記名で、全員の票を公開する。</li>
+      <li><b>目的は「誰に投票したか」「最多票が誰になったか」「最後に何を持っているか」「誰の秘密を明かしたか」「スキルが成功したか」で決まる。</b>挙手の判定はない。</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>準備するもの</h3>
+      <ul>
+        <li>キャラクターシート 9人分（1人2枚。宛名ラベルを貼った封筒に入れる）</li>
+        <li>持ち物カード 36枚（持ち主のキャラシートと同じ封筒へ、4枚ずつ）</li>
+        <li>秘密カード 18枚（GMの手元に、人物ごとに分けておく）</li>
+        <li>証拠カード 27枚（場所ごとに番号順。調査2のカードは別に分けておく）</li>
+        <li>事件概要・見取り図・人物一覧（全員に1部ずつ、または卓の真ん中に）</li>
+        <li>投票用紙・スキル用紙 9枚ずつ、筆記用具、タイマー</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>基本ルール</h3>
+      <ul>
+        <li>自分のキャラシートは他人に見せない。内容を口で話すのは自由。</li>
+        <li><b>犯人はどんな嘘をついてもよい。</b>犯人以外も、自分の秘密を守るための嘘はついてよい。</li>
+        <li>シートに書かれていないことを聞かれたら「覚えていない」と答えるか、設定と矛盾しない範囲で自由に答えてよい。</li>
+        <li>持ち物カードは、議論中なら見せる・隠す・渡す・交換する、どれも自由（取引してよい）。口で説明するときは嘘もOK。ただしカードは書き換えられないので、<b>見せれば本当だと証明できる</b>。</li>
+        <li>議論中は2〜3人で席を外して「密談」してよい（1回3分まで）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>調査のしかた</h3>
+    <p>GMが決めた順番で、1人1回ずつぐるぐる回します。<b>調査1は3周（1人3回）、調査2は2周（1人2回）</b>。自分の番に、次のどれか1つをします。</p>
+    <div class="steps">
+      <div class="step"><b>場所を調べる</b><p>場所と番号を言う（例：「楽屋テントの②」）。GMからカードを受け取って読む。<br><span class="kind share">共有</span> のカードは読んだらGMに返す。ほかの人もあとで調べられる。<br><span class="kind take">持ち帰り</span> のカードは、そのまま自分の持ち物になる。もうほかの人はそのカードを調べられない。</p></div>
+      <div class="step"><b>条件のある場所を調べる</b><p>猛獣小屋の薬品棚・団長車の金庫は、<b>ある条件を満たしている人だけ</b>が調べられる。何が条件かは、関係する持ち物カードやキャラシートに書いてあり、本人にしかわからない（たとえば「これを持っている間、○○を調べられる」）。調べたいときは場所の名前を言い、条件になるカードは<b>GMにだけこっそり見せる</b>。条件を満たしていなければ、GMは「今は調べられない」とだけ言うので、別のものを選び直す。</p></div>
+      <div class="step"><b>人の持ち物を調べる</b><p>自分以外の1人を指名する。指名された人は持ち物カードを裏向きにして並べ（順番は混ぜてよい）、調べる人が1枚選ぶ。<b>そのカードは調べた人のものになる。</b>指名された人は断れない。自分の持ち物は調べられない。<br><b>1人が調査で取られるのは、調査1・調査2を合わせて2枚まで。</b>2枚取られた人の持ち物は、もう調べられない。</p></div>
+      <div class="step"><b>人の秘密を調べる</b><p>自分以外の1人と、その人の「ちょっとした秘密」①か②を指名する。GMがそのカードをこっそり見せる。見たらGMに返す。同じ秘密は、ほかの人も何度でも調べられる。</p></div>
+    </div>
+    <p class="note">調査2では、各場所に新しいカードが足され、「団長車の裏」も調べられるようになります。調べたことを議論でどこまで話すかは自由です（嘘も可）。</p>
+  </div>
+
+  <div class="box">
+    <h3>持ち物とパワー</h3>
+    <ul>
+      <li>あなたの<b>パワー＝キャラの基本パワー＋今持っている持ち物のパワーの合計</b>。持ち物を取られれば下がり、取れば上がる。</li>
+      <li>持ち物には、場所を調べる条件になる物、パワーのある物、スキルに使う物、何の効果もない物があります。事件に関係する物も、関係ない物もあります。</li>
+      <li>「証文」の印は、スキルによっては意味を持ちます。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3>進行表</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th class="t">目安</th><th>フェーズ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="t">5分</td><td>準備</td><td>配役を決め、封筒を配る。GMがルールを説明。</td></tr>
+        <tr><td class="t">20分</td><td>読み込み</td><td>各自、キャラシートと持ち物カードを黙読する。</td></tr>
+        <tr><td class="t">12分</td><td>オープニング</td><td>GMが事件概要を読み上げる。1人1分で、キャラシートの「自己紹介」を話す。</td></tr>
+        <tr><td class="t">25分</td><td>調査1</td><td>1人3回。</td></tr>
+        <tr><td class="t">25分</td><td>議論1</td><td>情報交換と追及。取引・密談OK。</td></tr>
+        <tr><td class="t">18分</td><td>調査2</td><td>1人2回。新しいカードと「団長車の裏」が加わる。</td></tr>
+        <tr><td class="t">25分</td><td>議論2</td><td>最後の追及。</td></tr>
+        <tr><td class="t">10分</td><td>推理と投票</td><td>1人30秒で推理を発表し、記名で一斉に投票。GMが全員の票を読み上げ、最多票の人を発表する。</td></tr>
+        <tr><td class="t">10分</td><td>スキル</td><td>最多票の人以外が、スキル用紙を書いてGMに渡す。GMが順番に処理する。</td></tr>
+        <tr><td class="t">15分</td><td>エンディング</td><td>GMが真相を読み上げ、目的の達成を確認して点数を数える。</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="box">
+    <h3>投票とスキル</h3>
+    <ol>
+      <li><b>投票</b>：投票用紙に自分の名前と、問いの答え（プレイヤーが演じている人物の名前）を書く（大鷲権造は書けない。自分の名前を書いてもよい）。</li>
+      <li>GMが<b>全員の票を読み上げる</b>（誰が誰に入れたかは公開）。票がいちばん多かった人が<b>「最多票」</b>で、その人が犯人として捕まる。同じ数で並んだら、その全員が最多票。</li>
+      <li><b>スキル</b>：全員に1つずつ、自分だけが知っているスキルがある（キャラシートに書いてある）。最多票の人<b>以外</b>の全員が、スキル用紙に「スキルを向ける相手」（必要なら、ほかに書くこと）を書いて、GMに渡す。使わなくてもよい。</li>
+      <li>GMは、スキル用紙が全部そろった時点の<b>全員のパワーを確定</b>する（スキルで持ち物が動いても、パワーは変わらない）。</li>
+      <li>GMがスキルを決まった順番で1つずつ呼ぶ。呼ばれた人は、そこで初めて<b>自分のスキルの名前と効果を全員に言い</b>、GMと一緒に結果を出す。</li>
+    </ol>
+    <p class="note">相手が持ち物を持っていない場合、持ち物を動かすスキルは失敗します。</p>
+  </div>
+
+  <div class="box">
+    <h3>点数</h3>
+    <p><b>このシナリオでは、犯人に投票しても、それだけでは点になりません。</b>点数は全部、キャラシートの「目的」で決まります。全員に「目的」が4つあり、達成すると点数が入ります（+3／+2／+1／+1。犯人だけは「逃げ切る」が+5）。</p>
+    <p>「犯人（大鷲権造を殺した人）に投票する」が目的に入っている人もいれば、入っていない人もいます。犯人を捕まえたくない人、自分が捕まりたい人、別の誰かを捕まえさせたい人がいるかもしれません。目的は、次の形で判定します。</p>
+    <ul>
+      <li><b>「○○に投票する」「○○が最多票になる／ならない」</b>：公開された票と、最多票の結果で決まる。「犯人に投票する」は、真相の犯人の名前を書いていれば達成。</li>
+      <li><b>「最後に○○を持っている」</b>：スキルの処理が全部終わった時点で持っているかどうか。</li>
+      <li><b>「○○を見せながら明かす」</b>：議論中に、そのカードを全員に見せて、言葉ではっきり言うこと。GMが記録する。言うだけで見せなければ達成にならない。</li>
+      <li><b>「スキルを成功させる」「最多票にならない」</b>：投票とスキルの結果で決まる。</li>
+    </ul>
+    <p>最後に点数がいちばん高い人が、その回のMVPです。</p>
+  </div>
+</section>
+<section class="panel" id="intro" hidden>
+  <h2>事件概要・見取り図</h2>
+  <p class="lead">オープニングでGMが読み上げ、その後は全員が見られるように卓に置いておきます。</p>
+  <div class="read">
+    <span class="who">GM 読み上げ</span>
+    <p>昭和三十八年、十二月。信州・千曲川の河原に、旅回りの「大鷲サーカス」の大テントが立っていた。雪の降るこの町で、今年の興行は千秋楽をむかえた。</p><p>十九時の開演から二十一時の終演まで、客席は満員だった。綱渡り、猛獣の芸、ジャグリング、ピエロ、そして空中ブランコ。最後に一座の全員がリングに並び、団長の大鷲権造が赤い燕尾服で深く頭を下げた。</p><p>終演のあと、団長は、テントの裏に止めた自分の車——客車を改造した「団長車」へ戻った。そこには団長自慢の電気冷蔵庫があり、終演後に、自分だけの氷を浮かべたウイスキーを飲むのが、団長の何よりの楽しみだった。</p><p>二十一時四十五分。団長車の戸を開けた息子の雄一が見たのは、ソファの前の床に倒れた父の姿だった。机の上には、飲みかけのグラス。部屋には、杏仁のような甘いにおいがただよっていた。</p><p>雪で峠の道はふさがり、町の駐在が来るのは夜明けになるという。一座の者と、二人の客が、大テントの楽屋に集められた。</p><p>——サーカスの灯が消える夜、団長に毒を盛ったのは誰か。</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h3>全員が知っていること</h3>
+      <ul><li>遺体：団長車の中、ソファの前の床。口のまわりから杏仁のような甘いにおい。毒（青酸カリ）とみられる。21:45に雄一が見つけた。</li><li>机の上に、ウイスキーのグラスが二つと、ウイスキーの瓶。団長は終演後、団長車で酒を飲むのが習慣だった。</li><li>青酸カリは、一座では猛獣小屋の薬品棚に、猛獣の緊急用として置いてある。</li><li>21:00の終演の挨拶には、団長を含め一座の全員がリングに並んだ。蛭田と春日は客席にいた。</li><li>調べるのに条件がある場所：猛獣小屋の薬品棚・団長車の金庫。</li></ul>
+    </div>
+    <div class="box">
+      <h3>今夜の番組</h3>
+      <ul><li>19:00 開演（司会：団長）</li><li>19:10 綱渡り（ハル）／19:30 猛獣の芸（虎尾とラジャ）／19:50 ジャグリング（雄一）</li><li>20:05 休憩（〜20:20）</li><li>20:20 ピエロ（トト）／20:40 空中ブランコ（美羽・黒川）</li><li>21:00 終演の挨拶（全員）</li><li>21:45 雄一が団長車で団長を見つける</li></ul>
+      <p class="note">大テントのまわりに、楽屋テント・猛獣小屋・炊事車（台所の車）・団長車・団員の寝泊まりする車が並んでいる。夜は雪が降ったりやんだりしている。</p>
+      <h3 class="sub">投票の問い</h3>
+      <ul><li>問1　大鷲権造を殺したのは誰か</li></ul>
+    </div>
+  </div>
+  <div class="maps"><div class="box map"><h3>大鷲サーカスの河原</h3>
+    <svg viewBox="0 0 400 260" role="img" aria-label="サーカスの見取り図">
+      <circle class="room" cx="150" cy="120" r="80"/><text class="sm" x="120" y="116">大テント</text><text class="sm" x="122" y="134">（リング）</text>
+      <rect class="room" x="250" y="40" width="120" height="50"/><text class="sm" x="270" y="70">楽屋テント</text>
+      <rect class="hot" x="250" y="110" width="120" height="44"/><text class="ac" x="268" y="137">団長車</text>
+      <rect class="room" x="250" y="175" width="120" height="36"/><text class="sm" x="268" y="198">炊事車</text>
+      <rect class="room" x="20" y="215" width="140" height="36"/><text class="sm" x="36" y="238">猛獣小屋（薬品棚）</text>
+      <rect class="room" x="20" y="10" width="110" height="34"/><text class="sm" x="28" y="32">団員の車</text>
+      <text class="sm" x="376" y="137">裏</text>
+      <text class="sm" x="180" y="250">← 千曲川</text>
+    </svg></div></div><p class="note">楽屋テントは大テントの裏口とつながっている。団長車は楽屋テントと炊事車のあいだ。団長車の表の戸は楽屋テント側、裏には小さな戸と窓がある。猛獣小屋は大テントの反対側。</p>
+</section><section class="panel" id="people" hidden><h2>人物一覧</h2><p class="lead">全員が知っている情報です。自己紹介はこの範囲とキャラシートの「自己紹介」で行います。基本パワーとスキルは、本人しか知りません。</p><div class="people"><div class="person victim"><span class="role">被害者・大鷲サーカス団長</span><span class="nm">大鷲 権造</span><span class="kana">おおわし ごんぞう（62）</span><p>戦後すぐ、旅回りの「大鷲サーカス」を一代で立ち上げた団長。リングでは赤い燕尾服の名調子で客を沸かせるが、一座の者には容赦がない。この冬で一座を興行会社に売るらしい、とうわさされている。</p></div><div class="person"><span class="role">団長の妻・一座の会計（58）</span><span class="nm">大鷲 菊江</span><span class="kana">おおわし きくえ</span><p>団長の妻。一座の会計と切符売り場、衣装の繕いを三十五年引き受けてきた。団員たちからは「おかみさん」と呼ばれる。物静かで、めったに団長に口ごたえしない。</p><p class="look">服装：紺の木綿の前掛け、地味な着物に綿入れ、下駄</p></div><div class="person"><span class="role">道化師「ピエロのトト」（55）</span><span class="nm">戸田 健一</span><span class="kana">とだ けんいち（ピエロのトト）</span><p>一座でいちばん古い団員。ピエロの「トト」として三十年、子どもたちを笑わせてきた。団長とは戦争中からのつきあいで、団長に意見できる数少ない一人。</p><p class="look">服装：白塗りの顔、赤い鼻、だぶだぶの水玉の衣装、大きなどた靴</p></div><div class="person"><span class="role">空中ブランコの花形・団長の養女（22）</span><span class="nm">美羽</span><span class="kana">みう</span><p>大鷲サーカスの看板、空中ブランコの「美羽」。戦災孤児だったところを団長に拾われ、おかみさんに育てられた。相手役のキャッチャーは黒川勇。</p><p class="look">服装：金の縁取りの白いレオタードに、ガウンを羽織っている、バレエシューズ</p></div><div class="person"><span class="role">空中ブランコのキャッチャー（28）</span><span class="nm">黒川 勇</span><span class="kana">くろかわ いさむ</span><p>空中ブランコで美羽を受け止めるキャッチャー。無口な力持ち。十五年前、親を亡くして一座に転がりこんだ。</p><p class="look">服装：黒いタイツに白いシャツ、太い腕、手首に包帯</p></div><div class="person"><span class="role">猛獣使い（40）</span><span class="nm">虎尾 ジン</span><span class="kana">とらお じん</span><p>ベンガル虎「ラジャ」を操る猛獣使い。ラジャとは十年、同じ檻のそばで寝起きしてきた。猛獣小屋の薬品棚の鍵を預かっている。</p><p class="look">服装：黒い乗馬ズボンに長靴、赤いベスト、腰に革の鞭</p></div><div class="person"><span class="role">団長の息子・ジャグラー（33）</span><span class="nm">大鷲 雄一</span><span class="kana">おおわし ゆういち</span><p>団長のひとり息子で、ナイフと松明のジャグラー。二代目を継ぐつもりでいるが、団長には「おまえには継がせん」と言われている。21:45に団長車で団長を見つけた。</p><p class="look">服装：銀色のラメの上着、白いズボン、ポマードで固めた髪</p></div><div class="person"><span class="role">新入りの綱渡り（17）</span><span class="nm">ハル</span><span class="kana">はる</span><p>この春、一座に入ってきた少年。東京の孤児院から一人で来た。綱渡りの筋がいい。猛獣小屋のえさ当番もしている。</p><p class="look">服装：つぎはぎの稽古着、首から紐で下げた珊瑚の帯留め、裸足に地下足袋</p></div><div class="person"><span class="role">興行会社「蛭田興業」の社長（50）</span><span class="nm">蛭田 剛</span><span class="kana">ひるた ごう</span><p>東京の興行会社「蛭田興業」の社長。地方の一座を買い集めている。今夜は客として千秋楽を見に来た。大鷲サーカスを買うらしい、と一座ではうわさになっている。</p><p class="look">服装：ダブルの背広に毛皮の襟の外套、金の指輪、葉巻</p></div><div class="person"><span class="role">信濃日報の記者（30）</span><span class="nm">春日 沙織</span><span class="kana">かすが さおり</span><p>地元紙「信濃日報」の記者。「雪の河原の千秋楽」という記事を書くため、今夜は客席と楽屋を取材していた。東京から信州に移ってきて二年。</p><p class="look">服装：ベージュのコートに毛糸の帽子、革のブーツ、首からカメラ</p></div></div></section>
+<section class="panel" id="chars" hidden>
+  <h2>キャラクターシート</h2>
+  <div class="warn gate" data-gate="chars">
+    <p><strong>GM専用。</strong>各シートには本人だけが知る秘密と、犯人の正体が書かれています。</p>
+    <button type="button" class="btn" id="gate-chars">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="chars" hidden><h3 class="labels-title noprint">封筒用の宛名ラベル（切り取って封筒に貼る）</h3><div class="labels"><div class="lb"><span class="no">ROLL 01</span><span class="nm">大鷲 菊江<small>おおわし きくえ</small></span><span class="rl">団長の妻・一座の会計</span><span class="in">中身：キャラクターシート（ROLL 01・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 02</span><span class="nm">戸田 健一<small>とだ けんいち（ピエロのトト）</small></span><span class="rl">道化師「ピエロのトト」</span><span class="in">中身：キャラクターシート（ROLL 02・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 03</span><span class="nm">美羽<small>みう</small></span><span class="rl">空中ブランコの花形・団長の養女</span><span class="in">中身：キャラクターシート（ROLL 03・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 04</span><span class="nm">黒川 勇<small>くろかわ いさむ</small></span><span class="rl">空中ブランコのキャッチャー</span><span class="in">中身：キャラクターシート（ROLL 04・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 05</span><span class="nm">虎尾 ジン<small>とらお じん</small></span><span class="rl">猛獣使い</span><span class="in">中身：キャラクターシート（ROLL 05・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 06</span><span class="nm">大鷲 雄一<small>おおわし ゆういち</small></span><span class="rl">団長の息子・ジャグラー</span><span class="in">中身：キャラクターシート（ROLL 06・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 07</span><span class="nm">ハル<small>はる</small></span><span class="rl">新入りの綱渡り</span><span class="in">中身：キャラクターシート（ROLL 07・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 08</span><span class="nm">蛭田 剛<small>ひるた ごう</small></span><span class="rl">興行会社「蛭田興業」の社長</span><span class="in">中身：キャラクターシート（ROLL 08・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div><div class="lb"><span class="no">ROLL 09</span><span class="nm">春日 沙織<small>かすが さおり</small></span><span class="rl">信濃日報の記者</span><span class="in">中身：キャラクターシート（ROLL 09・2枚）＋ 持ち物カード4枚<br>GMの合図があるまで開けないでください。</span></div></div>
+  <article class="sheet" data-key="KI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 01 ／ 本人以外閲覧禁止</span><span class="nm">大鷲 菊江<small>おおわし きくえ</small></span><span class="rl">団長の妻・一座の会計・58歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは<b>犯人</b>です。大鷲権造を殺したのはあなたです。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「大鷲の家内の菊江です。一座の会計をしております。今夜は切符売り場と、楽屋で衣装の繕いを。終演のあとは、ずっと楽屋で美羽ちゃんの衣装をほどいておりました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>二十三で権造に嫁いだ。焼け野原の東京で、権造は「日本一のサーカスを作る」と言った。その夢を信じた。殴られるようになったのは、一座が大きくなってからだった。三十年、あなたは袖の長い着物を着つづけた。</p><p>娘の小百合は、十七の冬、父に殴られた夜に一座を出ていった。それきり会えなかった。二年前、東京で病気で亡くなったと、人づてに聞いた。</p><p>この春、十七の少年が一座に入ってきた。ハルと名乗った。その子の首の紐に下がっていたのは、あなたが小百合の十五の誕生日にやった、珊瑚の帯留めだった。ハルは小百合の子、あなたの孫だ。あなたは何も言えなかった。名乗れば、権造に知られる。</p><p>今日の夕方16時、団長車で権造が言った。「一座は蛭田に売る。ラジャも売った。それから、ハルは蛭田の地方回りに五年の年季で出す。前金ももらった。あの帯留め、おまえが小百合にやった物だろう。あの女の子どもなら、なおさら手元に置く気はない」。そしてあなたの腕を打った。</p><p>ハルにだけは、小百合と同じ目にあわせない。あなたは決めた。権造の氷を作るのは、三十年、毎日18時のあなたの役目だ。権造は自分の氷にほかの者をさわらせない。そしてトトさんは歯にしみるからと、氷を一度も使ったことがない。</p></div>
+      <div class="secret"><h4>秘密</h4><p><b>今夜、大鷲権造を毒で殺した。</b>17:30に猛獣小屋の薬品棚から青酸カリを取り、18:00に団長車の冷蔵庫で作る「団長の氷」の水に溶かした。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>戸田健一（トト）</b>：道化師。三十年来の一座の仲間。あなたにいつも優しい。今夜、団長と最後に一緒にいたのは、トトさんらしい。</li><li><b>ハル</b>：新入りの綱渡り。あなたの孫。本人は何も知らない。</li><li><b>美羽</b>：空中ブランコの花形。権造が拾ってきた戦災孤児を、あなたが育てた。</li><li><b>春日沙織</b>：新聞記者。東京から来たという。ハルのことを、じっと見ていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 0</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「押しつけ」</b>（処理の順番 9）：1人を選び、自分の持ち物を1つ渡す。相手は断れない。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 01 ／ 2枚目</span><span class="nm">大鷲 菊江<small>おおわし きくえ</small></span><span class="rl">団長の妻・一座の会計・58歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>16:00</dt><dd>団長車で、権造に一座とラジャとハルを売ったと言われ、腕を打たれた。</dd><dt>17:30</dt><dd>会計の鍵束で、猛獣小屋の薬品の小部屋を開けた。青酸カリを薬包紙に少し取り、前掛けのポケットへ。出るとき、ラジャのえさを運んでいたハルとすれ違った。</dd><dt>18:00</dt><dd>団長車の冷蔵庫で、いつものように「団長」の名札の製氷皿に湧き水を入れた。そこに青酸カリを溶かした。</dd><dt>18:05</dt><dd>団長車を出たところで、トトさんとすれ違った。「団長の氷を作ってきたところ」と言った。</dd><dt>18:30</dt><dd>切符売り場へ。開演まで客をさばく。</dd><dt>20:05</dt><dd>休憩中、楽屋で、黒川くんが権造を殴るのを見た。</dd><dt>21:00</dt><dd>終演の挨拶。リングの端に並んだ。</dd><dt>21:10</dt><dd>楽屋で、美羽ちゃんの衣装の金のふちどりをほどく（21:40まで美羽ちゃんと一緒）。</dd><dt>21:45</dt><dd>雄一の叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「16時は団長車で帳簿を見せていた。17時半からは楽屋と切符売り場、18時には団長の氷を作った（いつものこと）。終演のあとは21:10から楽屋で美羽ちゃんと衣装の繕い」。氷を作ったことは、いつもの仕事として隠さなくてよい。猛獣小屋には行っていない、と言う。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>グラスに毒があったなら、注いだ人が疑われる。最後に団長と一緒にいたのはトトさん。</li><li>「薬包紙」を持っていると、とても危ない。誰かに押しつけたい。</li><li>トトさんが自分の身を投げ出そうとしているなら、止めたい気持ちもある。</li><li>虎尾さんは、団長に「殺す」と言っていた。</li><li>トトさんは、どこまで知っているのだろう。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>投票は、あなたの目的のために。トトさんが最多票になれば、あなたは逃げ切れる。でもそれは、トトさんを身がわりにすること。</li><li>「薬包紙」は早めに手放したい。スキル「押しつけ」なら、投票のあとに誰かに渡せる。</li><li>氷を作ったことは「いつもの仕事」として話してよい。かえって隠すと怪しまれる。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>物静かで控えめな「おかみさん」として、ゆっくり話してください。団長の死には、静かに手を合わせる。ハルの話になると、少しだけ声がやわらかくなる。袖はいつも下ろしたまま。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+5</span><span>自分が最多票に<b>ならない</b>（逃げ切る）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「薬包紙」を自分が持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「ハルの年季の契約書」を自分が持っている（破り捨てるため）。</span></div><div class="goal"><span class="pt">+1</span><span>戸田健一（トト）が最多票に<b>ならない</b>。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TO">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 02 ／ 本人以外閲覧禁止</span><span class="nm">戸田 健一<small>とだ けんいち（ピエロのトト）</small></span><span class="rl">道化師「ピエロのトト」・55歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「ピエロのトトでございます。三十年、このリングで転んでまいりました。終演のあと、団長に呼ばれて団長車で一杯やりました。……団長が倒れたとき、そばにいたのは、わたしです」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>復員して食うに困っていたとき、権造に「笑わせるだけで飯が食える仕事がある」と誘われた。白塗りをしてはじめてリングに出た日、客席のいちばん前で、若いおかみさんが一番大きな声で笑っていた。</p><p>それから三十年。あなたは菊江さんを、ずっと好きだった。一度も言ったことはない。権造が菊江さんを殴った夜は、いつもリングで、いつもより派手に転んだ。それしかできなかった。</p><p>今夜21:10、団長車に呼ばれた。権造は「一座は蛭田に売る。蛭田の興行に道化はいらん。おまえはクビだ」と言い、それから「トト、注げ。おまえも飲め」と言った。</p><p>あなたは自分のグラスに瓶のウイスキーをそのまま注いだ（歯にしみるので、氷は一度も使ったことがない）。団長のグラスには、冷蔵庫の「団長」の皿の氷を二つ入れて、ウイスキーを注いだ。権造はそれを飲み、のどをかきむしって倒れた。杏仁のにおいがした。</p><p>そのとき、あなたは思い出した。18時すぎ、団長車から出てきた菊江さんの青い顔。「団長の氷を作ってきたところ」。腕のあざ。——毒は、氷だ。菊江さんを、罪人にはしない。捕まるのは、自分でいい。</p><p>戦争中、権造と同じ部隊にいた。南の島で、権造はあなたを背負って一晩歩いた。あの夜の権造と、今の権造が同じ人間だとは、思えない。</p></div>
+      <div class="secret"><h4>秘密</h4><p>あなたは犯人ではないが、<b>犯人が菊江さんだと気づいている</b>。毒は「団長の氷」に入っていた。あなたはグラスの氷を取り出し、製氷皿ごと隠した。菊江さんのかわりに、自分が捕まるつもりでいる。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>大鷲菊江</b>：おかみさん。三十年、ひそかに想ってきた人。団長に殴られつづけてきた。</li><li><b>ハル</b>：新入りの綱渡り。おかみさんが、この子を見るときだけ、昔の顔になる。</li><li><b>虎尾ジン</b>：猛獣使い。薬品棚の鍵を持っている。今夜、団長と「ラジャ」のことで怒鳴り合っていた。</li><li><b>大鷲雄一</b>：団長の息子。21:15ごろ、団長車の戸の外に誰かいた気がする。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「かばう」</b>（処理の順番 1）：1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 02 ／ 2枚目</span><span class="nm">戸田 健一<small>とだ けんいち（ピエロのトト）</small></span><span class="rl">道化師「ピエロのトト」・55歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:05</dt><dd>団長車のそばで、出てきた菊江さんとすれ違った。「団長の氷を作ってきたところ」。顔が青かった。</dd><dt>20:20</dt><dd>ピエロの出番。いつもより派手に転んだ。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:10</dt><dd>団長車へ呼ばれる。出ていく蛭田さんとすれ違った。</dd><dt>21:15</dt><dd>「おまえはクビだ」と怒鳴られた。</dd><dt>21:20</dt><dd>「注げ」と言われ、自分のグラスにはそのまま、団長のグラスには「団長」の皿の氷を二つ入れて注いだ。</dd><dt>21:22</dt><dd>団長が飲んで倒れた。杏仁のにおい。毒は氷だと気づいた。</dd><dt>21:25</dt><dd>氷ばさみで団長のグラスから氷を取り出し、冷蔵庫の「団長」の製氷皿を出した。氷ばさみは床に落とした。</dd><dt>21:28</dt><dd>団長車の裏へ回り、皿とグラスの氷を雪の上に捨てた。空の製氷皿は衣装の下に隠した。</dd><dt>21:30</dt><dd>大テントのリングの縁に座って、たばこを吸いながら、見つかるのを待った。</dd><dt>21:45</dt><dd>雄一くんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:10から団長車で団長と飲んだ。21:25ごろに出て、リングの縁でたばこを吸っていた」。団長が倒れたのを見たかどうかは、言い方を自由に選んでよい。氷のことは、絶対に言わない。疑われたら、否定しすぎない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>毒が「グラス」に入れられたと思われれば、注いだあなたが疑われる。それでいい。</li><li>「製氷皿」が見つかれば、氷が疑われ、氷を作った人が疑われる。最後まで持っていたい。</li><li>「白粉の缶」の白い粉は、ただのおしろい。でも、毒だと思わせることはできるかもしれない。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたは自分に票を集めたい。ただ、「わたしがやった」と言いすぎると、誰かをかばっていると見抜かれるかもしれない。</li><li>「製氷皿」を取られると、氷の話になる。持ち物を調べられたら、それが引かれないことを祈るしかない。</li><li>スキル「かばう」は、おかみさんを守るのに使える。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>陽気で、少しとぼけた道化師として話してください。冗談を言いながら、ときどきふっと黙る。自分が疑われても、どこか満足そうにしている。おかみさんのことは、じっと見ない。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>なる</b>（菊江さんのかわりに捕まる）。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「製氷皿」を自分が持っている（氷のことを隠す）。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「かばう」を成功させる（守った人に、誰かがスキルを向ける）。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「菊江の若いころの写真」を自分が持っている。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="MI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 03 ／ 本人以外閲覧禁止</span><span class="nm">美羽<small>みう</small></span><span class="rl">空中ブランコの花形・団長の養女・22歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「空中ブランコの美羽です。団長は、わたしを拾ってくれた人です。終演のあとは、楽屋でおかみさんと一緒に、衣装をほどいていました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>三つのとき、上野の地下道で、団長に拾われた。覚えているのは、母が最後に髪につけてくれた、小さな蝶の髪飾りだけだ。それだけは、ずっと持っている。</p><p>おかみさんが、母のかわりだった。夜、髪をといてくれた。団長は厳しく、空中ブランコの稽古で落ちれば、ネットの上まで怒鳴りに来た。それでも、あなたを「美羽」と名づけたのは団長だった。</p><p>黒川勇と、二年前から想い合っている。団長は「キャッチャーごときに美羽はやらん」と言った。あなたのお腹には、勇の子がいる。まだ誰にも言っていない。</p><p>今日の休憩中、団長は念書を見せた。「美羽を蛭田興業に預ける。給金は大鷲がもらう」。蛭田の東京の小屋は、ネットなしのブランコで客を呼ぶところだ。</p><p>勇は休憩中、団長を殴った。それでも、団長を殺したいとは思わなかった。本当に誰が団長を殺したのか、知りたい。</p><p>空中ブランコは、ネットがあっても怖い。手が離れた一瞬、勇の手が見えなければ、落ちる。あなたは毎晩、勇の手だけを見て飛んできた。</p><p>団長は、あなたがはじめてブランコで宙返りを決めた夜、誰もいない楽屋で、こっそり涙をふいていた。あなたはそれを見てしまった。</p><p>おかみさんの袖の下のあざを、あなたは子どものころから知っている。一度「痛い？」と聞いたら、おかみさんは「美羽ちゃんがいてくれるから痛くない」と笑った。</p></div>
+      <div class="secret"><h4>秘密</h4><p>黒川勇の子を身ごもっている。団長は自分を蛭田興業に「預ける」つもりで、念書まで用意していた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>黒川勇</b>：キャッチャーで、恋人。21:05から、二人の荷物をまとめに行っていた。</li><li><b>大鷲菊江</b>：育ての母。今夜は、いつもより口数が少なかった。</li><li><b>蛭田剛</b>：興行会社の社長。あなたを「預かる」つもりの人。</li><li><b>ハル</b>：新入りの子。今夜、休憩中に団長にぶたれていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「取り戻す」</b>（処理の順番 8）：1人を選ぶ。相手が持っている持ち物のうち、最初の持ち主があなただった物を1つ取り返す。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 03 ／ 2枚目</span><span class="nm">美羽<small>みう</small></span><span class="rl">空中ブランコの花形・団長の養女・22歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:30</dt><dd>大テントでブランコの稽古。</dd><dt>18:00</dt><dd>楽屋で化粧。おかみさんの姿は見えなかった。</dd><dt>19:10</dt><dd>楽屋の袖から、ハルくんの綱渡りを見た。一度ぐらついて、ひやりとした。</dd><dt>19:30</dt><dd>楽屋の幕のすきまから、虎尾さんとラジャの芸を見ていた。</dd><dt>20:05</dt><dd>休憩。楽屋で団長に念書を見せられ、泣いた。勇が団長を殴った。</dd><dt>20:30</dt><dd>楽屋の隅で、ハルくんが団長に頬を張られていた。</dd><dt>20:40</dt><dd>空中ブランコの出番。勇の手は、いつもより強かった。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:05</dt><dd>楽屋裏で勇と話す。「あしたの朝、二人で汽車に乗ろう」。</dd><dt>21:10</dt><dd>楽屋で、おかみさんに衣装の金のふちどりをほどいてもらう（21:40まで一緒）。おかみさんは、ときどき手が止まっていた。</dd><dt>21:40</dt><dd>楽屋を出て、自分の車へ着替えに。</dd><dt>21:45</dt><dd>雄一さんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:05まで楽屋裏で勇と。21:10から21:40は楽屋でおかみさんと一緒だった」。勇が団長を殴ったことは、聞かれたら認めてよい。身ごもっていることは言いたくない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>団長はいつも、終演のあとに自分の氷を浮かべたウイスキーを飲む。グラスには氷が入っていたのか。</li><li>勇が疑われたら守りたい。</li><li>団長の念書は、どこかにあるはず。</li><li>トトさんは最後に団長と一緒にいた。何があったのか。</li><li>虎尾さんは団長に「殺す」と言ったらしい。</li><li>おかみさんは今夜、衣装をほどきながら、何度も手が止まっていた。</li><li>団長は終演のあと、何を飲んでいたのか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたの目的は「犯人に投票する」。誰が本当に毒を入れたのか、自分の頭で考える。</li><li>「蝶の髪飾り」を取られたら、スキル「取り戻す」で取り返せる。</li><li>勇が疑われたら、守る。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>凛とした花形として、背すじを伸ばして話してください。団長への思いは複雑で、憎しみと感謝が入りまじる。勇の名前が出ると、少しだけほおが赤くなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>犯人（大鷲権造を殺した人）に投票する。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「蝶の髪飾り」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>黒川勇が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「取り戻す」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 04 ／ 本人以外閲覧禁止</span><span class="nm">黒川 勇<small>くろかわ いさむ</small></span><span class="rl">空中ブランコのキャッチャー・28歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「キャッチャーの黒川です。終演のあとは、自分の車で、荷物の片づけをしていました。……休憩中に、団長を殴ったのは本当です」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>十三で親を亡くし、雪の中で行き倒れていたのを、おかみさんが見つけて炊事車に入れてくれた。あの夜の味噌汁の味を、今も覚えている。</p><p>おかみさんの腕のあざを、何度も見た。団長車の中から、何かが倒れる音を聞いた夜もあった。あなたは何もできなかった。一度だけ団長に意見したとき、三日飯を抜かれた。</p><p>美羽とは、二年前から想い合っている。今日、団長が美羽を蛭田に「預ける」と知った。休憩中、楽屋で、団長の顔を殴った。団長は口の血をぬぐって笑った。「明日には、おまえの居場所はない」。</p><p>あしたの朝五時十分の上野行きの切符を、二枚買ってある。美羽と二人で一座を出るつもりだ。</p><p>団長が死んで、正直、胸のつかえが一つ下りた。でも、もし疑われるのが、おかみさんだったら。それだけは、させたくない。</p><p>ブランコの稽古で、美羽の手首をつかみそこねたことが一度だけある。美羽はネットに落ち、笑って「次は離さないで」と言った。あれから、一度も離していない。</p><p>団長に拾われたわけではない。おかみさんに拾われた。だから、一座のためでなく、おかみさんと美羽のために、毎晩宙に手を伸ばしてきた。</p><p>駅の窓口で二枚の切符を受け取ったとき、手がふるえた。生まれてはじめて、自分のために何かを決めた気がした。</p></div>
+      <div class="secret"><h4>秘密</h4><p>休憩中に団長を殴った。あしたの朝の汽車で、美羽と駆け落ちするつもりでいる。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>美羽</b>：恋人。団長の養女。</li><li><b>大鷲菊江</b>：命の恩人。三十年、団長に殴られてきた。</li><li><b>虎尾ジン</b>：猛獣使い。薬品棚の鍵を持っている。今夜、団長と大げんかをしていた。</li><li><b>春日沙織</b>：新聞記者。21:30ごろ、団長車の裏の物置の陰にいたのは、この人かもしれない。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「力ずく」</b>（処理の順番 4）：1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 04 ／ 2枚目</span><span class="nm">黒川 勇<small>くろかわ いさむ</small></span><span class="rl">空中ブランコのキャッチャー・28歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:00</dt><dd>町の駅で、あしたの朝の切符を二枚買った。</dd><dt>18:00</dt><dd>大テントで、ブランコの綱の点検。</dd><dt>19:10</dt><dd>大テントの袖で、ハルの綱を下で支えた。</dd><dt>19:50</dt><dd>楽屋で、雄一さんのナイフの数を数えるのを手伝った。</dd><dt>20:05</dt><dd>休憩。楽屋で団長を殴った。おかみさんが青い顔で見ていた。</dd><dt>20:30</dt><dd>楽屋で団長がハルを殴るのを見た。止めようとして、美羽に袖を引かれた。</dd><dt>20:40</dt><dd>空中ブランコの出番。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:05</dt><dd>楽屋裏で美羽と話す。</dd><dt>21:10</dt><dd>団員の車の、自分の寝台で、二人分の荷物をまとめる。ひとりだった。</dd><dt>21:30</dt><dd>荷物を楽屋テントに運ぼうと外へ出たとき、団長車の裏の物置の陰に、女の人の影が立っているのを見た。気味が悪くて、そのまま車に戻った。</dd><dt>21:45</dt><dd>雄一さんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:10から21:35まで、自分の車で荷物をまとめていた。ひとりだった」。団長を殴ったことは認めてよい。駆け落ちのことは、言いたくない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>毒は猛獣小屋の薬品棚の青酸カリ。鍵を持っているのは誰か。</li><li>団長を殴ったので、あなたは疑われやすい。</li><li>おかみさんが疑われたら、全力で守りたい。</li><li>蛭田は一座を買い、美羽を連れていこうとしていた。団長がいなくなって、いちばん得をするのは誰か。</li><li>雄一さんは借金があると聞いた。</li><li>団長車の裏の物置の陰にいた女の人は、誰だったのか。</li><li>団長のグラスは二つあったらしい。もう一つは誰のものか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたの目的は、おかみさんを捕まえさせないこと。誰が犯人かは関係ない。</li><li>おかみさんに票が集まりそうなら、ほかの怪しい人に話を向ける。</li><li>スキル「力ずく」は、パワーの低い相手から持ち物を奪える。切符を取られたら取り返す。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>口数の少ない力持ちとして、短く、低い声で話してください。怒ると拳をにぎる。美羽とおかみさんのことになると、声が少しだけやわらかくなる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>大鷲菊江が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「汽車の切符」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>美羽が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「力ずく」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="TR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 05 ／ 本人以外閲覧禁止</span><span class="nm">虎尾 ジン<small>とらお じん</small></span><span class="rl">猛獣使い・40歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「猛獣使いの虎尾です。ラジャと一緒に、十年この一座にいます。終演のあとは、ずっと猛獣小屋でラジャのそばにいました。……毒が、うちの薬品棚の青酸カリだというなら、わたしが疑われるのは当然でしょう」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>ラジャは、インドから来た興行師が手放した子虎だった。ミルクを飲ませ、病気の夜は抱いて寝た。ラジャはあなたにとって、家族そのものだ。</p><p>猛獣小屋の薬品棚には、青酸カリが一瓶ある。猛獣が暴れて人を襲ったとき、ほかに手がなければ、ラジャを眠らせるための毒だ。その鍵を預かるのは、ラジャの命を預かることだと思ってきた。</p><p>今夜の休憩の前、20:00、団長に言われた。「ラジャは蛭田に売った。蛭田の小屋で一年見せ物にして、そのあとは剥製屋だ。明日引き取りに来る」。あなたは「ラジャに指一本ふれたら、殺す」と言った。何人もが聞いていた。</p><p>薬品棚の鍵は二本ある。一本はあなた、もう一本はおかみさんの会計の鍵束だ。この秋から、あなたは鍵を一度も使っていない。</p><p>ラジャを連れて逃げる方法はないか、ずっと考えている。</p><p>十年前、ラジャがはじめてリングに出た夜、客席の子どもが泣き出した。ラジャは吠えるのをやめ、伏せて、じっと子どもを見た。あの夜から、ラジャは一座の誇りになった。</p><p>青酸カリの瓶の量は、九月に確かめたきりだ。棚を開けるのは、ラジャが病気のときだけ。開けるたびに、ラジャを眠らせる日のことを考えて、胸が冷たくなる。</p></div>
+      <div class="secret"><h4>秘密</h4><p>20:00、団長に「ラジャは蛭田に売った。明日引き取り」と言われ、「殺す」と言った。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>蛭田剛</b>：ラジャを買った男。</li><li><b>ハル</b>：新入りの子。ラジャになついている。17:30にえさを運んでくれた。</li><li><b>大鷲菊江</b>：おかみさん。会計の鍵束に、薬品棚の予備の鍵がついている。</li><li><b>戸田健一（トト）</b>：道化師。団長と戦争中からのつきあい。終演のあと、団長に呼ばれていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 2</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり取り」</b>（処理の順番 5）：1人を選ぶ。相手の持ち物を裏向きのまま1つ引いて、自分のものにする。相手のパワーが自分より2以上高いと失敗する。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 05 ／ 2枚目</span><span class="nm">虎尾 ジン<small>とらお じん</small></span><span class="rl">猛獣使い・40歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:30</dt><dd>猛獣小屋で、ハルにラジャのえさを運ばせる。自分は大テントで出番の準備。</dd><dt>17:45</dt><dd>大テントから猛獣小屋に戻ると、ハルがえさをやり終えていた。土間に雪が少し吹きこんでいた。</dd><dt>18:00</dt><dd>大テントの裏で、ラジャの首輪の手入れ。</dd><dt>19:00</dt><dd>開演。リングの袖で、ラジャの出番を待つ。</dd><dt>19:30</dt><dd>猛獣の芸の出番。</dd><dt>20:00</dt><dd>大テントの裏で、団長にラジャを売ったと言われる。「殺す」と怒鳴った。</dd><dt>20:30</dt><dd>猛獣小屋で、ラジャに水をやる。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:05</dt><dd>猛獣小屋へ。ラジャのそばにいた（21:45まで、ひとり）。</dd><dt>21:20</dt><dd>ラジャが急にうなって、檻の中を歩き回った。川風に、何か甘いにおいがまじっていた気がする。</dd><dt>21:45</dt><dd>雄一さんの叫び声が、川風にのって聞こえた。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:05から21:45まで、猛獣小屋でラジャのそばにいた。ひとりだった」。団長に「殺す」と言ったことは、聞いていた人がいるので、隠さなくてよい。薬品棚の鍵は持っているが、この秋から使っていない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>毒は薬品棚の青酸カリ。鍵を持っているのは、あなたと、おかみさんの鍵束だけ。</li><li>最後に団長と一緒にいたのは、トトさんらしい。</li><li>ラジャの売買の証文が見つかれば、ラジャを取り戻せるかもしれない。</li><li>おかみさんの鍵束の予備の鍵は、誰でも借りられたのでは。</li><li>トトさんが最後に団長と一緒だった。</li><li>団長はラジャを蛭田に売った。蛭田は団長がいなくなって困るのか、得をするのか。</li><li>ハルは17:30に猛獣小屋にいた。そのとき誰か来なかったか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたが疑われやすいのは、薬品棚の鍵を持っているから。鍵がもう一本あることを話すと楽になる。</li><li>目的は「犯人に投票する」と「自分が最多票にならない」。</li><li>ラジャの売買の証文は、団長車の金庫にあるかもしれない。金庫の番号を知っている人を探す。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>ぶっきらぼうで、動物のほうが人間より好きな男として話してください。ラジャの話になると止まらない。疑われると、むっとして腕を組む。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+2</span><span>犯人（大鷲権造を殺した人）に投票する。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「ラジャの売買の証文」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり取り」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="YU">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 06 ／ 本人以外閲覧禁止</span><span class="nm">大鷲 雄一<small>おおわし ゆういち</small></span><span class="rl">団長の息子・ジャグラー・33歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「大鷲雄一です。父は、まあ、ああいう人でした。終演のあと、父と話がしたくて、団長車へ行きました。21:45です。戸を開けたら……」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>子どものころから、父の背中を見てきた。リングの真ん中で客を沸かせる父は、世界でいちばんかっこよかった。家の中の父は、母を殴る男だった。</p><p>妹の小百合は、十七で家を出た。あなたは十五で、止められなかった。それから十八年、妹のことは家で口にしてはいけないことになっている。</p><p>ジャグリングの腕は悪くない。だが父は「二代目は器じゃない」と言い、借金の肩代わりもしてくれなかった。町の賭場で作った借金が、蛭田への二百万になった。</p><p>三か月前、蛭田に言われるまま、「父の死後、自分が受け継ぐ一座の権利を蛭田興業に譲る」書類に判を押した。そのとき金を受け取った。今は後悔している。父が死んだ今、あの書類が生きてしまう。</p><p>21:15、団長車の戸の前まで行った。中で父が「おまえはクビだ」とトトさんを怒鳴っていた。入れずに引き返した。21:45、もう一度行って、父を見つけた。</p><p>十五のとき、妹の小百合が家を出た夜、あなたは寝たふりをしていた。戸の閉まる音を聞いて、追いかけなかった。その夜のことを、今も夢に見る。</p><p>母はあなたにだけ「お父さんを悪く思わないで」と言う。あなたは、母が殴られる音を何度も聞いて育った。</p></div>
+      <div class="secret"><h4>秘密</h4><p>蛭田に二百万の借金があり、自分の相続分の一座の権利を蛭田興業に譲る書類に判を押していた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>蛭田剛</b>：借金の相手。あの書類を持っている。</li><li><b>大鷲菊江</b>：母。父に殴られつづけてきた。<b>団長車の金庫の番号</b>は、父があなたにだけ教えた（「二代目の心得」だと言って）。</li><li><b>戸田健一（トト）</b>：道化師。21:15に団長車の中で、父に怒鳴られていた。</li><li><b>ハル</b>：新入り。どこか妹の小百合に似ている、と思ったことがある。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「お願い」</b>（処理の順番 7）：1人を選び、持ち物の名前を1つ言う。相手がそれを持っていれば、あなたに渡す。かわりに、あなたは自分の持ち物を1つ（好きなものを）相手に渡す。パワーは関係ない。</p><p><b>条件</b>：あなたは「団長車の金庫」の暗証番号を知っているので、ここを調べられる。番号を教えた相手も調べられるようになる（教えたら、GMにこっそり伝える）。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 06 ／ 2枚目</span><span class="nm">大鷲 雄一<small>おおわし ゆういち</small></span><span class="rl">団長の息子・ジャグラー・33歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:00</dt><dd>大テントで、松明の油の準備。</dd><dt>19:00</dt><dd>開演。袖で父の口上を聞いた。声だけは、昔のままだった。</dd><dt>19:50</dt><dd>ジャグリングの出番。</dd><dt>20:05</dt><dd>休憩。蛭田さんに「明日、親父の判ももらう」と言われた。</dd><dt>20:30</dt><dd>楽屋で、父がハルを殴るのを見た。昔の自分を見ているようだった。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:05</dt><dd>大テントで、松明の片づけ。</dd><dt>21:10</dt><dd>大テントの裏口から、トトさんが団長車のほうへ歩いていくのが見えた。</dd><dt>21:15</dt><dd>団長車の戸の前へ。中で父が「おまえはクビだ」と怒鳴っていた。相手はトトさんの声。入らずに引き返した。</dd><dt>21:20</dt><dd>炊事車で、炊事係のばあさんに茶をもらう（21:40まで）。</dd><dt>21:45</dt><dd>団長車の戸を開ける。父が床に倒れていた。机の上に、グラスが二つ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:05は大テントで片づけ、21:15に団長車の前まで行ったけど入らなかった。21:20から21:40は炊事車。21:45に父を見つけた」。借金と譲渡書のことは言いたくない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>21:15に団長車にいたのはトトさん。父が倒れたとき、トトさんはどこにいたのか。</li><li>譲渡書が蛭田の手にあるかぎり、一座は蛭田のものになる。</li><li>父を殺したのは誰か、本当のことが知りたい。</li><li>母は今夜、ずっと楽屋にいたのか。</li><li>虎尾さんは薬品棚の鍵を持っていて、父に「殺す」と言った。</li><li>蛭田は、あなたが捕まれば得をする。</li><li>21:15の父の怒鳴り声のあと、トトさんはどうしたのか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>金庫の番号を知っているのはあなただけ。番号を教えるかわりに、取引ができる（教えたらGMにこっそり伝える）。</li><li>目的は「犯人に投票する」。蛭田は、あなたを犯人にしたがっているかもしれない。</li><li>譲渡書は蛭田が持っているはず。スキル「お願い」なら、名前を言えば手に入る。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>少し軽薄で、見栄っ張りな二代目として話してください。父の死には動揺を隠そうとして、かえって早口になる。借金の話になると目が泳ぐ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>犯人（大鷲権造を殺した人）に投票する。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「権利の譲渡書」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>自分が最多票に<b>ならない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「お願い」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HR">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 07 ／ 本人以外閲覧禁止</span><span class="nm">ハル<small>はる</small></span><span class="rl">新入りの綱渡り・17歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「ハルです。春から綱渡りをやってます。終演のあとは、大テントで一人で綱の稽古をしてました。団長には、今夜ぶたれたけど……死んじゃうなんて」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>母と二人、東京の下町の長屋で暮らした。母は小百合という名前で、昔サーカスにいた、とだけ言っていた。どこの一座かは、最後まで教えてくれなかった。</p><p>二年前、母は胸の病気で死んだ。孤児院で、母の形見の珊瑚の帯留めを、首から下げて暮らした。母は「おばあちゃんにもらったの」と言っていた。</p><p>この春、町に大鷲サーカスのポスターが貼られた。母が夜中に一度だけ口ずさんだ、ラッパの歌が書いてあった。あなたは孤児院を抜け出し、一座に頼みこんだ。団長はあなたの帯留めを見て、変な顔をした。</p><p>おかみさんは、あなたの破れた稽古着を、だまって繕ってくれる。ときどき、長く見つめられる。</p><p>今夜の休憩のあと、団長に「おまえは明日から蛭田のところだ。五年の年季だ」と言われた。いやだと言うと、頬を張られた。</p><p>孤児院では、夜になると屋根の上で綱を渡る練習をした。母の「サーカスのお姉さんたちは、空を歩くのよ」という言葉を、ずっと信じていた。</p><p>春日さんは、なぜか母の好きだった歌を知っていた。「どこで聞いたの」と聞くと、春日さんは少しだけ泣きそうな顔をした。</p><p>一座に来てから、はじめておなかいっぱいご飯を食べた。炊事車のばあさんは「おかみさんが、ハルにはおかわりをやれって」と言った。</p></div>
+      <div class="secret"><h4>秘密</h4><p>母・小百合は昔サーカスにいた。この一座だったのかもしれない、と思っている。団長に、明日から蛭田興業へ五年の年季で出されると言われた。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>大鷲菊江</b>：おかみさん。やさしい。17:30に猛獣小屋の薬品の小部屋から出てくるのを見た。</li><li><b>虎尾ジン</b>：猛獣使い。ラジャのことを教えてくれる。</li><li><b>戸田健一（トト）</b>：ピエロ。21:30から、リングの縁にいた。</li><li><b>春日沙織</b>：新聞記者。なぜかあなたの母のことを聞いてきた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 0</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「すり替え」</b>（処理の順番 6）：1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引く。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 07 ／ 2枚目</span><span class="nm">ハル<small>はる</small></span><span class="rl">新入りの綱渡り・17歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>17:30</dt><dd>猛獣小屋でラジャのえさ当番。薬品の小部屋の戸から、おかみさんが出てきた。前掛けで手をふいていた。「寒いね」と言われた。</dd><dt>18:10</dt><dd>楽屋へ。トトさんが鼻歌を歌いながら、白塗りを始めていた。</dd><dt>19:10</dt><dd>綱渡りの出番。一度、足がぐらついた。</dd><dt>19:30</dt><dd>楽屋の幕のすきまから、ラジャの芸を見た。</dd><dt>20:30</dt><dd>楽屋で団長に「明日から蛭田のところだ」と言われ、いやだと言うと頬を張られた。</dd><dt>20:40</dt><dd>空中ブランコを袖から見ていた。美羽さんは、空を歩いているみたいだった。</dd><dt>21:00</dt><dd>終演の挨拶。</dd><dt>21:05</dt><dd>大テントで、ひとりで綱の稽古（21:45まで）。</dd><dt>21:20</dt><dd>綱の上から、裏口の幕のすきまに楽屋の明かりが見えた。おかみさんと美羽さんが衣装を広げていた。</dd><dt>21:30</dt><dd>リングの縁に、トトさんが来て座った。たばこを吸いながら、ずっと黙っていた。衣装の胸のあたりが、四角くふくらんでいた。</dd><dt>21:45</dt><dd>雄一さんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:05から21:45まで、大テントで綱の稽古。21:30からはトトさんがリングの縁にいた」。団長にぶたれたことは、聞かれたら認めてよい。母のことは、話すかどうか自由。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>17:30に、おかみさんが薬品の小部屋から出てきた。何をしていたのか。</li><li>トトさんの衣装の胸が、四角くふくらんでいた。何を隠しているのか。</li><li>蛭田の年季の契約書が、どこかにあるはず。</li><li>虎尾さんは、薬品棚の鍵を持っている。</li><li>春日さんは、なぜ母のことを知っているのか。</li><li>年季に出されると言われたのは、あなただけではないらしい。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたの目的は「犯人に投票する」。本当のことがわかったとき、苦しくなるかもしれない。</li><li>「母の帯留め」は大事な形見。取られないように。</li><li>蛭田さんが年季の契約書を持っているかもしれない。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>素直で、少しおどおどした少年として話してください。大人に囲まれると声が小さくなる。母の話になると、帯留めをにぎる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>最後に「母の帯留め」を自分が持っている。</span></div><div class="goal"><span class="pt">+2</span><span>犯人（大鷲権造を殺した人）に投票する。</span></div><div class="goal"><span class="pt">+1</span><span>最後に、蛭田剛が「ハルの年季の契約書」を持って<b>いない</b>。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「すり替え」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="HI">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 08 ／ 本人以外閲覧禁止</span><span class="nm">蛭田 剛<small>ひるた ごう</small></span><span class="rl">興行会社「蛭田興業」の社長・50歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「蛭田興業の蛭田です。大鷲さんとは、今後のお仕事の話をしておりました。終演のあと、団長車で少しだけお話をして、21:10に失礼しました。そのときは、お元気でしたよ」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>浅草の見せ物小屋の呼びこみから身を起こした。客が何に金を払うかは、誰よりわかっている。危ないもの、珍しいもの、泣けるもの。</p><p>大鷲サーカスは、地方の一座では一番の人気だ。権造から一座ごと買い取る話は、明日、判を押すところまで来ていた。ラジャも、もう買った。ハルという綱渡りの小僧の年季も、前金を払ってある。</p><p>念のため、息子の雄一にも手を打ってある。雄一の借金を肩代わりするかわりに、権造が死んだあと雄一が受け継ぐ一座の権利を、こちらに譲らせる書類だ。権造が死んだ今、この書類が何よりものを言う。</p><p>ただ、雄一は「あれは無効だ」と言い出すかもしれない。雄一が人殺しで捕まれば、あの男には何も言えなくなる。</p><p>21:05、団長車で権造と最後の話をした。権造は「話は明日だ」と、酒も出さなかった。21:10、出ていくとき、入ってくるピエロとすれ違った。</p><p>旅回りの一座を三つ買った。どこも、団長が死ぬか、借金で首が回らなくなってからだ。人が弱ったときに手を差し伸べる。それが商売だと思っている。</p><p>若いころ、浅草で空中ブランコの娘に惚れたことがある。ネットのない小屋で、その娘は落ちた。あれ以来、あなたは客の歓声がいちばん大きくなる芸の値段を知っている。</p><p>今夜の千秋楽は、正直、見事だった。売り物として、ではなく。</p></div>
+      <div class="secret"><h4>秘密</h4><p>雄一に判を押させた「権利の譲渡書」を持っている。雄一が捕まれば、一座は確実に自分のものになる。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>大鷲雄一</b>：団長の息子。借金で首が回らない。21:15ごろ、団長車のほうへ歩いていくのを見た。</li><li><b>虎尾ジン</b>：猛獣使い。ラジャを売った話をしたら、団長に「殺す」と言ったらしい。</li><li><b>美羽</b>：空中ブランコの花形。うちで「預かる」ことになっていた。</li><li><b>ハル</b>：綱渡りの小僧。年季の前金は払ってある。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「買収」</b>（処理の順番 3）：「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、札束と交換させる。パワーは関係ない。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 08 ／ 2枚目</span><span class="nm">蛭田 剛<small>ひるた ごう</small></span><span class="rl">興行会社「蛭田興業」の社長・50歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>18:30</dt><dd>河原に車を止める。切符売り場のおかみさんに、深くお辞儀をされた。</dd><dt>19:00</dt><dd>客席の最前列で、千秋楽を見る。</dd><dt>19:30</dt><dd>客席で猛獣の芸を見る。ラジャの値打ちを、あらためて勘定した。</dd><dt>20:05</dt><dd>休憩。楽屋で雄一に「明日、親父の判ももらう」と言った。</dd><dt>20:20</dt><dd>ピエロの芸。客席の子どもたちが腹をかかえて笑っていた。</dd><dt>21:00</dt><dd>終演の挨拶を客席で見る。</dd><dt>21:05</dt><dd>団長車で団長と話す。団長は「話は明日だ」と言い、酒は出さなかった。机の上には空のグラスが二つ、瓶が一本。</dd><dt>21:10</dt><dd>団長車を出る。入ってくるトトとすれ違った。</dd><dt>21:12</dt><dd>大テントの客席で、新聞記者の春日に話を聞かれる（21:25まで）。</dd><dt>21:25</dt><dd>自分の車へ戻り、葉巻を吸っていた（ひとり）。</dd><dt>21:45</dt><dd>騒ぎを聞いて、楽屋へ。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:05から21:10まで団長車。団長は元気で、酒は飲んでいなかった。21:12から21:25は客席で記者と話し、そのあとは車で葉巻」。譲渡書のことは、自分からは言わない。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>雄一は父に「継がせん」と言われ、借金もある。動機は十分だ。</li><li>団長は21:10には酒を飲んでいなかった。毒を飲んだのは、そのあと。</li><li>譲渡書は、誰にも渡したくない。</li><li>虎尾は薬品棚の鍵を持っている。ラジャを売られて恨んでいた。</li><li>団長と最後に一緒にいたピエロは、何をしていたのか。</li><li>雄一は21:15に団長車のほうへ行った。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>あなたの目的は、雄一を最多票にすること。誰が犯人かは関係ない。</li><li>雄一の怪しいところ（遺言・借金・21:15に団長車の前にいた）を、さりげなく広める。</li><li>スキル「買収」は札束が要る。札束を取られないように。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>押しの強い興行師として、太い声で話してください。葉巻をくゆらせ、人を値踏みするように見る。「商売ですから」が口ぐせ。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>大鷲雄一が最多票に<b>なる</b>。</span></div><div class="goal"><span class="pt">+2</span><span>最後に「権利の譲渡書」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「ラジャの売買の証文」を自分が持っている。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「買収」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article>
+  <article class="sheet" data-key="KA">
+    <div class="pg">
+    <div class="slate"><span class="no">ROLL 09 ／ 本人以外閲覧禁止</span><span class="nm">春日 沙織<small>かすが さおり</small></span><span class="rl">信濃日報の記者・30歳</span></div>
+    <div class="body">
+      <p class="stance">あなたは犯人ではありません。</p>
+      <div class="intro"><h4>自己紹介（オープニングでみんなに話す）</h4><p>「信濃日報の春日です。千秋楽の記事を書くために来ました。終演のあとは、客席で蛭田さんに話を聞いて、それから楽屋のほうを回っていました」</p></div>
+      <div class="bgtext"><h4>あなたの背景（あなたしか知らないこと）</h4><p>東京の下町で育った。同じ長屋に住む小百合さんは、十歳年上のお姉さんのような人だった。小百合さんは、昔サーカスにいたこと、父親が怖くて逃げてきたことを、あなたにだけ話した。</p><p>二年前、小百合さんは病気で亡くなった。最期に、一通の手紙をあなたに預けた。「ハルが困ったら、大鷲サーカスのお母さんに渡して。ハルはあなたの孫です、と」。</p><p>ハルはそのあと孤児院に入り、あなたは信州の新聞社に移った。この春、大鷲サーカスにハルという綱渡りの少年が入ったと聞いて、胸が騒いだ。</p><p>取材のふりをして、何度か一座に通った。おかみさんは、ハルを見るとき、いつも同じ顔をする。手紙を渡すのは、今夜だと決めていた。</p><p>21:26、団長車の裏の窓の下に回った。団長と蛭田の話を聞けるかと思った。21:28、団長車の裏の戸が開いて、白塗りの顔が出てきた。トトさんが雪の上に何かをばらまき、すぐに戻っていった。あなたは物陰で息をひそめた。</p><p>新聞社では「女に事件は書けない」と言われ、町の行事の記事ばかり書いてきた。それでも、書くことで誰かを守れると信じている。</p></div>
+      <div class="secret"><h4>秘密</h4><p>亡くなった小百合（団長夫婦の娘）の友だちで、「ハルは大鷲の孫だ」という小百合の手紙を預かっている。21:28、団長車の裏でトトが雪の上に何かを捨てるのを見た。</p></div>
+      <div><h4>ほかの人について知っていること</h4><ul><li><b>ハル</b>：小百合さんの息子。本人は、自分がこの一座の孫だと知らない。</li><li><b>大鷲菊江</b>：小百合さんのお母さん。ハルのおばあさん。</li><li><b>大鷲雄一</b>：小百合さんのお兄さん。小百合さんは「兄さんは弱い人だけど、優しい」と言っていた。</li><li><b>戸田健一（トト）</b>：道化師。21:28、団長車の裏で雪の上に何かを捨てていた。</li></ul></div>
+      <div class="skillbox"><h4>パワーとスキル</h4><p><b>基本パワー 1</b>（今持っている持ち物のパワーを足したものが、あなたのパワー）</p><p><b>スキル「目利き」</b>（処理の順番 2）：1人を選び、その人の持ち物をすべて見る。その中の「証文」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</p><p class="note">基本パワーとスキルはあなただけの秘密（ほかの人には公開されていない）。投票のあとに使うとき、はじめて効果を全員に言う。</p></div>
+    </div>
+    </div>
+    <div class="pg">
+    <div class="slate cont"><span class="no">ROLL 09 ／ 2枚目</span><span class="nm">春日 沙織<small>かすが さおり</small></span><span class="rl">信濃日報の記者・30歳</span></div>
+    <div class="body">
+      <div class="secret"><h4>事件の日の、あなたの行動</h4><dl class="tl"><dt>19:00</dt><dd>客席の後ろで開演を見る。切符売り場から戻ったおかみさんの手が、ずっとふるえていた。</dd><dt>20:05</dt><dd>休憩中、楽屋を取材。団長が美羽さんに何かの紙を見せて、美羽さんが泣いていた。</dd><dt>20:30</dt><dd>楽屋の外から、団長がハルを怒鳴る声を聞いた。</dd><dt>21:00</dt><dd>終演の挨拶を客席で見る。</dd><dt>21:12</dt><dd>客席で、蛭田さんに話を聞く。「一座を買うのか」と聞くと、笑ってはぐらかされた。</dd><dt>21:25</dt><dd>蛭田さんと別れる。</dd><dt>21:26</dt><dd>団長車の裏の窓の下へ回る。中は静かで、何も聞こえなかった。</dd><dt>21:28</dt><dd><b>団長車の裏の戸が開き、トトさんが出てきて、雪の上に何かをばらまいて戻った。</b></dd><dt>21:30</dt><dd>トトさんが表のほうへ出ていく足音。裏の窓をのぞこうとしたが、くもっていて見えなかった。</dd><dt>21:35</dt><dd>楽屋テントへ。おかみさんと美羽さんが衣装を広げていた。</dd><dt>21:45</dt><dd>雄一さんの叫び声。</dd></dl></div>
+      <div class="answer"><h4>聞かれたときの答え方（時間のこと）</h4><p>「21:12から21:25は客席で蛭田さんと。そのあと少し外を歩いて、21:35に楽屋」。団長車の裏にいたことは、言うかどうか、いつ言うかは自由。小百合さんの手紙のことは、ハルとおかみさんのために、きちんと明かしたい。</p></div>
+      <div><h4>議論のヒント</h4><ul><li>トトさんは団長車の裏で、雪の上に何をばらまいたのか。</li><li>団長は自分の氷を浮かべたウイスキーを飲む、と聞いた。グラスに氷は残っていたのか。</li><li>おかみさんの袖の下に、あざが見えたことがある。</li><li>ハルは17:30に猛獣小屋にいたらしい。何か見ていないか。</li></ul></div>
+      <div class="acting"><h4>立ち回りのコツ</h4><ul><li>目的は「犯人に投票する」と、小百合の手紙を見せながら明かすこと。手紙は取られる前に見せたい。</li><li>21:28に見たことは、事件の大きな手がかり。誰に、いつ話すかはあなた次第。</li><li>団長の日記は金庫にあるかもしれない。番号を知っている人を探す。</li></ul></div>
+      <div class="acting"><h4>演じ方のヒント</h4><p>好奇心の強い若い記者として、はきはきと質問してください。メモを取る手が止まらない。ハルの話になると、姉のような目になる。</p></div>
+      <div><h4>目的</h4><div class="goals"><div class="goal"><span class="pt">+3</span><span>議論中に「小百合の手紙」を全員に見せながら、ハルが大鷲夫妻の孫だと明かす。</span></div><div class="goal"><span class="pt">+2</span><span>犯人（大鷲権造を殺した人）に投票する。</span></div><div class="goal"><span class="pt">+1</span><span>最後に「団長の日記」を自分が持っている（記事にするため）。</span></div><div class="goal"><span class="pt">+1</span><span>スキル「目利き」を成功させる。</span></div></div></div>
+    </div>
+    </div>
+  </article></div>
+</section>
+<section class="panel" id="items" hidden>
+  <h2>持ち物カード</h2>
+  <div class="warn gate" data-gate="items">
+    <p><strong>GM専用。</strong>持ち主のキャラシートと一緒に、4枚ずつ封筒に入れて配ります。</p>
+    <button type="button" class="btn" id="gate-items">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="items" hidden><h3 class="grp">大鷲 菊江の持ち物（ROLL 01 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="大鷲 菊江" data-label="大鷲 菊江の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－①</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 菊江</span><span class="ttl">薬包紙</span><div class="txt">四角に折った薬包紙。<b>ほんの少し、白い粉が残っている</b>。前掛けのポケットに入っていた。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大鷲 菊江" data-label="大鷲 菊江の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－②</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 菊江</span><span class="ttl">会計の鍵束</span><div class="txt">一座の鍵が十本ほどついた鍵束。「薬品棚　予備」の札の鍵もある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>条件：これを持っている間、「猛獣小屋の薬品棚」を調べられる。</p></div></div><div class="card item" data-owner="大鷲 菊江" data-label="大鷲 菊江の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－③</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 菊江</span><span class="ttl">小百合の写真</span><div class="txt">十五歳の小百合。珊瑚の帯留めをつけて、はにかんでいる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大鷲 菊江" data-label="大鷲 菊江の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 01－④</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 菊江</span><span class="ttl">裁ちばさみ</span><div class="txt">衣装を縫う大きな裁ちばさみ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">戸田 健一の持ち物（ROLL 02 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="戸田 健一" data-label="戸田 健一の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－①</span></div><div class="bd"><span class="owner">最初の持ち主：戸田 健一</span><span class="ttl">製氷皿</span><div class="txt">金属の製氷皿。底に「<b>団長</b>」と刻んである。中は空で、まだ濡れている。<b>かすかに杏仁のにおい</b>。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="戸田 健一" data-label="戸田 健一の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－②</span></div><div class="bd"><span class="owner">最初の持ち主：戸田 健一</span><span class="ttl">白粉の缶</span><div class="txt">ピエロの白塗り用のおしろい。<b>白い粉</b>がたっぷり入っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="戸田 健一" data-label="戸田 健一の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－③</span></div><div class="bd"><span class="owner">最初の持ち主：戸田 健一</span><span class="ttl">菊江の若いころの写真</span><div class="txt">三十年前、初めてのテントの前で笑う若いおかみさん。裏に「昭和八年　菊江さん」とトトの字。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="戸田 健一" data-label="戸田 健一の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 02－④</span></div><div class="bd"><span class="owner">最初の持ち主：戸田 健一</span><span class="ttl">解雇の書き付け</span><div class="txt">団長の字。「戸田健一　本日をもって解雇。道化はいらん」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">美羽の持ち物（ROLL 03 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="美羽" data-label="美羽の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－①</span></div><div class="bd"><span class="owner">最初の持ち主：美羽</span><span class="ttl">蝶の髪飾り</span><div class="txt">小さな銀の蝶の髪飾り。三つのときから持っている、母の形見。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美羽" data-label="美羽の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－②</span></div><div class="bd"><span class="owner">最初の持ち主：美羽</span><span class="ttl">団長の念書</span><div class="txt">「美羽を蛭田興業に預ける。給金は大鷲がもらう。大鷲権造」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美羽" data-label="美羽の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－③</span></div><div class="bd"><span class="owner">最初の持ち主：美羽</span><span class="ttl">産婆の診察券</span><div class="txt">町の産婆の診察券。「美羽様　次は一月」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="美羽" data-label="美羽の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 03－④</span></div><div class="bd"><span class="owner">最初の持ち主：美羽</span><span class="ttl">ブランコのバー</span><div class="txt">空中ブランコの予備の鉄のバー。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">黒川 勇の持ち物（ROLL 04 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="黒川 勇" data-label="黒川 勇の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－①</span></div><div class="bd"><span class="owner">最初の持ち主：黒川 勇</span><span class="ttl">汽車の切符</span><div class="txt">あしたの朝5:10、上野行きの三等の切符が二枚。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒川 勇" data-label="黒川 勇の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－②</span></div><div class="bd"><span class="owner">最初の持ち主：黒川 勇</span><span class="ttl">婚約の指輪</span><div class="txt">安い銀の指輪。内側に「M」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒川 勇" data-label="黒川 勇の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－③</span></div><div class="bd"><span class="owner">最初の持ち主：黒川 勇</span><span class="ttl">手首の包帯</span><div class="txt">休憩中に団長を殴ったとき、すりむいた手首の包帯。少し血がにじんでいる。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="黒川 勇" data-label="黒川 勇の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 04－④</span></div><div class="bd"><span class="owner">最初の持ち主：黒川 勇</span><span class="ttl">鉄の滑車</span><div class="txt">ブランコを吊る鉄の滑車。とても重い。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">虎尾 ジンの持ち物（ROLL 05 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="虎尾 ジン" data-label="虎尾 ジンの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－①</span></div><div class="bd"><span class="owner">最初の持ち主：虎尾 ジン</span><span class="ttl">薬品棚の鍵</span><div class="txt">「猛獣小屋　薬品棚」の札の鍵。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff"><b>効果</b>条件：これを持っている間、「猛獣小屋の薬品棚」を調べられる。</p></div></div><div class="card item" data-owner="虎尾 ジン" data-label="虎尾 ジンの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－②</span></div><div class="bd"><span class="owner">最初の持ち主：虎尾 ジン</span><span class="ttl">ラジャの写真</span><div class="txt">子虎のラジャに哺乳瓶でミルクをやる、若い虎尾。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="虎尾 ジン" data-label="虎尾 ジンの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－③</span></div><div class="bd"><span class="owner">最初の持ち主：虎尾 ジン</span><span class="ttl">獣医の書き付け</span><div class="txt">「青酸カリ一瓶　猛獣の緊急時に限る。量は棚の帳面に記すこと」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="虎尾 ジン" data-label="虎尾 ジンの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 05－④</span></div><div class="bd"><span class="owner">最初の持ち主：虎尾 ジン</span><span class="ttl">革の鞭</span><div class="txt">使いこまれた猛獣使いの鞭。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">大鷲 雄一の持ち物（ROLL 06 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="大鷲 雄一" data-label="大鷲 雄一の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－①</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 雄一</span><span class="ttl">借用書</span><div class="txt">「金二百万円　借用いたしました　大鷲雄一　蛭田剛殿」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大鷲 雄一" data-label="大鷲 雄一の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－②</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 雄一</span><span class="ttl">母の手編みの手袋</span><div class="txt">母が編んでくれた毛糸の手袋。片方だけ、妹の小百合の名前が刺繍してある（小百合のものだった）。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大鷲 雄一" data-label="大鷲 雄一の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－③</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 雄一</span><span class="ttl">父と撮った写真</span><div class="txt">十歳の雄一が、赤い燕尾服の父の肩に乗っている。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="大鷲 雄一" data-label="大鷲 雄一の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 06－④</span></div><div class="bd"><span class="owner">最初の持ち主：大鷲 雄一</span><span class="ttl">ジャグリングのナイフ</span><div class="txt">刃をつぶしたジャグリングのナイフ三本。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">ハルの持ち物（ROLL 07 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="ハル" data-label="ハルの持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－①</span></div><div class="bd"><span class="owner">最初の持ち主：ハル</span><span class="ttl">母の帯留め</span><div class="txt">珊瑚の帯留め。紐を通して首から下げている。裏に小さく「菊」と彫ってある。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="ハル" data-label="ハルの持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－②</span></div><div class="bd"><span class="owner">最初の持ち主：ハル</span><span class="ttl">孤児院の院長の手紙</span><div class="txt">「ハルくんへ。お母さんの小百合さんは、昔『大きな鳥の名前のサーカス』にいたと話していました」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="ハル" data-label="ハルの持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－③</span></div><div class="bd"><span class="owner">最初の持ち主：ハル</span><span class="ttl">猛獣小屋のえさ当番表</span><div class="txt">「17:30　ハル」。ハルの字で「おかみさん　寒いね」と落書き。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="ハル" data-label="ハルの持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 07－④</span></div><div class="bd"><span class="owner">最初の持ち主：ハル</span><span class="ttl">綱渡りの竿</span><div class="txt">長いバランス竿。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">蛭田 剛の持ち物（ROLL 08 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="蛭田 剛" data-label="蛭田 剛の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－①</span></div><div class="bd"><span class="owner">最初の持ち主：蛭田 剛</span><span class="ttl">権利の譲渡書</span><div class="txt">「父・大鷲権造の死後、私が受け継ぐ大鷲サーカスの一切の権利を、蛭田興業に譲る。大鷲雄一」。雄一の判。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="蛭田 剛" data-label="蛭田 剛の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－②</span></div><div class="bd"><span class="owner">最初の持ち主：蛭田 剛</span><span class="ttl">ハルの年季の契約書</span><div class="txt">「ハルを蛭田興業に五年の年季で預ける。前金二十万円受領。大鷲権造」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="蛭田 剛" data-label="蛭田 剛の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－③</span></div><div class="bd"><span class="owner">最初の持ち主：蛭田 剛</span><span class="ttl">札束</span><div class="txt">蛭田の財布の分厚い札束。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff"><b>効果</b>お金のカード。スキルによっては使い道がある。</p></div></div><div class="card item" data-owner="蛭田 剛" data-label="蛭田 剛の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 08－④</span></div><div class="bd"><span class="owner">最初の持ち主：蛭田 剛</span><span class="ttl">蛭田興業の名刺</span><div class="txt">「蛭田興業　社長　蛭田剛」。裏に「浅草・新宿・大阪」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div><h3 class="grp">春日 沙織の持ち物（ROLL 09 の封筒へ）</h3><div class="cards"><div class="card item" data-owner="春日 沙織" data-label="春日 沙織の持ち物①"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－①</span></div><div class="bd"><span class="owner">最初の持ち主：春日 沙織</span><span class="ttl">小百合の手紙</span><div class="txt">「お母さんへ。ハルは、わたしの子です。お母さんの孫です。どうか、この子だけは、お父さんから守って。小百合」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="春日 沙織" data-label="春日 沙織の持ち物②"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－②</span></div><div class="bd"><span class="owner">最初の持ち主：春日 沙織</span><span class="ttl">記者手帳</span><div class="txt">今夜のメモ。「20:05 楽屋　団長、美羽さんに紙を見せる」「21:28 団長車裏　トト」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="春日 沙織" data-label="春日 沙織の持ち物③"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－③</span></div><div class="bd"><span class="owner">最初の持ち主：春日 沙織</span><span class="ttl">古い新聞記事</span><div class="txt">十八年前の小さな記事。「大鷲サーカスの娘（17）家出か」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p></div></div><div class="card item" data-owner="春日 沙織" data-label="春日 沙織の持ち物④"><div class="hd"><span class="loc">持ち物</span><span>ROLL 09－④</span></div><div class="bd"><span class="owner">最初の持ち主：春日 沙織</span><span class="ttl">報道用のカメラ</span><div class="txt">大きなフラッシュのついた重いカメラ。</div><div class="bdg"><span class="pw on">パワー +1</span></div><p class="eff none"><b>効果</b>なし</p></div></div></div></div>
+</section>
+<section class="panel" id="secrets" hidden>
+  <h2>秘密カード</h2>
+  <div class="warn gate" data-gate="secrets">
+    <p><strong>GM専用。</strong>GMが人物ごとに分けて手元に置き、調査で指名されたらこっそり見せます。</p>
+    <button type="button" class="btn" id="gate-secrets">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="secrets" hidden><div class="cards"><div class="card sec" data-label="大鷲 菊江の秘密①"><div class="hd"><span class="loc">大鷲 菊江の秘密 ①</span><span>SECRET 01</span></div><div class="bd"><p>団長は三十年、菊江に手をあげていた。菊江の腕には、今日できた新しいあざがある。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="大鷲 菊江の秘密②"><div class="hd"><span class="loc">大鷲 菊江の秘密 ②</span><span>SECRET 02</span></div><div class="bd"><p>団長の氷は、毎日18時に菊江が湧き水で作る。団長はほかの者に自分の氷をさわらせない。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="戸田 健一の秘密①"><div class="hd"><span class="loc">戸田 健一の秘密 ①</span><span>SECRET 03</span></div><div class="bd"><p>トトは三十年、菊江に片思いしている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="戸田 健一の秘密②"><div class="hd"><span class="loc">戸田 健一の秘密 ②</span><span>SECRET 04</span></div><div class="bd"><p>18:05ごろ、トトは団長車のそばで菊江とすれ違った。菊江は「団長の氷を作ってきたところ」と言った。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="美羽の秘密①"><div class="hd"><span class="loc">美羽の秘密 ①</span><span>SECRET 05</span></div><div class="bd"><p>美羽は黒川勇の子を身ごもっている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="美羽の秘密②"><div class="hd"><span class="loc">美羽の秘密 ②</span><span>SECRET 06</span></div><div class="bd"><p>団長は、美羽を蛭田興業に「預ける」念書を用意していた。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒川 勇の秘密①"><div class="hd"><span class="loc">黒川 勇の秘密 ①</span><span>SECRET 07</span></div><div class="bd"><p>黒川は、あしたの朝の汽車で美羽と駆け落ちするつもりでいる。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="黒川 勇の秘密②"><div class="hd"><span class="loc">黒川 勇の秘密 ②</span><span>SECRET 08</span></div><div class="bd"><p>20:05の休憩中、黒川は楽屋で団長を殴った。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="虎尾 ジンの秘密①"><div class="hd"><span class="loc">虎尾 ジンの秘密 ①</span><span>SECRET 09</span></div><div class="bd"><p>20:00、虎尾は団長に「ラジャに指一本ふれたら、殺す」と言った。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="虎尾 ジンの秘密②"><div class="hd"><span class="loc">虎尾 ジンの秘密 ②</span><span>SECRET 10</span></div><div class="bd"><p>薬品棚の鍵は二本。虎尾が一本、もう一本はおかみさん（菊江）の会計の鍵束についている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="大鷲 雄一の秘密①"><div class="hd"><span class="loc">大鷲 雄一の秘密 ①</span><span>SECRET 11</span></div><div class="bd"><p>雄一は蛭田に二百万の借金があり、自分の相続分の一座の権利を蛭田興業に譲る書類に判を押した。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="大鷲 雄一の秘密②"><div class="hd"><span class="loc">大鷲 雄一の秘密 ②</span><span>SECRET 12</span></div><div class="bd"><p>21:15、雄一は団長車の戸の前で、団長がトトに「おまえはクビだ」と怒鳴る声を聞いている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="ハルの秘密①"><div class="hd"><span class="loc">ハルの秘密 ①</span><span>SECRET 13</span></div><div class="bd"><p>17:30、ハルは猛獣小屋で、薬品の小部屋から出てくるおかみさん（菊江）を見ている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="ハルの秘密②"><div class="hd"><span class="loc">ハルの秘密 ②</span><span>SECRET 14</span></div><div class="bd"><p>ハルの母は「小百合」という名前で、昔どこかのサーカスにいた。二年前に東京で亡くなった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="蛭田 剛の秘密①"><div class="hd"><span class="loc">蛭田 剛の秘密 ①</span><span>SECRET 15</span></div><div class="bd"><p>蛭田は、雄一に判を押させた「権利の譲渡書」を持っている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="蛭田 剛の秘密②"><div class="hd"><span class="loc">蛭田 剛の秘密 ②</span><span>SECRET 16</span></div><div class="bd"><p>21:05〜21:10、蛭田は団長車で団長と会っていた。団長は酒を飲んでいなかった。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="春日 沙織の秘密①"><div class="hd"><span class="loc">春日 沙織の秘密 ①</span><span>SECRET 17</span></div><div class="bd"><p>春日は、亡くなった小百合（団長夫婦の娘）の友だち。小百合の手紙を預かっている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card sec" data-label="春日 沙織の秘密②"><div class="hd"><span class="loc">春日 沙織の秘密 ②</span><span>SECRET 18</span></div><div class="bd"><p>21:28、春日は団長車の裏で、トトが雪の上に何かをばらまくのを見ている。</p><p class="foot">調べたらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="clues" hidden>
+  <h2>証拠カード</h2>
+  <div class="warn gate" data-gate="clues">
+    <p><strong>GM専用。</strong>場所ごとに番号順に並べ、調査2のカードは調査2になってから加えます。</p>
+    <button type="button" class="btn" id="gate-clues">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="clues" hidden><p class="lead">「条件」の印がある場所は、条件を満たした人しか調べられません。条件はプレイヤーには公開しないので、GMはここで確かめてください。</p><ul><li>猛獣小屋の薬品棚：「薬品棚の鍵」または「会計の鍵束」を持っていること</li><li>団長車の金庫：金庫の番号（雄一が知っている。番号を教えられた人も調べられる）</li></ul><div class="cards"><div class="card clue" data-label="団長車 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">団長車 ①</span><span class="ph">調査1</span><span>CLUE 01</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺体</span><p>団長はソファの前の床に倒れている。のどをかきむしったあと。口のまわりから<b>杏仁のような甘いにおい</b>。青酸カリの中毒。飲んで数分で倒れたとみられる。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="団長車 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">団長車 ②</span><span class="ph">調査1</span><span>CLUE 02</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">団長のグラス</span><p>机の上、団長の席のグラス。ウイスキーが半分残っている。<b>氷は入っていない</b>が、ウイスキーの色は少し薄く、水で割ったよう。グラスから強い杏仁のにおい。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="団長車 ③" data-phase="1" data-lock=""><div class="hd"><span class="loc">団長車 ③</span><span class="ph">調査1</span><span>CLUE 03</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">瓶ともう一つのグラス</span><p>ウイスキーの瓶は、においをかいでも何もしない。向かいの席のグラス（トトの分）は空で、においもない。<b>同じ瓶から注いで飲んだあと</b>。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="団長車 ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">団長車 ④</span><span class="ph">調査2</span><span>CLUE 04</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">電気冷蔵庫</span><p>団長自慢の電気冷蔵庫。製氷室の霜に、<b>製氷皿二つ分の跡</b>。入っているのは「みんなの」の名札の皿一つだけ。<b>「団長」の皿がない</b>。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="団長車 ⑤" data-phase="2" data-lock=""><div class="hd"><span class="loc">団長車 ⑤</span><span class="ph">調査2</span><span>CLUE 05</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">床</span><p>机の脚のそばに、氷ばさみが落ちている。先が濡れている。そばの床に、小さな水たまりが二つ。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋テント ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋テント ①</span><span class="ph">調査1</span><span>CLUE 06</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">番組表</span><p>今夜の番組。「19:00 開演　19:10 綱渡り　19:30 猛獣　19:50 ジャグリング　20:05 休憩　20:20 ピエロ　20:40 空中ブランコ　21:00 挨拶」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="楽屋テント ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">楽屋テント ②</span><span class="ph">調査1</span><span>CLUE 07</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">トトの鏡台</span><p>トトの鏡台。いつもの「白粉の缶」がない。鏡に口紅で「ありがとう」と書きかけたあと。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋テント ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋テント ③</span><span class="ph">調査2</span><span>CLUE 08</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">古い貼り紙</span><p>楽屋の柱の古い貼り紙。「<b>団長の氷にさわるべからず</b>」。その下に鉛筆で「おかみさんが毎日18時に作る」と誰かの字。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="楽屋テント ④" data-phase="2" data-lock=""><div class="hd"><span class="loc">楽屋テント ④</span><span class="ph">調査2</span><span>CLUE 09</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">繕いもの</span><p>楽屋の机に、ほどきかけの美羽の衣装と、繕いの針箱。おかみさんの座布団のそばに、紺の木綿の糸くず。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="大テント ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">大テント ①</span><span class="ph">調査1</span><span>CLUE 10</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">終演の挨拶</span><p>21:00の挨拶には、一座の全員と団長がリングに並んだ（客席の人たちの話）。団長は21:05ごろ、裏口から団長車へ戻った。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="大テント ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">大テント ②</span><span class="ph">調査1</span><span>CLUE 11</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">リングの縁</span><p>リングの縁に、たばこの吸い殻が五本。ピエロの大きなどた靴の跡。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="大テント ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">大テント ③</span><span class="ph">調査2</span><span>CLUE 12</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">張り綱</span><p>綱渡りの綱に、新しい足袋の跡。21時すぎまで誰かが稽古していたらしい。綱の上からは、リングの縁がよく見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="猛獣小屋 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">猛獣小屋 ①</span><span class="ph">調査1</span><span>CLUE 13</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">ラジャの檻</span><p>ラジャは落ち着いて寝そべっている。檻のそばに虎尾の寝床と毛布。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="猛獣小屋 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">猛獣小屋 ②</span><span class="ph">調査1</span><span>CLUE 14</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">薬品の小部屋の戸</span><p>猛獣小屋の奥の、薬品棚のある小部屋の戸。鍵がかかっている。戸の前の土間に、<b>女物の下駄の跡</b>が行って戻っている。上にうっすら雪が吹きこんでいて、数時間前の跡のよう。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="猛獣小屋 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">猛獣小屋 ③</span><span class="ph">調査2</span><span>CLUE 15</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">ラジャを売るという書き付け</span><div class="txt">団長の字。「ラジャは蛭田に売った。明日引き取り。文句は言わせん」。</div><div class="bdg"><span class="pw">パワー なし</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="炊事車 ①" data-phase="1" data-lock=""><div class="hd"><span class="loc">炊事車 ①</span><span class="ph">調査1</span><span>CLUE 16</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">湧き水の甕</span><p>炊事車の隅の甕。「団長の氷用　湧き水」と札。ひしゃくが一本。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="炊事車 ②" data-phase="1" data-lock=""><div class="hd"><span class="loc">炊事車 ②</span><span class="ph">調査1</span><span>CLUE 17</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">炊事係の話</span><p>炊事係のばあさん。「団長さんの氷は、毎日夕方の6時に、おかみさんが団長車の冷蔵庫で作るんですよ。団長さんは自分の氷を人にさわられると怒るから、誰も手を出しません。トトさんは歯にしみるって、氷は使わないけどね」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="炊事車 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">炊事車 ③</span><span class="ph">調査2</span><span>CLUE 18</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">炊事係の話（二）</span><p>「雄一さんなら、21:20から21:40まで、ここでお茶を飲んでましたよ。……おかみさん？今日は夕方から顔色が悪くてね。袖の下に、新しいあざがあった」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="猛獣小屋の薬品棚 ①" data-phase="1" data-lock="1"><div class="hd"><span class="loc">猛獣小屋の薬品棚 <span class="lockmark">条件</span> ①</span><span class="ph">調査1</span><span>CLUE 19</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">青酸カリの瓶</span><p>薬品棚の茶色い瓶。封が切られ、中身が少し減っている。棚の帳面の最後の記録は「九月　虎尾　量を確かめた」。それより後の記録はない。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="猛獣小屋の薬品棚 ②" data-phase="1" data-lock="1"><div class="hd"><span class="loc">猛獣小屋の薬品棚 <span class="lockmark">条件</span> ②</span><span class="ph">調査1</span><span>CLUE 20</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">鍵の札</span><p>棚の扉の内側の札。「鍵は二本。一本は猛獣係、一本は会計の鍵束」。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="猛獣小屋の薬品棚 ③" data-phase="2" data-lock="1"><div class="hd"><span class="loc">猛獣小屋の薬品棚 <span class="lockmark">条件</span> ③</span><span class="ph">調査2</span><span>CLUE 21</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">棚の下</span><p>棚の下の床に、<b>四角に折った薬包紙の切れ端</b>と、<b>紺の木綿の糸くず</b>（前掛けの布のよう）。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue" data-label="団長車の金庫 ①" data-phase="1" data-lock="1"><div class="hd"><span class="loc">団長車の金庫 <span class="lockmark">条件</span> ①</span><span class="ph">調査1</span><span>CLUE 22</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">ラジャの売買の証文</span><div class="txt">「ベンガル虎ラジャを、金三十万円にて蛭田興業へ売り渡す。大鷲権造」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue" data-label="団長車の金庫 ②" data-phase="1" data-lock="1"><div class="hd"><span class="loc">団長車の金庫 <span class="lockmark">条件</span> ②</span><span class="ph">調査1</span><span>CLUE 23</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">遺言書</span><p>団長の遺言書。「一座の一切を、息子・雄一に継がせる。妻・菊江には何も残さない」。日付は去年。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="団長車の金庫 ③" data-phase="2" data-lock="1"><div class="hd"><span class="loc">団長車の金庫 <span class="lockmark">条件</span> ③</span><span class="ph">調査2</span><span>CLUE 24</span></div><div class="bd"><span class="kind take">持ち帰り</span><span class="ttl">団長の日記</span><div class="txt">団長の日記の最後のページ。「十二月某日。ハルの帯留め、あれは菊江が小百合にやった物だ。あの女の子どもだ。蛭田にくれてやる。菊江には今日言ってやった」。</div><div class="bdg"><span class="pw">パワー なし</span><span class="art">証文</span></div><p class="eff none"><b>効果</b>なし</p><p class="foot">持ち帰り：このカードは、調べた人の持ち物になる（もうほかの人はこの場所で調べられない）。最初の持ち主はいない。</p></div></div><div class="card clue p2" data-label="団長車の裏 ①" data-phase="2" data-lock=""><div class="hd"><span class="loc">団長車の裏 ①</span><span class="ph">調査2</span><span>CLUE 25</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">雪の上</span><p>団長車の裏の雪に、<b>小さな丸い穴が八つほど</b>。氷が溶けてできた穴のよう。近づくと、<b>かすかに杏仁のにおい</b>。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="団長車の裏 ②" data-phase="2" data-lock=""><div class="hd"><span class="loc">団長車の裏 ②</span><span class="ph">調査2</span><span>CLUE 26</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">足跡</span><p>裏の戸の下から穴のところまで、<b>大きなどた靴の跡</b>が往復している。少し離れた物置の陰に、女物のブーツの跡が立ち止まった形で残っている。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div><div class="card clue p2" data-label="団長車の裏 ③" data-phase="2" data-lock=""><div class="hd"><span class="loc">団長車の裏 ③</span><span class="ph">調査2</span><span>CLUE 27</span></div><div class="bd"><span class="kind share">共有</span><span class="ttl">裏の窓</span><p>団長車の裏の小さな窓。湯気でくもっていて、外から中はよく見えない。窓の下からは、裏の戸がよく見える。</p><p class="foot">共有：読んだらGMに返す。ほかの人も、あとで同じカードを調べられる。</p></div></div></div></div>
+</section>
+<section class="panel" id="gm" hidden>
+  <h2>GMブック</h2>
+  <div class="warn gate" data-gate="gm">
+    <p><strong>GM専用。</strong>真相がすべて書かれています。</p>
+    <button type="button" class="btn" id="gate-gm">GMなので表示する</button>
+  </div>
+  <div class="gated" data-for="gm" hidden><div class="box gm"><h3>スキルの一覧と処理の順番</h3><p class="note">プレイヤーには見せない。スキル用紙を集めたら、順番の早いものから呼ぶ。</p><div class="tbl-wrap"><table><thead><tr><th class="t">順番</th><th>スキル</th><th>使う人</th><th>効果</th></tr></thead><tbody><tr><td class="t">1</td><td><b>かばう</b></td><td>戸田 健一</td><td>1人（自分でもよい）を選ぶ。その人には、ほかの人のスキルがひとつも効かなくなる。</td></tr><tr><td class="t">2</td><td><b>目利き</b></td><td>春日 沙織</td><td>1人を選び、その人の持ち物をすべて見る。その中の「証文」の印がある持ち物を1つ、パワーに関係なく自分のものにできる。</td></tr><tr><td class="t">3</td><td><b>買収</b></td><td>蛭田 剛</td><td>「札束」を持っているときだけ使える。1人を選び、欲しい持ち物の名前を1つ言う。相手がそれを持っていれば、札束と交換させる。パワーは関係ない。</td></tr><tr><td class="t">4</td><td><b>力ずく</b></td><td>黒川 勇</td><td>1人を選ぶ。相手のパワーが自分より低ければ、相手の持ち物をすべて見て、1つ奪う。</td></tr><tr><td class="t">5</td><td><b>すり取り</b></td><td>虎尾 ジン</td><td>1人を選ぶ。相手の持ち物を裏向きのまま1つ引いて、自分のものにする。相手のパワーが自分より2以上高いと失敗する。</td></tr><tr><td class="t">6</td><td><b>すり替え</b></td><td>ハル</td><td>1人を選ぶ。自分の持ち物を1つ渡し、かわりに相手の持ち物を裏向きのまま1つ引く。パワーは関係ない。</td></tr><tr><td class="t">7</td><td><b>お願い</b></td><td>大鷲 雄一</td><td>1人を選び、持ち物の名前を1つ言う。相手がそれを持っていれば、あなたに渡す。かわりに、あなたは自分の持ち物を1つ（好きなものを）相手に渡す。パワーは関係ない。</td></tr><tr><td class="t">8</td><td><b>取り戻す</b></td><td>美羽</td><td>1人を選ぶ。相手が持っている持ち物のうち、最初の持ち主があなただった物を1つ取り返す。パワーは関係ない。</td></tr><tr><td class="t">9</td><td><b>押しつけ</b></td><td>大鷲 菊江</td><td>1人を選び、自分の持ち物を1つ渡す。相手は断れない。パワーは関係ない。</td></tr></tbody></table></div></div>
+  <div class="box gm">
+    <h3>真相（GMだけが読む）</h3>
+    <p><b>犯人は大鷲菊江（団長の妻・会計）。</b>三十年、団長に殴られつづけてきた。今日の16時、団長は「一座は蛭田に売る。ラジャも売った。ハルは蛭田の地方回りに五年の年季で出す」と言い、さらに「あの帯留めは小百合にやった物だろう。あの女の子どもならなおさらだ」と言って菊江を打った。ハルは家を出て死んだ娘・小百合の子、菊江の孫だった。</p><p>17:30、菊江は会計の鍵束で猛獣小屋の薬品棚を開け、青酸カリを薬包紙に取った（ハルとすれ違う、下駄の跡、糸くず）。18:00、いつもどおり団長車の冷蔵庫で「団長」の製氷皿に湧き水を入れ、そこに青酸カリを溶かした。団長は自分の氷を誰にもさわらせず、トトは歯にしみるので氷を使わない。毒の氷を口にするのは、団長だけだった。</p><p>21:20、団長に命じられたトトが、団長のグラスに「団長」の皿の氷を入れてウイスキーを注いだ。団長は飲んで倒れた。トトは、18時すぎに見た菊江の青い顔を思い出し、毒は氷だと気づいた。<b>トトは菊江をかばうため、グラスから氷を取り出し、製氷皿ごと団長車の裏の雪に捨て、皿を衣装の下に隠した。</b>「グラスに毒を入れたのは注いだトト」に見えるようにして、自分が捕まるつもりだった。</p><p><b>この回の仕掛け</b>：投票の正解に共通の点はない。犯人に投票したい人（美羽・虎尾・雄一・ハル・春日）、自分が捕まりたいトト、菊江を守りたい黒川、雄一を捕まえさせたい蛭田がいる。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>推理の筋道（犯人にたどり着く道）</h3>
+    <ol><li><b>毒はウイスキーではなく、グラスの中にあった。</b>瓶はにおわず、同じ瓶で飲んだトトのグラスも無事（団長車③）。団長のグラスだけが杏仁のにおいで、色が水で割ったように薄いのに、氷がない（団長車②）。</li><li><b>毒は氷だった。</b>冷蔵庫の「団長」の製氷皿がなくなっている（団長車④）、濡れた氷ばさみ（団長車⑤）、団長車の裏の雪に氷が溶けた穴と杏仁のにおい（裏①）、どた靴の跡（裏②）。トトの持ち物の「製氷皿」（濡れて、杏仁のにおい）。春日が21:28にトトが雪の上に何かを捨てるのを見ている。</li><li><b>氷を作ったのは菊江。</b>団長の氷は毎日18時に菊江が作り、誰もさわらない（炊事車②、楽屋の貼り紙、菊江の秘密②）。トトは18:05に、団長車から出てきた菊江とすれ違っている（トトの秘密②）。</li><li><b>毒を持ち出したのも菊江。</b>薬品棚の鍵は虎尾と会計の鍵束の二本（薬品棚②・虎尾の秘密②）。帳面は九月から記録なし、瓶は減っている（薬品棚①）。小部屋の前に女物の下駄の跡（猛獣小屋②）、棚の下に薬包紙の切れ端と紺の木綿の糸くず（薬品棚③・楽屋④）、菊江の持ち物の「薬包紙」。17:30にハルが小部屋から出てくる菊江を見ている。</li><li><b>動機。</b>団長の日記（金庫③）、小百合の手紙（春日）、ハルの帯留めの「菊」、ハルの年季の契約書（蛭田）、菊江の腕のあざ（炊事車③・菊江の秘密①）、遺言書の「菊江には何も残さない」（金庫②）。</li></ol>
+    <p class="note">議論2の半ばになっても「トトがグラスに毒を入れた」で決まりかけているときは、GMから「団長はいつも、何を浮かべてウイスキーを飲んでいたのでしたっけ」と一言そえてもかまいません。トトが自分から罪を認めても、GMは止めません。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>ミスリード（犯人ではない理由）</h3>
+    <ul><li><b>トト</b>：最後に団長と二人きりで、グラスに注いだ。クビを言いわたされた。「白粉」の白い粉。→ 注いだのは本当だが、毒は18時に作った氷の中。トトは菊江をかばって氷を捨てた。白粉はただのおしろい。</li><li><b>虎尾</b>：薬品棚の鍵を持ち、団長に「殺す」と言った。→ 帳面は九月から記録なし。小部屋の前の跡は女物の下駄。21:05からは猛獣小屋。</li><li><b>雄一</b>：遺言で一座を継ぎ、借金がある。21:15に団長車の前にいた。→ 中に入らず、21:20〜21:40は炊事車（炊事車③）。</li><li><b>黒川</b>：休憩中に団長を殴った。→ 毒とは関係がない。団長車には近づいていない。</li><li><b>蛭田</b>：21:05〜21:10に団長車にいた。→ 団長は酒を飲んでおらず、そのあとトトと飲んで倒れた。</li><li><b>春日</b>：21:26〜21:30に団長車の裏にいた。→ 中には入っていない。トトを見ていた。</li><li><b>美羽・ハル</b>：団長に蛭田のもとへ出されるはずだった。→ 美羽は21:10〜21:40に楽屋で菊江と一緒。ハルは大テントで稽古。</li></ul>
+  </div>
+
+  <div class="box gm">
+    <h3>GMの進め方</h3>
+    <ol>
+      <li><b>準備</b>：封筒にキャラシート2枚と持ち物カード4枚を入れる。秘密カードは人物ごとにGMの手元へ。証拠カードは場所ごとに番号順に並べ、調査2のカード（右上が「調査2」）は別に分けておく。</li>
+      <li><b>調査</b>：順番を決めて（たとえば時計回り）、1人1回ずつ回す。調査1は3周、調査2は2周。宣言を聞いて、カードを渡す。
+        <ul>
+          <li>「共有」のカードは読んだら回収する。「持ち帰り」のカードは渡したまま。その場所の一覧から外す。</li>
+          <li>条件のある場所は、条件を満たしているか（その持ち物を今持っているか、暗証番号を知っているか）を、カードをこっそり見せてもらって確認する。一度しか使えない道具は、使ったら回収する。</li>
+          <li>人の持ち物を調べるときは、指名された人に裏向きで並べてもらい、調べる人に1枚選ばせる。1人が取られるのは調査1・2を合わせて2枚まで（下の表に数える）。</li>
+          <li>秘密カードは、指名された人物の①か②を、調べる人だけにこっそり見せて回収する。</li>
+          <li>調査2の初めに、調査2のカードをそれぞれの場所に足し、「団長車の裏」を開ける。</li>
+        </ul></li>
+      <li><b>議論中</b>：「○○を見せながら明かす」が行われたら、下の記録表に書く（カードを全員に見せて、はっきり言ったときだけ）。</li>
+      <li><b>投票</b>：投票用紙を回収し、<b>誰が誰に入れたかを全員の分読み上げ</b>、最多票の人を発表する（正解はまだ言わない）。下の「投票の記録」に書いておく。</li>
+      <li><b>スキル</b>：最多票の人以外からスキル用紙を回収。その時点の全員のパワー（基本＋持ち物のパワー）を、持ち物を見せてもらって確定し、順番どおりに処理する。
+        <ul><li>かばうで守られた人には、ほかのスキルが効かない。トトの「かばうを成功させる」は、守った人に誰かがスキルを向けたら達成。</li><li>目利きで取れるのは「証文」の印がある持ち物（団長の念書・権利の譲渡書・ハルの年季の契約書・小百合の手紙・ラジャの売買の証文・団長の日記）。</li><li>買収は「札束」を持っている人だけ使える。札束と、名前を言った持ち物を交換する。</li><li>すり取りは、相手のパワーが自分より2以上高いと失敗。</li><li>取り戻すは、カードに「最初の持ち主：自分」とある物だけ。</li></ul></li>
+      <li><b>判定</b>：全員に今の持ち物を見せてもらい、下の判定表で目的を確認する。そのあと真相を読み上げる。</li>
+    </ol>
+    <p class="note">このシナリオでは、投票の正解に共通の点はありません。投票の前に「犯人に投票するのが目的の人もいれば、そうでない人もいます。自分の目的をよく見て投票してください」と一言そえてください。条件のある場所（薬品棚・団長車の金庫）に誰も入らないまま議論2になったら、「条件のある場所は、自分の持ち物やキャラシートをよく見ると調べられるかもしれません」と言ってください。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>調査の管理表</h3>
+    <p class="note">「調査で取られた枚数」は2枚まで。持ち帰りカードは、取った人の名前を書いておくと、最後の判定が楽になります。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>調査で取られた枚数</th><th>メモ</th></tr></thead><tbody><tr><td>大鷲 菊江</td><td>□　□</td><td></td></tr><tr><td>戸田 健一</td><td>□　□</td><td></td></tr><tr><td>美羽</td><td>□　□</td><td></td></tr><tr><td>黒川 勇</td><td>□　□</td><td></td></tr><tr><td>虎尾 ジン</td><td>□　□</td><td></td></tr><tr><td>大鷲 雄一</td><td>□　□</td><td></td></tr><tr><td>ハル</td><td>□　□</td><td></td></tr><tr><td>蛭田 剛</td><td>□　□</td><td></td></tr><tr><td>春日 沙織</td><td>□　□</td><td></td></tr></tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>持ち帰りカード</th><th>取った人</th></tr></thead><tbody><tr><td>猛獣小屋③（ラジャを売るという書き付け）</td><td></td></tr><tr><td>団長車の金庫①（ラジャの売買の証文）</td><td></td></tr><tr><td>団長車の金庫③（団長の日記）</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>持ち物の一覧（GM用）</h3>
+    <p class="note">「製氷皿」はトト（隠したい）が持ち、ほかの人に取られると氷の筋が開く。「薬包紙」は菊江が手放したい（押しつけで渡せる）。「権利の譲渡書」は雄一と蛭田、「ラジャの売買の証文」は虎尾と蛭田、「ハルの年季の契約書」は菊江とハル（蛭田に持たせたくない）の取り合い。</p>
+    <div class="tbl-wrap"><table><thead><tr><th>最初の持ち主／場所</th><th>持ち物</th><th class="t">パワー</th><th>効果</th><th>印・メモ</th></tr></thead><tbody><tr><td>大鷲 菊江①</td><td>薬包紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大鷲 菊江②</td><td>会計の鍵束</td><td class='t'>—</td><td>鍵：持っている間、「猛獣小屋の薬品棚」を調べられる。</td><td> </td></tr><tr><td>大鷲 菊江③</td><td>小百合の写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大鷲 菊江④</td><td>裁ちばさみ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>戸田 健一①</td><td>製氷皿</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>戸田 健一②</td><td>白粉の缶</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>戸田 健一③</td><td>菊江の若いころの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>戸田 健一④</td><td>解雇の書き付け</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美羽①</td><td>蝶の髪飾り</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美羽②</td><td>団長の念書</td><td class='t'>—</td><td>—</td><td>証文 </td></tr><tr><td>美羽③</td><td>産婆の診察券</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>美羽④</td><td>ブランコのバー</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>黒川 勇①</td><td>汽車の切符</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒川 勇②</td><td>婚約の指輪</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒川 勇③</td><td>手首の包帯</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>黒川 勇④</td><td>鉄の滑車</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>虎尾 ジン①</td><td>薬品棚の鍵</td><td class='t'>—</td><td>鍵：持っている間、「猛獣小屋の薬品棚」を調べられる。</td><td> </td></tr><tr><td>虎尾 ジン②</td><td>ラジャの写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>虎尾 ジン③</td><td>獣医の書き付け</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>虎尾 ジン④</td><td>革の鞭</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>大鷲 雄一①</td><td>借用書</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大鷲 雄一②</td><td>母の手編みの手袋</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大鷲 雄一③</td><td>父と撮った写真</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>大鷲 雄一④</td><td>ジャグリングのナイフ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>ハル①</td><td>母の帯留め</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>ハル②</td><td>孤児院の院長の手紙</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>ハル③</td><td>猛獣小屋のえさ当番表</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>ハル④</td><td>綱渡りの竿</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>蛭田 剛①</td><td>権利の譲渡書</td><td class='t'>—</td><td>—</td><td>証文 </td></tr><tr><td>蛭田 剛②</td><td>ハルの年季の契約書</td><td class='t'>—</td><td>—</td><td>証文 </td></tr><tr><td>蛭田 剛③</td><td>札束</td><td class='t'>+1</td><td>お金のカード。スキルによっては使い道がある。</td><td> </td></tr><tr><td>蛭田 剛④</td><td>蛭田興業の名刺</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>春日 沙織①</td><td>小百合の手紙</td><td class='t'>—</td><td>—</td><td>証文 </td></tr><tr><td>春日 沙織②</td><td>記者手帳</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>春日 沙織③</td><td>古い新聞記事</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>春日 沙織④</td><td>報道用のカメラ</td><td class='t'>+1</td><td>—</td><td> </td></tr><tr><td>（場所）猛獣小屋③・調査2</td><td>ラジャを売るという書き付け</td><td class='t'>—</td><td>—</td><td> </td></tr><tr><td>（場所）団長車の金庫①・調査1</td><td>ラジャの売買の証文</td><td class='t'>—</td><td>—</td><td>証文 </td></tr><tr><td>（場所）団長車の金庫③・調査2</td><td>団長の日記</td><td class='t'>—</td><td>—</td><td>証文 </td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>投票の記録</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>投票した相手</th></tr></thead><tbody><tr><td>大鷲 菊江</td><td></td></tr><tr><td>戸田 健一</td><td></td></tr><tr><td>美羽</td><td></td></tr><tr><td>黒川 勇</td><td></td></tr><tr><td>虎尾 ジン</td><td></td></tr><tr><td>大鷲 雄一</td><td></td></tr><tr><td>ハル</td><td></td></tr><tr><td>蛭田 剛</td><td></td></tr><tr><td>春日 沙織</td><td></td></tr></tbody></table></div>
+    <p class="note">最多票：＿＿＿＿＿＿（並んだら全員）</p>
+  </div>
+
+  <div class="box gm">
+    <h3>「見せながら明かす」の記録表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th><th>達成（時刻・見せたカード）</th></tr></thead><tbody><tr><td>春日 沙織</td><td>議論中に「小百合の手紙」を全員に見せながら、ハルが大鷲夫妻の孫だと明かす。</td><td></td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>目的の判定表</h3>
+    <div class="tbl-wrap"><table><thead><tr><th>人物</th><th>目的</th></tr></thead><tbody><tr><td><b>大鷲 菊江</b></td><td>+5　自分が最多票に<b>ならない</b>（逃げ切る）。<br>+2　最後に「薬包紙」を自分が持って<b>いない</b>。<br>+1　最後に「ハルの年季の契約書」を自分が持っている（破り捨てるため）。<br>+1　戸田健一（トト）が最多票に<b>ならない</b>。</td></tr><tr><td><b>戸田 健一</b></td><td>+3　自分が最多票に<b>なる</b>（菊江さんのかわりに捕まる）。<br>+2　最後に「製氷皿」を自分が持っている（氷のことを隠す）。<br>+1　スキル「かばう」を成功させる（守った人に、誰かがスキルを向ける）。<br>+1　最後に「菊江の若いころの写真」を自分が持っている。</td></tr><tr><td><b>美羽</b></td><td>+3　犯人（大鷲権造を殺した人）に投票する。<br>+2　最後に「蝶の髪飾り」を自分が持っている。<br>+1　黒川勇が最多票に<b>ならない</b>。<br>+1　スキル「取り戻す」を成功させる。</td></tr><tr><td><b>黒川 勇</b></td><td>+3　大鷲菊江が最多票に<b>ならない</b>。<br>+2　最後に「汽車の切符」を自分が持っている。<br>+1　美羽が最多票に<b>ならない</b>。<br>+1　スキル「力ずく」を成功させる。</td></tr><tr><td><b>虎尾 ジン</b></td><td>+3　自分が最多票に<b>ならない</b>。<br>+2　犯人（大鷲権造を殺した人）に投票する。<br>+1　最後に「ラジャの売買の証文」を自分が持っている。<br>+1　スキル「すり取り」を成功させる。</td></tr><tr><td><b>大鷲 雄一</b></td><td>+3　犯人（大鷲権造を殺した人）に投票する。<br>+2　最後に「権利の譲渡書」を自分が持っている。<br>+1　自分が最多票に<b>ならない</b>。<br>+1　スキル「お願い」を成功させる。</td></tr><tr><td><b>ハル</b></td><td>+3　最後に「母の帯留め」を自分が持っている。<br>+2　犯人（大鷲権造を殺した人）に投票する。<br>+1　最後に、蛭田剛が「ハルの年季の契約書」を持って<b>いない</b>。<br>+1　スキル「すり替え」を成功させる。</td></tr><tr><td><b>蛭田 剛</b></td><td>+3　大鷲雄一が最多票に<b>なる</b>。<br>+2　最後に「権利の譲渡書」を自分が持っている。<br>+1　最後に「ラジャの売買の証文」を自分が持っている。<br>+1　スキル「買収」を成功させる。</td></tr><tr><td><b>春日 沙織</b></td><td>+3　議論中に「小百合の手紙」を全員に見せながら、ハルが大鷲夫妻の孫だと明かす。<br>+2　犯人（大鷲権造を殺した人）に投票する。<br>+1　最後に「団長の日記」を自分が持っている（記事にするため）。<br>+1　スキル「目利き」を成功させる。</td></tr></tbody></table></div>
+    <p class="note">真相の犯人：大鷲菊江。「犯人に投票する」は、投票用紙に大鷲菊江と書いていれば達成（美羽・虎尾・雄一・ハル・春日）。投票の正解だけでは点は入らない。</p>
+  </div>
+
+  <div class="box gm">
+    <h3>完全タイムライン</h3>
+    <div class="tbl-wrap"><table><tbody><tr><td class='t'>16:00</td><td>団長車で、団長が菊江に一座とラジャとハルを売ったと言い、菊江を打つ。</td></tr><tr><td class='t'>17:00</td><td>黒川、駅であしたの朝の切符を二枚買う。</td></tr><tr><td class='t'>17:30</td><td><b>菊江、会計の鍵束で薬品棚を開け、青酸カリを取る。</b>えさ当番のハルとすれ違う。</td></tr><tr><td class='t'>18:00</td><td><b>菊江、団長車の冷蔵庫で「団長」の製氷皿に湧き水と青酸カリ。</b></td></tr><tr><td class='t'>18:05</td><td>菊江、団長車を出てトトとすれ違う（「団長の氷を作ってきたところ」）。</td></tr><tr><td class='t'>19:00</td><td>開演。</td></tr><tr><td class='t'>20:00</td><td>団長、虎尾にラジャを売ったと告げる。虎尾「殺す」。</td></tr><tr><td class='t'>20:05</td><td>休憩。団長が美羽に念書を見せる。黒川が団長を殴る。蛭田が雄一に念を押す。</td></tr><tr><td class='t'>20:30</td><td>団長、ハルに年季を告げて頬を張る。</td></tr><tr><td class='t'>21:00</td><td>終演の挨拶（全員）。</td></tr><tr><td class='t'>21:05</td><td>団長、団長車へ。蛭田と話す（〜21:10、酒は飲まない）。</td></tr><tr><td class='t'>21:10</td><td>トト、団長車へ（蛭田とすれ違う）。菊江と美羽は楽屋で繕い（〜21:40）。</td></tr><tr><td class='t'>21:15</td><td>団長、トトに「クビだ」。雄一が戸の外で聞き、引き返す。</td></tr><tr><td class='t'>21:20</td><td><b>トト、団長のグラスに「団長」の氷を入れて注ぐ。団長が飲む。</b>雄一は炊事車へ（〜21:40）。</td></tr><tr><td class='t'>21:22</td><td>団長が倒れ、まもなく死ぬ。トト、毒は氷だと気づく。</td></tr><tr><td class='t'>21:25</td><td>トト、グラスの氷を取り出し、製氷皿を出す（氷ばさみが落ちる）。</td></tr><tr><td class='t'>21:26</td><td>春日、団長車の裏の物置の陰へ。</td></tr><tr><td class='t'>21:28</td><td><b>トト、裏の戸から出て氷を雪に捨て、皿を衣装の下に隠す。</b>春日が見る。</td></tr><tr><td class='t'>21:30</td><td>トト、大テントのリングの縁へ（ハルが見る）。黒川が物置の陰の女の影を見る。</td></tr><tr><td class='t'>21:35</td><td>春日、楽屋へ。</td></tr><tr><td class='t'>21:45</td><td>雄一、団長車で団長を見つける。</td></tr></tbody></table></div>
+  </div>
+
+  <div class="box gm">
+    <h3>エンディング（読み上げ）</h3>
+    <div class="read"><span class="who">GM 読み上げ</span>
+      <p>大鷲権造を殺したのは、妻の大鷲菊江だった。</p><p>「三十年、毎日あの人の氷を作りました。一度くらい、わたしの氷を飲んでもらってもいいでしょう」。菊江は着物の袖をまくり、腕のあざを見せた。</p><p>トトは白塗りの顔のまま、衣装の下から空の製氷皿を出した。「わたしが捨てました。おかみさんの代わりに、捕まるつもりでした」。菊江は首をふった。「トトさん、あなたまで道化にならないで」。</p><p>夜明け前、雪がやんだ。ハルは首の帯留めをにぎって、菊江の前に立った。春日がそっと一通の手紙を差し出した。「お母さんへ」。菊江はそれを胸に抱き、はじめて声をあげて泣いた。</p>
+    </div>
+    <ul class="epi"><li><b>大鷲 菊江</b>：菊江はすべてを話した。裁判では、三十年の暴力のことが語られた。刑務所の面会室に、毎月、ハルとトトが来た。ハルはいつも、少しうまくなった綱渡りの話をした。</li><li><b>戸田 健一</b>：トトは氷を捨てたことを話し、罪に問われた。それでも、出てきた日の朝、白塗りをしてリングに立った。客席のいちばん前の席は、空けてあった。</li><li><b>美羽</b>：美羽は念書を破り、一座に残った。春、ネットを張ったリングで、お腹の大きくなった美羽のかわりに、新しい子がブランコに乗った。</li><li><b>黒川 勇</b>：黒川は上野行きの切符を払い戻した。「出ていくのは、いつでもできる」。美羽と子どもと、この一座で生きると決めた。</li><li><b>虎尾 ジン</b>：ラジャの売買は、団長の死で宙に浮いた。虎尾はラジャと一座に残り、春の巡業のポスターには、いつもより大きくラジャが描かれた。</li><li><b>大鷲 雄一</b>：雄一は蛭田との書類を争い、一座を守った。二代目の最初の口上で、雄一は妹の名前を口にした。「小百合という、ブランコの上手な娘がいました」。</li><li><b>ハル</b>：ハルは蛭田のもとへ行かずにすんだ。首の帯留めの裏の「菊」の字の意味を、ハルは菊江からの手紙で知った。</li><li><b>蛭田 剛</b>：蛭田は一座を買いそこねた。それでも翌年、蛭田興業の浅草の小屋に「大鷲サーカス特別公演」の看板が上がった。</li><li><b>春日 沙織</b>：春日の記事「雪の河原の千秋楽」は、事件のことには一行もふれず、ひとりの少年の綱渡りの話で終わっていた。</li></ul>
+  </div></div>
+</section>
+<section class="panel" id="vote" hidden>
+  <h2>投票・スキル用紙</h2>
+  <p class="lead">切り分けて1人1枚ずつ使います。投票は記名で、GMが全員の票を読み上げます。スキル用紙は、最多票の人以外が書きます。</p>
+  <div class="vote"><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div><div class="slip"><b>投票用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>問1　大鷲権造を殺したのは誰か</span><span class="ln"></span>
+      <span class="note">書けるのは：大鷲菊江・戸田健一・美羽・黒川勇・虎尾ジン・大鷲雄一・ハル・蛭田剛・春日沙織</span></div></div>
+  <h3 class="sub">スキル用紙</h3>
+  <div class="vote"><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div><div class="slip"><b>スキル用紙</b>
+      <span>わたしの名前</span><span class="ln"></span>
+      <span>スキルを向ける相手</span><span class="ln"></span>
+      <span class="note">ほかに書くこと（スキルに必要な人だけ）</span><span class="ln"></span></div></div>
+</section>
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('section.panel');
+  function show(id) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    try { localStorage.setItem('circus-tab', id); } catch (e) {}
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab); window.scrollTo(0, 0); }); });
+
+  var gated = ['chars', 'items', 'secrets', 'clues', 'gm'];
+  function unlock(name) {
+    var g = document.querySelector('[data-gate="' + name + '"]');
+    var c = document.querySelector('[data-for="' + name + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  }
+  gated.forEach(function (n) {
+    var b = document.getElementById('gate-' + n);
+    if (b) b.addEventListener('click', function () {
+      unlock(n);
+      try { sessionStorage.setItem('circus-unlock-' + n, '1'); } catch (e) {}
+    });
+    try { if (sessionStorage.getItem('circus-unlock-' + n) === '1') unlock(n); } catch (e) {}
+  });
+
+  // PDF出力用：#print-public / #print-chars / #print-cards / #print-gm
+  var modes = { 'print-public': ['howto', 'intro', 'people', 'vote'], 'print-chars': ['chars'], 'print-cards': ['items', 'secrets', 'clues'], 'print-gm': ['gm'] };
+  var mode = modes[location.hash.slice(1) || document.documentElement.getAttribute('data-print') || ''];
+  if (mode) {
+    document.documentElement.classList.add('printing');
+    document.documentElement.setAttribute('data-theme', 'light');
+    gated.forEach(unlock);
+    panels.forEach(function (p) { p.hidden = mode.indexOf(p.id) < 0; });
+    return;
+  }
+
+  var start = 'howto';
+  try { start = localStorage.getItem('circus-tab') || 'howto'; } catch (e) {}
+  if (!document.getElementById(start)) start = 'howto';
+  show(start);
+})();
+
+</script>
+<script>
+/* 公開ページ用：キャラシートは名前の一覧、持ち物・秘密・証拠カードはカードの一覧だけを出し、
+   3秒長押しでその分だけ開く。リンクを共有して、各自が自分の分だけ開いて遊ぶ前提（信用ベース）。状態は保存しない。 */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var txt = function (e) { return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(label, cls, onclick) { var b = el('button', 'pl-btn' + (cls ? ' ' + cls : ''), label); b.type = 'button'; b.addEventListener('click', onclick); return b; }
+
+  var HOLD = 3000, SLOP = 10;
+  var toastEl = null, toastT = null;
+  function hint(msg) {
+    if (!toastEl) { toastEl = el('div', 'pl-toast'); toastEl.setAttribute('role', 'status'); document.body.appendChild(toastEl); }
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.hidden = true; }, 1800);
+  }
+  function hold(b, onDone, isOpen, onTapOpen) {
+    b.classList.add('pl-hold');
+    var g = el('span', 'pl-gauge'); g.setAttribute('aria-hidden', 'true'); b.appendChild(g);
+    var t = null, sx = 0, sy = 0, done = false;
+    function stop() { clearTimeout(t); t = null; b.classList.remove('pl-holding'); }
+    function begin() {
+      if (isOpen && isOpen()) return;
+      stop(); done = false;
+      void g.offsetWidth; b.classList.add('pl-holding');
+      t = setTimeout(function () { stop(); done = true; onDone(); }, HOLD);
+    }
+    b.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; sx = e.clientX; sy = e.clientY; begin(); });
+    b.addEventListener('pointermove', function (e) {
+      if (t && (Math.abs(e.clientX - sx) > SLOP || Math.abs(e.clientY - sy) > SLOP)) stop();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { b.addEventListener(n, stop); });
+    window.addEventListener('scroll', function () { if (t) stop(); }, { passive: true });
+    b.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    b.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!e.repeat) begin(); } });
+    b.addEventListener('keyup', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); } });
+    b.addEventListener('click', function (e) {
+      if (done) { done = false; return; }
+      if (isOpen && isOpen()) { if (onTapOpen) onTapOpen(); return; }
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (!t) hint('3秒長押しすると開きます');
+    }, true);
+  }
+
+  // GMブックの「表示する」は長押しで
+  var gb = $('#gate-gm');
+  if (gb) {
+    hold(gb, function () { gb.click(); });
+    gb.parentNode.insertBefore(el('p', 'pl-note', 'ボタンを3秒長押しすると開きます。'), gb);
+  }
+  // ほかの関門は、一覧から1つずつ開く形に置きかえる
+  ['chars', 'items', 'secrets', 'clues'].forEach(function (n) {
+    var g = $('[data-gate="' + n + '"]'), c = $('[data-for="' + n + '"]');
+    if (g) g.hidden = true;
+    if (c) c.hidden = false;
+  });
+  $$('#chars .labels, #chars .labels-title').forEach(function (e) { e.hidden = true; });
+
+  function banner(host, title, body, small) {
+    var note = el('div', 'pl-banner');
+    note.append(el('b', null, title), el('span', null, body));
+    if (small) note.appendChild(el('span', 'pl-note', small));
+    host.insertBefore(note, host.firstChild);
+    return note;
+  }
+
+  // ---- キャラシート：名前を長押しで、その人のシートと最初の持ち物4枚 ----
+  var host = $('[data-for="chars"]');
+  var items = $$('#items .card.item');
+  var roles = $$('#chars article.sheet').map(function (s, i) {
+    var nm = s.querySelector('.slate .nm').cloneNode(true);
+    var sm = nm.querySelector('small'); if (sm) sm.remove();
+    s.hidden = true;
+    var name = txt(nm);
+    return { i: i, name: name, rl: txt(s.querySelector('.slate .rl')), sheet: s,
+             items: items.filter(function (c) { return c.dataset.owner === name; }) };
+  });
+  var roster = el('div', 'pl-roster'), shown = el('div', 'pl-open'), openI = null, buttons = [];
+  host.insertBefore(shown, host.firstChild);
+  host.insertBefore(roster, shown);
+  banner(host, '名前を3秒長押しすると開きます',
+    '自分の名前を長押しすると、あなたのキャラシートと、最初に持っている持ち物カード4枚が開きます。閉じるときは押すだけでOK。',
+    'このページのリンクをみんなで共有して、それぞれ自分の役だけを開いてください。ほかの人の分は開かないのがお約束です。');
+  function showRole(i) {
+    shown.textContent = '';
+    roles.forEach(function (r) { r.sheet.hidden = true; });
+    openI = i;
+    buttons.forEach(function (b, k) { b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    if (i == null) return;
+    var r = roles[i];
+    shown.appendChild(el('h3', 'pl-head', r.name + '（' + r.rl + '）'));
+    shown.appendChild(r.sheet); r.sheet.hidden = false;
+    shown.appendChild(el('h3', null, '最初の持ち物'));
+    var wrap = el('div', 'cards');
+    r.items.forEach(function (c) { var cc = c.cloneNode(true); cc.hidden = false; wrap.appendChild(cc); });
+    shown.appendChild(wrap);
+    shown.appendChild(btn('閉じる', 'ghost', function () { showRole(null); roster.scrollIntoView({ block: 'nearest' }); }));
+  }
+  roles.forEach(function (r) {
+    var b = el('button', 'pl-person'); b.type = 'button';
+    b.append(el('b', null, r.name), el('span', 'r', r.rl));
+    b.setAttribute('aria-expanded', 'false');
+    hold(b, function () { showRole(r.i); }, function () { return openI === r.i; }, function () { showRole(null); });
+    roster.appendChild(b); buttons.push(b);
+  });
+
+  // ---- 持ち物・秘密・証拠カード：カードの一覧から1枚ずつ ----
+  banner($('[data-for="items"]'), 'カードを3秒長押しすると開きます',
+    '調査で人の持ち物を取ったら、取ったカードを長押しして読んでください（取られた人は、そのカードをもう開かないこと）。',
+    'どの持ち物が誰の手にあるかは、GMと口頭で管理します。');
+  banner($('[data-for="secrets"]'), 'カードを3秒長押しすると開きます',
+    '調査で指名した人の秘密①か②を、自分で長押しして読んでください。読んだら閉じます。', null);
+  banner($('[data-for="clues"]'), '場所を3秒長押しすると開きます',
+    '調べる場所と番号を宣言してから、自分で長押しして読んでください。「持ち帰り」のカードは、あなたの持ち物になります。',
+    '「調査2」のカードは調査2になってから。「鍵」の場所は、その鍵を持っている人だけが調べられます。取られたカードはGMが管理します。');
+
+  function listify(scope) {
+    var groups = {};
+    $$(scope + ' .card').forEach(function (c) {
+      var parent = c.parentNode;
+      var list = groups[parent.dataset.plid];
+      if (!list) {
+        parent.dataset.plid = Math.random().toString(36).slice(2);
+        list = groups[parent.dataset.plid] = el('div', 'pl-list');
+        parent.parentNode.insertBefore(list, parent);
+        parent.hidden = true;
+      }
+      var cell = el('div', 'pl-cell');
+      var row = el('button', 'pl-row'); row.type = 'button';
+      row.appendChild(el('span', 'pl-place', c.dataset.label || ''));
+      if (c.dataset.phase) row.appendChild(el('span', 'pl-chip' + (c.dataset.phase === '2' ? ' p2' : ''), '調査' + c.dataset.phase));
+      if (c.dataset.lock) row.appendChild(el('span', 'pl-chip lk', '条件あり'));
+      row.setAttribute('aria-expanded', 'false');
+      var close = btn('閉じる', 'ghost', function () { toggle(false); row.focus(); });
+      function toggle(on) { c.hidden = !on; close.hidden = !on; row.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+      hold(row, function () { toggle(true); }, function () { return !c.hidden; }, function () { toggle(false); });
+      cell.append(row, c, close);
+      list.appendChild(cell);
+      toggle(false);
+    });
+  }
+  listify('#items'); listify('#secrets'); listify('#clues');
+})();
+
+</script>
+</body>
+</html>
